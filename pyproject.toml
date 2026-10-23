@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nn-dk"
+version = "0.1.0"
+description = "Conservative neural coarse dynamics and statistical benchmarks for interacting particles"
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+dependencies = ["numpy>=2.0", "scipy>=1.14", "torch>=2.5", "h5py>=3.11", "matplotlib>=3.9"]
+
+[dependency-groups]
+dev = ["pytest>=8.3", "ruff>=0.11"]
+
+[project.scripts]
+nn-dk = "nn_dk.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nn_dk"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["integration: end-to-end training and experiment checks"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
