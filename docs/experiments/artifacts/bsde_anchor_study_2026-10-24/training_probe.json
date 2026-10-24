@@ -1,0 +1,4576 @@
+{
+  "allocation_complete": true,
+  "analysis_sha256": "8fe9e9dc53d77f69e39623daf614c7d06534a0371e3ecf35aacb65be079cd17d",
+  "base_config_file_sha256": "db216db24033a38094181be643fe94e5a56c96b4711e42787ce81828e3cdf4a1",
+  "base_config_hash": "67f48de45807604ba295a7c1d1fee05cda5c8f5b1c9335973a218cdb7502c0f0",
+  "completed_fits_read": 36,
+  "config_file_sha256": "f057aca6025fbdec87ab2ae2277aa8552f72bef814bbf9ef1a788d2d0ee520e3",
+  "diagnostic": "Preregistered BSDE study training-only checkpoint probe",
+  "expected_fits": 36,
+  "fit_lock_present": true,
+  "fits": [
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a128_c16/seed_0.pt",
+      "checkpoint_sha256": "95e70b7680c6c07d5b2f6711ce2e3755c69a019ad62e9eb6a055f45401890dec",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "7b128dfac0bbb685c1e4575486c46967a668d500bd556320ec2eaa93884c5d10",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0014936368858217489,
+        "last_training_loss": 0.03547917134479752,
+        "last_validation_loss": 0.04033753940747706,
+        "last_validation_minus_training": 0.004858368062679537,
+        "maximum_epochs": 100,
+        "patience_count": 7,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 93,
+        "selected_epoch_training_loss": 0.0352539186472258,
+        "selected_epoch_validation_minus_training": 0.00289421254274249,
+        "selected_validation_loss": 0.03814813118996829,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 136.33286045794375,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0002364702309675313,
+            "mean_residual": [
+              0.000976602778862165,
+              0.0017710735908009101,
+              -0.00561322768965931,
+              -0.0009730135371130653,
+              0.006824439705533886,
+              -0.00282646137124856,
+              -0.018177927012127074,
+              -0.007087525019637519,
+              -0.0049806290652606045,
+              -0.026630002624913454,
+              0.002344084940744477,
+              0.003150551992284246,
+              -0.010953993528632838,
+              -0.014316815623397018
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.033829243062409434
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003550869962470164,
+            "mean_residual": [
+              -0.0008109095060056912,
+              0.002365951906066774,
+              -0.004086017068945972,
+              0.0004629178006638235,
+              0.006036510907078977,
+              0.0037493252267663834,
+              -0.006706927330203297,
+              0.007422784992352301,
+              -0.004812047709085865,
+              0.004161629244316565,
+              -0.005230115727894065,
+              0.0031889688964698328,
+              -0.003038985157004232,
+              0.0026025739591993098
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03874831553461015
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005478273212816366,
+            "mean_residual": [
+              -0.004870531556145195,
+              0.0041599593099443865,
+              0.003440828255557032,
+              0.002928647107039806,
+              -0.0011140718442719563,
+              -0.000998021936991813,
+              -0.00752760387643239,
+              -0.0029239644477195162,
+              0.00398814465347908,
+              3.643520573095617e-05,
+              -0.016502844182835236,
+              -0.011917240756111676,
+              -0.006480114286625731,
+              0.00308297402676898
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04072745042438911
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a128_c16/seed_1.pt",
+      "checkpoint_sha256": "7c9498ca46d8477f7b26c7a123425448bdc2ace696035580895d59bbde124198",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "008677cdaf370aa0597810d31aa6178d7742b2406e08ac9bc6e78f50469d87a3",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 73,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0002953791926964891,
+        "last_training_loss": 0.036011525621512865,
+        "last_validation_loss": 0.040119301999893844,
+        "last_validation_minus_training": 0.00410777637838098,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 63,
+        "selected_epoch_training_loss": 0.03634801946220813,
+        "selected_epoch_validation_minus_training": 0.002644376339730116,
+        "selected_validation_loss": 0.038992395801938244,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 102.50656875013374,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00043513076288982725,
+            "mean_residual": [
+              0.0007157889529727001,
+              -0.0009352975618638013,
+              0.0036610098472945663,
+              0.0005260587299867418,
+              -0.007291955358901203,
+              0.000373568600030272,
+              -0.0053964460619272325,
+              0.0072903318750212835,
+              0.00770181654261368,
+              -0.02109033963885807,
+              -2.4965968208561992e-05,
+              0.002086105164740673,
+              -0.005496758787451806,
+              -0.0010268262928139014
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03428656918738404
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005754424029584711,
+            "mean_residual": [
+              -0.0024619953154065973,
+              -0.0017138359601552538,
+              0.00026577656224174753,
+              0.0035101186820815197,
+              0.010551616069561596,
+              0.004203258811141435,
+              0.017222225140213807,
+              0.015261369536164103,
+              0.0024485775124875797,
+              -0.009236353410476041,
+              -0.000537772838870415,
+              -0.002021166191824357,
+              0.0002208788113862107,
+              0.004102996403082818
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.039799144468726434
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0009594660093594026,
+            "mean_residual": [
+              -0.00419248290837297,
+              -0.0003476384717441956,
+              -0.00239331161713774,
+              0.00669054196525287,
+              -0.008812657013206144,
+              -0.003118283856268037,
+              -0.011813372768226261,
+              0.000679287542312888,
+              -0.00016687511959189187,
+              -0.011585959074419378,
+              -0.012475892973445531,
+              -0.014232868517608657,
+              -0.0025035978410998328,
+              0.001591975419369263
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04092143457449656
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a128_c16/seed_2.pt",
+      "checkpoint_sha256": "5ee81b1b73b777936aa3cb45ea5a68e7c897f2ba668003d996825f622b4ddf7e",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "35d11c7208c6ed0080ec58a2aa77d0966ad916d0cb54bd716dbe69f6dfc5be93",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 71,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0005800151785566518,
+        "last_training_loss": 0.03678559515182583,
+        "last_validation_loss": 0.03981284390122756,
+        "last_validation_minus_training": 0.0030272487494017314,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 61,
+        "selected_epoch_training_loss": 0.03750792714891774,
+        "selected_epoch_validation_minus_training": 0.0014777236056460752,
+        "selected_validation_loss": 0.03898565075456382,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 98.94098808290437,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00040535320472253906,
+            "mean_residual": [
+              -0.0021449777777533983,
+              0.0006178217556676787,
+              -0.0049673052481043175,
+              0.0005523944946315217,
+              -0.0033979900702954032,
+              0.001040520314365028,
+              -0.008554626932395734,
+              0.0035837953365334676,
+              0.01717286930941655,
+              -0.03214723057189612,
+              0.000536432870816954,
+              -0.001976156825334296,
+              -0.023785497185772914,
+              0.005404337532150581
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.034753636399672126
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004444681947822528,
+            "mean_residual": [
+              -0.002673164089838399,
+              -0.0010129363471689387,
+              -0.0045887725074146984,
+              0.0010246286711286749,
+              0.002758872648378776,
+              0.004868543086296935,
+              0.004867880157743181,
+              0.018684913023375556,
+              0.01242939845756129,
+              -0.0011246151867095704,
+              -0.0024611159571955067,
+              -0.0007885848901356767,
+              -0.006612899375055918,
+              0.007456354054317544
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03964752775570087
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006945837077593327,
+            "mean_residual": [
+              -0.0022505419714457736,
+              -0.003050231435494862,
+              0.0018547922511729913,
+              0.004740977542019604,
+              0.008372891688947767,
+              -0.0042716922700018044,
+              -0.0066411684242287305,
+              0.0030225760338936283,
+              0.0026542200243694822,
+              0.00592719967394102,
+              -0.006984480391668091,
+              -0.005276112224609041,
+              0.0003936982364474193,
+              0.008270301819812094
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.041011383001054315
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a128_c16/seed_0.pt",
+      "checkpoint_sha256": "eb6c317e0075c52623a2afbb1a99c41429bf192213030e1726539649fb9cc064",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0023532847733294115,
+          -0.3779120962782829
+        ],
+        "selected_variance_scale_difference": [
+          -0.0014415867835209095,
+          0.008364323859906264
+        ]
+      },
+      "metadata_sha256": "2c60f77ca85a73a902c7fe32ee599a73a092be2a8a4989411ca07e41cc777f1d",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9990626071285158,
+          1.0225277130161345
+        ],
+        "rates": [
+          0.9977760886179348,
+          3.6629485592446507
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0024673497721246,
+          1.0240312211112388
+        ],
+        "rates": [
+          1.003046139830892,
+          3.6331417948370617
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0009862554940014423,
+        "last_training_loss": 0.035470298212325786,
+        "last_validation_loss": 0.03965001189025322,
+        "last_validation_minus_training": 0.004179713677927431,
+        "maximum_epochs": 100,
+        "patience_count": 2,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 98,
+        "selected_epoch_training_loss": 0.03510397718391875,
+        "selected_epoch_validation_minus_training": 0.0026218017661535156,
+        "selected_validation_loss": 0.037725778950072265,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 133.77181199984625,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0008803922618521739,
+            "mean_residual": [
+              0.00011152685217271406,
+              -1.7645678753583474e-05,
+              -0.0035867913016871494,
+              -0.0017601841582840178,
+              -0.004432498959043655,
+              0.0022224689367594318,
+              -0.006076041492079263,
+              0.0005918679811044707,
+              0.0019436202609678416,
+              0.005335754228862393,
+              -0.0012136369015408677,
+              -0.0031959065384879024,
+              -0.0037599814901831457,
+              0.01119953771231664
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.033024583173450354
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006246120704468786,
+            "mean_residual": [
+              -0.000702803911644428,
+              -9.078125870939902e-05,
+              -0.003738889179648473,
+              -0.0022367544562501003,
+              -0.001467950492852524,
+              0.007097848377175973,
+              -0.0017115508649614359,
+              0.007753104251896531,
+              -0.005205886966488138,
+              0.004911934520243587,
+              0.0015423133285689065,
+              0.000642838636611685,
+              0.0013080932847783604,
+              0.005565224012697355
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038256867883778266
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003407467721701727,
+            "mean_residual": [
+              3.340498983302911e-05,
+              0.0006724031106453399,
+              -0.0005154999046425872,
+              -0.0014408136580034078,
+              0.001152551203414255,
+              0.0018142195701198976,
+              -0.008877191117561451,
+              0.0009773386038712398,
+              -0.0076050048908831505,
+              -0.007404701189202688,
+              0.0015629090467289234,
+              -0.0033776786740918577,
+              -0.015366958665894026,
+              -0.01439312231625976
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04005013468851896
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a128_c16/seed_1.pt",
+      "checkpoint_sha256": "7d0e82bed83e3bbef8fb769ea77c57945c1d5c1aa8a235b031904050b1ece35c",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.0017777991475309562,
+          -0.37687998419937196
+        ],
+        "selected_variance_scale_difference": [
+          -0.005415972450651618,
+          0.008869980158658475
+        ]
+      },
+      "metadata_sha256": "a26e2cc8efcd3c84cdf7d546bcfd214d74c2bd94d101efd963a4a50d5abb5b0d",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9991481552153308,
+          1.0229240013175425
+        ],
+        "rates": [
+          1.001695775604622,
+          3.664134748691944
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9984929641049939,
+          1.024536877409991
+        ],
+        "rates": [
+          0.9989150559100317,
+          3.6341739069159726
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0006748861571738637,
+        "last_training_loss": 0.035060431343903714,
+        "last_validation_loss": 0.03819228446624639,
+        "last_validation_minus_training": 0.0031318531223426746,
+        "maximum_epochs": 100,
+        "patience_count": 2,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 98,
+        "selected_epoch_training_loss": 0.035292553868598794,
+        "selected_epoch_validation_minus_training": 0.0026308978597128704,
+        "selected_validation_loss": 0.037923451728311665,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 134.59022191702388,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000928921226667482,
+            "mean_residual": [
+              -0.0003125692829119272,
+              0.0002836167905921759,
+              -0.004487127919424998,
+              -0.002373364315859993,
+              -0.0032876261995918405,
+              0.00019929093082889007,
+              -0.0023990572377208265,
+              0.000915734690923158,
+              0.006500269271995948,
+              0.0035466379665679603,
+              -0.002638208648920947,
+              -0.004015078482187397,
+              3.765335263750417e-05,
+              0.01192495551128672
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03255457769886053
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006937066773217939,
+            "mean_residual": [
+              0.0005210714657945769,
+              -0.00018247394210348984,
+              -0.0030922565041489563,
+              -0.00022934327571850997,
+              0.0038946874917459126,
+              0.0025315309611472214,
+              0.0035537292768283765,
+              0.008669035349782828,
+              -0.004186230215879972,
+              0.004055251102607042,
+              -0.0006261758469430071,
+              0.0019379612832255166,
+              -0.0006502581307521202,
+              0.006475416928026499
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03908877346629257
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004960112047457282,
+            "mean_residual": [
+              0.00022379436325178445,
+              -0.00019115048274232014,
+              0.00014052970100431766,
+              -0.00010589836863371399,
+              0.004169129644708708,
+              -0.0005536384742657276,
+              -0.007293192939271094,
+              0.000665227152781893,
+              -0.007700466070968113,
+              -0.003804882557578627,
+              -0.0028215865625503787,
+              -0.0020162039599147495,
+              -0.01473831501540846,
+              -0.009704819383496776
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04000836491104688
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a128_c16/seed_2.pt",
+      "checkpoint_sha256": "a9e54cdb7d5b02ee25206b31e2de37327f0ee20eafa8f714ea57aa15c7cf9ef5",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.0004795429664432582,
+          -0.3798836682109039
+        ],
+        "selected_variance_scale_difference": [
+          -0.004132873596604747,
+          0.008699828718131686
+        ]
+      },
+      "metadata_sha256": "c5ed399b0b5ac7ad4c5c15b0e700610026d62385f68d0dc70c40b0cbad64e5d6",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.000787187280414,
+          1.0243968429715575
+        ],
+        "rates": [
+          0.9993978964370024,
+          3.66092166026422
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9997760629590408,
+          1.0243667259694642
+        ],
+        "rates": [
+          1.0002133120911194,
+          3.6311702229044407
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0006843986434232133,
+        "last_training_loss": 0.035401163821719504,
+        "last_validation_loss": 0.03834146637285065,
+        "last_validation_minus_training": 0.0029403025511311465,
+        "maximum_epochs": 100,
+        "patience_count": 2,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 98,
+        "selected_epoch_training_loss": 0.036265675491994914,
+        "selected_epoch_validation_minus_training": 0.0017764786660226378,
+        "selected_validation_loss": 0.03804215415801755,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 133.36916729109362,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00118623934112441,
+            "mean_residual": [
+              -0.00034670867275525964,
+              -0.00011540578693283667,
+              -0.004130239832295292,
+              -0.0019018461907065896,
+              -0.0024109883536002647,
+              0.003651419955566588,
+              -0.004780667661901247,
+              0.00041041387826113254,
+              0.00315499584667078,
+              0.004817129803109576,
+              0.0011041717433144232,
+              -0.0030270012034574606,
+              -0.0018523002292842481,
+              0.011857542500269125
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03328702430190802
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0008197873875795535,
+            "mean_residual": [
+              0.00013993595834975583,
+              -0.00014090076886627117,
+              -0.0034827909687070004,
+              -0.0014665771074732123,
+              0.0002253632649263271,
+              0.004724993007398495,
+              0.001873411257203785,
+              0.010681071394126851,
+              -0.0035024170847298836,
+              0.0042783004882939275,
+              -0.0020118672518498835,
+              0.001099861209936937,
+              -0.0008286542750267111,
+              0.004635951924823
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03843690469723453
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006245853896271322,
+            "mean_residual": [
+              -3.996705109885626e-05,
+              9.223049755295983e-05,
+              -0.0008927673923288982,
+              0.0008817695668813061,
+              0.003325952209816932,
+              -0.0005598449059722318,
+              -0.008201526097414872,
+              0.0021611146829088315,
+              -0.00766870608585714,
+              -0.005515609897359174,
+              -0.0005805842504193687,
+              -0.004235584633813181,
+              -0.01556232553367767,
+              -0.01344707313559822
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03977192135657901
+          }
+        }
+      },
+      "training_fingerprint": "de796df9cea3d3c4109b37879667952e78c1c0890361aa3726bc45a69d401188",
+      "training_normalization_sha256": "2097b43fd293595de7d053ffd6e18c9ffbabfd608d567760217ae9b2718435eb",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a512_c4/seed_0.pt",
+      "checkpoint_sha256": "4c19597b5b9d738e51f0f7c94563450ed79ee2534d70366b17c3f1d6b1bbbf1c",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "71589501805a00e981c76b4ca79165f2f19b6e51b4fb4db90590718691b407d7",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0001741384991882297,
+        "last_training_loss": 0.03526825554992865,
+        "last_validation_loss": 0.038518993320539714,
+        "last_validation_minus_training": 0.0032507377706110646,
+        "maximum_epochs": 100,
+        "patience_count": 5,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 95,
+        "selected_epoch_training_loss": 0.03566649947746498,
+        "selected_epoch_validation_minus_training": 0.002436156347724684,
+        "selected_validation_loss": 0.038102655825189666,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 138.4408632919658,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00036349757445898413,
+            "mean_residual": [
+              -8.38473339948569e-05,
+              0.004190438067118012,
+              0.0007989774629617804,
+              -0.0037440886745480923,
+              0.009408193739650648,
+              0.005563049328684016,
+              -0.002957234360275324,
+              -0.0028182091833230003,
+              0.0006614232889140905,
+              -0.018618040718261224,
+              -0.004575445068625525,
+              0.0036944235255943108,
+              0.0013598775921540465,
+              0.030727802398071755
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03399898993159019
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00045536121899101824,
+            "mean_residual": [
+              -0.0029201827427568668,
+              0.005396081649880821,
+              0.002726601559475028,
+              -0.002668350747320205,
+              0.013494067354580207,
+              0.0058813838458932465,
+              0.006119695405979083,
+              0.008655833906687862,
+              -0.012409322221338807,
+              0.00337770225026089,
+              -0.005024666229732746,
+              0.005436088503609169,
+              0.011936024142879996,
+              0.020351481373661717
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03896676141241716
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005909572581227666,
+            "mean_residual": [
+              -0.0025725379587245665,
+              0.004976131916698585,
+              0.000879156125100159,
+              -0.0021151590060261263,
+              0.01502343391488391,
+              5.5300366489027374e-05,
+              0.0008391716864433043,
+              -0.005977706410785145,
+              -0.007290206361901499,
+              0.018217151723437696,
+              -0.005083183565312987,
+              -0.002060491853813517,
+              -0.025459691815941,
+              0.01364901046052897
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03993240007998887
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a512_c4/seed_1.pt",
+      "checkpoint_sha256": "7c2bd3d758b157a765045d5be5ecb54658fcbcb092599d5e055c043e47c28f93",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "ede369cf3c41aafd0fe89dfb438723d17e65b3e12d57db7c6740013a2f9b2b1e",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 61,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0006083215968128511,
+        "last_training_loss": 0.03652385460508158,
+        "last_validation_loss": 0.03994272921787245,
+        "last_validation_minus_training": 0.003418874612790876,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 51,
+        "selected_epoch_training_loss": 0.037115659970082246,
+        "selected_epoch_validation_minus_training": 0.002579278165496357,
+        "selected_validation_loss": 0.0396949381355786,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 85.12628545914777,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005163218293924846,
+            "mean_residual": [
+              -0.0011365931425824274,
+              0.0003400115125591343,
+              -0.005594229098057469,
+              0.0005108521059141182,
+              0.0027808410453934074,
+              0.0019336741240679972,
+              -0.0184770714601325,
+              0.006227259166818355,
+              0.0009520325727189081,
+              -0.009693540171714652,
+              -0.002260839044715992,
+              -0.0026840355061611126,
+              0.0012573653390563987,
+              0.018049862467843406
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.036051014446261874
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004944682035410807,
+            "mean_residual": [
+              -0.003432159185828316,
+              -0.0010137276464503673,
+              0.00028702118133777763,
+              0.005495278542754162,
+              0.02201305764807907,
+              0.003906676265077261,
+              0.007445866010565813,
+              0.009567900568109813,
+              -0.007815417025542427,
+              -0.006469668618951219,
+              0.0012046471118484859,
+              0.00211333256667187,
+              0.004794715209298991,
+              0.009649304112730175
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04017906710974174
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000696845837417159,
+            "mean_residual": [
+              -0.001964837191873444,
+              -0.0022146929452547086,
+              0.008291276284456205,
+              -0.0020277617210007984,
+              -0.0029312511915119514,
+              0.002871554099584211,
+              -0.020651503210758534,
+              -0.013574144944157632,
+              -0.013249529834441533,
+              -0.0020718338047629637,
+              -0.007439528592706718,
+              -0.005762322531667556,
+              -0.019986107215747333,
+              -0.00402288724320703
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04114709698038146
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a512_c4/seed_2.pt",
+      "checkpoint_sha256": "6b6eb7740f0ef4b4ff3be319cfc2efbe1cd620320959f5c93252074aa90b82ab",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "3a2d6ecf5d9e65f63ef7954eabf91a8bcce9880ba3de5d167f4af80e45b8b792",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 71,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.00043660708118553604,
+        "last_training_loss": 0.036353540586304287,
+        "last_validation_loss": 0.03925648336514647,
+        "last_validation_minus_training": 0.002902942778842184,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 61,
+        "selected_epoch_training_loss": 0.036462376950557436,
+        "selected_epoch_validation_minus_training": 0.002392273426882037,
+        "selected_validation_loss": 0.03885465037743947,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 97.82929625012912,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00036323981788964556,
+            "mean_residual": [
+              -0.0019952996077097426,
+              0.0012636553336066061,
+              -0.006167821523588323,
+              0.004982083670331813,
+              0.007187067741468295,
+              0.010157311667986528,
+              -0.003433457199397779,
+              -0.006154423527719732,
+              0.008839657739799955,
+              0.005638650269796555,
+              -0.01032856809962224,
+              -0.017438149049985908,
+              0.029234199849065664,
+              0.041210641787318134
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03485742352534616
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003385845865834982,
+            "mean_residual": [
+              -0.0010309491569876318,
+              0.0027868059849318195,
+              -0.0036595846765285996,
+              0.009587578058441591,
+              0.02292823211955157,
+              0.014027528554893217,
+              0.013514211254216833,
+              0.009232522200945843,
+              -0.002344039561115824,
+              0.01875801717528323,
+              -0.00940892028875744,
+              -0.014035288627707646,
+              0.03905721328072195,
+              0.02654084581308118
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04008691173747591
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006293048662864598,
+            "mean_residual": [
+              -0.0013420750046165464,
+              0.0010797612036913843,
+              -0.0011944833994543983,
+              0.003649465809060342,
+              0.01707509829458846,
+              -0.0003459776917902513,
+              0.006255409189447514,
+              0.0040113628853577655,
+              -0.013877319817728112,
+              0.016955361206985847,
+              0.0009078201491270919,
+              -0.016438876911882748,
+              -0.000648273706637647,
+              0.012512748550064453
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04028848659873675
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a512_c4/seed_0.pt",
+      "checkpoint_sha256": "e80052f0df7764d4f1f10695fa872fd44171de62ff02c49bd4ba160842ad5b94",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0018613119056276606,
+          -0.39389547659855184
+        ],
+        "selected_variance_scale_difference": [
+          -0.0005250635562381589,
+          0.009101831768984603
+        ]
+      },
+      "metadata_sha256": "7e9de9527020e808f4758d04d326ace99728965d6a92494351c236b4ce0f50a6",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.0007270020977672,
+          1.0240133913123104
+        ],
+        "rates": [
+          1.000523887952385,
+          3.676825540642715
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0033838729994073,
+          1.0247687290203171
+        ],
+        "rates": [
+          1.0025541669631903,
+          3.6171584145167928
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.00027675930800512283,
+        "last_training_loss": 0.03520721852404086,
+        "last_validation_loss": 0.0381825481625288,
+        "last_validation_minus_training": 0.002975329638487942,
+        "maximum_epochs": 100,
+        "patience_count": 4,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 96,
+        "selected_epoch_training_loss": 0.035414734017028215,
+        "selected_epoch_validation_minus_training": 0.002561574651779322,
+        "selected_validation_loss": 0.03797630866880754,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 133.25900329183787,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0009728285749395185,
+            "mean_residual": [
+              -0.0003175496480593453,
+              0.0005211549396214554,
+              -0.005152896364273251,
+              -0.0020074653193531116,
+              -0.00502031170297497,
+              0.0009666851841983442,
+              -0.0053502307603814775,
+              0.0010670068285468341,
+              0.003138554120821075,
+              0.008362574243803957,
+              -0.003089321415974256,
+              -0.0022720434750589675,
+              -0.0038085780004780394,
+              0.015005796874252613
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03373685068789668
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007162224550020379,
+            "mean_residual": [
+              0.0007559632640214301,
+              0.00030738089509351564,
+              -0.0035400768790011233,
+              -0.00037824941429102747,
+              -0.0032458208050217745,
+              0.003062889724622039,
+              -0.000795755918207803,
+              0.006238336110285314,
+              -0.007511189045245597,
+              0.006923338065103177,
+              -0.002066821544004251,
+              0.0025524253979116534,
+              0.0022538085811008727,
+              0.00992090220077466
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038605168401667986
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004257203314248219,
+            "mean_residual": [
+              0.0003266722166355945,
+              0.00032112529656223594,
+              -0.0012584224369911834,
+              -0.0011605077084028872,
+              1.0509220224553671e-05,
+              0.0025553814302076566,
+              -0.008345502555137309,
+              -0.0014339328835567275,
+              -0.00887875709932565,
+              -0.002545941796343452,
+              -0.0010192259506071563,
+              -0.002687540839178033,
+              -0.015009932447652195,
+              -0.013412732056427134
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03947213555549156
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a512_c4/seed_1.pt",
+      "checkpoint_sha256": "c1d2e3d6a4f793001ec29a069d1a5a4b29adf0111f6cd6e1b79db25cb27707ed",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          9.605513903854224e-05,
+          -0.347292470946972
+        ],
+        "selected_variance_scale_difference": [
+          -0.003336377910940991,
+          0.01070930188362973
+        ]
+      },
+      "metadata_sha256": "4e2f525c4d8dcdf83d9846a423dddcf2e565d32c3a279d3a3a2c2b21ba1551f7",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.0018894934077347,
+          1.022748998044361
+        ],
+        "rates": [
+          1.0025260024611289,
+          3.678131451712497
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0005725586447045,
+          1.0263761991349623
+        ],
+        "rates": [
+          1.0007889101966012,
+          3.6637614201683726
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0004294198046912584,
+        "last_training_loss": 0.03485523590771413,
+        "last_validation_loss": 0.039191986601592864,
+        "last_validation_minus_training": 0.004336750693878733,
+        "maximum_epochs": 100,
+        "patience_count": 1,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 99,
+        "selected_epoch_training_loss": 0.035269047485246986,
+        "selected_epoch_validation_minus_training": 0.002889717430343386,
+        "selected_validation_loss": 0.03815876491559037,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 132.9224163328763,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0008085238849669137,
+            "mean_residual": [
+              0.0003877399797279175,
+              -9.11138548887279e-05,
+              -0.0037514756541601945,
+              -0.0018302837042522462,
+              -0.0022204828233562657,
+              0.00043115836031158445,
+              -0.004244624561937875,
+              0.0014887994862847484,
+              0.0032742759327684815,
+              0.0008565741853733657,
+              0.0005089594974217104,
+              -0.003089388455069853,
+              -0.005491240003591636,
+              0.013642071879603729
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03380477494007591
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006063711642218176,
+            "mean_residual": [
+              -0.0002030458129647533,
+              -0.00041588310471053275,
+              -0.0019435452900238193,
+              -0.00010311319277696258,
+              0.00011989277783959972,
+              0.0031569533072512436,
+              0.0013056317854214098,
+              0.007151294484971879,
+              -0.005174761415191154,
+              0.0032090257291319535,
+              0.0007092270978105791,
+              0.0012151921412069415,
+              0.005672958867530427,
+              0.006022394304619545
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038944099298625856
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00046262533092784224,
+            "mean_residual": [
+              -0.00041047638107694187,
+              0.00025417363248193706,
+              -0.0017273156242002977,
+              -0.0011365739048154978,
+              0.0029803236212319157,
+              0.000700981573078304,
+              -0.005875014303298918,
+              0.000775876164347683,
+              -0.008826823560124163,
+              -0.002589760762889754,
+              0.00030453442722340896,
+              -0.003877273371324743,
+              -0.014354702752942483,
+              -0.015064275513621998
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03984990012795279
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a512_c4/seed_2.pt",
+      "checkpoint_sha256": "e790c261bc572597cc2c409cbbae0d753a9591148d81824e5055e9752bf7ff0a",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0013903582315819563,
+          -0.42688514274960854
+        ],
+        "selected_variance_scale_difference": [
+          -0.0030104795765040215,
+          0.009367722868820483
+        ]
+      },
+      "metadata_sha256": "e8334fe67dc3d4372e3a2c19d18a3da9085417e4b19136dc7b93c3a3088fa851",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9988304361780279,
+          1.0222566891935922
+        ],
+        "rates": [
+          0.9982915087498752,
+          3.675929047379082
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0008984569791415,
+          1.025034620120153
+        ],
+        "rates": [
+          1.0020832132891446,
+          3.584168748365736
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0006170120534572734,
+        "last_training_loss": 0.035108208085687195,
+        "last_validation_loss": 0.038495670985306,
+        "last_validation_minus_training": 0.003387462899618804,
+        "maximum_epochs": 100,
+        "patience_count": 6,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 94,
+        "selected_epoch_training_loss": 0.0351279083527593,
+        "selected_epoch_validation_minus_training": 0.0033455865591742254,
+        "selected_validation_loss": 0.038473494911933526,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 133.00550470803864,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0011920115863892555,
+            "mean_residual": [
+              -0.0005170320186917976,
+              0.000503380638098014,
+              -0.004873685089321591,
+              -0.002956500622529638,
+              -0.0030925307333130527,
+              0.0013262306661973148,
+              -0.0036485096183491686,
+              0.00047291373820474065,
+              0.0016422405754694998,
+              0.010388448472423826,
+              -0.0001526297624286398,
+              -0.001897239361547118,
+              -0.00157889172556657,
+              0.021101563071500913
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03454552188236644
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007842796827215646,
+            "mean_residual": [
+              0.0009366493385078312,
+              0.0006412264045731775,
+              -0.0025128040455417596,
+              -0.0006600330217637869,
+              0.0004310712729940903,
+              0.005465915969892506,
+              0.001973460683487879,
+              0.0064594235405483705,
+              -0.005649351752790899,
+              0.007514466931050683,
+              -0.002456041820194499,
+              -0.0012396897096929392,
+              0.004031691298788187,
+              0.005479351634703571
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038762812337912074
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00042407447859082743,
+            "mean_residual": [
+              1.0511676508120947e-05,
+              9.638469979511845e-05,
+              -0.0013429369590163473,
+              0.0002032876616160921,
+              0.002945270451045483,
+              0.0032691036408551664,
+              -0.004893735649999519,
+              -0.0008778715958041418,
+              -0.008256362437150434,
+              -0.001907101874445784,
+              -0.0019583608993954684,
+              -0.006043785085876375,
+              -0.01803327803553098,
+              -0.01622006493837585
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.039711784767820425
+          }
+        }
+      },
+      "training_fingerprint": "e255e113b6c93e3621212e615ea2947449cdef940063919a7b0441c03f5c376f",
+      "training_normalization_sha256": "5191207a350c4e0053ecd5f0b986553af33dbd311db43cbb5927f01a384a104b",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a2048_c1/seed_0.pt",
+      "checkpoint_sha256": "3fec3480d5ed80446f0a66b829ba5ddaef6be36921dbc7d0aad5e807a4ca6608",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "d6dd63abb6336a5ef4b6dfb226e9177fdeb444a75bc2f8f7661fa5d1d44eea3c",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 99,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0008531734209668018,
+        "last_training_loss": 0.034401260155366514,
+        "last_validation_loss": 0.03908656551493008,
+        "last_validation_minus_training": 0.004685305359563567,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 89,
+        "selected_epoch_training_loss": 0.03485920106764906,
+        "selected_epoch_validation_minus_training": 0.0033065894333657447,
+        "selected_validation_loss": 0.038165790501014804,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 138.59446549997665,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003144636458769493,
+            "mean_residual": [
+              -0.001765371264233497,
+              0.00017950594287234443,
+              0.0010097196359507897,
+              -0.00024334284352173685,
+              -0.008372310917712882,
+              -0.000892893659813842,
+              -0.011355951772694887,
+              -0.005886671398673901,
+              -0.005248078081361839,
+              0.021404108189266267,
+              -0.0058391646930716235,
+              -0.008579551437952075,
+              -0.029017099576854513,
+              -0.03087637838624449
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03400300343198264
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004116537401940098,
+            "mean_residual": [
+              -0.003249342603843608,
+              -0.001012472038426403,
+              -0.0010121368246255196,
+              -0.00025416610998749384,
+              0.002127109551780216,
+              0.0008857416635694934,
+              -0.0011444017741154666,
+              0.002842819220592521,
+              -0.01569419052923204,
+              0.025652392673486103,
+              -0.0002488641422793551,
+              0.0011233788710313687,
+              -0.007776923812375296,
+              -0.00444477030947468
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038835043974856265
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006541715072652146,
+            "mean_residual": [
+              -0.005023238439620065,
+              -0.0037047315490425082,
+              -0.0061381040812083665,
+              -0.0024698799804243245,
+              0.004857965118143388,
+              -0.0003590254573298819,
+              -0.00022055624983736673,
+              0.005765257136313397,
+              -0.020059907081288082,
+              0.0047749205089452455,
+              -0.0034501176145108736,
+              -0.0010581311007351636,
+              -0.020991658175371675,
+              -0.017975086195418145
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04027903520286932
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a2048_c1/seed_1.pt",
+      "checkpoint_sha256": "1bd975ca594a59b3bdc782360b7061a5b86d550fea5a83f61d5215a21032e96e",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "f09fd8b6ae1be3a27d59949040f5ad35b0bf992321495688d13031b94c1318e8",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 90,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.00046075324554437774,
+        "last_training_loss": 0.03478454333656441,
+        "last_validation_loss": 0.03843805520709015,
+        "last_validation_minus_training": 0.00365351187052574,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 80,
+        "selected_epoch_training_loss": 0.034949919262848454,
+        "selected_epoch_validation_minus_training": 0.0033777679605596495,
+        "selected_validation_loss": 0.038327687223408104,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 152.38239783397876,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003501084438115324,
+            "mean_residual": [
+              -0.00011124876304895259,
+              0.001794616548496573,
+              -0.004599664526151673,
+              0.0022939661045739647,
+              -0.005593871692846096,
+              0.009299928170489481,
+              -0.0029477073940246206,
+              -0.0008390142306928199,
+              0.003716804415785306,
+              -0.006032175806141436,
+              -0.010103095552104466,
+              -0.013740920325062763,
+              -0.01122511228413217,
+              0.011286860295365402
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03391568744230454
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000465714650101153,
+            "mean_residual": [
+              -0.0004919634727278885,
+              0.001382748582728736,
+              -0.005719584032863737,
+              -0.0019260478831931763,
+              0.003157527880365217,
+              0.009063784477952827,
+              0.001385075763887499,
+              0.007155484932275065,
+              -0.0036744360393871677,
+              0.0026828621841216184,
+              -0.006744996368683784,
+              -0.0029221534971293614,
+              0.00520800428444073,
+              0.018566864203445745
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03899440460888094
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007082311100550796,
+            "mean_residual": [
+              -0.00016941234676426053,
+              0.0004337300608140552,
+              -0.0018541001276026429,
+              -0.018323111830991355,
+              -0.002132441700325152,
+              0.006644302046718792,
+              -0.02069850285926337,
+              -0.0013480643423988995,
+              -0.012092748579215596,
+              -0.004823914561200669,
+              -0.006301067373049758,
+              -0.004165571466819755,
+              -0.012463089202892129,
+              -0.017544373613321854
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04054891541507108
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/ou/mlp/a2048_c1/seed_2.pt",
+      "checkpoint_sha256": "5c6668203e0f19bbb6127994cba6b7d1474b0ae05ec33fd27cfd3cdf43edcec5",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-moments-v1",
+      "metadata_sha256": "f34c00b4fb103da8a5e7462b961ddf78ea3ffed7a1b2630d692adecd515b93f4",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 22278,
+        "value": 9614
+      },
+      "problem": "ou",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 91,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0008667647049292806,
+        "last_training_loss": 0.03509742960199491,
+        "last_validation_loss": 0.03900757503661829,
+        "last_validation_minus_training": 0.003910145434623376,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 81,
+        "selected_epoch_training_loss": 0.03526351469141698,
+        "selected_epoch_validation_minus_training": 0.003228548643951959,
+        "selected_validation_loss": 0.03849206333536894,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 135.19657366606407,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00043308926314021253,
+            "mean_residual": [
+              0.0005375136882415613,
+              0.0005801903930551387,
+              -0.009972838308576686,
+              -0.005284744438479918,
+              -0.01476546961072504,
+              0.011729278507132335,
+              -0.0018952465640150453,
+              0.0031835386411157894,
+              -0.009432817088752042,
+              -0.004131948013717976,
+              0.0010151936887149802,
+              -0.00560827446443218,
+              -0.029012734241120393,
+              -0.002252710534140598
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.034110588904003404
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005390457649600733,
+            "mean_residual": [
+              0.0009254038348447644,
+              -0.0005397885599738579,
+              -0.010805767881485474,
+              -0.010411906450683182,
+              0.0002410729773959855,
+              0.009970692067771654,
+              0.014201199875950789,
+              0.014163919791196494,
+              -0.017213008587186093,
+              0.013537180986288993,
+              0.0014257255819164322,
+              -0.001378043714178808,
+              -0.006523644914589718,
+              0.018236175631994433
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.039390284503790396
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007454638975594513,
+            "mean_residual": [
+              0.00239976069667414,
+              -0.0022669516781547586,
+              -0.0022356123090044567,
+              -0.014834547703723123,
+              0.019110247674276257,
+              -0.0068144944874263935,
+              0.013444959547251691,
+              -0.0024023383020805745,
+              -0.01214269810115906,
+              0.008831032032984042,
+              0.0022569899693909946,
+              -0.0029211280210216196,
+              -0.02364025257078415,
+              -0.006239481320307642
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04025771767265329
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a2048_c1/seed_0.pt",
+      "checkpoint_sha256": "d609c6a685eb7bc295b77590e3f387fd199c7fbd0b3e1450ba6578517e21f059",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.00030814698173697863,
+          -0.3798039527723365
+        ],
+        "selected_variance_scale_difference": [
+          -0.003193995289888729,
+          0.007582191766628554
+        ]
+      },
+      "metadata_sha256": "cb0e908e6a1c75bb8b705c99a2610f75fd499adbee03dd750e36b1211edae5ca",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.002336055357068,
+          1.0220251149486332
+        ],
+        "rates": [
+          1.0034254029988345,
+          3.675565603519345
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0007149412657568,
+          1.023249089017961
+        ],
+        "rates": [
+          1.0003847080758257,
+          3.631249938343008
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0002864385705213107,
+        "last_training_loss": 0.03443842004668461,
+        "last_validation_loss": 0.038400252863430906,
+        "last_validation_minus_training": 0.003961832816746294,
+        "maximum_epochs": 100,
+        "patience_count": 3,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 97,
+        "selected_epoch_training_loss": 0.03464232569666257,
+        "selected_epoch_validation_minus_training": 0.003445731156103013,
+        "selected_validation_loss": 0.03808805685276558,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 143.40537116583437,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0009451480360655108,
+            "mean_residual": [
+              0.00018865956182527948,
+              -0.0003014387728310565,
+              -0.003280512095365467,
+              -0.0018183903957029125,
+              -0.0025697055441223295,
+              0.0010760464707773437,
+              -0.0028832676586197595,
+              0.00031775168054317933,
+              0.0008495821709538553,
+              0.007209378186115559,
+              0.0006405598953019963,
+              -0.003599024237850315,
+              -0.003409100164560863,
+              0.015198724308247182
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03348667688279701
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007020973085253507,
+            "mean_residual": [
+              -0.0006739343426822201,
+              -0.000530981783884945,
+              -0.0034668370678301186,
+              -0.002189094327277375,
+              -0.0021480401231481674,
+              0.004537384183188057,
+              0.0025149624757696333,
+              0.00815204767753883,
+              -0.007594335428173681,
+              0.005809627641742035,
+              0.001592718806525717,
+              0.00336987337479465,
+              0.0036048070655542675,
+              0.007683165327809844
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038531176283323046
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004467417595636952,
+            "mean_residual": [
+              -0.00028761848944624754,
+              -0.0003676825822491777,
+              -1.1153600642707195e-05,
+              -0.0010384053221455835,
+              0.00482171655655316,
+              0.0027260624859987872,
+              -0.005336089532997723,
+              -0.0017822529353577537,
+              -0.011802210908458543,
+              -0.0031609370155422675,
+              -0.0012222520653149193,
+              -0.001142610186792608,
+              -0.011814486159312984,
+              -0.00992029736243604
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.040152330288022134
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a2048_c1/seed_1.pt",
+      "checkpoint_sha256": "54663e34b7afac2d8b27783036341fe01917e7e0421efc560f7101364e787cbd",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0006705907250434961,
+          -0.3337437257256908
+        ],
+        "selected_variance_scale_difference": [
+          -0.0059012374778351084,
+          0.005881178313174695
+        ]
+      },
+      "metadata_sha256": "a1e23e5e6521f41d616df39a209147f7a8caf1a4ac7763416c6bcc4d19aa7ac5",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9980076990778104,
+          1.0215480755645072
+        ],
+        "rates": [
+          1.0013634457826062,
+          3.677310165389654
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9980076990778104,
+          1.0215480755645072
+        ],
+        "rates": [
+          1.0013634457826062,
+          3.677310165389654
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.001782400496470285,
+        "last_training_loss": 0.03476961017651072,
+        "last_validation_loss": 0.03777073564640247,
+        "last_validation_minus_training": 0.003001125469891751,
+        "maximum_epochs": 100,
+        "patience_count": 0,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 100,
+        "selected_epoch_training_loss": 0.03476961017651072,
+        "selected_epoch_validation_minus_training": 0.003001125469891751,
+        "selected_validation_loss": 0.03777073564640247,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 143.01869475003332,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0007049200391852947,
+            "mean_residual": [
+              -7.903007925370261e-05,
+              0.00024396395298132431,
+              -0.002887888423117686,
+              -0.002496682437627947,
+              -2.2521338352708112e-05,
+              0.0005778153467280054,
+              -0.0028995360620507555,
+              0.0006558361749956593,
+              0.0014985599633996842,
+              0.00472675076391026,
+              -0.0016687836506281929,
+              -0.003258576652891395,
+              8.395447304895614e-05,
+              0.010911999710320728
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.033655399828626406
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0005279691697349294,
+            "mean_residual": [
+              0.00010736972351498499,
+              0.00038506668382921704,
+              -0.003050981673010676,
+              -0.0014865273156265807,
+              0.002852702601860285,
+              0.0019718483983629954,
+              0.0008497847169238848,
+              0.009531880961856112,
+              -0.004568675795940499,
+              0.007191733163412723,
+              0.0018328750930253082,
+              0.0015031680887617634,
+              0.0018369948578656615,
+              0.0069312675443761965
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038491770093750974
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00036050890086887825,
+            "mean_residual": [
+              0.0003850016088116953,
+              0.0008686109835930163,
+              -0.00013400857369246454,
+              -0.00017533553750710847,
+              0.005196924094551277,
+              0.001236857103795429,
+              -0.004679351607167109,
+              -0.0006220241097408944,
+              -0.011325540586817501,
+              -0.0015560960041957849,
+              -0.0013452033892616478,
+              -0.0033383246703434415,
+              -0.01361141828227835,
+              -0.004459789670605196
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03957163890704095
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/ou/structured/a2048_c1/seed_2.pt",
+      "checkpoint_sha256": "6b4729038bc53f26dab129b1f0cf37449430caaf752865c015fc5abb68674223",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "linear-ou-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Exact representable OU family; discrepancy diagnoses fitted parameters, not test error.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0010261097772716887,
+          -0.3804154112527476
+        ],
+        "selected_variance_scale_difference": [
+          -0.004917051355938007,
+          0.006877585778915618
+        ]
+      },
+      "metadata_sha256": "5b929a922c497af4ce122bbf5b30e6b3354fd138f2d51cb1a89e7e15bc95e6bf",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 12664,
+        "total": 12668,
+        "value": 4
+      },
+      "problem": "ou",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.0001245499850975,
+          1.0227452211618848
+        ],
+        "rates": [
+          1.0021952299719443,
+          3.6754551503987005
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9989918851997075,
+          1.0225444830302481
+        ],
+        "rates": [
+          1.0017189648348344,
+          3.630638479862597
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0004827461682985479,
+        "last_training_loss": 0.03462853020403998,
+        "last_validation_loss": 0.03848269975119472,
+        "last_validation_minus_training": 0.0038541695471547427,
+        "maximum_epochs": 100,
+        "patience_count": 3,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 97,
+        "selected_epoch_training_loss": 0.03471032064150649,
+        "selected_epoch_validation_minus_training": 0.0031430214786046795,
+        "selected_validation_loss": 0.03785334212011117,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 145.0899210839998,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0008910225834099328,
+            "mean_residual": [
+              -0.0005501319847791913,
+              0.000140761156479915,
+              -0.0033516825306370256,
+              -0.0015408476732923296,
+              -0.003362786506322436,
+              2.920172026124753e-05,
+              -0.0029199555638904128,
+              -0.00030216995868886953,
+              -0.0005679230841691672,
+              0.010236477068983662,
+              -0.0030084476420021633,
+              -0.003028498302314742,
+              -0.0016444688041167867,
+              0.01648681833940091
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.033350484793514934
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006181318038359786,
+            "mean_residual": [
+              0.00020817969451216397,
+              0.0004960715272398404,
+              -0.003353186123382041,
+              -0.0010030331174149427,
+              -0.0005650053825990123,
+              0.003828521861117286,
+              0.003307671269653727,
+              0.011543496755086303,
+              -0.006789602117707547,
+              0.006935239611177647,
+              0.0013353692750074052,
+              0.0026522175843021246,
+              0.003556009440141606,
+              0.007224391317967597
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.038839941034344495
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00035571864363242555,
+            "mean_residual": [
+              -0.00011282715265972878,
+              0.0004231264744267635,
+              -0.001103394210621732,
+              0.0007864483391806106,
+              0.003982948582959643,
+              0.0028448807044533296,
+              -0.006528970563170042,
+              -0.0006581256365773345,
+              -0.009043549076521325,
+              -0.00373584626965351,
+              -0.000987817796631789,
+              -0.001977109626161951,
+              -0.013299252784617683,
+              -0.008303217458968998
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03950472750159575
+          }
+        }
+      },
+      "training_fingerprint": "63e7049f3dc52127e52966b7265e5e45c81552deb341f52df9c0888f15bd6716",
+      "training_normalization_sha256": "81c363479ce278e21608976305e4b926679841a2ff0fbc387ed1f57af908b72d",
+      "validation_fingerprint": "a93861c3b74efa9ddf09a05dc6cb07a1ae1ee424d1fb43b536bcf85e6f0eddbe"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a128_c16/seed_0.pt",
+      "checkpoint_sha256": "23868829def36a927da0a0ed8cd6d45b911eb623a7390d4c571a2ba5a02b4a34",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "398556193074b0d885bc0b5e68172dbf444bffadc3bff6a3f2ddedbeeb871e84",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0022094550010376413,
+        "last_training_loss": 0.03307664957766318,
+        "last_validation_loss": 0.12803100819119614,
+        "last_validation_minus_training": 0.09495435861353296,
+        "maximum_epochs": 100,
+        "patience_count": 5,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 95,
+        "selected_epoch_training_loss": 0.032963424244035734,
+        "selected_epoch_validation_minus_training": 0.08954984959350487,
+        "selected_validation_loss": 0.12251327383754061,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 364.8151938340161,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.010770617693789047,
+            "mean_residual": [
+              0.0015143795508110467,
+              -0.0016171460444424132,
+              0.009880751502060874,
+              -0.0032654458719337262,
+              -0.023249057884907446,
+              0.0008132052691556847,
+              -0.029348630350863,
+              0.01855256288193638,
+              -0.004528128948843229,
+              -0.02775535168429646,
+              -0.0005817790140814204,
+              0.02099804125399184,
+              -0.01999536818728819,
+              -0.0007667907553262059
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06854575660001365
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.025871258000776023,
+            "mean_residual": [
+              0.013084138337493324,
+              -0.0018645887720787893,
+              0.012188667482577638,
+              -0.007956545181128781,
+              -0.009295895391447786,
+              -0.005247509176321049,
+              0.00023684675072906548,
+              0.01863320592425767,
+              0.00690471376438445,
+              -0.03090488828800035,
+              -0.029279407314978044,
+              0.03116140201967987,
+              -0.021500165451968693,
+              -0.04947092525272005
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.09433944358408142
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.057733683244703154,
+            "mean_residual": [
+              0.026452388009520687,
+              -0.0021437243975432722,
+              0.012551824163254531,
+              -0.0019510951615074419,
+              -0.10981274502170149,
+              0.0031769715726557802,
+              -0.032116909783262766,
+              -0.0005373377622867521,
+              0.015934598911483258,
+              -0.0475314732329762,
+              -0.05683910073196943,
+              0.03725855638671417,
+              -0.013670241876555666,
+              -0.0971221170528417
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.11027906238925853
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a128_c16/seed_1.pt",
+      "checkpoint_sha256": "50b11e696330fc78df79311831c8158ab00b97aae7aa4222a0f81cfa7be4978d",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "96abbceece78a668ff86358a30ab09420e7dfc0302ab3189b466d52d2a3ff184",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 64,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.004863288260278736,
+        "last_training_loss": 0.0376200563521645,
+        "last_validation_loss": 0.13025788044704587,
+        "last_validation_minus_training": 0.09263782409488136,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 54,
+        "selected_epoch_training_loss": 0.03975572747807725,
+        "selected_epoch_validation_minus_training": 0.08963947460230255,
+        "selected_validation_loss": 0.1293952020803798,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 247.66686274996027,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.014146170491226299,
+            "mean_residual": [
+              -0.010046418524368687,
+              0.004669980765828555,
+              -0.0027394250072558086,
+              -0.0185759487379788,
+              -0.010315045118168263,
+              0.007676156874977888,
+              -0.017046326590934552,
+              0.008273933899659138,
+              -0.006925919000378565,
+              -0.019356143745866618,
+              0.0064462370971233385,
+              0.0125696653535752,
+              -0.020983610581022397,
+              0.008331191417861827
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07481813230288788
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.02582453913570846,
+            "mean_residual": [
+              -0.0006966929648682006,
+              -0.011762057810198533,
+              -0.003916366024251239,
+              -0.01881412535630684,
+              0.01107258752577163,
+              0.0008901428590433389,
+              0.009256762010717727,
+              0.004205020507154185,
+              -0.009232682557834973,
+              -0.05178920253477972,
+              -8.475039702926252e-06,
+              0.01455611955938247,
+              -0.01962064715317391,
+              -0.058064544632220313
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.09572060953726118
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.06597050896404352,
+            "mean_residual": [
+              -0.004792349361148441,
+              -0.0056201113880462675,
+              0.005780853933150582,
+              -0.016392287240931776,
+              -0.10094827912883153,
+              0.01513281308695625,
+              -0.024614755049965034,
+              -0.006832014182083923,
+              -0.027104501920658924,
+              -0.09135716169464603,
+              -0.0021744037232530756,
+              0.01967529657799761,
+              -0.015079750942552098,
+              -0.10616334993636037
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.11170564581001204
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a128_c16/seed_2.pt",
+      "checkpoint_sha256": "90b9d57d16beacf7976d6fb090779453a87160afe4608934a389b4dc7e0a1a90",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "d16cea5f5dd974021fcb2985edf5cb7da1dfb962b7f6ec0a178b1a39ecdcdd94",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.006585412917145539,
+        "last_training_loss": 0.03236846626560391,
+        "last_validation_loss": 0.10962113478126607,
+        "last_validation_minus_training": 0.07725266851566216,
+        "maximum_epochs": 100,
+        "patience_count": 0,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 100,
+        "selected_epoch_training_loss": 0.03236846626560391,
+        "selected_epoch_validation_minus_training": 0.07725266851566216,
+        "selected_validation_loss": 0.10962113478126607,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 364.30287525011227,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.011740070689878968,
+            "mean_residual": [
+              -0.006186058958887888,
+              -0.013552454648183714,
+              0.009746842490527888,
+              -0.010454942529792316,
+              -0.0018658189624810636,
+              -0.0013878640983109604,
+              -0.007739412670636727,
+              0.004001437194779967,
+              -0.003240132284194933,
+              -0.038671400860253675,
+              0.013799492916940733,
+              0.00875643863935338,
+              0.02562225256454463,
+              -0.00610554276933602
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06277491960084663
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.026340631063955417,
+            "mean_residual": [
+              -0.0025010745253638894,
+              -0.031252481312079985,
+              0.0031088493472164916,
+              -0.00044302992255846815,
+              0.0015924836714554854,
+              -0.0006767563893404801,
+              0.0018818535368171812,
+              0.004333397430917682,
+              -0.009942386689609534,
+              -0.05053866153236798,
+              0.0006362590259728954,
+              -0.001195111866240832,
+              0.030459079296975007,
+              -0.04248446787964686
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.08363282267434333
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.051671664458994335,
+            "mean_residual": [
+              0.007236965848117438,
+              -0.042529578814268956,
+              0.0012020478473183083,
+              0.002872821274645465,
+              -0.06365102372192619,
+              0.017127360769161513,
+              -0.029703797444177008,
+              0.013892117516441364,
+              -0.02247281380439172,
+              -0.080062070400005,
+              -0.01501749159383314,
+              -0.010622570119206719,
+              0.03581783717790274,
+              -0.07141960200339276
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.09270329585577956
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a128_c16/seed_0.pt",
+      "checkpoint_sha256": "ae561356dff476e8b306ddd22d9d48af7ee1e3a3a17a59a0da0ccfc4714111e4",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.00035047430092194354,
+          -2.7338727396477855
+        ],
+        "selected_variance_scale_difference": [
+          -0.0088441428514765,
+          0.14269221385619613
+        ]
+      },
+      "metadata_sha256": "7385edb0eb52f60b15747827cb3c5f27c8220c2004951bb70cfb1e8af2f47f59",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9927148980876265,
+          1.1613338352607134
+        ],
+        "rates": [
+          1.0009161923954168,
+          1.2924340086416446
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.995064793704169,
+          1.1583591111075286
+        ],
+        "rates": [
+          1.0003423807566407,
+          1.2771811514675588
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 58,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.000378310776537355,
+        "last_training_loss": 0.036589957703732176,
+        "last_validation_loss": 0.071703697207701,
+        "last_validation_minus_training": 0.03511373950396883,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 48,
+        "selected_epoch_training_loss": 0.0392182762352553,
+        "selected_epoch_validation_minus_training": 0.03133372759012111,
+        "selected_validation_loss": 0.07055200382537641,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 213.17912674997933,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0037803828634173286,
+            "mean_residual": [
+              -0.0014232345770253771,
+              -0.001500486538739332,
+              0.002942816804649609,
+              0.006851613037261458,
+              -0.0016287323857409079,
+              0.0022854120951388145,
+              -0.0022782396816896045,
+              0.005585881521552701,
+              -0.008921614373772603,
+              -0.021655440683184545,
+              0.004470617562641728,
+              0.006905966077172936,
+              0.0004184105551785916,
+              0.015139903882088331
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05576810824386963
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.007433862937574107,
+            "mean_residual": [
+              -0.000838017638847751,
+              0.0010438844809464744,
+              0.003831991335918399,
+              0.016477430473096154,
+              -0.0002702800764902793,
+              -0.0072828050267284145,
+              0.0049129065673979115,
+              0.014801629648539186,
+              1.0584012088730738e-05,
+              0.0003236548776933317,
+              -0.0032428247286747716,
+              0.01124293467787627,
+              0.0030076181697084323,
+              0.0027346826565601513
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0638324371828073
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009868906024896481,
+            "mean_residual": [
+              -0.0016759143711451542,
+              0.003967081066827428,
+              -0.008102563557892767,
+              0.021018473127087652,
+              -0.005909139203726143,
+              0.0010584312234428505,
+              0.0052646173951106726,
+              0.005836048481786472,
+              -0.006695476820085517,
+              -0.02814711764966835,
+              0.0027771462292505936,
+              0.0110500993375044,
+              0.005425665869626043,
+              -0.0348793220233386
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07097231422356438
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a128_c16/seed_1.pt",
+      "checkpoint_sha256": "9bde508b9719c8fcf2ba988088bd1b29db4b39c4c48d3e0c23f071c9d3c1a1d7",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.000778420738428709,
+          -2.6909630882785907
+        ],
+        "selected_variance_scale_difference": [
+          -0.006474034407284557,
+          0.15273622838264012
+        ]
+      },
+      "metadata_sha256": "563aa5d89d757b794706f4b1777887e2b6941992e637295947404bc98943039a",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9996884265564528,
+          1.168485008672821
+        ],
+        "rates": [
+          0.9998133750257682,
+          1.3365951805455627
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.997434902148361,
+          1.1684031256339726
+        ],
+        "rates": [
+          1.0014712757959914,
+          1.3200908028367537
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 86,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0008795134583109432,
+        "last_training_loss": 0.03257576267501767,
+        "last_validation_loss": 0.06725511233708635,
+        "last_validation_minus_training": 0.03467934966206868,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 76,
+        "selected_epoch_training_loss": 0.033251759661368945,
+        "selected_epoch_validation_minus_training": 0.03396792070242503,
+        "selected_validation_loss": 0.06721968036379397,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 310.68654716713354,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0032859140459945277,
+            "mean_residual": [
+              -0.0007258406197095974,
+              0.004294499372870478,
+              0.004214224932722616,
+              0.006858152197204702,
+              0.010180155474520622,
+              0.002420072103598834,
+              -0.0003027664893043352,
+              0.013323967850264677,
+              0.008388958347736775,
+              -0.033299348227446006,
+              0.0074149236812790205,
+              0.02172520337988276,
+              -0.0003391641320033391,
+              0.022662014483904248
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05105963053542713
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.007130564867559856,
+            "mean_residual": [
+              0.0012955906563048346,
+              0.0031023093118717716,
+              0.007679701905657315,
+              0.015887572409146872,
+              0.0046724419226974005,
+              -0.00022568835019433483,
+              0.005725610258225247,
+              0.014072022706632225,
+              0.006831988687783523,
+              -0.026594215439960142,
+              -0.006928011805055724,
+              0.019376832118779923,
+              0.01006269877801201,
+              -0.008569248227395274
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06191924178324221
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.007877790667072122,
+            "mean_residual": [
+              0.0050482968231733314,
+              -0.0022587349685943346,
+              0.0113877156185723,
+              0.01368310298102768,
+              -0.0020281209918952495,
+              0.006306275590463409,
+              0.005743651833927901,
+              0.007149126910029509,
+              -0.008118076269234926,
+              -0.01577286722712751,
+              -0.006717310416371011,
+              0.015702910103214684,
+              -0.0049441687250516555,
+              -0.01657431920798853
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07038589919208608
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a128_c16/seed_2.pt",
+      "checkpoint_sha256": "d2eb5ea518b77168e23a7c6af5c69eccb152a7557c8f01c80ea786168d0fbd8e",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0006918966043305552,
+          -2.7139706637489773
+        ],
+        "selected_variance_scale_difference": [
+          -0.004880463595677731,
+          0.1473276818743654
+        ]
+      },
+      "metadata_sha256": "e6a1fc62f58a264f08210a96f35df9366b9965412fd52c7c1d4741621e552095",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.0000266162892693,
+          1.1637633716687505
+        ],
+        "rates": [
+          1.0014937964769373,
+          1.3136533424226717
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9990284729599678,
+          1.162994579125698
+        ],
+        "rates": [
+          1.0013847516618932,
+          1.297083227366367
+        ]
+      },
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "epochs": 76,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0012047235439060916,
+        "last_training_loss": 0.03439654609822354,
+        "last_validation_loss": 0.06927099954415591,
+        "last_validation_minus_training": 0.034874453445932374,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 66,
+        "selected_epoch_training_loss": 0.03581638884730682,
+        "selected_epoch_validation_minus_training": 0.03201366815472934,
+        "selected_validation_loss": 0.06783005700203616,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 265.35299962502904,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003721311805191891,
+            "mean_residual": [
+              -0.001812130927489199,
+              0.0005629156230665339,
+              0.005629351957640393,
+              -0.0006030604552482385,
+              -0.003177711553873408,
+              -0.0012768965221503642,
+              -0.0033521676114490213,
+              0.006767754107862508,
+              0.00528306726248658,
+              -0.01112056748917293,
+              0.002039528016133085,
+              0.012689822804258982,
+              0.006047228465085194,
+              0.021197522299666996
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.054106655954999014
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.006502230762219925,
+            "mean_residual": [
+              -0.0003574912605790203,
+              0.0023199631743427247,
+              5.995965177726763e-05,
+              0.003228356868932541,
+              -0.0005953366348743093,
+              -0.0046708125125209145,
+              -0.00018643066148537094,
+              0.011909624652571029,
+              -0.0031163327105809486,
+              -0.001173821956178549,
+              -0.0037910092821939016,
+              0.007931262404371638,
+              0.007399745855906014,
+              0.002092077169051133
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0625166220953968
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0074848264244040804,
+            "mean_residual": [
+              -0.00016592450779153638,
+              -0.001137090334884053,
+              -0.0022891749491382907,
+              0.01147465979129416,
+              -0.0032626596978872872,
+              0.00262860547617108,
+              0.012603420837063744,
+              0.004409451107706186,
+              -0.006654275137831303,
+              -0.013410076441841088,
+              0.0028320408946224487,
+              0.009972903804288634,
+              -0.01200548455186473,
+              -0.019627391820343662
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06915852396389678
+          }
+        }
+      },
+      "training_fingerprint": "5550786cc2cfbd18f723ddfeab8bc2e79bb3e575d9890e0a92b84eba9ae1f9cc",
+      "training_normalization_sha256": "63e036c874ee8aadad7fac7b405d7d73477393ba8debf42e442f20e99ed86325",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a512_c4/seed_0.pt",
+      "checkpoint_sha256": "b070f654aea15fd3c94c6972b15c786eecdf60f4e07ddb4a10bf17ff7e1b7cc0",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "53d701a5d8009aa704f845eb40046fe20123d5f8826c01d0c9c329ef25d807b8",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 94,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0004923975974373135,
+        "last_training_loss": 0.03289111465854022,
+        "last_validation_loss": 0.0696459591602611,
+        "last_validation_minus_training": 0.03675484450172088,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 84,
+        "selected_epoch_training_loss": 0.034322382249361454,
+        "selected_epoch_validation_minus_training": 0.034410119107136546,
+        "selected_validation_loss": 0.068732501356498,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 346.62210016697645,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0037094513869653342,
+            "mean_residual": [
+              -0.008953418344058325,
+              -0.000955169905461576,
+              0.0053273231975433,
+              -0.005424031540371903,
+              -0.006147540497857542,
+              -0.002152352668918633,
+              -0.0011715444815486537,
+              0.003755467684903172,
+              0.017376738001353816,
+              -0.012593382268467821,
+              0.012856585431950274,
+              0.006331062364978255,
+              0.0012401137120669082,
+              0.060289358562471085
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.052100926544401016
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.005344642561365505,
+            "mean_residual": [
+              -0.0036966490615792653,
+              0.0032644012961199472,
+              0.002992751599049147,
+              -0.015773768830956922,
+              0.028819271284821264,
+              -0.01157999931290023,
+              0.029871639740612722,
+              0.007201530575582406,
+              0.007129381337225189,
+              0.010370285852458937,
+              0.014724236976927053,
+              0.009697910511975074,
+              0.004090432284441364,
+              0.07523814802382651
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06295237930052452
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009270421304611736,
+            "mean_residual": [
+              -0.011500119392144424,
+              0.0006995788375204696,
+              -0.008492821951995497,
+              -0.019196630355322708,
+              -0.009034105808584407,
+              -0.004160201257128401,
+              0.004302024185232135,
+              0.021253620174704228,
+              0.001073282935378358,
+              0.007380441887729066,
+              0.019769532269242357,
+              0.021681193862454956,
+              -0.003668573023025216,
+              0.019619361376867404
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07281968297162589
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a512_c4/seed_1.pt",
+      "checkpoint_sha256": "4958914d343afa6171506b912fb4355a199a6e8518193c781766df3c9bad84a0",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "cfdaa969401556fc13447e7a3a48f055de3b9d3bdead8bb6a60199da6db4df16",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0011486988177150381,
+        "last_training_loss": 0.032239686757981244,
+        "last_validation_loss": 0.06806580326609701,
+        "last_validation_minus_training": 0.03582611650811577,
+        "maximum_epochs": 100,
+        "patience_count": 6,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 94,
+        "selected_epoch_training_loss": 0.03288101607630556,
+        "selected_epoch_validation_minus_training": 0.03501194247149095,
+        "selected_validation_loss": 0.0678929585477965,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 342.21785716712475,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003841894347372866,
+            "mean_residual": [
+              -0.005564459718566903,
+              0.0036905909944125906,
+              0.011295741840770654,
+              0.006713775379913349,
+              0.006582330312036587,
+              0.014152281020293929,
+              0.008037555875620345,
+              0.0031689366363214597,
+              0.009839683445025145,
+              0.04238958082856529,
+              -0.0007803274334133464,
+              0.001448464431230546,
+              -0.016460877291660424,
+              0.01500671185161169
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04906591955341903
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0054105758691867945,
+            "mean_residual": [
+              -0.011873639364081418,
+              0.0029875001604298007,
+              0.010446803792139785,
+              0.013406190195911749,
+              0.03646019910530597,
+              0.007270836661625726,
+              0.022981040971281196,
+              0.009439914943394445,
+              0.010045840039126596,
+              0.05822399487565173,
+              -0.0011386149909067647,
+              -0.007605701715770824,
+              -0.0032857375594790832,
+              0.009353489342074865
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0628086676533692
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009461364121849933,
+            "mean_residual": [
+              -0.0178187818857014,
+              -0.0005419946714186928,
+              0.004909276832251164,
+              0.017176539599638153,
+              0.020774905466685693,
+              0.008657335639482115,
+              -0.00040132248629167096,
+              0.018672399883642523,
+              -0.0007146510123772084,
+              0.03717329145485716,
+              -0.007086328549920338,
+              -0.00821498729063511,
+              -0.011518585052158895,
+              -0.031105392138011292
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07309045409819168
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a512_c4/seed_2.pt",
+      "checkpoint_sha256": "c065df72e0ec46a9163d45041befe2a56c993020ea808d57c6850e634dd55428",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "cdd495759fc4fd5948dba16cfb987688f1f4cac820b2d05737f203b24972f198",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0014517698750527303,
+        "last_training_loss": 0.032486970356218434,
+        "last_validation_loss": 0.07101320500718836,
+        "last_validation_minus_training": 0.03852623465096992,
+        "maximum_epochs": 100,
+        "patience_count": 9,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 91,
+        "selected_epoch_training_loss": 0.03349548400415197,
+        "selected_epoch_validation_minus_training": 0.03606595112798366,
+        "selected_validation_loss": 0.06956143513213563,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 340.8875335000921,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0039562134002821105,
+            "mean_residual": [
+              -0.0005102389404389365,
+              0.0052218075329111815,
+              -0.00036159402006739525,
+              0.00938144416421341,
+              -0.017306722904750133,
+              0.0023123658530114165,
+              -0.009526618718725188,
+              0.0011765943007264624,
+              0.015733701292610244,
+              0.0015428054696017158,
+              -0.0020250385668044097,
+              0.014600296413206183,
+              -0.01694695948951145,
+              0.02498514781135702
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.052884220996368504
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00501450507985403,
+            "mean_residual": [
+              0.004490178197467798,
+              0.0006361736419535711,
+              -0.0005085891197902921,
+              0.0005953152845543513,
+              0.014451027949165196,
+              -0.002328321021555093,
+              0.014942037155901344,
+              0.0040303945975622354,
+              0.005937812789530228,
+              0.028845994863876068,
+              0.0042973908299504945,
+              0.012369502127819738,
+              0.004641717134934007,
+              0.03214625047317693
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06503547640549523
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009176298981539368,
+            "mean_residual": [
+              0.009607798795886895,
+              0.004795465913794951,
+              -0.004678718885006122,
+              0.006401881764268003,
+              -0.01923789128132721,
+              0.003738085226501673,
+              -0.011452425301346894,
+              0.006569481478339315,
+              -0.0024217815718217918,
+              0.012366258731419832,
+              0.004866098092928848,
+              0.002789605751467536,
+              0.006006123668921217,
+              0.005085393673755441
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07261759053286763
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a512_c4/seed_0.pt",
+      "checkpoint_sha256": "b3e49971f8549d5e0b1f32750b0bcebd3dd9245b10e40a411737d2bbe755ab9c",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0001573408763286821,
+          -2.713169507792828
+        ],
+        "selected_variance_scale_difference": [
+          -0.001375838018943254,
+          0.14319623910908308
+        ]
+      },
+      "metadata_sha256": "053e1fd656c036a03cbe740e84fd6e12cb918dabad9776175663cddd9979b8cc",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.00168946942391,
+          1.1573470413862865
+        ],
+        "rates": [
+          1.0017215711369978,
+          1.3105835485517836
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0025330985367022,
+          1.1588631363604156
+        ],
+        "rates": [
+          1.0008501959338914,
+          1.2978843833225169
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 83,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0006599905839943104,
+        "last_training_loss": 0.03272988239043738,
+        "last_validation_loss": 0.06611484776430716,
+        "last_validation_minus_training": 0.033384965373869785,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 73,
+        "selected_epoch_training_loss": 0.03388683105595327,
+        "selected_epoch_validation_minus_training": 0.030370016270507373,
+        "selected_validation_loss": 0.06425684732646064,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 294.35907333297655,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0025305771246076506,
+            "mean_residual": [
+              -0.0012457792455899687,
+              -0.0007741433879217754,
+              0.0006371017493442353,
+              0.00476409888117621,
+              0.002057626320114311,
+              -0.002416997970277268,
+              -0.003799906059674122,
+              -0.0138442426310352,
+              0.008998339845234626,
+              -0.02256506304868328,
+              -0.002115125857882187,
+              0.009072968003952138,
+              -0.02113316086903367,
+              0.010754475166875804
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05048364941947851
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0038102934498665452,
+            "mean_residual": [
+              -0.0015977559641176188,
+              -0.0023140234754671254,
+              -0.00342271462989808,
+              -0.0010333640368506629,
+              0.007677811241030142,
+              -0.010572906695486307,
+              0.0021896687544493434,
+              -0.002495465674508951,
+              0.00527946014276375,
+              0.012566853368880006,
+              -0.0031083183298874642,
+              0.0002390569109984777,
+              -7.012210502031898e-05,
+              0.0132392699347335
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06173301292020696
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.004864375802937226,
+            "mean_residual": [
+              -0.00038996283030826766,
+              0.0010515335797403635,
+              -0.0034821327353077277,
+              -0.002506040394711848,
+              -0.0006922217556685846,
+              -0.004459777585658171,
+              0.004352942360874474,
+              7.606884677843154e-05,
+              -0.008401215571393424,
+              0.015850466742786007,
+              -0.007540061970011708,
+              0.005073857086490651,
+              -0.010019942692977797,
+              -0.012672233834736046
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06934863326228502
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a512_c4/seed_1.pt",
+      "checkpoint_sha256": "80adccbf74b156a730fda20183ad96a8defa3dc0af1af51bab5de7f4e168b115",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          0.0008618221326945896,
+          -2.6981341804901087
+        ],
+        "selected_variance_scale_difference": [
+          0.002782798679651144,
+          0.16245466674889686
+        ]
+      },
+      "metadata_sha256": "27a1df09f91aefd53c236b5e5dc2daefa4cde625705e44e428fbfb5cad06c310",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.0054209809534416,
+          1.179245878797718
+        ],
+        "rates": [
+          1.0007754503070039,
+          1.3272083314899712
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          1.0066917352352966,
+          1.1781215640002294
+        ],
+        "rates": [
+          1.0015546771902573,
+          1.312919710625236
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 82,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.0009274660707615928,
+        "last_training_loss": 0.03309046599854667,
+        "last_validation_loss": 0.06511307163069469,
+        "last_validation_minus_training": 0.03202260563214802,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 72,
+        "selected_epoch_training_loss": 0.03383248008265333,
+        "selected_epoch_validation_minus_training": 0.029703993167499942,
+        "selected_validation_loss": 0.06353647325015327,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 277.18351858411916,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0026269329527007146,
+            "mean_residual": [
+              0.00010575704116070738,
+              -0.002571582216256964,
+              0.010666471404630548,
+              -8.217488853043766e-05,
+              -0.0016987908453875596,
+              0.0039171013010396594,
+              0.009252014912290444,
+              -0.014078974616450055,
+              0.002907451561326115,
+              -0.015800347871900086,
+              0.011404771559220653,
+              0.008757164500504417,
+              -0.00898398321417079,
+              0.013759687553610114
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04959640854151874
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003853326438411982,
+            "mean_residual": [
+              1.9617099756976265e-05,
+              -0.00114979281525152,
+              0.012500766627937178,
+              -0.004383931256537878,
+              0.0005043186754159381,
+              -0.005927773100899895,
+              0.003944217069108677,
+              -0.00790865086876554,
+              0.005837590283027217,
+              0.022499394822676967,
+              -0.0012262989014177141,
+              0.00856686493478176,
+              -0.004235662323811396,
+              0.022474344608518854
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06106380040905376
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00497915649274128,
+            "mean_residual": [
+              -0.0020996735383568407,
+              -0.0004894486516094188,
+              0.0012577716509002306,
+              -0.00609095116677323,
+              -0.0031548680634195135,
+              -0.0027926259077084904,
+              0.007728168481667526,
+              0.01165514435292567,
+              -0.0036747366413787835,
+              0.011335300985570585,
+              -0.010571500477549536,
+              0.01267607286992554,
+              -0.0036546429708132788,
+              -0.001444518476584819
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06848979491603337
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a512_c4/seed_2.pt",
+      "checkpoint_sha256": "797c48c91f7d57ecd0f8e85f76b328480219a8908831723c3df10b66c302911c",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.000757043312023753,
+          -2.7313134373568877
+        ],
+        "selected_variance_scale_difference": [
+          -0.004994767411634293,
+          0.14195141367835173
+        ]
+      },
+      "metadata_sha256": "566586886df84fec11046e61abecad3b753a812d067183a920505587875c4b90",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          1.001883412984759,
+          1.1589446903154983
+        ],
+        "rates": [
+          1.0007246201033118,
+          1.292185040364785
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9989141691440112,
+          1.1576183109296843
+        ],
+        "rates": [
+          0.9999358117455389,
+          1.279740453758457
+        ]
+      },
+      "train_anchors": 512,
+      "train_continuations": 4,
+      "training": {
+        "epochs": 74,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0007636656229619981,
+        "last_training_loss": 0.03463341823781936,
+        "last_validation_loss": 0.06539476339902252,
+        "last_validation_minus_training": 0.030761345161203157,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 64,
+        "selected_epoch_training_loss": 0.03579507364141166,
+        "selected_epoch_validation_minus_training": 0.029058712879544327,
+        "selected_validation_loss": 0.06485378652095598,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 242.1592082499992,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0028441900180158266,
+            "mean_residual": [
+              -0.0061150325861292305,
+              0.0008116394748319205,
+              0.011497474229295718,
+              -0.0007783512387597116,
+              0.002261135399968185,
+              8.67565032122322e-05,
+              0.0046640808424671725,
+              -0.0055406623360714,
+              0.0083536198494036,
+              -0.013998026072165116,
+              0.002201504632695376,
+              0.018757842435914905,
+              -0.0062461819943341185,
+              0.015511301251257393
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05092824014801457
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.004145731265380782,
+            "mean_residual": [
+              -0.006073829688774868,
+              -0.0002715214363839005,
+              0.011102889880445065,
+              -0.00020303405443605326,
+              0.008628014112790388,
+              -0.0019119553180641188,
+              0.011252924603294419,
+              0.010301103053622973,
+              0.003805293816248868,
+              0.013874735828944051,
+              -0.002486411150265012,
+              0.014032814769125603,
+              0.0112289761461038,
+              0.022017142564593667
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.061698933132805056
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.005456519423446926,
+            "mean_residual": [
+              -0.0031584668758858174,
+              0.0027348679049459196,
+              0.006151995798012214,
+              0.006299846461239939,
+              0.0012554037780794867,
+              -0.0033885290688897033,
+              0.009692535520956183,
+              -0.0022442651792098107,
+              -0.011351920412045153,
+              -0.004874854940400065,
+              -0.005708040357486179,
+              0.013328882073644438,
+              -0.0003005401561979892,
+              0.00229134867845564
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0694877455752048
+          }
+        }
+      },
+      "training_fingerprint": "e49df8a71278ddb9e3e3cde7e483e15ee64edf1c2f64f27002bac4376bf22813",
+      "training_normalization_sha256": "35185665280ba8e6408a343d87ecf7c278b09ba64ae0f263edd7726a0e29aae2",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a2048_c1/seed_0.pt",
+      "checkpoint_sha256": "eb213b018d6a21ed76397135399dd3292433e1d57f20767c4f8ee082f905c1b6",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "2ff7fb29f1ce494832199a90b2e9ba796431d081b7cf7422d8ec39fb45b6a99e",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 100,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0007724535621255052,
+        "last_training_loss": 0.031987580730700495,
+        "last_validation_loss": 0.06856134405028132,
+        "last_validation_minus_training": 0.03657376331958082,
+        "maximum_epochs": 100,
+        "patience_count": 2,
+        "patience_limit": 10,
+        "reached_epoch_cap": true,
+        "selected_epoch": 98,
+        "selected_epoch_training_loss": 0.03203464849611249,
+        "selected_epoch_validation_minus_training": 0.035070458909393774,
+        "selected_validation_loss": 0.06710510740550626,
+        "stopping_reason": "epoch-cap",
+        "training_seconds": 328.69296016707085,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0033222845945654234,
+            "mean_residual": [
+              -0.0025450756404728717,
+              0.00017697607238667832,
+              0.00515242982983032,
+              0.009025827945398975,
+              0.017965421623155318,
+              0.0003281706479870503,
+              -0.007190924068868135,
+              -0.009173788679376038,
+              -0.0034768613164672755,
+              0.0075396932380772585,
+              0.00915301689167606,
+              0.024451118829493166,
+              0.013499830129857332,
+              0.016988797392062296
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04972364016639473
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00398879723479201,
+            "mean_residual": [
+              -0.004715226641619889,
+              0.002935490376372554,
+              0.002061723591576186,
+              0.010955387650215366,
+              0.04607646339474706,
+              -0.009370153556413812,
+              0.011877383041923888,
+              -0.004977802051918587,
+              0.014565608538851756,
+              0.02607837818995047,
+              -0.0012384473845641272,
+              0.034389365808764345,
+              0.015370752845123115,
+              0.0059626580192969885
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06248844348044887
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.006503679259218827,
+            "mean_residual": [
+              -0.0030929125082897226,
+              0.010137465369813973,
+              0.0002722106090912457,
+              0.0018260672602125006,
+              0.0017119901069977057,
+              0.0026858237603002663,
+              -0.014588252440693407,
+              -0.01889478587651408,
+              0.0003115985055478804,
+              0.0022659621040074795,
+              -0.011842540959408603,
+              0.03555721796919495,
+              0.024417117763977245,
+              -0.02228572837250522
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0752884774810989
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a2048_c1/seed_1.pt",
+      "checkpoint_sha256": "b5f0c8c8d9a1690ce398f8c23c4bbec445daf2a214f85a804c52a5c559a87f2e",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "d875fa8dd4129d29267426ff8fc31c2f7d456e842864c9bbada11c169ea0986f",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 97,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.00022746364771313032,
+        "last_training_loss": 0.03196512132538023,
+        "last_validation_loss": 0.06783271910200893,
+        "last_validation_minus_training": 0.0358675977766287,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 87,
+        "selected_epoch_training_loss": 0.03271169598705505,
+        "selected_epoch_validation_minus_training": 0.0335901550586625,
+        "selected_validation_loss": 0.06630185104571755,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 321.45286154188216,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003703863914084848,
+            "mean_residual": [
+              0.0015229308580445833,
+              -0.0040080822019322665,
+              0.010205350104892407,
+              0.000618544534602005,
+              0.0017800738311070314,
+              0.011423028012158526,
+              -0.002703916914325522,
+              -0.008818134646683113,
+              -0.008757395822685308,
+              -0.017494693228057252,
+              -0.004696129634267546,
+              0.01776989102037977,
+              -0.029046959752725823,
+              0.004336480984972909
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04942958807980705
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.004122750356189463,
+            "mean_residual": [
+              0.0009428111110746302,
+              -0.007713390069704116,
+              0.00044210262517895547,
+              0.0010716011343886455,
+              0.03506437447863026,
+              0.004032227058325915,
+              0.02603886586398655,
+              -0.0061488680606307826,
+              -0.0044282924424910355,
+              0.0008220091573500765,
+              -0.003682247829530137,
+              0.02236898777550847,
+              -0.030133567280837825,
+              0.0009863543283304577
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06001230601530465
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0075515851569810406,
+            "mean_residual": [
+              0.01258897928764106,
+              -0.01422940976833927,
+              0.013574880776116122,
+              -0.0020712669911167303,
+              -0.0024124313929924997,
+              0.013013941676214422,
+              0.0017798820944609642,
+              -0.017436512417171965,
+              0.010949812688143002,
+              0.003530299489798527,
+              -0.014895564667989566,
+              0.017163120649246248,
+              -0.010603566312012515,
+              -0.04018530730060798
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07408545961478559
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "mlp",
+      "checkpoint_path": "checkpoints/dk/mlp/a2048_c1/seed_2.pt",
+      "checkpoint_sha256": "c385c97f5dc875228e5b9fae5e5eadf99cfba8139aff0ed78ba458213a341c95",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-moments-v1",
+      "metadata_sha256": "cb9309d1bac4f78a4a8ed8d759fe9bc3a28817eb2a3dcea5e4bc7aa61367a8a5",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51214,
+        "value": 11342
+      },
+      "problem": "dk",
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 93,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.0007630387918723114,
+        "last_training_loss": 0.03278548797222162,
+        "last_validation_loss": 0.06906013745349979,
+        "last_validation_minus_training": 0.03627464948127817,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 83,
+        "selected_epoch_training_loss": 0.03399853217155611,
+        "selected_epoch_validation_minus_training": 0.03468915646949477,
+        "selected_validation_loss": 0.06868768864105088,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 306.92825566604733,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0037844756486957367,
+            "mean_residual": [
+              0.002453055961489426,
+              0.007060500722701413,
+              -0.003970206124415424,
+              -0.0026116499266454936,
+              -0.00853762540366256,
+              0.008943701203840762,
+              -0.0036657016265624716,
+              -0.03128831777076577,
+              -0.007662008352817151,
+              -0.017433495083261294,
+              0.004098203819934838,
+              0.028751350322071968,
+              -0.00838631671779003,
+              0.036567346603837106
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.052033866972066
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.004441163787678267,
+            "mean_residual": [
+              0.008420087260877401,
+              -0.00725398339930895,
+              -0.009144722927520992,
+              -0.008622088411904975,
+              0.027569705976026884,
+              -0.007246101884172565,
+              0.0296526829165508,
+              -0.029805416680818465,
+              -0.010096323572147507,
+              -0.011378571320297208,
+              -0.005831138344264397,
+              0.041196392095638495,
+              -0.011754927336740802,
+              0.036678491425029755
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06292995219368056
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.007955578570227297,
+            "mean_residual": [
+              0.014154684973126884,
+              0.002964895137458711,
+              -0.002456190661379929,
+              -0.01768921360033672,
+              -0.027996109653348953,
+              -0.004729119410562584,
+              0.005014827357715188,
+              -0.030487944381008405,
+              0.008366051605360351,
+              -0.047672594319054816,
+              -0.009280193592364164,
+              0.03894890764066024,
+              -0.01340654394571141,
+              0.007402998730737204
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07491802875080478
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a2048_c1/seed_0.pt",
+      "checkpoint_sha256": "6d141c88ece912dc041b42f9be7875a2f5414cd4a73dbb66dcd86f772e45e8de",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.0008934829856478421,
+          -2.6834372084294396
+        ],
+        "selected_variance_scale_difference": [
+          -0.007082499419005184,
+          0.1860699440227891
+        ]
+      },
+      "metadata_sha256": "5047ca09cea2b4f4ec2bc335ea385c1ed58cac020f3461707c5fa622fc6c3471",
+      "optimizer_seed": 0,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9940182447831761,
+          1.1984084593425837
+        ],
+        "rates": [
+          0.997616744407002,
+          1.3389831073106457
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9968264371366403,
+          1.2017368412741216
+        ],
+        "rates": [
+          0.9997993720719148,
+          1.3276166826859048
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 85,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.001327875435224793,
+        "last_training_loss": 0.03188495123324326,
+        "last_validation_loss": 0.06607270557188384,
+        "last_validation_minus_training": 0.03418775433864058,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 75,
+        "selected_epoch_training_loss": 0.03338112558470343,
+        "selected_epoch_validation_minus_training": 0.0305655323913644,
+        "selected_validation_loss": 0.06394665797606783,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 285.2674320829101,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0025691739115746744,
+            "mean_residual": [
+              -0.0005550894601569323,
+              -0.0018549562258841341,
+              0.0006494656727952608,
+              -0.005804125314760113,
+              -0.0024441670819112366,
+              -0.003416803735318593,
+              0.0065155588592106205,
+              -0.017392777484254322,
+              0.006830522754978099,
+              -0.005099175309321765,
+              0.002275945418355844,
+              0.011175452918127882,
+              -0.003784629260962547,
+              0.02496459487869148
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04849558477158041
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003701322085261507,
+            "mean_residual": [
+              -0.0021478350335406267,
+              -6.819992352674576e-05,
+              0.001036245064952446,
+              -0.007672716808210229,
+              0.0015202226191794507,
+              -0.009583058071193265,
+              0.004112753776111838,
+              -0.00244398186597692,
+              0.019303877898142176,
+              0.0278468367463724,
+              0.004535008759889683,
+              0.021520894166043688,
+              -0.01359379752035548,
+              0.013387611084353948
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05926825322541394
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.005032924741595359,
+            "mean_residual": [
+              -0.001783182989526309,
+              -0.0005191315334560009,
+              0.004812700710781893,
+              -0.004778063968479937,
+              -0.008781863185388603,
+              -0.004912928878841904,
+              0.008130594300139692,
+              -0.022443738710493304,
+              0.014536083655533535,
+              0.004792252966603348,
+              -0.0032800952870137273,
+              0.00872954706134829,
+              -0.0010273311247373058,
+              -0.002192757427160009
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07277271519277762
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a2048_c1/seed_1.pt",
+      "checkpoint_sha256": "0b4e17897882dfd9ec3a0cc1fc6044f7b22da17c62ba57b266b5450923bb07f1",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -9.795541123258644e-05,
+          -2.705162710565049
+        ],
+        "selected_variance_scale_difference": [
+          -0.005042542284138696,
+          0.1857252236238407
+        ]
+      },
+      "metadata_sha256": "d3b67133b65f59af12ceb18e0adda61c48a8d66a698c05669095fe17bb5615d3",
+      "optimizer_seed": 1,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9993632818174942,
+          1.1976904112035207
+        ],
+        "rates": [
+          0.9989948361913928,
+          1.318455360175405
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9988663942715068,
+          1.2013921208751732
+        ],
+        "rates": [
+          1.00059489964633,
+          1.3058911805502955
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 77,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": 0.00026162520643430165,
+        "last_training_loss": 0.03321259311524,
+        "last_validation_loss": 0.06345850026461715,
+        "last_validation_minus_training": 0.030245907149377152,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 67,
+        "selected_epoch_training_loss": 0.03530977798658848,
+        "selected_epoch_validation_minus_training": 0.027709063271562306,
+        "selected_validation_loss": 0.06301884125815078,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 263.8387621671427,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0025765808854543125,
+            "mean_residual": [
+              -0.0019729546148077636,
+              -0.00033329298840135274,
+              -0.0037669057349174057,
+              0.0019450031950808463,
+              0.004499127573634213,
+              -0.006596771891214879,
+              0.0008769004792072506,
+              -0.00304835466220736,
+              -0.0005118043955273247,
+              0.0068606984378205066,
+              0.0007476419867721944,
+              -0.0009575272836461531,
+              -0.014472483844352917,
+              0.019982909526748405
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05081741103436153
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.003770652049882526,
+            "mean_residual": [
+              -0.0004677112096706583,
+              0.0025877499533860093,
+              -0.007855328634827465,
+              0.0028909818579684276,
+              0.01181267835540167,
+              -0.010191667140584355,
+              0.0035866013220485576,
+              0.002583692652616298,
+              0.008014332465059875,
+              0.02836361452933469,
+              -0.001075874404548344,
+              0.01791177743516092,
+              -0.02018429039368524,
+              0.004859044241410006
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05889333973498899
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0047901940890565774,
+            "mean_residual": [
+              0.001220349032159567,
+              0.0011875965142537788,
+              0.002557087797741282,
+              -0.002680777151771072,
+              0.0007473435508962736,
+              -0.0010393879632491277,
+              0.012562295669138624,
+              -0.008230371156253401,
+              0.015020959700570534,
+              0.009897447042075475,
+              -0.010008232399044794,
+              0.024198213779869075,
+              -0.0004748339519969197,
+              -0.015770557732849376
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06820834598070842
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    },
+    {
+      "architecture": "structured",
+      "checkpoint_path": "checkpoints/dk/structured/a2048_c1/seed_2.pt",
+      "checkpoint_sha256": "c3ad17fa148739d1f09d0311934a0a3da7a04cf0a4bd7a5a9ad8d454bc1d05f2",
+      "checkpoint_sha_verified_against_fit_lock": true,
+      "kind": "native-dk-bsde-structured-moments-v1",
+      "known_linear_euler_coefficient_diagnostic": {
+        "interpretation": "Unstopped linear heat backbone only. Stopped DK may need its full-state residual; that residual can also compensate backbone rates, so those rates are not identifiable coefficient estimates or an oracle for the stopped target.",
+        "reference": {
+          "asymptotic_variance_scales": [
+            1.0039089365556455,
+            1.0156668972513325
+          ],
+          "effective_decay_rates": [
+            1.0006928550575627,
+            4.011053891115345
+          ]
+        },
+        "selected_rate_difference": [
+          -0.0011593410932223547,
+          -2.745477590298256
+        ],
+        "selected_variance_scale_difference": [
+          -0.005488887070388859,
+          0.13781977130111778
+        ]
+      },
+      "metadata_sha256": "03a275023fcfdafa1cdff6b09345d51e2cedd288703172846255b368c5063b4d",
+      "optimizer_seed": 2,
+      "parameter_counts": {
+        "integrand": 39872,
+        "total": 51218,
+        "value": 11346
+      },
+      "problem": "dk",
+      "structured_final_parameters": {
+        "asymptotic_variance_scales": [
+          0.9963513073647372,
+          1.1524577492961756
+        ],
+        "rates": [
+          0.9977481094051394,
+          1.2760526875728186
+        ]
+      },
+      "structured_selected_parameters": {
+        "asymptotic_variance_scales": [
+          0.9984200494852566,
+          1.1534866685524503
+        ],
+        "rates": [
+          0.9995335139643403,
+          1.2655763008170884
+        ]
+      },
+      "train_anchors": 2048,
+      "train_continuations": 1,
+      "training": {
+        "epochs": 55,
+        "gap_interpretation": "Training loss averages changing optimizer iterates within each epoch; validation uses the final iterate. This gap alone does not measure conditional generalization.",
+        "last_ten_validation_loss_change": -0.00016221589486190013,
+        "last_training_loss": 0.037742595730938286,
+        "last_validation_loss": 0.06685248113121403,
+        "last_validation_minus_training": 0.029109885400275745,
+        "maximum_epochs": 100,
+        "patience_count": 10,
+        "patience_limit": 10,
+        "reached_epoch_cap": false,
+        "selected_epoch": 45,
+        "selected_epoch_training_loss": 0.040238048762948196,
+        "selected_epoch_validation_minus_training": 0.02568785913116888,
+        "selected_validation_loss": 0.06592590789411708,
+        "stopping_reason": "validation-patience",
+        "training_seconds": 196.15848662517965,
+        "validation_terminal_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0026513061572060884,
+            "mean_residual": [
+              -0.0022719460166889744,
+              -0.0007280393015910119,
+              0.004876178542976936,
+              0.002016271026796272,
+              0.003645965463442928,
+              0.005435860270063073,
+              0.003940619663144343,
+              -0.00979488209510546,
+              -0.0004010589050969383,
+              -0.004957482446307261,
+              0.007121731488771055,
+              0.007878127344220776,
+              0.010111905989215356,
+              -0.016169927371778577
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05405200199218285
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0038360645695751415,
+            "mean_residual": [
+              0.001153610986163416,
+              -0.00044129301818366,
+              0.004498349048787051,
+              -0.0011465663337911357,
+              0.001291382261497867,
+              -0.005775016933205933,
+              0.005571556234414965,
+              0.00021381968557998825,
+              0.003075556612615476,
+              0.024673794590517082,
+              0.001504438471035316,
+              0.019904025574502743,
+              -0.003969557325555393,
+              -0.003691564436965951
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.061078558724332876
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.004923739618505787,
+            "mean_residual": [
+              -0.0009722055888216169,
+              0.0003017962262421696,
+              0.013771915120393795,
+              0.0012016349004992926,
+              -0.006764700689950748,
+              -0.0005336157863695165,
+              0.007047849941821347,
+              -0.0061587315848526634,
+              0.005141315063551372,
+              -0.00419997368976232,
+              -0.008789029069608214,
+              0.0076714967571742424,
+              -5.4543386135909484e-05,
+              -0.008821380708749148
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07123605262054851
+          }
+        }
+      },
+      "training_fingerprint": "f2c4dfd060b66c2fcef948f3eac75f2466c633c335e6cc53cff05d116b5eae02",
+      "training_normalization_sha256": "761793ba15fedaae47d10fec456d211cda36e0ed37119279adcb722b2fb6268d",
+      "validation_fingerprint": "681e85fa09ea646960d1624cc72430b6c55555fa85090e72a1826bc6f7c08567"
+    }
+  ],
+  "incomplete_fits_remaining": 0,
+  "interpretation": "Learned backbone coefficients and loss histories distinguish potential optimization limitations from structural restrictions. They do not measure held-out accuracy or prove either explanation. Epoch-cap completion does not establish optimization convergence.",
+  "manifest_sha256": "6fdb78ec58875390e44fb731bfe888561bc4b54e5f2d3d71826cb42d4fe41714",
+  "preregistration_sha256": "596e8b1eaf3264dd05d6de82607c164130a58f6ba51652fbb2daaf6ed15dbb91",
+  "scope": "No held-out outcomes, test states, evaluation JSON, reference banks or forward trajectories are read. No fitting or model prediction occurs.",
+  "skipped_fits": [],
+  "snapshot_unix": 1792849172.491086,
+  "source_hash": "033b1f54597f4fd5adc9b90e82c39b29b73c9aa99857424928dfc3cfac89aa47",
+  "study_config_hash": "5891960f24e26323cd941fe9e7ef59207a5e7a193c93778b11d8b9f927f6eae9"
+}

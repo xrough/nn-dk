@@ -107,5 +107,42 @@ records its new test bank, common validation pool, exact allocations and limits.
 
 The numerical source hash used by the smoke and scientific launch is
 `033b1f54597f4fd5adc9b90e82c39b29b73c9aa99857424928dfc3cfac89aa47`.
-Scientific conclusions require the separately configured 36-model comparison;
-the smoke supplies no accuracy or convergence conclusion.
+The smoke supplies no accuracy or convergence conclusion. The separately
+configured scientific study has now completed and is recorded below.
+
+## Completed initial-state/structure study — 24 October 2026
+
+- All **36 scientific fits, 36 evaluations, 234 comparison rows and 75 paired
+  contrasts** completed in **150.3082 minutes** at the preregistered allocation.
+  Every fit used 2048 training paths; the 128×16, 512×4 and 2048×1 arms change
+  coverage and replication, not total trajectory count.
+- Prelaunch acceptance remains **226 passing tests** and Ruff. Separately,
+  **16 post-run analysis checks** pass: 11 artifact guards and five reference-noise
+  tests. Strict completed-run extraction validates
+  the exact design, source/configuration hashes, every checkpoint byte hash,
+  locked fits, individual/aggregate records and shared reference-bank families.
+  Recorded artifact ordering supports lock-before-test chronology without
+  providing cryptographic attestation.
+- Read-only pool audits confirmed 5120 training and 1024 validation families per
+  problem, balanced DK profiles, separate oracle proposals and no split leakage.
+  Numerical calibration passed. All 49,152 distinct DK reference continuation
+  families were retained; conditional children share fixed initial anchors.
+  None stopped, so boundary-sensitive predictive accuracy remains untested.
+- Coverage and structure substantially improved DK conditional errors. At 2048
+  anchors, structured same-step conditional mean RMSE is **4.47–4.75%** and
+  variance RMSE is **5.91–7.06%**. Saved-reference plug-in sampling contributions
+  are already roughly 3.95% and 5.12%, respectively. These observed discrepancies
+  cannot all be assigned to neural bias. Every primary pointwise gate remains
+  unresolved; reference precision and remaining timestep bias are separate.
+- Structured OU improves variance but worsens mean error in all nine matched
+  fits. Its mode-2 learned rates remain below the exactly representable Euler
+  rate, and all nine fits hit the epoch cap. The completed training-only probe
+  documents this estimation/optimization issue without establishing its cause.
+
+The [completed experiment note](experiments/bsde_anchor_study_2026-10-24.md)
+links a compact hashed archive with every optimizer seed, paired interval and
+gate, together with calibration, configuration, training/data diagnostics,
+tables, figure and recorded costs. The next proposed checks are a prespecified
+larger independent conditional reference bank using frozen fits and a separate
+OU optimization control. No continuum convergence or matched-accuracy speedup
+has been established.

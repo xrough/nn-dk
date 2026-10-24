@@ -1,0 +1,200 @@
+{
+  "audit_scope": "HDF5 metadata and identifier arrays only; no numerical states or held-out outcomes read",
+  "calibration": {
+    "brownian_expected_mse": 0.015625,
+    "brownian_measured_mse": 0.015831111121530687,
+    "brownian_pathwise_identity_max_abs_error": 1.2746748101477579e-14,
+    "native_profiles": {
+      "nonuniform": {
+        "all_stopped_paths_included": true,
+        "maximum_mass_error": 5.10702591327572e-15,
+        "minimum_saved_mass": 0.016129688673736108,
+        "n_independent_families": 32,
+        "passed": true,
+        "reference_bias": {
+          "empirical_difference_within_budget": true,
+          "empirical_finest_refinement_ci95_max_endpoint": 0.001619030297820655,
+          "normalized_bound": null,
+          "reason": "A finite coupled refinement contrast does not bound remaining stopped-SDE bias; no order is assumed",
+          "status": "uncertified"
+        },
+        "reference_steps": [
+          0.0001220703125,
+          6.103515625e-05,
+          3.0517578125e-05
+        ]
+      },
+      "uniform": {
+        "all_stopped_paths_included": true,
+        "maximum_mass_error": 5.329070518200751e-15,
+        "minimum_saved_mass": 0.018591549027434328,
+        "n_independent_families": 32,
+        "passed": true,
+        "reference_bias": {
+          "empirical_difference_within_budget": true,
+          "empirical_finest_refinement_ci95_max_endpoint": 0.0017019335262353516,
+          "normalized_bound": null,
+          "reason": "A finite coupled refinement contrast does not bound remaining stopped-SDE bias; no order is assumed",
+          "status": "uncertified"
+        },
+        "reference_steps": [
+          0.0001220703125,
+          6.103515625e-05,
+          3.0517578125e-05
+        ]
+      }
+    },
+    "ou_passed": true,
+    "passed": true,
+    "status": "numerical_calibration_complete_reference_bias_uncertified"
+  },
+  "kind": "read-only-metadata-audit-v1",
+  "ou_dk_family_overlap": 0,
+  "passed": true,
+  "pools": {
+    "dk": {
+      "pool_id": "cac2e9ad14e8a2a4d0135add83e18ce8b73bada33c6a2ff3f2c5f7b1fe55b615",
+      "splits": {
+        "train": {
+          "child_count_histogram": {
+            "1": 1536,
+            "4": 384,
+            "16": 128
+          },
+          "family_id_set_sha256": "c9595cf32661b89a99e5a519bc071fc241f77c1a900e7fe390ba2f566e1630b1",
+          "independent_anchors": 2048,
+          "paths_per_profile": {
+            "nonuniform": 2560,
+            "uniform": 2560
+          },
+          "unique_family_ids": 5120
+        },
+        "validation": {
+          "child_count_histogram": {
+            "4": 256
+          },
+          "family_id_set_sha256": "b8ffcc5f6dc594cdbe4c314f325097a28f3fc705a1c60b30e8edc5bc14b8bd37",
+          "independent_anchors": 256,
+          "paths_per_profile": {
+            "nonuniform": 512,
+            "uniform": 512
+          },
+          "unique_family_ids": 1024
+        }
+      },
+      "train_validation_anchor_overlap": 0,
+      "train_validation_family_overlap": 0,
+      "training_union_paths": 5120,
+      "training_views": [
+        {
+          "anchors": 128,
+          "anchors_per_profile": {
+            "nonuniform": 64,
+            "uniform": 64
+          },
+          "children": 16,
+          "paths": 2048,
+          "paths_per_profile": {
+            "nonuniform": 1024,
+            "uniform": 1024
+          }
+        },
+        {
+          "anchors": 512,
+          "anchors_per_profile": {
+            "nonuniform": 256,
+            "uniform": 256
+          },
+          "children": 4,
+          "paths": 2048,
+          "paths_per_profile": {
+            "nonuniform": 1024,
+            "uniform": 1024
+          }
+        },
+        {
+          "anchors": 2048,
+          "anchors_per_profile": {
+            "nonuniform": 1024,
+            "uniform": 1024
+          },
+          "children": 1,
+          "paths": 2048,
+          "paths_per_profile": {
+            "nonuniform": 1024,
+            "uniform": 1024
+          }
+        }
+      ]
+    },
+    "ou": {
+      "pool_id": "971959f2f3a6ebe4591923225b5ca1b14d447e09dd2b7ec141f4b499627556d1",
+      "splits": {
+        "train": {
+          "child_count_histogram": {
+            "1": 1536,
+            "4": 384,
+            "16": 128
+          },
+          "family_id_set_sha256": "0ecbcc8e02d068f13a897d2d7ae64cf5c092ee9ba4e92a6dea990b1a3239ee5c",
+          "independent_anchors": 2048,
+          "paths_per_profile": {
+            "ou": 5120
+          },
+          "unique_family_ids": 5120
+        },
+        "validation": {
+          "child_count_histogram": {
+            "4": 256
+          },
+          "family_id_set_sha256": "6bd34756bfe6412d1ba1b742e8fa53b63828d83760290fd7aa289ea13ba9b575",
+          "independent_anchors": 256,
+          "paths_per_profile": {
+            "ou": 1024
+          },
+          "unique_family_ids": 1024
+        }
+      },
+      "train_validation_anchor_overlap": 0,
+      "train_validation_family_overlap": 0,
+      "training_union_paths": 5120,
+      "training_views": [
+        {
+          "anchors": 128,
+          "anchors_per_profile": {
+            "ou": 128
+          },
+          "children": 16,
+          "paths": 2048,
+          "paths_per_profile": {
+            "ou": 2048
+          }
+        },
+        {
+          "anchors": 512,
+          "anchors_per_profile": {
+            "ou": 512
+          },
+          "children": 4,
+          "paths": 2048,
+          "paths_per_profile": {
+            "ou": 2048
+          }
+        },
+        {
+          "anchors": 2048,
+          "anchors_per_profile": {
+            "ou": 2048
+          },
+          "children": 1,
+          "paths": 2048,
+          "paths_per_profile": {
+            "ou": 2048
+          }
+        }
+      ]
+    }
+  },
+  "source_hash": "033b1f54597f4fd5adc9b90e82c39b29b73c9aa99857424928dfc3cfac89aa47",
+  "study_config_hash": "5891960f24e26323cd941fe9e7ef59207a5e7a193c93778b11d8b9f927f6eae9"
+}

@@ -1,0 +1,97 @@
+{
+  "comparison": "initial-state coverage versus continuations at a fixed path budget; value architecture factorial",
+  "config": {
+    "allocations": [
+      [
+        128,
+        16
+      ],
+      [
+        512,
+        4
+      ],
+      [
+        2048,
+        1
+      ]
+    ],
+    "architectures": [
+      "mlp",
+      "structured"
+    ],
+    "base": {
+      "bootstrap_samples": 200,
+      "budget_seconds": 28800.0,
+      "cases": [
+        "uniform",
+        "nonuniform"
+      ],
+      "conditional_anchors": 32,
+      "conditional_paths": 512,
+      "diffusion": 1.0,
+      "dt": 0.0078125,
+      "horizon": 1.0,
+      "n_cells": 32,
+      "n_particles": 2048,
+      "name": "bsde-anchor-study-base",
+      "optimizer_seeds": [
+        0,
+        1,
+        2
+      ],
+      "ou_test_anchors": 1024,
+      "outer_paths": 8192,
+      "query_times": [
+        0.25,
+        0.5,
+        1.0
+      ],
+      "reference_batch_size": 64,
+      "reference_dt": 0.0001220703125,
+      "refinement_paths": 32,
+      "rho_stop": 0.0015915494309189536,
+      "seed": 20261025,
+      "tolerance": 0.05,
+      "train_anchors": 128,
+      "train_continuations": 16,
+      "training": {
+        "batch_size": 32,
+        "epochs": 100,
+        "gradient_clip": 100.0,
+        "learning_rate": 0.001,
+        "patience": 10,
+        "threads": 1,
+        "weight_decay": 1e-05
+      },
+      "uncertainty_budget": 0.0125,
+      "validation_anchors": 256,
+      "validation_continuations": 4,
+      "width": 64
+    },
+    "name": "bsde-anchor-study",
+    "validation": [
+      256,
+      4
+    ]
+  },
+  "contrasts": "Structured-minus-MLP at each allocation; largest-minus-smallest anchor allocation per architecture; seeds separate",
+  "independent_test": true,
+  "integrand_control": "Same architecture and initial parameter draws for matched optimizer seeds",
+  "model_selection": "validation early stopping only; every fit is locked before final test evaluation",
+  "previous_observed_test_seed": 20261024,
+  "primary_metrics": "Same-step conditional means and variances; ensemble and fine-reference errors separate",
+  "source_hash": "033b1f54597f4fd5adc9b90e82c39b29b73c9aa99857424928dfc3cfac89aa47",
+  "structured_residual_scale": 0.1,
+  "study_config_hash": "5891960f24e26323cd941fe9e7ef59207a5e7a193c93778b11d8b9f927f6eae9",
+  "test_bank_ids": {
+    "dk": "d7541580ab9d59acf4ecab640838c0dc1779056d93ba24aa38ca4dd4a09983fe",
+    "ou": "ec60db79f11010f0304a26cd8dfaabfdeaf6cc1645eb09c6131357b157810cfb"
+  },
+  "test_seed": 20261025,
+  "training_path_budget": 2048,
+  "validation": [
+    256,
+    4
+  ],
+  "workflow": "conditional-bsde-anchor-study-v1"
+}

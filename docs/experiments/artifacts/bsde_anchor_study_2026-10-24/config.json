@@ -1,0 +1,74 @@
+{
+  "allocations": [
+    [
+      128,
+      16
+    ],
+    [
+      512,
+      4
+    ],
+    [
+      2048,
+      1
+    ]
+  ],
+  "architectures": [
+    "mlp",
+    "structured"
+  ],
+  "base": {
+    "bootstrap_samples": 200,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform",
+      "nonuniform"
+    ],
+    "conditional_anchors": 32,
+    "conditional_paths": 512,
+    "diffusion": 1.0,
+    "dt": 0.0078125,
+    "horizon": 1.0,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "bsde-anchor-study-base",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "ou_test_anchors": 1024,
+    "outer_paths": 8192,
+    "query_times": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "reference_batch_size": 64,
+    "reference_dt": 0.0001220703125,
+    "refinement_paths": 32,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 20261025,
+    "tolerance": 0.05,
+    "train_anchors": 128,
+    "train_continuations": 16,
+    "training": {
+      "batch_size": 32,
+      "epochs": 100,
+      "gradient_clip": 100.0,
+      "learning_rate": 0.001,
+      "patience": 10,
+      "threads": 1,
+      "weight_decay": 1e-05
+    },
+    "uncertainty_budget": 0.0125,
+    "validation_anchors": 256,
+    "validation_continuations": 4,
+    "width": 64
+  },
+  "name": "bsde-anchor-study",
+  "validation": [
+    256,
+    4
+  ]
+}
