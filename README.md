@@ -10,6 +10,8 @@ The **conditional Deep BSDE workflow** learns observable means and same-time cov
 
 The [first scientific BSDE batch](docs/experiments/bsde_first_batch_2026-10-24.md) completed with substantial conditional prediction errors. Its findings distinguish conditional accuracy, ensemble averages, variance errors, and execution cost.
 
+The [initial-state and structure study](docs/BSDE_ANCHOR_STUDY.md) compares 128, 512 and 2048 independent training initial states at a fixed trajectory budget, using both the MLP and a structured value head on a fresh common test bank.
+
 ## Install and run
 
 Python **3.12** is required. The exact environment is recorded in `uv.lock`.

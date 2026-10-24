@@ -83,3 +83,29 @@ The configured `bsde-first-batch` run completed in **3161.6944 seconds (52.6949 
 - The numerical package is unchanged from the implementation tested by **161 passing tests**. Separately, **nine artifact-analysis tests** and Ruff pass. Strict completed-run extraction validates source/configuration hashes, every checkpoint byte hash, declared allocations, and signed neural/time error decomposition.
 
 The [scientific experiment note](experiments/bsde_first_batch_2026-10-24.md) documents all seeds, uncertainty, stopping, cost variability, and follow-up priorities. Compact archived summaries, figures, OU and DK diagnostics, reference-bank audits and file hashes accompany it. Larger initial-anchor learning curves, a structural OU control, forward-step refinement, interacting DK, joint temporal statistics and a pathwise SPDE representation remain follow-up work.
+
+## Controlled initial-state/structure study implementation — 24 October 2026
+
+The `nn-dk bsde-study` workflow crosses independent initial-state coverage with
+value-network structure at a fixed training-path budget. The [study guide](BSDE_ANCHOR_STUDY.md)
+records its new test bank, common validation pool, exact allocations and limits.
+
+- Full suite: **226 tests pass** in 29.45 seconds; Ruff passes.
+- Structured OU values use four learned positive parameters. Structured DK adds
+  full-state mean and Cholesky corrections, retaining state-dependent covariance
+  and exact initial stopping. Tests check class containment, finite zero-time
+  gradients, covariance positivity and unchanged initial integrand weights.
+- Nested pool tests cover 128×16, 512×4 and 2048×1 views, shared families and
+  normalization, one-continuation anchors, isolated RNG namespaces, atomic
+  generation resumption and training/validation separation.
+- Workflow tests require every fit to complete before the test bank is unlocked,
+  reject changed checkpoints/design/source, and preserve completed checkpoint
+  bytes on replay. Paired comparisons resample complete trajectory families.
+- Saved CLI smoke: **12 checkpoints and 12 model evaluations** completed in
+  **3.9397 seconds**, including reports, paired contrasts and an exported manifest
+  with the final completion state. Its short horizon and two epochs test software.
+
+The numerical source hash used by the smoke and scientific launch is
+`033b1f54597f4fd5adc9b90e82c39b29b73c9aa99857424928dfc3cfac89aa47`.
+Scientific conclusions require the separately configured 36-model comparison;
+the smoke supplies no accuracy or convergence conclusion.

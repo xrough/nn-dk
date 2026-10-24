@@ -16,21 +16,26 @@ from .experiments import BudgetExhausted, calibrate, evaluate_run, fit, report
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Neural Dean–Kawasaki coarse dynamics benchmark")
-    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde"))
+    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study"))
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--config", type=Path)
     source.add_argument("--preset", choices=("smoke", "pilot", "n2048", "resolution64", "long-horizon",
                                            "a-smoke", "a-first-batch", "a-full", "a-final",
-                                           "bsde-smoke", "bsde-first-batch", "bsde-refinement"), default=None)
+                                           "bsde-smoke", "bsde-first-batch", "bsde-refinement",
+                                           "bsde-study-smoke", "bsde-anchor-study"), default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--budget-seconds", type=float, help="Per-invocation wall budget; checkpoints preserve progress")
     parser.add_argument("--stage", choices=("all", "calibrate", "generate", "fit", "evaluate", "report"),
-                        default="all", help="Independent stage of the bsde workflow")
+                        default="all", help="Independent stage of a BSDE workflow")
     args = parser.parse_args(argv)
+    if args.command == "bsde-study":
+        return _bsde_study_main(args, parser)
+    if args.preset in ("bsde-study-smoke", "bsde-anchor-study"):
+        parser.error("Study presets require the bsde-study command")
     if args.command == "bsde":
         return _bsde_main(args, parser)
     if args.stage != "all":
-        parser.error("--stage is supported by the bsde command")
+        parser.error("--stage is supported by the bsde command and bsde-study command")
     if args.preset and args.preset.startswith("bsde-"):
         parser.error("BSDE presets require the bsde command")
     if args.command == "convergence":
@@ -137,6 +142,34 @@ def _bsde_main(args, parser):
     print(f"[{config.name}] conditional BSDE statistics ({args.stage}): {directory}", flush=True)
     try:
         result = run_bsde(directory, config, time.monotonic() + budget, stage=args.stage)
+        print(json.dumps(json_ready(result)), flush=True)
+        return 0
+    except BudgetExhausted as error:
+        print(str(error), file=sys.stderr)
+        return 75
+
+
+def _bsde_study_main(args, parser):
+    from .bsde_study import run_bsde_study
+    from .bsde_study_config import BSDEStudyConfig, bsde_study_preset
+
+    if args.config:
+        config = BSDEStudyConfig.load(args.config)
+    elif args.preset:
+        if args.preset not in ("bsde-study-smoke", "bsde-anchor-study"):
+            parser.error("The bsde-study command requires a study preset")
+        config = bsde_study_preset(args.preset)
+    elif args.output and (args.output / "config.json").exists():
+        config = BSDEStudyConfig.load(args.output / "config.json")
+    else:
+        config = bsde_study_preset("bsde-study-smoke")
+    budget = config.base_config.budget_seconds if args.budget_seconds is None else args.budget_seconds
+    if not 0 < budget < float("inf"):
+        parser.error("Budget must be finite and positive")
+    directory = (args.output or Path("runs") / config.name / config.config_hash[:12]).resolve()
+    print(f"[{config.name}] coverage/structure study ({args.stage}): {directory}", flush=True)
+    try:
+        result = run_bsde_study(directory, config, time.monotonic()+budget, stage=args.stage)
         print(json.dumps(json_ready(result)), flush=True)
         return 0
     except BudgetExhausted as error:

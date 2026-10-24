@@ -1,0 +1,42 @@
+name = "bsde-anchor-study"
+allocations = [[128, 16], [512, 4], [2048, 1]]
+architectures = ["mlp", "structured"]
+validation = [256, 4]
+
+[base]
+name = "bsde-anchor-study-base"
+seed = 20261025
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 1.0
+query_times = [0.25, 0.5, 1.0]
+dt = 0.0078125
+reference_dt = 0.0001220703125
+cases = ["uniform", "nonuniform"]
+optimizer_seeds = [0, 1, 2]
+width = 64
+train_anchors = 128
+train_continuations = 16
+validation_anchors = 256
+validation_continuations = 4
+ou_test_anchors = 1024
+conditional_anchors = 32
+conditional_paths = 512
+outer_paths = 8192
+refinement_paths = 32
+reference_batch_size = 64
+bootstrap_samples = 200
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 28800.0
+
+[base.training]
+epochs = 100
+patience = 10
+batch_size = 32
+learning_rate = 0.001
+weight_decay = 1e-05
+threads = 1
+gradient_clip = 100.0

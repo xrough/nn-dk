@@ -98,7 +98,8 @@ def _load(path):
     return torch.load(path, map_location="cpu", weights_only=False)
 
 
-def fit_bsde(training, validation, config, problem, seed, output_path, deadline=None):
+def fit_bsde(training, validation, config, problem, seed, output_path, deadline=None,
+             *, model_factory=None):
     """Train independent value/integrand nets, saving complete epochs atomically.
 
     The source, numerical configuration, data, and optimizer seed are immutable
@@ -114,7 +115,7 @@ def fit_bsde(training, validation, config, problem, seed, output_path, deadline=
     settings = dict(config.training)
     torch.set_num_threads(settings.get("threads", 1))
     torch.manual_seed(seed)
-    model = BSDEMomentModel(config, problem)
+    model = (BSDEMomentModel if model_factory is None else model_factory)(config, problem)
     train, valid = _prepare(training, config, problem), _prepare(validation, config, problem)
     model.fit_normalization(train["states"][:, 0], train["anchor_ids"])
     optimizer = torch.optim.AdamW(model.parameters(), lr=settings["learning_rate"],
@@ -215,9 +216,15 @@ def fit_bsde(training, validation, config, problem, seed, output_path, deadline=
 
 def load_bsde_model(path):
     from .bsde_config import BSDEConfig
+    from .bsde_structured import (
+        STRUCTURED_DK_BSDE_MODEL_KIND,
+        STRUCTURED_OU_BSDE_MODEL_KIND,
+        StructuredBSDEMomentModel,
+    )
 
     saved = _load(Path(path))
-    if saved.get("kind") not in (DK_BSDE_MODEL_KIND, OU_BSDE_MODEL_KIND):
+    structured_kinds = (STRUCTURED_DK_BSDE_MODEL_KIND, STRUCTURED_OU_BSDE_MODEL_KIND)
+    if saved.get("kind") not in (DK_BSDE_MODEL_KIND, OU_BSDE_MODEL_KIND, *structured_kinds):
         raise ValueError("Expected a conditional BSDE moment checkpoint")
     if not saved.get("complete", False):
         raise ValueError("Cannot evaluate an incomplete BSDE checkpoint")
@@ -230,7 +237,8 @@ def load_bsde_model(path):
     config = BSDEConfig(**provenance["config"])
     if config.config_hash != provenance["config_hash"]:
         raise ValueError("BSDE checkpoint configuration hash mismatch")
-    model = BSDEMomentModel(config, provenance["problem"])
+    factory = StructuredBSDEMomentModel if saved["kind"] in structured_kinds else BSDEMomentModel
+    model = factory(config, provenance["problem"])
     if model.kind != saved["kind"] or model.target_id != provenance["target_id"]:
         raise ValueError("BSDE checkpoint target identity mismatch")
     model.load_state_dict(saved["best_state"])
