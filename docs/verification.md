@@ -4,6 +4,7 @@
 uv sync --locked --group dev
 uv run ruff check .
 uv run pytest
+uv run nn-dk convergence --preset a-smoke --output runs/a-smoke
 uv run nn-dk run --config configs/smoke.toml --output runs/smoke
 ```
 
@@ -25,3 +26,16 @@ Tests should be run before a new source hash is frozen. Use a new run directory 
 - Standalone wheel and source archive built successfully. Report generation and immutable-record replay are covered by the integration test.
 
 The generated smoke artifacts are under the ignored `runs/smoke/` directory in this checkout. The larger eight-hour pilot is configured but has not been executed. These checks establish executable software and honest diagnostics, not a neural accuracy or speedup result.
+
+## Native Project A implementation — 24 October 2026
+
+The separate native workflow adds stopped finite-volume DK states, autonomous double-precision coefficient networks, oracle and uncensored-proposal objectives, and an A-only experiment runner. Legacy target and checkpoint formats remain separate.
+
+- Full suite: **105 tests pass**, including the legacy tests. Ruff passes.
+- A-only smoke: all three cases, 12 coefficient checkpoints, and 117 complete comparison records. It exercises both objectives, coefficient ablations, nested data and width studies, fixed-checkpoint timestep refinement, and reports. No Project B fit is invoked.
+- Maximum observed mass-conservation error: **6.7e-16**. Stopping frequencies range from zero to one of 32 paths; every frozen path remains in every statistic.
+- A0's independent matrix and spectral moment calculations agree. Coupled native reference refinements preserve initial samples and Brownian sums. Finite reference differences remain explicitly uncertified.
+- Tests cover first-boundary interpolation, full native observations, raw crossing proposals, autonomous/equivariant inputs, covariance geometry without a floor, disjoint trajectory families, exact generation/training resume, incomplete-report rejection, and checkpoint round trips. Separate particle-audit tests exercise distinct target laws and retained stopping contributions.
+- Offline wheel and source-distribution builds succeed and include all native modules.
+
+Smoke results are under `runs/a-smoke/`. Scientific defaults remain G=32, N=2048, T=1, 8192 diagnostic paths, three optimizer seeds, and an eight-hour resumable invocation budget. The full scientific allocation has **not** been executed. The small smoke study establishes software acceptance, not a convergence rate, 5% accuracy certification, or neural speed advantage.

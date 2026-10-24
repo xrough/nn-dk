@@ -1,8 +1,10 @@
 # NN-DK
 
-Conservative neural coarse dynamics for interacting Brownian particles, with a direct-statistics neural comparator and classical fluctuation baselines.
+Conservative neural stochastic solvers for Dean–Kawasaki dynamics and coarse interacting-particle systems.
 
-The primary target is the law of **smooth observations of finite particle systems** on the one-dimensional torus. Project A samples coarse paths at a fixed learned lag; Project B predicts a fixed bank of means and joint covariances. This release is a research benchmark, with no assumed neural accuracy or speed advantage.
+The **Project A convergence workflow** learns autonomous drift and noise coefficients for a stopped, spatially discrete DK system. It separates coefficient approximation, time discretization, reference bias, and Monte Carlo uncertainty at a fixed grid. A convergence rate or neural speed advantage is an experimental result, not an assumption.
+
+The original particle-observation benchmark remains available: its Project A samples smooth coarse observations at a fixed learned lag, while Project B predicts means and joint covariances. Native DK coefficient checkpoints and particle-observation checkpoints have distinct target/model identifiers.
 
 ## Install and run
 
@@ -11,6 +13,21 @@ Python **3.12** is required. The exact environment is recorded in `uv.lock`.
 ```bash
 uv sync --locked --group dev
 uv run pytest
+uv run nn-dk convergence --preset a-smoke --output runs/a-smoke
+```
+
+The A-only smoke workflow exercises numerical calibration, both coefficient-training objectives, ablations, learning/capacity axes, temporal refinement, and reporting. Its small ensembles and three training epochs validate execution; they cannot certify 5% fluctuation accuracy. The scientific configuration starts with:
+
+```bash
+uv run nn-dk convergence --preset a-first-batch --output runs/a-first-batch
+uv run nn-dk convergence --config configs/a_first_batch.toml --output runs/a-first-batch
+```
+
+These two commands select the same configuration. Rerun the identical command to resume the same run. `a-first-batch` allocates an eight-hour invocation budget to numerical calibration and the uniform, noninteracting oracle-supervised case. `a-full` adds the three cases, nested data and width studies, increment supervision, and particle-number follow-ups; `a-final` increases diagnostic ensembles to 65,536 paths. Use a fresh output directory when changing configuration or source. See [the Project A convergence guide](docs/PROJECT_A_CONVERGENCE.md) for the mathematical target, experiment ladder, and interpretation of unresolved results.
+
+Run the original combined A/B benchmark with:
+
+```bash
 uv run nn-dk run --config configs/smoke.toml --output runs/smoke
 ```
 
@@ -32,7 +49,7 @@ Or run all stages with `uv run nn-dk run --config configs/pilot.toml --output ru
 
 Each invocation has an eight-hour default budget. `--budget-seconds 600` sets a shorter invocation budget. Expiration is checked between atomic trajectory, epoch, or evaluation units, so a running unit can overrun the boundary. Exit code **75** means work was checkpointed; rerun the identical command to continue. Configuration and source hashes prevent mixing results from different implementations. Use a new output directory after changing source code. Evaluation records already written are reused without resimulation.
 
-## Model and shared target
+## Legacy particle benchmark: model and target
 
 The reference system is
 
@@ -47,7 +64,7 @@ The learned state is the vector of periodic cubic B-spline masses, centered at (
 
 The shared observable vector contains normalized sine/cosine modes 1 and 2 at three positive times. Covariances are reported after multiplication by (N). Both neural methods receive the initial-profile descriptor and known physics. Project A additionally receives its present coarse state and elapsed time.
 
-## Methods
+## Legacy particle benchmark: methods
 
 | Method | Behavior |
 | --- | --- |
@@ -62,7 +79,7 @@ The shared observable vector contains normalized sine/cosine modes 1 and 2 at th
 
 Neural A uses a fixed lag (2^{-6}). Its likelihood is computed in (M-1) orthonormal tangent coordinates using double-precision Cholesky. A physically scaled covariance floor acts only on this subspace. Neural B uses disjoint independent replicate pairs for unbiased covariance labels, avoiding cancellation between two fitted order-one moments. Regression baselines use the same path pool and validation-only regularization selection.
 
-Gaussian transitions can produce negative masses. A raw mass below (-10^{-12}) invalidates a trajectory. Paths are stopped without clipping or renormalization. **One failed path makes the corresponding unconditional ensemble estimate unavailable.** Reports show failure rates and attempted minimum masses; surviving paths are never silently averaged.
+For this legacy particle benchmark, Gaussian transitions can produce negative masses. A raw mass below (-10^{-12}) invalidates a trajectory. Paths are stopped without clipping or renormalization. **One failed path makes the corresponding unconditional ensemble estimate unavailable.** Reports show failure rates and attempted minimum masses; surviving paths are never silently averaged. The new native convergence target instead declares boundary stopping as part of its law and includes every absorbed path in its estimates.
 
 ## Data, reproducibility, and cost
 
@@ -74,6 +91,9 @@ Cost records include data generation, training, initialization, complete-query l
 
 ## Configurations and boundaries
 
+- `a_smoke.toml`: short A-only integration check; all three cases, oracle/increment training, tiny learning/capacity curves.
+- `a_first_batch.toml`: fixed-grid scientific starting point; uniform case, oracle supervision, three optimizer seeds, eight-hour invocation budget.
+- `a_full.toml`: nested 64–4096-path learning curves, widths 16/32/64, three cases, and increment-supervision comparison. These allocations can require multiple resumed batches.
 - `smoke.toml`: 8 training, 2 validation, and 2 test contexts; eight replicas each; three training epochs; one optimizer seed.
 - `pilot.toml`: 64×16 training paths, 16×32 validation paths, 8×512 reference test paths; three optimizer seeds.
 - `n2048.toml`, `resolution64.toml`, `long-horizon.toml`: separately trained follow-ups. Transfer and extrapolation are not inferred from their names.

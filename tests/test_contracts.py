@@ -17,6 +17,11 @@ def test_config_roundtrip_and_presets(tmp_path):
         assert ExperimentConfig.load(path) == config
         assert ExperimentConfig.load(path).config_hash == config.config_hash
     for path in __import__("pathlib").Path("configs").glob("*.toml"):
+        if path.stem.startswith("a_"):
+            from nn_dk.convergence_config import ConvergenceConfig, convergence_preset
+
+            assert ConvergenceConfig.load(path) == convergence_preset(path.stem.replace("_", "-"))
+            continue
         assert ExperimentConfig.load(path) == preset(path.stem)
 
 
