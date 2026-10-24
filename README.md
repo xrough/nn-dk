@@ -8,6 +8,8 @@ The original particle-observation benchmark remains available: its Project A sam
 
 The **conditional Deep BSDE workflow** learns observable means and same-time covariances using known forward dynamics. Its value network supplies predictions without a future-path rollout; a separate martingale network is used during training. This is the first stage toward comparing learned SPDE paths with directly learned statistics. See [the implementation and noise conventions](docs/BSDE_STATISTICS.md).
 
+The [first scientific BSDE batch](docs/experiments/bsde_first_batch_2026-10-24.md) completed with substantial conditional prediction errors. Its findings distinguish conditional accuracy, ensemble averages, variance errors, and execution cost.
+
 ## Install and run
 
 Python **3.12** is required. The exact environment is recorded in `uv.lock`.

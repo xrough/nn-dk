@@ -1,0 +1,4263 @@
+{
+  "archive_reduction": {
+    "omitted": [
+      "Raw anchor-by-horizon signed-error arrays",
+      "Full pointwise contrast interval arrays",
+      "Full optimizer epoch histories"
+    ],
+    "preserved": "Every seed, scalar/global/per-time error metric, covariance/variance distinction, interval maxima, gates, signed-decomposition checks, costs, stopping and provenance. Full arrays and histories remain in the source run.",
+    "source_file": "runs/bsde-first-batch/report/findings_summary.json",
+    "source_sha256": "2c1e0e5dd520c4b932d4da6dba67cb163e21d67ab16f8d03a1c4307917dc836d"
+  },
+  "calibration": {
+    "brownian": {
+      "analytic_sampling_standard_error": 0.0002497971426963028,
+      "complete": true,
+      "empirical_mse_ci95_normal_approximation": [
+        0.01497793341837963,
+        0.015957138217749137
+      ],
+      "empirical_terminal_residual_mse": 0.015467535818064383,
+      "expected_terminal_residual_mse": 0.015625,
+      "horizon": 1.0,
+      "interpretation": "Quadratic-payoff first-order integral residual; nonzero terminal loss is expected",
+      "n_independent_paths": 8192,
+      "noise_convention": "The forward process and BSDE martingale use identical Brownian increments",
+      "passed": true,
+      "pathwise_discrete_identity_max_abs_error": 1.9290125052862095e-14,
+      "step_size": 0.0078125
+    },
+    "native_refinement": {
+      "nonuniform": {
+        "complete": true,
+        "maximum_mass_error": 4.884981308350689e-15,
+        "minimum_saved_mass": 0.016952584802067253,
+        "n_independent_families": 32,
+        "passed": true,
+        "reference_bias": {
+          "empirical_difference_within_budget": true,
+          "empirical_finest_refinement_ci95_max_endpoint": 0.001611567245602566,
+          "normalized_bound": null,
+          "reason": "A finite coupled refinement contrast does not bound remaining stopped-SDE bias; no order is assumed",
+          "status": "uncertified"
+        },
+        "reference_steps": [
+          0.0001220703125,
+          6.103515625e-05,
+          3.0517578125e-05
+        ],
+        "seconds": 78.33182233478874
+      },
+      "uniform": {
+        "complete": true,
+        "maximum_mass_error": 5.551115123125783e-15,
+        "minimum_saved_mass": 0.019565738874550324,
+        "n_independent_families": 32,
+        "passed": true,
+        "reference_bias": {
+          "empirical_difference_within_budget": true,
+          "empirical_finest_refinement_ci95_max_endpoint": 0.0015345248578996745,
+          "normalized_bound": null,
+          "reason": "A finite coupled refinement contrast does not bound remaining stopped-SDE bias; no order is assumed",
+          "status": "uncertified"
+        },
+        "reference_steps": [
+          0.0001220703125,
+          6.103515625e-05,
+          3.0517578125e-05
+        ],
+        "seconds": 85.85866104369052
+      }
+    },
+    "ou": {
+      "complete": true,
+      "interpretation": "Four-dimensional unstopped OU analytic calibration; not stopped nonlinear DK",
+      "mode_rates": [
+        0.9967913640449609,
+        0.9967913640449609,
+        3.9488593230666322,
+        3.9488593230666322
+      ],
+      "noise_amplitudes": [
+        1.411942891228226,
+        1.411942891228226,
+        2.8102880005674264,
+        2.8102880005674264
+      ],
+      "passed": true,
+      "rows": [
+        {
+          "continuous_matrix_closed_form_max_abs": 2.220446049250313e-16,
+          "euler_recursion_closed_form_max_abs": 1.1102230246251565e-15,
+          "euler_vs_continuous_covariance_max_abs": 0.017809419630358536,
+          "euler_vs_continuous_mean_max_abs": 0.009133140360960135,
+          "horizon": 0.25,
+          "passed": true
+        },
+        {
+          "continuous_matrix_closed_form_max_abs": 6.217248937900877e-15,
+          "euler_recursion_closed_form_max_abs": 1.7763568394002505e-15,
+          "euler_vs_continuous_covariance_max_abs": 0.016545485479307676,
+          "euler_vs_continuous_mean_max_abs": 0.006753749584515939,
+          "horizon": 0.5,
+          "passed": true
+        },
+        {
+          "continuous_matrix_closed_form_max_abs": 9.197087535994797e-13,
+          "euler_recursion_closed_form_max_abs": 3.1086244689504383e-15,
+          "euler_vs_continuous_covariance_max_abs": 0.015705219139347304,
+          "euler_vs_continuous_mean_max_abs": 0.0019610732461833313,
+          "horizon": 1.0,
+          "passed": true
+        }
+      ]
+    },
+    "passed": true,
+    "status": "numerical_calibration_complete_reference_bias_uncertified"
+  },
+  "comparison_count": 39,
+  "config": {
+    "bootstrap_samples": 200,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform",
+      "nonuniform"
+    ],
+    "conditional_anchors": 8,
+    "conditional_paths": 2048,
+    "diffusion": 1.0,
+    "dt": 0.0078125,
+    "horizon": 1.0,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "bsde-first-batch",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "ou_test_anchors": 256,
+    "outer_paths": 8192,
+    "query_times": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "reference_batch_size": 64,
+    "reference_dt": 0.0001220703125,
+    "refinement_paths": 32,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 20261024,
+    "tolerance": 0.05,
+    "train_anchors": 128,
+    "train_continuations": 16,
+    "training": {
+      "batch_size": 32,
+      "epochs": 100,
+      "gradient_clip": 100.0,
+      "learning_rate": 0.001,
+      "patience": 10,
+      "threads": 1,
+      "weight_decay": 1e-05
+    },
+    "uncertainty_budget": 0.0125,
+    "validation_anchors": 32,
+    "validation_continuations": 32,
+    "width": 64
+  },
+  "expected_model_count": 6,
+  "interpretation": {
+    "cost": "Shared generation/reference costs repeated across seeds must not be summed; paired reference audit is not standalone forecast timing",
+    "covariance_scope": "same-time 4x4; no joint temporal covariance",
+    "error_decomposition": "Signed total = neural + forward-time contrast; RMSEs are not additive",
+    "learning_or_temporal_convergence": "A fixed data/capacity/forward-step study does not establish a convergence rate",
+    "matched_accuracy_speedup": "Not assessed by this artifact summary",
+    "optimizer_seeds": "Separate fits, never pooled as Monte Carlo samples",
+    "reference_bias": "Finite DK refinements do not certify remaining continuous-time bias",
+    "sampling_intervals": "Pointwise trajectory-family bootstrap; conditional test anchors remain fixed",
+    "stopping": "Every frozen path retained; zero events have a positive probability upper bound"
+  },
+  "model_count": 6,
+  "models": [
+    {
+      "checkpoint_loading_seconds": 0.03762329206801951,
+      "checkpoint_sha256": "8df9f5a3c7efc76f7c8cf00a41d32925e7be85267ec59c0d4dd4a7f4eee965e2",
+      "cost": {
+        "conditional_batch_inference_seconds": 0.010981665924191475,
+        "initial_state_queries": 256,
+        "queries_per_second": 23311.5814820098,
+        "standalone": {
+          "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+          "repetitions": 3,
+          "rows": [
+            {
+              "distinct_initial_queries_per_second": 3228.4102991206933,
+              "initial_states": 1,
+              "median_seconds": 0.0003097499720752239,
+              "seconds": [
+                0.0003470419906079769,
+                0.0003097499720752239,
+                0.0002645000349730253
+              ]
+            },
+            {
+              "distinct_initial_queries_per_second": 101600.87162147177,
+              "initial_states": 64,
+              "median_seconds": 0.0006299158558249474,
+              "seconds": [
+                0.0006679999642074108,
+                0.0006299158558249474,
+                0.0006194999441504478
+              ]
+            }
+          ],
+          "warmup_calls_per_batch": 1
+        }
+      },
+      "decomposition": {
+        "components": {
+          "mean_normalized_signed": 2.0816681711721685e-17,
+          "scaled_covariance_normalized_signed": 0.0
+        },
+        "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+        "maximum_absolute_signed_identity_residual": 2.0816681711721685e-17
+      },
+      "evaluation_seconds_this_call": 0.06640779180452228,
+      "problem": "ou",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 0,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 80,
+            "epoch_seconds": 1.836529083782807,
+            "training_loss": 0.03563471046965822,
+            "validation_loss": 0.03800888674428506
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 90,
+            "epoch_seconds": 1.3489045000169426,
+            "training_loss": 0.0344934890684591,
+            "validation_loss": 0.03876764977455773
+          },
+          "n_completed_epochs": 90
+        },
+        "best_validation_loss": 0.03800888674428506,
+        "complete": true,
+        "epochs": 90,
+        "first_epoch_seconds": 2.012369125150144,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "22728c2040949b276d939735618fba56acec81af6ff83b9cb44794fce4a166d3",
+        "kind": "linear-ou-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/ou/seed_0.pt",
+        "problem": "ou",
+        "seed": 0,
+        "shared_forward_pool_generation_seconds": 1.585097708972171,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 153.23579308297485,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0002833326302380776,
+            "mean_residual": [
+              0.0004886779879098817,
+              0.001957294718075855,
+              0.00543510682486911,
+              -0.0032351689855064517,
+              -0.009266010557524266,
+              0.002560543164571304,
+              -0.01443618815665736,
+              -0.01746820910617191,
+              -0.0010460595136752892,
+              0.013342164693720267,
+              -0.00772810525950941,
+              0.009511028631014124,
+              -0.0017458159576598199,
+              0.017163413531181414
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03392102108257926
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004548029791114391,
+            "mean_residual": [
+              -0.0011241425134482612,
+              0.0036712078601123144,
+              0.009042182597512959,
+              -0.005430140522886102,
+              0.00035390629043646716,
+              -0.00042194388418580284,
+              -0.008291058070996228,
+              -0.008087619751204924,
+              0.0018715978438564721,
+              -0.018805704999790476,
+              -0.0027156687023849567,
+              0.00835319741993727,
+              -0.0036466593271128576,
+              0.016352248413792292
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03866146138770131
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006752374900579558,
+            "mean_residual": [
+              -0.0010130288581391342,
+              -0.0012220101110177446,
+              0.014296334088000833,
+              0.0029528024300456077,
+              0.008633898839622239,
+              0.00541648877787872,
+              -0.00018119891969918707,
+              -0.01407425339783008,
+              0.016172209930746417,
+              -0.0027194280974000788,
+              -0.006315832914993436,
+              -0.011797739794927226,
+              -0.0013221451066204677,
+              -0.005015359682262152
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04003080466316715
+          }
+        }
+      }
+    },
+    {
+      "checkpoint_loading_seconds": 0.03770745894871652,
+      "checkpoint_sha256": "d0685e5de17bf9dd916a3cb516aabf150fd2dfaf99075fea2127d5ed419641de",
+      "cost": {
+        "conditional_batch_inference_seconds": 0.005032458109781146,
+        "initial_state_queries": 256,
+        "queries_per_second": 50869.7726668475,
+        "standalone": {
+          "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+          "repetitions": 3,
+          "rows": [
+            {
+              "distinct_initial_queries_per_second": 3241.922717106688,
+              "initial_states": 1,
+              "median_seconds": 0.0003084589261561632,
+              "seconds": [
+                0.0003493749536573887,
+                0.0003084589261561632,
+                0.00029383297078311443
+              ]
+            },
+            {
+              "distinct_initial_queries_per_second": 87481.53142984446,
+              "initial_states": 64,
+              "median_seconds": 0.0007315829861909151,
+              "seconds": [
+                0.0008273748680949211,
+                0.0007221668493002653,
+                0.0007315829861909151
+              ]
+            }
+          ],
+          "warmup_calls_per_batch": 1
+        }
+      },
+      "decomposition": {
+        "components": {
+          "mean_normalized_signed": 1.3877787807814457e-17,
+          "scaled_covariance_normalized_signed": 0.0
+        },
+        "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+        "maximum_absolute_signed_identity_residual": 1.3877787807814457e-17
+      },
+      "evaluation_seconds_this_call": 0.06742774997837842,
+      "problem": "ou",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 1,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 77,
+            "epoch_seconds": 1.4869336250703782,
+            "training_loss": 0.03527388665995604,
+            "validation_loss": 0.038259804956941625
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 87,
+            "epoch_seconds": 1.5998019999824464,
+            "training_loss": 0.03515821218805694,
+            "validation_loss": 0.03838142096884443
+          },
+          "n_completed_epochs": 87
+        },
+        "best_validation_loss": 0.038259804956941625,
+        "complete": true,
+        "epochs": 87,
+        "first_epoch_seconds": 1.4464213750325143,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "2c58ebe588ee77fe02e43f5b981fdc97483a9e5ba4a75d3d47f03eff248894b6",
+        "kind": "linear-ou-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/ou/seed_1.pt",
+        "problem": "ou",
+        "seed": 1,
+        "shared_forward_pool_generation_seconds": 1.585097708972171,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 191.4175847908482,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003023010051980344,
+            "mean_residual": [
+              8.744007775770163e-05,
+              0.00027986424595049446,
+              -0.00015520976266550476,
+              0.0009324207361582423,
+              -0.0009938805051595782,
+              0.007197754852899022,
+              0.0029443857947848706,
+              -0.014289749494096565,
+              0.0026115157246329648,
+              -0.003863523963458621,
+              0.007986810985271075,
+              0.0024774314291489494,
+              0.010642794884849491,
+              -0.004322746046137516
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03428304173175585
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000360903988766475,
+            "mean_residual": [
+              -0.003479816888587276,
+              0.003109458880460887,
+              -0.001778382444022218,
+              0.001997949214005167,
+              9.367280120882015e-05,
+              0.00464534494109985,
+              0.004229369537439376,
+              -0.006975293420839896,
+              0.0031620680611308682,
+              -0.03521196526287124,
+              0.004458949523964732,
+              0.0045851932853610364,
+              0.006107809627271494,
+              0.006428994566212733
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03852486519563619
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000632190340423116,
+            "mean_residual": [
+              -0.007091993737174458,
+              0.010705630629080403,
+              0.007225081378985139,
+              0.0070209732530212635,
+              0.0012974167836057112,
+              0.0029641692105314963,
+              -0.0029558847200673393,
+              -0.020081741945542398,
+              0.005165866241941397,
+              -0.007050520047565749,
+              0.0013406566661810393,
+              -0.0060455402586623,
+              -0.0041240637670582475,
+              0.00042676923889446543
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04067611260904521
+          }
+        }
+      }
+    },
+    {
+      "checkpoint_loading_seconds": 0.023990459041669965,
+      "checkpoint_sha256": "2998084073bda11d887185c2d52d1a0ccf4d77926fb96b5f5054e1cf4d50e4c5",
+      "cost": {
+        "conditional_batch_inference_seconds": 0.007884083082899451,
+        "initial_state_queries": 256,
+        "queries_per_second": 32470.484812021212,
+        "standalone": {
+          "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+          "repetitions": 3,
+          "rows": [
+            {
+              "distinct_initial_queries_per_second": 2931.478169706236,
+              "initial_states": 1,
+              "median_seconds": 0.00034112483263015747,
+              "seconds": [
+                0.00034112483263015747,
+                0.0002833751495927572,
+                0.0004967090208083391
+              ]
+            },
+            {
+              "distinct_initial_queries_per_second": 96591.68301044496,
+              "initial_states": 64,
+              "median_seconds": 0.0006625829264521599,
+              "seconds": [
+                0.0006929999217391014,
+                0.0006625829264521599,
+                0.0006571670528501272
+              ]
+            }
+          ],
+          "warmup_calls_per_batch": 1
+        }
+      },
+      "decomposition": {
+        "components": {
+          "mean_normalized_signed": 1.3877787807814457e-17,
+          "scaled_covariance_normalized_signed": 0.0
+        },
+        "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+        "maximum_absolute_signed_identity_residual": 1.3877787807814457e-17
+      },
+      "evaluation_seconds_this_call": 0.06839308305643499,
+      "problem": "ou",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 2,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 78,
+            "epoch_seconds": 2.0516723750624806,
+            "training_loss": 0.035278870485268225,
+            "validation_loss": 0.03794114218023388
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 88,
+            "epoch_seconds": 1.9971235000994056,
+            "training_loss": 0.03545842602106438,
+            "validation_loss": 0.0393749682410627
+          },
+          "n_completed_epochs": 88
+        },
+        "best_validation_loss": 0.03794114218023388,
+        "complete": true,
+        "epochs": 88,
+        "first_epoch_seconds": 2.0606052500661463,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "267547df5f2616318b5275e849a8f554f82112baff7f38977356a1e977010568",
+        "kind": "linear-ou-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/ou/seed_2.pt",
+        "problem": "ou",
+        "seed": 2,
+        "shared_forward_pool_generation_seconds": 1.585097708972171,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 174.29137999983504,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00026779852180041134,
+            "mean_residual": [
+              -0.0012149994892218115,
+              -0.0004066134845798257,
+              0.0024496311643878946,
+              -0.000520183367191625,
+              -0.0033074934530728088,
+              0.0008126608491157976,
+              -0.006523348834846637,
+              -0.021658951404591474,
+              -0.00837361244063272,
+              0.028389875435519372,
+              -0.006933841201217195,
+              -0.00016337646551639975,
+              0.005544273092078415,
+              -0.0033364644994755247
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03413417546105485
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003602446692349189,
+            "mean_residual": [
+              -0.0011663535389254392,
+              -0.0009551687519567851,
+              -0.0018515168616789089,
+              -0.005298248842819287,
+              0.0003883376910700305,
+              -0.009342846511424512,
+              -0.005407139156710554,
+              -0.010137945821419178,
+              -0.0033262379452499023,
+              -0.012369145976045205,
+              -0.0042061550003514026,
+              -1.9121259450728244e-05,
+              -0.004709257607501881,
+              0.00011968885655726626
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03815093804348183
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00047869341827259704,
+            "mean_residual": [
+              0.0021402729574758394,
+              -0.0022090287391701964,
+              0.00044292801406215464,
+              -0.008060242205645766,
+              0.010588978561492969,
+              -0.013344935663476727,
+              -0.0046689059062337635,
+              -0.005234742332503684,
+              0.022362220287583084,
+              0.0014295082947506903,
+              0.0033075527285071444,
+              -0.011293051569231303,
+              -0.021021335924506265,
+              -0.005958244705162564
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04043157642685703
+          }
+        }
+      }
+    },
+    {
+      "cases": {
+        "nonuniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.009061862387599843
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 0.08021562499925494,
+            "conditional_reference": {
+              "initialization_seconds": 0.007241625105962157,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 432.7279719116632,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 63670.55908470211,
+            "ensemble_inference_seconds": 0.12866229098290205,
+            "ensemble_online_total_seconds": 6.891438249032944,
+            "initialization_seconds": 6.762775958050042,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 119.07308762334287,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 2740.9797759463313,
+                  "initial_states": 1,
+                  "median_seconds": 0.0003648330457508564,
+                  "seconds": [
+                    0.001741916872560978,
+                    0.0003648330457508564,
+                    0.0003181248903274536
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 67946.55074796651,
+                  "initial_states": 64,
+                  "median_seconds": 0.0009419168345630169,
+                  "seconds": [
+                    0.0007464999798685312,
+                    0.0009419168345630169,
+                    0.000942666083574295
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 2.656295322589486e-18,
+              "scaled_covariance_normalized_signed": 1.9081958235744878e-17
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 1.9081958235744878e-17
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.440892098500626e-15,
+            "minimum_saved_mass": 0.010144927393400187
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        },
+        "uniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 5.440092820663267e-15,
+            "minimum_saved_mass": 0.011548041424390802
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 2.965719500090927,
+            "conditional_reference": {
+              "initialization_seconds": 0.01058374997228384,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 443.58844025433064,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 28086.736734711823,
+            "ensemble_inference_seconds": 0.2916679170448333,
+            "ensemble_online_total_seconds": 111.17415050114505,
+            "initialization_seconds": 110.88248258410022,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 294.1551590410527,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 1669.3319030217665,
+                  "initial_states": 1,
+                  "median_seconds": 0.0005990420468151569,
+                  "seconds": [
+                    0.000920834019780159,
+                    0.0005460840184241533,
+                    0.0005990420468151569
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 59703.77400837397,
+                  "initial_states": 64,
+                  "median_seconds": 0.0010719590354710817,
+                  "seconds": [
+                    0.0011187500786036253,
+                    0.0010719590354710817,
+                    0.0010304159950464964
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 8.470329472543003e-18,
+              "scaled_covariance_normalized_signed": 1.431146867680866e-17
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 1.431146867680866e-17
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.012700803781129661
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        }
+      },
+      "checkpoint_loading_seconds": 0.043882417026907206,
+      "checkpoint_sha256": "76d0f08bbf0531098ca64126385672059706409739893d496104a3849d4e1627",
+      "evaluation_seconds_this_call": 1440.7656336249784,
+      "problem": "dk",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 0,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 70,
+            "epoch_seconds": 4.801461833994836,
+            "training_loss": 0.037315363506625544,
+            "validation_loss": 0.09153787716947771
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 80,
+            "epoch_seconds": 9.606002500047907,
+            "training_loss": 0.035411831267563317,
+            "validation_loss": 0.09321762213895039
+          },
+          "n_completed_epochs": 80
+        },
+        "best_validation_loss": 0.09153787716947771,
+        "complete": true,
+        "epochs": 80,
+        "first_epoch_seconds": 4.3944655421655625,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "31c819f593295b2e53e6dd671c2b67a592963a07c4d433f6f274b495b1c340d6",
+        "kind": "native-dk-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/dk/seed_0.pt",
+        "problem": "dk",
+        "seed": 0,
+        "shared_forward_pool_generation_seconds": 7.885030540870503,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 336.38831520918757,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009328489713044178,
+            "mean_residual": [
+              -0.020721982581296254,
+              0.007731071159748989,
+              0.016697013982026925,
+              0.0018715693557116893,
+              0.014098616055913227,
+              0.00026574403912003495,
+              0.002295339703475127,
+              -0.011701633287800998,
+              0.012470739423072325,
+              0.05894147848811497,
+              -0.00031075894053880304,
+              -0.00459335004418262,
+              -0.021776012591971206,
+              0.02529330792876952
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.0587675284588252
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.01862456348965414,
+            "mean_residual": [
+              -0.014694433358805903,
+              0.00618790744759707,
+              0.022731059125027174,
+              0.0038012282131846403,
+              0.03430848194665727,
+              -0.01191330118472576,
+              0.030845056398840782,
+              -0.012392840314649664,
+              0.011615969191292009,
+              0.016716270163677677,
+              -0.015739377308295287,
+              -0.019979864299267402,
+              -0.029419052833309922,
+              -0.0006631644876607633
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06713437046205595
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.04307672824210473,
+            "mean_residual": [
+              -0.030038261952482805,
+              0.005385172158666157,
+              0.02247612759952489,
+              0.020437413823637365,
+              -0.043189950198056035,
+              -0.012117518456287103,
+              -0.010399044659615428,
+              -0.01973653848210849,
+              -0.0039679637336368125,
+              -0.03542509818714687,
+              -0.029730669407196014,
+              -0.02023240020701798,
+              -0.0080756123323866,
+              -0.029494842491812372
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07768195114274894
+          }
+        }
+      }
+    },
+    {
+      "cases": {
+        "nonuniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.009061862387599843
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 0.0007775409612804651,
+            "conditional_reference": {
+              "initialization_seconds": 0.007583250058814883,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 432.7279719116632,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 124881.61798877115,
+            "ensemble_inference_seconds": 0.0655981251038611,
+            "ensemble_online_total_seconds": 4.7780434160958976,
+            "initialization_seconds": 4.7124452909920365,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 119.07308762334287,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 2394.0118012581615,
+                  "initial_states": 1,
+                  "median_seconds": 0.0004177088849246502,
+                  "seconds": [
+                    0.0004177088849246502,
+                    0.0006647910922765732,
+                    0.0003732498735189438
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 72672.1898120682,
+                  "initial_states": 64,
+                  "median_seconds": 0.000880667008459568,
+                  "seconds": [
+                    0.0009136248845607042,
+                    0.000880667008459568,
+                    0.0008632498793303967
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 6.1257422745431e-18,
+              "scaled_covariance_normalized_signed": 9.540979117872439e-18
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 9.540979117872439e-18
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.440892098500626e-15,
+            "minimum_saved_mass": 0.010144927393400187
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        },
+        "uniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 5.440092820663267e-15,
+            "minimum_saved_mass": 0.011548041424390802
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 0.026869749883189797,
+            "conditional_reference": {
+              "initialization_seconds": 0.03869841690175235,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 443.58844025433064,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 16809.312004692492,
+            "ensemble_inference_seconds": 0.48734891694039106,
+            "ensemble_online_total_seconds": 5.3166769170202315,
+            "initialization_seconds": 4.82932800007984,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 294.1551590410527,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 2708.4923048593687,
+                  "initial_states": 1,
+                  "median_seconds": 0.0003692090976983309,
+                  "seconds": [
+                    0.0005384588148444891,
+                    0.0003692090976983309,
+                    0.0003272502217441797
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 85471.00264829042,
+                  "initial_states": 64,
+                  "median_seconds": 0.0007487919647246599,
+                  "seconds": [
+                    0.0007487919647246599,
+                    0.0007491670548915863,
+                    0.0006981671322137117
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 8.470329472543003e-18,
+              "scaled_covariance_normalized_signed": 1.3444106938820255e-17
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 1.3444106938820255e-17
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.012700803781129661
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        }
+      },
+      "checkpoint_loading_seconds": 0.356909167021513,
+      "checkpoint_sha256": "3f4139f5a5b5092d8e53e011e07c49f2fbfad09f01adee1bffa48d11cb37075b",
+      "evaluation_seconds_this_call": 21.764939500018954,
+      "problem": "dk",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 1,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 75,
+            "epoch_seconds": 3.9382256669923663,
+            "training_loss": 0.035334775283520095,
+            "validation_loss": 0.08813469129374621
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 85,
+            "epoch_seconds": 4.08612662483938,
+            "training_loss": 0.03577698844568101,
+            "validation_loss": 0.08942819982137663
+          },
+          "n_completed_epochs": 85
+        },
+        "best_validation_loss": 0.08813469129374621,
+        "complete": true,
+        "epochs": 85,
+        "first_epoch_seconds": 3.56879354105331,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "bb4ea833558137c4af52efc9e713f5c52efd9fa9f4b4f9c4ff5afd4a054ae913",
+        "kind": "native-dk-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/dk/seed_1.pt",
+        "problem": "dk",
+        "seed": 1,
+        "shared_forward_pool_generation_seconds": 7.885030540870503,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 309.98317445791326,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.007823780413179935,
+            "mean_residual": [
+              -0.0104155768048999,
+              -0.013027796408048437,
+              -0.002374224176993582,
+              0.015473034012058275,
+              0.006053971012816541,
+              0.009271432543450267,
+              -0.015241730271468504,
+              0.01014595902265451,
+              0.0025995196828812834,
+              0.04001676724170842,
+              0.0024042540257003513,
+              -0.002211177625982625,
+              -0.021676770700583034,
+              0.016115542264219997
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.05687644404421431
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.01745810598968691,
+            "mean_residual": [
+              -0.004337025484671612,
+              -0.026314956519980955,
+              -0.015466263767227954,
+              0.03634103606567718,
+              0.03862551453595075,
+              -0.0009471212698728988,
+              0.004007508666073387,
+              0.021928248205341436,
+              -0.004515539876525494,
+              0.034873229869567215,
+              -0.006085166028035475,
+              0.005391215557030291,
+              -0.0264457305903492,
+              0.007577339626974909
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.06827736580423607
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.03884720633240676,
+            "mean_residual": [
+              -0.018769136423451765,
+              -0.044092896902317776,
+              -0.009993554343654152,
+              0.055718652943889765,
+              -0.030328684433417113,
+              -0.00580575421144619,
+              -0.020953590980838592,
+              0.03002346758046219,
+              -0.009276800471293289,
+              -0.03255635057113745,
+              0.0006239033359177497,
+              0.0025711907728920907,
+              -0.0013314553184164263,
+              -0.001170660360181995
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07512117129751464
+          }
+        }
+      }
+    },
+    {
+      "cases": {
+        "nonuniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.009061862387599843
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 0.0007782909087836742,
+            "conditional_reference": {
+              "initialization_seconds": 0.0031783748418092728,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 432.7279719116632,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 129104.44837483128,
+            "ensemble_inference_seconds": 0.06345249991863966,
+            "ensemble_online_total_seconds": 4.631055374862626,
+            "initialization_seconds": 4.5676028749439865,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 119.07308762334287,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 2994.3899527168633,
+                  "initial_states": 1,
+                  "median_seconds": 0.00033395783975720406,
+                  "seconds": [
+                    0.0014375001192092896,
+                    0.00033395783975720406,
+                    0.00031229108572006226
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 91027.52369803455,
+                  "initial_states": 64,
+                  "median_seconds": 0.0007030840497463942,
+                  "seconds": [
+                    0.0007140000816434622,
+                    0.0007030840497463942,
+                    0.0006982078775763512
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 2.656295322589486e-18,
+              "scaled_covariance_normalized_signed": 1.0408340855860843e-17
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 1.0408340855860843e-17
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.440892098500626e-15,
+            "minimum_saved_mass": 0.010144927393400187
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        },
+        "uniform": {
+          "conditional_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 5.440092820663267e-15,
+            "minimum_saved_mass": 0.011548041424390802
+          },
+          "conditional_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 16384,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.00018282827227360154,
+              "zero_stop_one_sided_95_upper": 0.0001828282722735608
+            }
+          },
+          "cost": {
+            "conditional_batch_inference_seconds": 0.00373933301307261,
+            "conditional_reference": {
+              "initialization_seconds": 0.0058280001394450665,
+              "n_initial_anchors": 8,
+              "reference_generation_seconds": 443.58844025433064,
+              "reference_paths": 16384
+            },
+            "distinct_initial_queries_per_second": 117971.92581127692,
+            "ensemble_inference_seconds": 0.06944024981930852,
+            "ensemble_online_total_seconds": 5.047556749777868,
+            "initialization_seconds": 4.97811649995856,
+            "n_initial_anchors": 8192,
+            "reference_generation_seconds": 294.1551590410527,
+            "reference_paths": 8192,
+            "standalone": {
+              "includes": "Complete conditional prediction and covariance validation; checkpoint loading excluded",
+              "repetitions": 3,
+              "rows": [
+                {
+                  "distinct_initial_queries_per_second": 2742.5444978838505,
+                  "initial_states": 1,
+                  "median_seconds": 0.00036462489515542984,
+                  "seconds": [
+                    0.00036941608414053917,
+                    0.0003363338764756918,
+                    0.00036462489515542984
+                  ]
+                },
+                {
+                  "distinct_initial_queries_per_second": 82754.17023741428,
+                  "initial_states": 64,
+                  "median_seconds": 0.0007733749225735664,
+                  "seconds": [
+                    0.0007730829529464245,
+                    0.0007752079982310534,
+                    0.0007733749225735664
+                  ]
+                }
+              ],
+              "warmup_calls_per_batch": 1
+            }
+          },
+          "decomposition": {
+            "components": {
+              "mean_normalized_signed": 2.168404344971009e-17,
+              "scaled_covariance_normalized_signed": 1.3444106938820255e-17
+            },
+            "interpretation": "Total = neural + forward-time signed contrasts. RMSE magnitudes are not additive.",
+            "maximum_absolute_signed_identity_residual": 2.168404344971009e-17
+          },
+          "ensemble_reference_diagnostics": {
+            "all_stopped_paths_included": true,
+            "maximum_mass_error": 4.884981308350689e-15,
+            "minimum_saved_mass": 0.012700803781129661
+          },
+          "ensemble_stopping": {
+            "coarse": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            },
+            "fine": {
+              "all_stopped_paths_included": true,
+              "interpretation": "Zero stops do not establish zero probability; repeated resolutions/seeds are not extra independent trials.",
+              "n_paths": 8192,
+              "n_stopped": 0,
+              "observed_stopping_times": [],
+              "probability_by_horizon": 0.0,
+              "restricted_mean_stopping_time": 1.0,
+              "stopping_cdf": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "times": [
+                0.25,
+                0.5,
+                1.0
+              ],
+              "zero_event_one_sided95_probability_upper": 0.0003656231183700605,
+              "zero_stop_one_sided_95_upper": 0.0003656231183700731
+            }
+          },
+          "reference_bias": {
+            "reason": "Refinement contrasts do not bound residual bias",
+            "status": "uncertified"
+          }
+        }
+      },
+      "checkpoint_loading_seconds": 0.03311491687782109,
+      "checkpoint_sha256": "1667e76f19a197eab46cdf945dfea4fd03ee9413acc5835720b5754ba175035a",
+      "evaluation_seconds_this_call": 19.11167295789346,
+      "problem": "dk",
+      "scope": "Training/online inference costs are distinct from shared coupled reference-audit cost",
+      "seed": 2,
+      "training": {
+        "archived_epoch_history_summary": {
+          "best_epoch": {
+            "epoch": 79,
+            "epoch_seconds": 3.482397750020027,
+            "training_loss": 0.034877660044582086,
+            "validation_loss": 0.09301646964668164
+          },
+          "full_history_omitted": true,
+          "last_epoch": {
+            "epoch": 89,
+            "epoch_seconds": 3.7100134999491274,
+            "training_loss": 0.03388029281040019,
+            "validation_loss": 0.09398365746716175
+          },
+          "n_completed_epochs": 89
+        },
+        "best_validation_loss": 0.09301646964668164,
+        "complete": true,
+        "epochs": 89,
+        "first_epoch_seconds": 3.834396874997765,
+        "generation_cost_scope": "Shared train/validation pool including initialization and HDF5 writes; do not sum across optimizer seeds",
+        "identity_hash": "c2ff9459a784a2394efe2185423f7f21273a4fafc9a263ad6729dbe6620a29b7",
+        "kind": "native-dk-bsde-moments-v1",
+        "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch/checkpoints/dk/seed_2.pt",
+        "problem": "dk",
+        "seed": 2,
+        "shared_forward_pool_generation_seconds": 7.885030540870503,
+        "training_anchors": 128,
+        "training_paths": 2048,
+        "training_seconds": 327.3499426250346,
+        "validation_anchors": 32,
+        "validation_paths": 1024,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.009248786935149484,
+            "mean_residual": [
+              -0.0042866186119394165,
+              -0.005269609717690598,
+              0.012880170667683497,
+              0.015203353899939443,
+              -0.027596236191667903,
+              -0.0029371315339696232,
+              -0.01645412300923812,
+              -0.0054148519267398065,
+              0.012545308294341896,
+              0.03349677999578564,
+              0.004441225493979918,
+              0.01228424010003943,
+              -0.01034041594842627,
+              -0.007818417540416293
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.058782733746158874
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.02069607956499154,
+            "mean_residual": [
+              0.01661333095279453,
+              -0.014488229195107926,
+              0.015779391877989556,
+              0.040551276471524345,
+              -0.006820299175274207,
+              -0.0063428669633313365,
+              0.011540524088318614,
+              0.0020124307142174386,
+              0.008020192209026219,
+              -0.01764133678495018,
+              -0.0106018058042041,
+              0.0055765797345969795,
+              -0.03132441635214459,
+              -0.02689735134865036
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07164015454580627
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.04072189216204998,
+            "mean_residual": [
+              0.009924128757518741,
+              -0.014226211894596039,
+              0.05118164325555244,
+              0.031177585039128,
+              -0.0675648470746143,
+              0.013987274070712367,
+              -0.02557979490106419,
+              0.015332136043017482,
+              -0.006946376326205416,
+              -0.08467342055773446,
+              -0.012696269534353651,
+              0.00012528429573242404,
+              -0.002497224283943655,
+              -0.021846592154583105
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.07795976198588879
+          }
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "analysis_script": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/summarize_bsde_batch.py",
+    "analysis_script_sha256": "ed90c4826f60bcc39fc343f49a2a6cb602ac1ba603848e6c85b077c656a498a4",
+    "config_hash": "20e7fdae25f659c999ba443fc8ab99cfe01c8fbb9347cb5d7d59b9c9d045aaf3",
+    "current_package_source_matches": true,
+    "input_sha256": {
+      "calibration.json": "b18484e181465757c2930bbddce1ed64f9ce9813d09de1a646f545df42631080",
+      "checkpoints/dk/seed_0.json": "36fda8dc6147a200106a1923963ce7f57faa58526e1d0c85b277d39efa02f1cd",
+      "checkpoints/dk/seed_0.pt": "76d0f08bbf0531098ca64126385672059706409739893d496104a3849d4e1627",
+      "checkpoints/dk/seed_1.json": "c61b7837458cf883168c7a0678dd6ea3afaeaa4f54dae611e397cc83347a6e2b",
+      "checkpoints/dk/seed_1.pt": "3f4139f5a5b5092d8e53e011e07c49f2fbfad09f01adee1bffa48d11cb37075b",
+      "checkpoints/dk/seed_2.json": "bf6e55cb144ac312c6dda8fdb7c4cc78f08b96b220942d44aacd0ed684049125",
+      "checkpoints/dk/seed_2.pt": "1667e76f19a197eab46cdf945dfea4fd03ee9413acc5835720b5754ba175035a",
+      "checkpoints/ou/seed_0.json": "24d11000dd0000dfff3ebb443b1c1971a8bb284476e7e9622a4cc07e8471dada",
+      "checkpoints/ou/seed_0.pt": "8df9f5a3c7efc76f7c8cf00a41d32925e7be85267ec59c0d4dd4a7f4eee965e2",
+      "checkpoints/ou/seed_1.json": "5d2d6688b32516f8cbfcb0ce02cb50f385c8519a7e5d915a394ad8fe78b4c824",
+      "checkpoints/ou/seed_1.pt": "d0685e5de17bf9dd916a3cb516aabf150fd2dfaf99075fea2127d5ed419641de",
+      "checkpoints/ou/seed_2.json": "ef2b06813ccbe3a695869bc15ca2494991a2a41ad506b47d98b0c22fdb677bbf",
+      "checkpoints/ou/seed_2.pt": "2998084073bda11d887185c2d52d1a0ccf4d77926fb96b5f5054e1cf4d50e4c5",
+      "config.json": "7ae384d29975b0560e5d5dde7e4232889423cdbac3e1553f71322389b834b498",
+      "evaluation/dk_seed0_d6f1e7b240a6fd09d8cc.json": "c94aec494799aa4d75f083b2f6f3df7927be833f879fcc96651b82f29a10e885",
+      "evaluation/dk_seed1_6f835f8432e738641550.json": "66c9b10bcbb0d22d25037258146b82df56bc2f34913cc7e5d624d9abef048b61",
+      "evaluation/dk_seed2_5e2e85f3c98bcb940c9e.json": "5162f995767f9e848d469f968076f2f06f763f2fc46d5c8530a759ffefb0be4b",
+      "evaluation/ou_seed0_3e892ea8706a43914f01.json": "46ee8b49ccbb7151865f34dc4a3ab020f3c12df17ac2dc30ef8db069b6c8d681",
+      "evaluation/ou_seed1_aef1b1f0a0f67873d359.json": "85d5faab6da14e419054d21f39dd47476b7f58edeab7652000a6d8e3cc81dbd4",
+      "evaluation/ou_seed2_0771ba1332df986bd72d.json": "d0c4850cfeeeddb0682c4e6919752315d0f7bd290a2a3ad5b3733ae040e3f97e",
+      "evaluations.json": "22b42999b5bffed6a2032ad349c4d33157cfc4929c4c98f28c1eb0691bfef255",
+      "manifest.json": "d27c6f1053b692f0934a09dc6d8a4bd5732fb91f84408e371ff642dbbbfd3002"
+    },
+    "source_hash": "7d24dcb7b6c80a1f6856ee08b379c8c46fb564188bc3c59eca1ce9debdcd61ef",
+    "validation_scope": "JSON declarations, immutable checkpoint bytes and current source; HDF5 traces are not reread"
+  },
+  "rows": [
+    {
+      "case": "analytic test states",
+      "component": "neural_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.01805032025155067,
+            "mean_rmse": 0.00979783245094751,
+            "same_time_cross_mode_covariance_rmse": 0.011742550319428863,
+            "variance_rmse": 0.029826058752728368
+          },
+          "0.5": {
+            "covariance_rmse": 0.018923130807350953,
+            "mean_rmse": 0.014880403244983678,
+            "same_time_cross_mode_covariance_rmse": 0.012319300653645358,
+            "variance_rmse": 0.031257703249339006
+          },
+          "1": {
+            "covariance_rmse": 0.017328760405543646,
+            "mean_rmse": 0.016795426417615732,
+            "same_time_cross_mode_covariance_rmse": 0.011777977527769436,
+            "variance_rmse": 0.02801752103304329
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.23470257535598077,
+        "maximum_mean_normalized_error": 0.23470257535598077,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.1822521817021283,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.014136362922379827,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.33950331724810195,
+        "scaled_covariance_normalized_rmse": 0.018112471559015096,
+        "scaled_variance_normalized_rmse": 0.029730003240172297,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.23470257535598077,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "total_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.018880705065391554,
+            "mean_rmse": 0.010655182678965265,
+            "same_time_cross_mode_covariance_rmse": 0.011742550319428863,
+            "variance_rmse": 0.03181605932626246
+          },
+          "0.5": {
+            "covariance_rmse": 0.020171209085055465,
+            "mean_rmse": 0.015962051063793156,
+            "same_time_cross_mode_covariance_rmse": 0.012319300653645358,
+            "variance_rmse": 0.03423762839373334
+          },
+          "1": {
+            "covariance_rmse": 0.0191910840253794,
+            "mean_rmse": 0.017088635760737166,
+            "same_time_cross_mode_covariance_rmse": 0.011777977527769436,
+            "variance_rmse": 0.032511975645026
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.2373218363785357,
+        "maximum_mean_normalized_error": 0.2373218363785357,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.20006160133248574,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.014836233397198076,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.33950331724810195,
+        "scaled_covariance_normalized_rmse": 0.019422121458005034,
+        "scaled_variance_normalized_rmse": 0.03287098715393456,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.2373218363785357,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "time_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "resolved_within_tolerance",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.0063697435612872465,
+            "mean_rmse": 0.003784370923386841,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012739487122574493
+          },
+          "0.5": {
+            "covariance_rmse": 0.006010754717823112,
+            "mean_rmse": 0.0029048796379122135,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012021509435646224
+          },
+          "1": {
+            "covariance_rmse": 0.005770199206547522,
+            "mean_rmse": 0.0013140026691906735,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.011540398413095045
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+        "maximum_mean_normalized_error": 0.01679659099968478,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.017809419630357426,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.002856944288989723,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3952182907006965,
+        "scaled_covariance_normalized_rmse": 0.0060552457752936495,
+        "scaled_variance_normalized_rmse": 0.012110491550587299,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "neural_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.02021186190000954,
+            "mean_rmse": 0.011022921973582792,
+            "same_time_cross_mode_covariance_rmse": 0.01293636735592864,
+            "variance_rmse": 0.03364563336835287
+          },
+          "0.5": {
+            "covariance_rmse": 0.022499641023410726,
+            "mean_rmse": 0.015614756989595026,
+            "same_time_cross_mode_covariance_rmse": 0.013842896796609048,
+            "variance_rmse": 0.0380796272246024
+          },
+          "1": {
+            "covariance_rmse": 0.019395791783188114,
+            "mean_rmse": 0.018013666237512015,
+            "same_time_cross_mode_covariance_rmse": 0.013539382768424639,
+            "variance_rmse": 0.030900522622399257
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.23044317428657568,
+        "maximum_mean_normalized_error": 0.20265088872678383,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.23044317428657568,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.015163746414791226,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3006186307995118,
+        "scaled_covariance_normalized_rmse": 0.020744075029946837,
+        "scaled_variance_normalized_rmse": 0.03433622456755018,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.23044317428657568,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "total_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.023103900999568366,
+            "mean_rmse": 0.011837347824595692,
+            "same_time_cross_mode_covariance_rmse": 0.01293636735592864,
+            "variance_rmse": 0.04041178249581199
+          },
+          "0.5": {
+            "covariance_rmse": 0.024899801046309754,
+            "mean_rmse": 0.016660672056412595,
+            "same_time_cross_mode_covariance_rmse": 0.013842896796609048,
+            "variance_rmse": 0.043647714641416514
+          },
+          "1": {
+            "covariance_rmse": 0.021173852548450865,
+            "mean_rmse": 0.018336181770837595,
+            "same_time_cross_mode_covariance_rmse": 0.013539382768424639,
+            "variance_rmse": 0.035261643037788455
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.24698865976588802,
+        "maximum_mean_normalized_error": 0.21507158577095664,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.24698865976588802,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.015852616596059518,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3006186307995118,
+        "scaled_covariance_normalized_rmse": 0.023109322543706637,
+        "scaled_variance_normalized_rmse": 0.039923337484199045,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.24698865976588802,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "time_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "resolved_within_tolerance",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.0063697435612872465,
+            "mean_rmse": 0.003784370923386841,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012739487122574493
+          },
+          "0.5": {
+            "covariance_rmse": 0.006010754717823112,
+            "mean_rmse": 0.0029048796379122135,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012021509435646224
+          },
+          "1": {
+            "covariance_rmse": 0.005770199206547522,
+            "mean_rmse": 0.0013140026691906735,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.011540398413095045
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+        "maximum_mean_normalized_error": 0.01679659099968478,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.017809419630357426,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.002856944288989723,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3952182907006965,
+        "scaled_covariance_normalized_rmse": 0.0060552457752936495,
+        "scaled_variance_normalized_rmse": 0.012110491550587299,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "neural_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.01738949577020649,
+            "mean_rmse": 0.010509851918328988,
+            "same_time_cross_mode_covariance_rmse": 0.01090794275097253,
+            "variance_rmse": 0.029199804920455118
+          },
+          "0.5": {
+            "covariance_rmse": 0.018497290922683277,
+            "mean_rmse": 0.013713124090960786,
+            "same_time_cross_mode_covariance_rmse": 0.01237772730704332,
+            "variance_rmse": 0.030149207055094288
+          },
+          "1": {
+            "covariance_rmse": 0.02060241818248634,
+            "mean_rmse": 0.015911676124301073,
+            "same_time_cross_mode_covariance_rmse": 0.01625020089043538,
+            "variance_rmse": 0.030093711185655625
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.2526058825777069,
+        "maximum_mean_normalized_error": 0.10782936066333654,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.2526058825777069,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.013560828351836838,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.34208657042204865,
+        "scaled_covariance_normalized_rmse": 0.018876828561196875,
+        "scaled_variance_normalized_rmse": 0.029817415192966434,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.2526058825777069,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "total_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.01930026870217246,
+            "mean_rmse": 0.010675427691804892,
+            "same_time_cross_mode_covariance_rmse": 0.01090794275097253,
+            "variance_rmse": 0.03366083544311919
+          },
+          "0.5": {
+            "covariance_rmse": 0.020721653396782336,
+            "mean_rmse": 0.014435353183979965,
+            "same_time_cross_mode_covariance_rmse": 0.01237772730704332,
+            "variance_rmse": 0.03546721412971346
+          },
+          "1": {
+            "covariance_rmse": 0.02269246520716025,
+            "mean_rmse": 0.016186111118315253,
+            "same_time_cross_mode_covariance_rmse": 0.01625020089043538,
+            "variance_rmse": 0.035603157469165474
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.2704153022080643,
+        "maximum_mean_normalized_error": 0.11876981906996409,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.2704153022080643,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.013956293336504071,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.34208657042204865,
+        "scaled_covariance_normalized_rmse": 0.02095101643238833,
+        "scaled_variance_normalized_rmse": 0.03492162626332422,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.2704153022080643,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "analytic test states",
+      "component": "time_error",
+      "conditioning": "complete initial OU state",
+      "problem": "ou",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": true,
+          "sampling_resolved": true,
+          "status": "resolved_within_tolerance",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.0063697435612872465,
+            "mean_rmse": 0.003784370923386841,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012739487122574493
+          },
+          "0.5": {
+            "covariance_rmse": 0.006010754717823112,
+            "mean_rmse": 0.0029048796379122135,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.012021509435646224
+          },
+          "1": {
+            "covariance_rmse": 0.005770199206547522,
+            "mean_rmse": 0.0013140026691906735,
+            "same_time_cross_mode_covariance_rmse": 0.0,
+            "variance_rmse": 0.011540398413095045
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": null,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+        "maximum_mean_normalized_error": 0.01679659099968478,
+        "maximum_sampling_normalized_halfwidth": 0.0,
+        "maximum_scaled_covariance_normalized_error": 0.017809419630357426,
+        "mean_ci95_max_abs_endpoint": null,
+        "mean_normalized_rmse": 0.002856944288989723,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3952182907006965,
+        "scaled_covariance_normalized_rmse": 0.0060552457752936495,
+        "scaled_variance_normalized_rmse": 0.012110491550587299,
+        "uncertainty": {
+          "available": true,
+          "interpretation": "No reference Monte Carlo error; does not certify generalization outside the fixed test bank",
+          "maximum_contrast_normalized_ci_endpoint": 0.017809419630357426,
+          "maximum_sampling_normalized_halfwidth": 0.0,
+          "method": "analytic reference on fixed test states"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.0853594149187574,
+            "mean_rmse": 0.1475650517223201,
+            "same_time_cross_mode_covariance_rmse": 0.018797901923589343,
+            "variance_rmse": 0.16758530815946748
+          },
+          "0.5": {
+            "covariance_rmse": 0.09538955409805724,
+            "mean_rmse": 0.19412239713182497,
+            "same_time_cross_mode_covariance_rmse": 0.02496264131426792,
+            "variance_rmse": 0.1858151440005641
+          },
+          "1": {
+            "covariance_rmse": 0.06789814137651348,
+            "mean_rmse": 0.26122599786004,
+            "same_time_cross_mode_covariance_rmse": 0.02905312936599409,
+            "variance_rmse": 0.12612841643209702
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.6588359436088979,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.904295158348442,
+        "maximum_mean_normalized_error": 0.8573720670954471,
+        "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+        "maximum_scaled_covariance_normalized_error": 0.6003037862534725,
+        "mean_ci95_max_abs_endpoint": 0.904295158348442,
+        "mean_normalized_rmse": 0.2063152696853294,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3356618386036184,
+        "scaled_covariance_normalized_rmse": 0.0836571462352615,
+        "scaled_variance_normalized_rmse": 0.16178224117881682,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.904295158348442,
+          "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.0846026765664312,
+            "mean_rmse": 0.15024189377180214,
+            "same_time_cross_mode_covariance_rmse": 0.018987295449663193,
+            "variance_rmse": 0.1659786111622165
+          },
+          "0.5": {
+            "covariance_rmse": 0.09399231473670665,
+            "mean_rmse": 0.1953948480598358,
+            "same_time_cross_mode_covariance_rmse": 0.025104008711639595,
+            "variance_rmse": 0.182886815156463
+          },
+          "1": {
+            "covariance_rmse": 0.06565942090556696,
+            "mean_rmse": 0.26172867866824123,
+            "same_time_cross_mode_covariance_rmse": 0.02917973511369849,
+            "variance_rmse": 0.12120341327991052
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.644783263265627,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.9060410227663118,
+        "maximum_mean_normalized_error": 0.8581949852053846,
+        "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+        "maximum_scaled_covariance_normalized_error": 0.5847377740903249,
+        "mean_ci95_max_abs_endpoint": 0.9060410227663118,
+        "mean_normalized_rmse": 0.20756820126558184,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3356618386036184,
+        "scaled_covariance_normalized_rmse": 0.08226649310912816,
+        "scaled_variance_normalized_rmse": 0.1588361355948464,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.9060410227663118,
+          "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.03471749180565968,
+            "mean_rmse": 0.021146254848772306,
+            "same_time_cross_mode_covariance_rmse": 0.01735689210740049,
+            "variance_rmse": 0.06258939078007042
+          },
+          "0.5": {
+            "covariance_rmse": 0.038180849925497425,
+            "mean_rmse": 0.019890520945804898,
+            "same_time_cross_mode_covariance_rmse": 0.02791710296156494,
+            "variance_rmse": 0.05910173678356308
+          },
+          "1": {
+            "covariance_rmse": 0.06032775464650569,
+            "mean_rmse": 0.04141912638770042,
+            "same_time_cross_mode_covariance_rmse": 0.024335160487881972,
+            "variance_rmse": 0.11305375630576384
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.18826039537143022,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.18826039537143022,
+        "maximum_mean_normalized_error": 0.06811080992323966,
+        "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+        "maximum_scaled_covariance_normalized_error": 0.1578988458086691,
+        "mean_ci95_max_abs_endpoint": 0.09003876847731297,
+        "mean_normalized_rmse": 0.02920240257436039,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2742153867926897,
+        "scaled_covariance_normalized_rmse": 0.04583491943558023,
+        "scaled_variance_normalized_rmse": 0.08203982558062267,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.18826039537143022,
+          "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.03134882553236684,
+            "mean_rmse": 0.021309946307242252,
+            "same_time_cross_mode_covariance_rmse": 0.01723947180758869,
+            "variance_rmse": 0.055130729039449176
+          },
+          "0.5": {
+            "covariance_rmse": 0.035647349963066864,
+            "mean_rmse": 0.019784134626769683,
+            "same_time_cross_mode_covariance_rmse": 0.027891899462166993,
+            "variance_rmse": 0.0524314797686901
+          },
+          "1": {
+            "covariance_rmse": 0.05688708233564817,
+            "mean_rmse": 0.04150749795600517,
+            "same_time_cross_mode_covariance_rmse": 0.024289268486094796,
+            "variance_rmse": 0.10571024007106626
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.1855005663539294,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.1855005663539294,
+        "maximum_mean_normalized_error": 0.06816317061971477,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.15474294221974627,
+        "mean_ci95_max_abs_endpoint": 0.09005687085717172,
+        "mean_normalized_rmse": 0.029259745847127403,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2742153867926897,
+        "scaled_covariance_normalized_rmse": 0.04277702871990586,
+        "scaled_variance_normalized_rmse": 0.0751955499814499,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.1855005663539294,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004657224334483518,
+            "mean_rmse": 0.0003200218696634217,
+            "same_time_cross_mode_covariance_rmse": 0.00020554848917557272,
+            "variance_rmse": 0.009307642207488141
+          },
+          "0.5": {
+            "covariance_rmse": 0.005425921865353289,
+            "mean_rmse": 0.00027713332837683174,
+            "same_time_cross_mode_covariance_rmse": 0.00021133306586575742,
+            "variance_rmse": 0.010845668599099412
+          },
+          "1": {
+            "covariance_rmse": 0.0054677642488894194,
+            "mean_rmse": 0.0002453662491167258,
+            "same_time_cross_mode_covariance_rmse": 0.00028493250221218406,
+            "variance_rmse": 0.010924386661652106
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01692248127659952,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+        "maximum_mean_normalized_error": 0.0005326527595351147,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.01577096449979937,
+        "mean_ci95_max_abs_endpoint": 0.0010600859714689048,
+        "mean_normalized_rmse": 0.00028250160764480855,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005197012361990866,
+        "scaled_variance_normalized_rmse": 0.010385935277373725,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.09141223857565624,
+            "mean_rmse": 0.08391874642970576,
+            "same_time_cross_mode_covariance_rmse": 0.019710062102721117,
+            "variance_rmse": 0.17960882439727568
+          },
+          "0.5": {
+            "covariance_rmse": 0.0970230134198964,
+            "mean_rmse": 0.14600855545441346,
+            "same_time_cross_mode_covariance_rmse": 0.028228716161136962,
+            "variance_rmse": 0.18778519452819353
+          },
+          "1": {
+            "covariance_rmse": 0.055833104984377636,
+            "mean_rmse": 0.2209154871076568,
+            "same_time_cross_mode_covariance_rmse": 0.030518001092282913,
+            "variance_rmse": 0.09836308899572235
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.7081510331692953,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.7081510331692953,
+        "maximum_mean_normalized_error": 0.6225721443036623,
+        "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+        "maximum_scaled_covariance_normalized_error": 0.6499212336430615,
+        "mean_ci95_max_abs_endpoint": 0.6656973861631086,
+        "mean_normalized_rmse": 0.16037924503317239,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3187814961043961,
+        "scaled_covariance_normalized_rmse": 0.08344059385112786,
+        "scaled_variance_normalized_rmse": 0.1604139503099645,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.7081510331692953,
+          "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.08866634310809143,
+            "mean_rmse": 0.08581700928517441,
+            "same_time_cross_mode_covariance_rmse": 0.01974088671862693,
+            "variance_rmse": 0.1740050969809051
+          },
+          "0.5": {
+            "covariance_rmse": 0.09436538855562979,
+            "mean_rmse": 0.1447833526039446,
+            "same_time_cross_mode_covariance_rmse": 0.0283645937253739,
+            "variance_rmse": 0.18222419075798738
+          },
+          "1": {
+            "covariance_rmse": 0.0533622922370691,
+            "mean_rmse": 0.21993303963258187,
+            "same_time_cross_mode_covariance_rmse": 0.030495891198019084,
+            "variance_rmse": 0.09273693326444005
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.6955249492893735,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.6955249492893735,
+        "maximum_mean_normalized_error": 0.6130829144104366,
+        "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+        "maximum_scaled_covariance_normalized_error": 0.6364720833939524,
+        "mean_ci95_max_abs_endpoint": 0.6561714654574038,
+        "mean_normalized_rmse": 0.1598930060966986,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3187814961043961,
+        "scaled_covariance_normalized_rmse": 0.08085806739839702,
+        "scaled_variance_normalized_rmse": 0.15500921291333059,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.6955249492893735,
+          "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04903208746481307,
+            "mean_rmse": 0.013282994168670723,
+            "same_time_cross_mode_covariance_rmse": 0.020184862101833578,
+            "variance_rmse": 0.09162039309246715
+          },
+          "0.5": {
+            "covariance_rmse": 0.04135598842711539,
+            "mean_rmse": 0.01890809080554486,
+            "same_time_cross_mode_covariance_rmse": 0.013209437739681576,
+            "variance_rmse": 0.07948461095670806
+          },
+          "1": {
+            "covariance_rmse": 0.045699173338748435,
+            "mean_rmse": 0.023782555239953287,
+            "same_time_cross_mode_covariance_rmse": 0.018685430889896718,
+            "variance_rmse": 0.08547643998644647
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.17752020125554435,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.17752020125554435,
+        "maximum_mean_normalized_error": 0.045897043638123844,
+        "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+        "maximum_scaled_covariance_normalized_error": 0.15200129161248663,
+        "mean_ci95_max_abs_endpoint": 0.06640053545518831,
+        "mean_normalized_rmse": 0.01914474484671185,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2837498209812902,
+        "scaled_covariance_normalized_rmse": 0.045471155046489846,
+        "scaled_variance_normalized_rmse": 0.08567053480653665,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.17752020125554435,
+          "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04489329032564884,
+            "mean_rmse": 0.015412288104699813,
+            "same_time_cross_mode_covariance_rmse": 0.020092164146163105,
+            "variance_rmse": 0.08276801849037402
+          },
+          "0.5": {
+            "covariance_rmse": 0.03719814483757259,
+            "mean_rmse": 0.019017407601436515,
+            "same_time_cross_mode_covariance_rmse": 0.013124295094788819,
+            "variance_rmse": 0.07083831274263115
+          },
+          "1": {
+            "covariance_rmse": 0.040889998286203405,
+            "mean_rmse": 0.024016780726022403,
+            "same_time_cross_mode_covariance_rmse": 0.01861665218727933,
+            "variance_rmse": 0.07515469794627926
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.1651918271924932,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.1651918271924932,
+        "maximum_mean_normalized_error": 0.045631149090506314,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.1396054867318342,
+        "mean_ci95_max_abs_endpoint": 0.06616963914854526,
+        "mean_normalized_rmse": 0.01979904183660822,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2837498209812902,
+        "scaled_covariance_normalized_rmse": 0.04111407486277557,
+        "scaled_variance_normalized_rmse": 0.07641300077090327,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.1651918271924932,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 0,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004701227504185773,
+            "mean_rmse": 0.0025263732235484104,
+            "same_time_cross_mode_covariance_rmse": 0.000371928565327615,
+            "variance_rmse": 0.00938036073993592
+          },
+          "0.5": {
+            "covariance_rmse": 0.005727310183698953,
+            "mean_rmse": 0.0036296788239366623,
+            "same_time_cross_mode_covariance_rmse": 0.0003571337252457175,
+            "variance_rmse": 0.01143790602637053
+          },
+          "1": {
+            "covariance_rmse": 0.0055917801768622325,
+            "mean_rmse": 0.0045031753158769235,
+            "same_time_cross_mode_covariance_rmse": 0.00030171970359334,
+            "variance_rmse": 0.011171343600784478
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01786601414868257,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+        "maximum_mean_normalized_error": 0.00900184208791833,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.016927153685061112,
+        "mean_ci95_max_abs_endpoint": 0.00935889559482025,
+        "mean_normalized_rmse": 0.0036439775866087066,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005359466003647625,
+        "scaled_variance_normalized_rmse": 0.01070227047135642,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.08895250750164882,
+            "mean_rmse": 0.10204504873351537,
+            "same_time_cross_mode_covariance_rmse": 0.022831670618788005,
+            "variance_rmse": 0.1734541403760345
+          },
+          "0.5": {
+            "covariance_rmse": 0.104793468645709,
+            "mean_rmse": 0.14751494654660327,
+            "same_time_cross_mode_covariance_rmse": 0.029786242083712756,
+            "variance_rmse": 0.20313794237115862
+          },
+          "1": {
+            "covariance_rmse": 0.08214207421869181,
+            "mean_rmse": 0.24305483553586155,
+            "same_time_cross_mode_covariance_rmse": 0.03239084133695917,
+            "variance_rmse": 0.15440784183534237
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.7090505397553447,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.7090505397553447,
+        "maximum_mean_normalized_error": 0.667752905010758,
+        "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+        "maximum_scaled_covariance_normalized_error": 0.656574151568841,
+        "mean_ci95_max_abs_endpoint": 0.7053359608010114,
+        "mean_normalized_rmse": 0.17440327262127991,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3202573140859762,
+        "scaled_covariance_normalized_rmse": 0.09245096000687636,
+        "scaled_variance_normalized_rmse": 0.1781321083396864,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.7090505397553447,
+          "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.09069145176312035,
+            "mean_rmse": 0.10490088044720161,
+            "same_time_cross_mode_covariance_rmse": 0.022986765750599318,
+            "variance_rmse": 0.17695927071671258
+          },
+          "0.5": {
+            "covariance_rmse": 0.10582734442403852,
+            "mean_rmse": 0.1483945312058726,
+            "same_time_cross_mode_covariance_rmse": 0.029831725621095193,
+            "variance_rmse": 0.2052508507918527
+          },
+          "1": {
+            "covariance_rmse": 0.08129139778018847,
+            "mean_rmse": 0.24329741460308665,
+            "same_time_cross_mode_covariance_rmse": 0.03251488757614459,
+            "variance_rmse": 0.15251725040125577
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.6949978594120738,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.7043629768975139,
+        "maximum_mean_normalized_error": 0.6663030167064987,
+        "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+        "maximum_scaled_covariance_normalized_error": 0.6410081394056933,
+        "mean_ci95_max_abs_endpoint": 0.7043629768975139,
+        "mean_normalized_rmse": 0.1753270881932348,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3202573140859762,
+        "scaled_covariance_normalized_rmse": 0.09315338176685319,
+        "scaled_variance_normalized_rmse": 0.1795401597724304,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.7043629768975139,
+          "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.040827324995523384,
+            "mean_rmse": 0.0201176455932213,
+            "same_time_cross_mode_covariance_rmse": 0.01335986033971948,
+            "variance_rmse": 0.07830724270634183
+          },
+          "0.5": {
+            "covariance_rmse": 0.03452722055462097,
+            "mean_rmse": 0.016026481503290235,
+            "same_time_cross_mode_covariance_rmse": 0.008859478285344193,
+            "variance_rmse": 0.06732788998954525
+          },
+          "1": {
+            "covariance_rmse": 0.05742132707536918,
+            "mean_rmse": 0.03177221500080988,
+            "same_time_cross_mode_covariance_rmse": 0.01206727973642479,
+            "variance_rmse": 0.11292465404717748
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.16256675633147888,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.16256675633147888,
+        "maximum_mean_normalized_error": 0.055551112935832335,
+        "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+        "maximum_scaled_covariance_normalized_error": 0.1330987688076226,
+        "mean_ci95_max_abs_endpoint": 0.07640380026127193,
+        "mean_normalized_rmse": 0.023601139941730558,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.24300833527256938,
+        "scaled_covariance_normalized_rmse": 0.045299772731637614,
+        "scaled_variance_normalized_rmse": 0.08834977178312149,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.16256675633147888,
+          "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.03706034917939176,
+            "mean_rmse": 0.020332268142051177,
+            "same_time_cross_mode_covariance_rmse": 0.013433168374099762,
+            "variance_rmse": 0.07037419901848285
+          },
+          "0.5": {
+            "covariance_rmse": 0.030872062613138185,
+            "mean_rmse": 0.015916032813300802,
+            "same_time_cross_mode_covariance_rmse": 0.008973432732828225,
+            "variance_rmse": 0.059755916150004085
+          },
+          "1": {
+            "covariance_rmse": 0.05326270824717539,
+            "mean_rmse": 0.03184246118235584,
+            "same_time_cross_mode_covariance_rmse": 0.011898094193668746,
+            "variance_rmse": 0.10451301556729985
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.15970144710336603,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.15970144710336603,
+        "maximum_mean_normalized_error": 0.05560347363230745,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.1299428652186998,
+        "mean_ci95_max_abs_endpoint": 0.07659591865994653,
+        "mean_normalized_rmse": 0.023668992109679248,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.24300833527256938,
+        "scaled_covariance_normalized_rmse": 0.04148682449931823,
+        "scaled_variance_normalized_rmse": 0.08051142325862835,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.15970144710336603,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004657224334483518,
+            "mean_rmse": 0.0003200218696634217,
+            "same_time_cross_mode_covariance_rmse": 0.00020554848917557272,
+            "variance_rmse": 0.009307642207488141
+          },
+          "0.5": {
+            "covariance_rmse": 0.005425921865353289,
+            "mean_rmse": 0.00027713332837683174,
+            "same_time_cross_mode_covariance_rmse": 0.00021133306586575742,
+            "variance_rmse": 0.010845668599099412
+          },
+          "1": {
+            "covariance_rmse": 0.0054677642488894194,
+            "mean_rmse": 0.0002453662491167258,
+            "same_time_cross_mode_covariance_rmse": 0.00028493250221218406,
+            "variance_rmse": 0.010924386661652106
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01692248127659952,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+        "maximum_mean_normalized_error": 0.0005326527595351147,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.01577096449979937,
+        "mean_ci95_max_abs_endpoint": 0.0010600859714689048,
+        "mean_normalized_rmse": 0.00028250160764480855,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005197012361990866,
+        "scaled_variance_normalized_rmse": 0.010385935277373725,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04746058885267485,
+            "mean_rmse": 0.07543816891399248,
+            "same_time_cross_mode_covariance_rmse": 0.02079619719528772,
+            "variance_rmse": 0.08782132157747742
+          },
+          "0.5": {
+            "covariance_rmse": 0.055847610200581016,
+            "mean_rmse": 0.10069435253624241,
+            "same_time_cross_mode_covariance_rmse": 0.03114887116283793,
+            "variance_rmse": 0.09780115406428973
+          },
+          "1": {
+            "covariance_rmse": 0.04320166361919163,
+            "mean_rmse": 0.14737893812494313,
+            "same_time_cross_mode_covariance_rmse": 0.035956632528465586,
+            "variance_rmse": 0.059890706203064706
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.33879368192810083,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.40635850071816665,
+        "maximum_mean_normalized_error": 0.3632332588587203,
+        "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+        "maximum_scaled_covariance_normalized_error": 0.2901366907734502,
+        "mean_ci95_max_abs_endpoint": 0.40635850071816665,
+        "mean_normalized_rmse": 0.11187913324152535,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.35693767442898344,
+        "scaled_covariance_normalized_rmse": 0.04911838351990176,
+        "scaled_variance_normalized_rmse": 0.08339573720005806,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.40635850071816665,
+          "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04525709045959318,
+            "mean_rmse": 0.07716722305382251,
+            "same_time_cross_mode_covariance_rmse": 0.02101248498792025,
+            "variance_rmse": 0.08287486573967091
+          },
+          "0.5": {
+            "covariance_rmse": 0.05440068817911171,
+            "mean_rmse": 0.10010223597862611,
+            "same_time_cross_mode_covariance_rmse": 0.03144717861360485,
+            "variance_rmse": 0.09418579706715806
+          },
+          "1": {
+            "covariance_rmse": 0.04225243604300118,
+            "mean_rmse": 0.14649641461782692,
+            "same_time_cross_mode_covariance_rmse": 0.03612265301115405,
+            "variance_rmse": 0.05680259874846318
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.32527566149376574,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.3968325800124618,
+        "maximum_mean_normalized_error": 0.35374402896549473,
+        "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+        "maximum_scaled_covariance_normalized_error": 0.2729441805454793,
+        "mean_ci95_max_abs_endpoint": 0.3968325800124618,
+        "mean_normalized_rmse": 0.1117086052454289,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.35693767442898344,
+        "scaled_covariance_normalized_rmse": 0.04758468753284909,
+        "scaled_variance_normalized_rmse": 0.07951046674311349,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.3968325800124618,
+          "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.040568051036958645,
+            "mean_rmse": 0.00467389952631627,
+            "same_time_cross_mode_covariance_rmse": 0.024648599841305057,
+            "variance_rmse": 0.06899570013659384
+          },
+          "0.5": {
+            "covariance_rmse": 0.036390381545614546,
+            "mean_rmse": 0.014236325266294926,
+            "same_time_cross_mode_covariance_rmse": 0.020928555895919167,
+            "variance_rmse": 0.06311122024232915
+          },
+          "1": {
+            "covariance_rmse": 0.03765565668579905,
+            "mean_rmse": 0.009634927738682247,
+            "same_time_cross_mode_covariance_rmse": 0.027719308402211363,
+            "variance_rmse": 0.058023389653348724
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.1258401729906165,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.1258401729906165,
+        "maximum_mean_normalized_error": 0.026604431087943508,
+        "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+        "maximum_scaled_covariance_normalized_error": 0.09500993916198422,
+        "mean_ci95_max_abs_endpoint": 0.04686209891486238,
+        "mean_normalized_rmse": 0.01028510454329424,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2799828818152343,
+        "scaled_covariance_normalized_rmse": 0.03824471690927366,
+        "scaled_variance_normalized_rmse": 0.06353515170013864,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.1258401729906165,
+          "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.037130568748883465,
+            "mean_rmse": 0.00669164968210555,
+            "same_time_cross_mode_covariance_rmse": 0.024682532460220095,
+            "variance_rmse": 0.060720954509236674
+          },
+          "0.5": {
+            "covariance_rmse": 0.03457136074227368,
+            "mean_rmse": 0.013789627282857472,
+            "same_time_cross_mode_covariance_rmse": 0.021007096636711898,
+            "variance_rmse": 0.05879474132077826
+          },
+          "1": {
+            "covariance_rmse": 0.03472581865106037,
+            "mean_rmse": 0.0061399781478537405,
+            "same_time_cross_mode_covariance_rmse": 0.027889192930436336,
+            "variance_rmse": 0.04990098873781991
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.1290751855258115,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.1290751855258115,
+        "maximum_mean_normalized_error": 0.026548141311912965,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.09661621860823047,
+        "mean_ci95_max_abs_endpoint": 0.047008858695800584,
+        "mean_normalized_rmse": 0.009532948612125421,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2799828818152343,
+        "scaled_covariance_normalized_rmse": 0.03549526071733294,
+        "scaled_variance_normalized_rmse": 0.05666852330439434,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.1290751855258115,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 1,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004701227504185773,
+            "mean_rmse": 0.0025263732235484104,
+            "same_time_cross_mode_covariance_rmse": 0.000371928565327615,
+            "variance_rmse": 0.00938036073993592
+          },
+          "0.5": {
+            "covariance_rmse": 0.005727310183698953,
+            "mean_rmse": 0.0036296788239366623,
+            "same_time_cross_mode_covariance_rmse": 0.0003571337252457175,
+            "variance_rmse": 0.01143790602637053
+          },
+          "1": {
+            "covariance_rmse": 0.0055917801768622325,
+            "mean_rmse": 0.0045031753158769235,
+            "same_time_cross_mode_covariance_rmse": 0.00030171970359334,
+            "variance_rmse": 0.011171343600784478
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01786601414868257,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+        "maximum_mean_normalized_error": 0.00900184208791833,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.016927153685061112,
+        "mean_ci95_max_abs_endpoint": 0.00935889559482025,
+        "mean_normalized_rmse": 0.0036439775866087066,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005359466003647625,
+        "scaled_variance_normalized_rmse": 0.01070227047135642,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.08782646775310393,
+            "mean_rmse": 0.14620288029153256,
+            "same_time_cross_mode_covariance_rmse": 0.019645282910001474,
+            "variance_rmse": 0.17232568679714014
+          },
+          "0.5": {
+            "covariance_rmse": 0.10649035561861729,
+            "mean_rmse": 0.20054456999643056,
+            "same_time_cross_mode_covariance_rmse": 0.023916873381985147,
+            "variance_rmse": 0.20891321849516503
+          },
+          "1": {
+            "covariance_rmse": 0.07740523068437433,
+            "mean_rmse": 0.268924366837615,
+            "same_time_cross_mode_covariance_rmse": 0.025284735221162025,
+            "variance_rmse": 0.14848678541739668
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.8424790496763855,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.8424790496763855,
+        "maximum_mean_normalized_error": 0.7371806915018339,
+        "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+        "maximum_scaled_covariance_normalized_error": 0.7917385705721799,
+        "mean_ci95_max_abs_endpoint": 0.7726568713292092,
+        "mean_normalized_rmse": 0.2112768498436791,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3298817178467811,
+        "scaled_covariance_normalized_rmse": 0.09136967771105792,
+        "scaled_variance_normalized_rmse": 0.17831545141098176,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.8424790496763855,
+          "maximum_sampling_normalized_halfwidth": 0.07053300157478193,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.08581469391616489,
+            "mean_rmse": 0.14876296846092296,
+            "same_time_cross_mode_covariance_rmse": 0.019828799201709695,
+            "variance_rmse": 0.16815797017791068
+          },
+          "0.5": {
+            "covariance_rmse": 0.10480079129748439,
+            "mean_rmse": 0.2017970805569471,
+            "same_time_cross_mode_covariance_rmse": 0.024023005690785745,
+            "variance_rmse": 0.20543005870382489
+          },
+          "1": {
+            "covariance_rmse": 0.07513379968586037,
+            "mean_rmse": 0.2695408478052257,
+            "same_time_cross_mode_covariance_rmse": 0.025445253003659962,
+            "variance_rmse": 0.14365921035450238
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.8281555799180702,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.8281555799180702,
+        "maximum_mean_normalized_error": 0.7393914768216886,
+        "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+        "maximum_scaled_covariance_normalized_error": 0.7761725584090323,
+        "mean_ci95_max_abs_endpoint": 0.7754201268208851,
+        "mean_normalized_rmse": 0.21252823431422974,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3298817178467811,
+        "scaled_covariance_normalized_rmse": 0.08942865946987938,
+        "scaled_variance_normalized_rmse": 0.17427619905683356,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.8281555799180702,
+          "maximum_sampling_normalized_halfwidth": 0.07234237296358992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.053111858690749525,
+            "mean_rmse": 0.02757023086041392,
+            "same_time_cross_mode_covariance_rmse": 0.014151805316205728,
+            "variance_rmse": 0.1033569414854233
+          },
+          "0.5": {
+            "covariance_rmse": 0.050291464884427324,
+            "mean_rmse": 0.04135242623358703,
+            "same_time_cross_mode_covariance_rmse": 0.020400848495720863,
+            "variance_rmse": 0.09417187426641925
+          },
+          "1": {
+            "covariance_rmse": 0.06765903797212507,
+            "mean_rmse": 0.0654923526768713,
+            "same_time_cross_mode_covariance_rmse": 0.015121417632468504,
+            "variance_rmse": 0.1327592176220064
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.18929497754401087,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.18929497754401087,
+        "maximum_mean_normalized_error": 0.10262962014482577,
+        "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+        "maximum_scaled_covariance_normalized_error": 0.15697196116850082,
+        "mean_ci95_max_abs_endpoint": 0.12681038491997493,
+        "mean_normalized_rmse": 0.047467143177333616,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.28632140792820404,
+        "scaled_covariance_normalized_rmse": 0.05752636031455838,
+        "scaled_variance_normalized_rmse": 0.11131937405453246,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.18929497754401087,
+          "maximum_sampling_normalized_halfwidth": 0.03248233935278427,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04948326040655438,
+            "mean_rmse": 0.027653055948023635,
+            "same_time_cross_mode_covariance_rmse": 0.014083497494674305,
+            "variance_rmse": 0.09591317707595759
+          },
+          "0.5": {
+            "covariance_rmse": 0.0465451950985232,
+            "mean_rmse": 0.04124320857861561,
+            "same_time_cross_mode_covariance_rmse": 0.02035306860922303,
+            "variance_rmse": 0.0861572895442001
+          },
+          "1": {
+            "covariance_rmse": 0.06346482378799738,
+            "mean_rmse": 0.0656427730358068,
+            "same_time_cross_mode_covariance_rmse": 0.015151326034962472,
+            "variance_rmse": 0.12418714664534748
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.17571500495666756,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.17571500495666756,
+        "maximum_mean_normalized_error": 0.10300496905243778,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.1465711637502433,
+        "mean_ci95_max_abs_endpoint": 0.12746075936525625,
+        "mean_normalized_rmse": 0.04752075830257118,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.28632140792820404,
+        "scaled_covariance_normalized_rmse": 0.0536744262682084,
+        "scaled_variance_normalized_rmse": 0.10335192865531533,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.17571500495666756,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "uniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004657224334483518,
+            "mean_rmse": 0.0003200218696634217,
+            "same_time_cross_mode_covariance_rmse": 0.00020554848917557272,
+            "variance_rmse": 0.009307642207488141
+          },
+          "0.5": {
+            "covariance_rmse": 0.005425921865353289,
+            "mean_rmse": 0.00027713332837683174,
+            "same_time_cross_mode_covariance_rmse": 0.00021133306586575742,
+            "variance_rmse": 0.010845668599099412
+          },
+          "1": {
+            "covariance_rmse": 0.0054677642488894194,
+            "mean_rmse": 0.0002453662491167258,
+            "same_time_cross_mode_covariance_rmse": 0.00028493250221218406,
+            "variance_rmse": 0.010924386661652106
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01692248127659952,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+        "maximum_mean_normalized_error": 0.0005326527595351147,
+        "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+        "maximum_scaled_covariance_normalized_error": 0.01577096449979937,
+        "mean_ci95_max_abs_endpoint": 0.0010600859714689048,
+        "mean_normalized_rmse": 0.00028250160764480855,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005197012361990866,
+        "scaled_variance_normalized_rmse": 0.010385935277373725,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01692248127659952,
+          "maximum_sampling_normalized_halfwidth": 0.033091192517854806,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_total_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.05020968356737095,
+            "mean_rmse": 0.06838609233602395,
+            "same_time_cross_mode_covariance_rmse": 0.024795053554172553,
+            "variance_rmse": 0.09077260188779006
+          },
+          "0.5": {
+            "covariance_rmse": 0.0620120581979028,
+            "mean_rmse": 0.0915789311904143,
+            "same_time_cross_mode_covariance_rmse": 0.026086139883276398,
+            "variance_rmse": 0.11550117473744907
+          },
+          "1": {
+            "covariance_rmse": 0.039963269532463784,
+            "mean_rmse": 0.15482147952210915,
+            "same_time_cross_mode_covariance_rmse": 0.029722139989796757,
+            "variance_rmse": 0.06113947031319593
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.36281271028311773,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.45112783938997686,
+        "maximum_mean_normalized_error": 0.40800259753053053,
+        "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+        "maximum_scaled_covariance_normalized_error": 0.306166900127301,
+        "mean_ci95_max_abs_endpoint": 0.45112783938997686,
+        "mean_normalized_rmse": 0.11110512857107406,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3502588718842864,
+        "scaled_covariance_normalized_rmse": 0.051522068403096144,
+        "scaled_variance_normalized_rmse": 0.09186624597639792,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.45112783938997686,
+          "maximum_sampling_normalized_halfwidth": 0.07035854021216992,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "conditional_neural_error",
+      "conditioning": "fixed complete initial mass anchors",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.04831318981606412,
+            "mean_rmse": 0.07120101083983572,
+            "same_time_cross_mode_covariance_rmse": 0.025019300742134543,
+            "variance_rmse": 0.08636411877589004
+          },
+          "0.5": {
+            "covariance_rmse": 0.05921377807459808,
+            "mean_rmse": 0.08922324576832498,
+            "same_time_cross_mode_covariance_rmse": 0.026132997824522622,
+            "variance_rmse": 0.1094362158043739
+          },
+          "1": {
+            "covariance_rmse": 0.037027726232531935,
+            "mean_rmse": 0.1520838890435774,
+            "same_time_cross_mode_covariance_rmse": 0.0298248293350237,
+            "variance_rmse": 0.053062686562361926
+          }
+        },
+        "conditional_fixed_anchor_bank": true,
+        "covariance_ci95_max_abs_endpoint": 0.3494822909952119,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.44160191868427207,
+        "maximum_mean_normalized_error": 0.398513367637305,
+        "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+        "maximum_scaled_covariance_normalized_error": 0.29039116653926283,
+        "mean_ci95_max_abs_endpoint": 0.44160191868427207,
+        "mean_normalized_rmse": 0.10978749296811012,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.3502588718842864,
+        "scaled_covariance_normalized_rmse": 0.04902886338346059,
+        "scaled_variance_normalized_rmse": 0.0861214163196995,
+        "uncertainty": {
+          "anchor_generalization_uncertainty_included": false,
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.44160191868427207,
+          "maximum_sampling_normalized_halfwidth": 0.07244107838934338,
+          "n_bootstrap": 200,
+          "sampling_unit": "whole continuation family within each fixed anchor"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_total_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.035838958486373806,
+            "mean_rmse": 0.013008013908780786,
+            "same_time_cross_mode_covariance_rmse": 0.00828572921901951,
+            "variance_rmse": 0.07022651817852968
+          },
+          "0.5": {
+            "covariance_rmse": 0.02736891876545397,
+            "mean_rmse": 0.015226037288410703,
+            "same_time_cross_mode_covariance_rmse": 0.014429279752492537,
+            "variance_rmse": 0.04869926606257019
+          },
+          "1": {
+            "covariance_rmse": 0.041892056254020545,
+            "mean_rmse": 0.01104671493779679,
+            "same_time_cross_mode_covariance_rmse": 0.015886032462893135,
+            "variance_rmse": 0.07913709260848419
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.13262904564053776,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.13262904564053776,
+        "maximum_mean_normalized_error": 0.02787899008079142,
+        "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+        "maximum_scaled_covariance_normalized_error": 0.10684446647273638,
+        "mean_ci95_max_abs_endpoint": 0.04747785310082056,
+        "mean_normalized_rmse": 0.013204425372781282,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2958044118216465,
+        "scaled_covariance_normalized_rmse": 0.03553605228950859,
+        "scaled_variance_normalized_rmse": 0.06724597087567444,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.13262904564053776,
+          "maximum_sampling_normalized_halfwidth": 0.0348898819300168,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_neural_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": false,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": false,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.03140151769196127,
+            "mean_rmse": 0.014967932608718705,
+            "same_time_cross_mode_covariance_rmse": 0.008139111348469126,
+            "variance_rmse": 0.061200374613280685
+          },
+          "0.5": {
+            "covariance_rmse": 0.02281603672021499,
+            "mean_rmse": 0.014792623907199539,
+            "same_time_cross_mode_covariance_rmse": 0.014383761852852315,
+            "variance_rmse": 0.03823098627231694
+          },
+          "1": {
+            "covariance_rmse": 0.03711124509911654,
+            "mean_rmse": 0.008850372744968752,
+            "same_time_cross_mode_covariance_rmse": 0.015958533142514438,
+            "variance_rmse": 0.0688836244040963
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.12037154970646821,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.12037154970646821,
+        "maximum_mean_normalized_error": 0.027822700304760882,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.09444866159208398,
+        "mean_ci95_max_abs_endpoint": 0.04777556555955088,
+        "mean_normalized_rmse": 0.013180665465798528,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.2958044118216465,
+        "scaled_covariance_normalized_rmse": 0.03100468436534205,
+        "scaled_variance_normalized_rmse": 0.0575964347137465,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.12037154970646821,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    },
+    {
+      "case": "nonuniform",
+      "component": "ensemble_time_error",
+      "conditioning": "ensemble start",
+      "problem": "dk",
+      "seed": 2,
+      "summary": {
+        "accuracy_gate": {
+          "contrast_within_tolerance": true,
+          "each_uncertainty_budget": 0.0125,
+          "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+          "point_estimate_within_tolerance": true,
+          "reference_bias_resolved": false,
+          "sampling_resolved": false,
+          "status": "unresolved",
+          "tolerance": 0.05
+        },
+        "by_time": {
+          "0.25": {
+            "covariance_rmse": 0.004701227504185773,
+            "mean_rmse": 0.0025263732235484104,
+            "same_time_cross_mode_covariance_rmse": 0.000371928565327615,
+            "variance_rmse": 0.00938036073993592
+          },
+          "0.5": {
+            "covariance_rmse": 0.005727310183698953,
+            "mean_rmse": 0.0036296788239366623,
+            "same_time_cross_mode_covariance_rmse": 0.0003571337252457175,
+            "variance_rmse": 0.01143790602637053
+          },
+          "1": {
+            "covariance_rmse": 0.0055917801768622325,
+            "mean_rmse": 0.0045031753158769235,
+            "same_time_cross_mode_covariance_rmse": 0.00030171970359334,
+            "variance_rmse": 0.011171343600784478
+          }
+        },
+        "conditional_fixed_anchor_bank": false,
+        "covariance_ci95_max_abs_endpoint": 0.01786601414868257,
+        "covariance_scope": "same-time 4x4; no joint temporal covariance or path-sampling assertion",
+        "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+        "maximum_mean_normalized_error": 0.00900184208791833,
+        "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+        "maximum_scaled_covariance_normalized_error": 0.016927153685061112,
+        "mean_ci95_max_abs_endpoint": 0.00935889559482025,
+        "mean_normalized_rmse": 0.0036439775866087066,
+        "minimum_predicted_conditional_covariance_eigenvalue": 0.0,
+        "scaled_covariance_normalized_rmse": 0.005359466003647625,
+        "scaled_variance_normalized_rmse": 0.01070227047135642,
+        "uncertainty": {
+          "available": true,
+          "confidence_level": 0.95,
+          "maximum_contrast_normalized_ci_endpoint": 0.01786601414868257,
+          "maximum_sampling_normalized_halfwidth": 0.0351952554739039,
+          "n_bootstrap": 200,
+          "paired": true,
+          "sampling_unit": "whole initial-histogram and forward-noise family"
+        }
+      }
+    }
+  ],
+  "run_directory": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/bsde-first-batch",
+  "run_elapsed_seconds": 3161.6944105417933,
+  "schema_version": 1,
+  "shared_forward_pool_generation_seconds": {
+    "dk": 7.885030540870503,
+    "ou": 1.585097708972171
+  },
+  "status": "complete-artifact-summary"
+}

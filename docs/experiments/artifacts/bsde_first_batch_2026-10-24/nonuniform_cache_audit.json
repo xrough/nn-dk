@@ -1,0 +1,101 @@
+{
+  "analysis_code_sha256": "1addc13a18ed23bc369d5f124e2fef58934bb1ec31ce05e68f8a62060b6384a8",
+  "analysis_script": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/audit_bsde_references.py",
+  "audit_kind": "completed-reference-banks-only",
+  "banks": {
+    "conditional": {
+      "all_observations_finite": true,
+      "all_paths_included": true,
+      "anchor_assignment_matches_ids": true,
+      "chunks": 256,
+      "coarse_stopped_paths": 0,
+      "complete": true,
+      "continuations_per_anchor": 2048,
+      "dt": 0.0078125,
+      "family_ids_unique": true,
+      "fine_increments_per_coarse_step": 64,
+      "fine_stopped_paths": 0,
+      "frozen_provenance_matches_all_chunks": true,
+      "independent_continuation_families": 16384,
+      "independent_initial_anchors": 8,
+      "initial_seed": 9173747819069621098,
+      "maximum_absolute_observable": 0.18376046895501763,
+      "maximum_absolute_paired_coarse_fine_observable_difference": 0.0023657337101348538,
+      "maximum_mass_error_from_metadata": 4.884981308350689e-15,
+      "minimum_saved_mass_from_metadata": 0.009061862387599843,
+      "observation_shape_per_path": [
+        3,
+        4
+      ],
+      "ordered_cache_content_sha256": "992577b3456b65513e6fd7e7591888b3ed24348308a65f4111ede672b4db0823",
+      "recorded_reference_generation_seconds": 432.7279719116632,
+      "reference_dt": 0.0001220703125,
+      "unique_chunk_forcing_seeds": 256,
+      "zero_stop_one_sided_95_upper_each_fixed_anchor": 0.0014616905873806596,
+      "zero_stop_one_sided_95_upper_ensemble": null
+    },
+    "ensemble": {
+      "all_observations_finite": true,
+      "all_paths_included": true,
+      "anchor_assignment_matches_ids": true,
+      "chunks": 128,
+      "coarse_stopped_paths": 0,
+      "complete": true,
+      "continuations_per_anchor": 1,
+      "dt": 0.0078125,
+      "family_ids_unique": true,
+      "fine_increments_per_coarse_step": 64,
+      "fine_stopped_paths": 0,
+      "frozen_provenance_matches_all_chunks": true,
+      "independent_continuation_families": 8192,
+      "independent_initial_anchors": 8192,
+      "initial_seed": 5567808249702230590,
+      "maximum_absolute_observable": 0.19466595644022253,
+      "maximum_absolute_paired_coarse_fine_observable_difference": 0.0023459669466873376,
+      "maximum_mass_error_from_metadata": 4.440892098500626e-15,
+      "minimum_saved_mass_from_metadata": 0.010144927393400187,
+      "observation_shape_per_path": [
+        3,
+        4
+      ],
+      "ordered_cache_content_sha256": "8ca79b996bafd9d9e536601c2c1cd947d2c9d64b359076273a4017742ca9d067",
+      "recorded_reference_generation_seconds": 119.07308762334287,
+      "reference_dt": 0.0001220703125,
+      "unique_chunk_forcing_seeds": 128,
+      "zero_stop_one_sided_95_upper_each_fixed_anchor": null,
+      "zero_stop_one_sided_95_upper_ensemble": 0.0003656231183700731
+    }
+  },
+  "case": "nonuniform",
+  "conditional_and_ensemble_family_ids_disjoint": true,
+  "created_utc": "2026-10-24T10:32:15.149053+00:00",
+  "forcing_stream_seeds_disjoint_across_requested_banks": true,
+  "input_config_sha256": "7ae384d29975b0560e5d5dde7e4232889423cdbac3e1553f71322389b834b498",
+  "input_manifest_sha256": "d27c6f1053b692f0934a09dc6d8a4bd5732fb91f84408e371ff642dbbbfd3002",
+  "joint_requested_bank_audit": {
+    "chunk_forcing_seeds_disjoint_across_all_requested_banks": true,
+    "chunks": 768,
+    "family_ids_disjoint_across_all_requested_banks": true,
+    "independent_continuation_families": 49152,
+    "interpretation": "Coarse/fine levels share each trajectory family; they are not independent replicates.",
+    "reference_banks": 4,
+    "requested_cases": [
+      "uniform",
+      "nonuniform"
+    ]
+  },
+  "limitations": [
+    "NPZ caches contain observed modes rather than full cell-mass states. Conservation and minimum-mass checks aggregate recorded simulator metadata.",
+    "Brownian increments are absent. Shared coarse/fine forcing provenance and the integration-grid ratio are checked; increment summation itself is covered by code/tests.",
+    "Conditional children are independent continuations of fixed initial anchors, not independent draws from the full initial-histogram law. Stopping bounds are pointwise per anchor.",
+    "This reference-bank integrity audit does not certify neural accuracy or reference bias."
+  ],
+  "overall_study_completion_assessed": false,
+  "passed": true,
+  "provenance": {
+    "config_hash": "20e7fdae25f659c999ba443fc8ab99cfe01c8fbb9347cb5d7d59b9c9d045aaf3",
+    "source_hash": "7d24dcb7b6c80a1f6856ee08b379c8c46fb564188bc3c59eca1ce9debdcd61ef",
+    "target_id": "66645337346abef5c3aa5013d81555e3650f7bff6bccaa01ae59ad3f436ee86e"
+  },
+  "run_status_at_audit": "complete"
+}

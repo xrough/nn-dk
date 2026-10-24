@@ -1,0 +1,1075 @@
+{
+  "analysis_sha256": "98c4367fdfa8fd11ce1b1f0d2b3b5cfa4500a3bf7d5b517c96bd6ce71b04c01a",
+  "archive_reduction": {
+    "omitted": [
+      "Initial test-state array; fixed test_bank_hash and worst-entry states retained",
+      "Raw signed error arrays by anchor/horizon/component"
+    ],
+    "preserved": "All optimizer seeds, global and per-component errors, pointwise violation counts, worst entries, test-bank hash, objective floor and provenance. Full arrays remain in the source run.",
+    "source_file": "runs/bsde-first-batch/report/ou_generalization_probe.json",
+    "source_sha256": "fc141ebfe5e28e5f74943fe353153bded9669c215ddd25b13035fd3b8e8c6123"
+  },
+  "components": [
+    "cos1",
+    "sin1",
+    "cos2",
+    "sin2"
+  ],
+  "config_file_sha256": "7ae384d29975b0560e5d5dde7e4232889423cdbac3e1553f71322389b834b498",
+  "config_hash": "20e7fdae25f659c999ba443fc8ab99cfe01c8fbb9347cb5d7d59b9c9d045aaf3",
+  "diagnostic": "Posthoc exploration on the unchanged prespecified OU analytic test bank",
+  "horizons": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "interpretation": "No refitting, no allocation changes, no certification outside this bank; covariance entry counts include both symmetric halves",
+  "irreducible_population_loss": {
+    "horizons": [
+      {
+        "diagonal_payoff_residual_variance": [
+          0.009964959905016049,
+          0.009964959905016049,
+          0.06345998059068478,
+          0.06345998059068478
+        ],
+        "horizon": 0.25,
+        "second_moment_block_population_floor": 0.03140137946797314
+      },
+      {
+        "diagonal_payoff_residual_variance": [
+          0.013628324725826556,
+          0.013628324725826556,
+          0.06460951337945296,
+          0.06460951337945296
+        ],
+        "horizon": 0.5,
+        "second_moment_block_population_floor": 0.03361019904102481
+      },
+      {
+        "diagonal_payoff_residual_variance": [
+          0.015470163888318946,
+          0.015470163888318946,
+          0.06463071354864988,
+          0.06463071354864988
+        ],
+        "horizon": 1.0,
+        "second_moment_block_population_floor": 0.03423662807404014
+      }
+    ],
+    "mean_block_floor": 0.0,
+    "mean_horizon_objective_floor": 0.03308273552767936,
+    "scope": "Population Euler OU objective, exact values, unrestricted predictable linear-in-dW integrands; not a finite-sample acceptance gate"
+  },
+  "n_test_anchors": 256,
+  "seeds": [
+    {
+      "checkpoint_sha256": "8df9f5a3c7efc76f7c8cf00a41d32925e7be85267ec59c0d4dd4a7f4eee965e2",
+      "continuous_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 117,
+        "entries": 12288,
+        "entries_above_tolerance": 304,
+        "maximum": {
+          "anchor": 142,
+          "array_index": [
+            142,
+            0,
+            2,
+            2
+          ],
+          "component": "cos2",
+          "horizon": 0.25,
+          "initial": [
+            0.155628433899898,
+            0.7877997091561544,
+            -0.6279096477902835,
+            2.4754260049312333
+          ],
+          "initial_norm": 2.677097873231866,
+          "initial_norm_rank_descending": 38,
+          "second_component": "cos2",
+          "signed_error": 0.20006160133248574
+        },
+        "rmse": 0.019422121458005034
+      },
+      "continuous_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 17,
+        "entries": 3072,
+        "entries_above_tolerance": 30,
+        "maximum": {
+          "anchor": 88,
+          "array_index": [
+            88,
+            2,
+            2
+          ],
+          "component": "cos2",
+          "horizon": 1.0,
+          "initial": [
+            2.216963388921975,
+            -0.09153761488244666,
+            2.253354508886613,
+            2.024842351347195
+          ],
+          "initial_norm": 3.7551163621501322,
+          "initial_norm_rank_descending": 1,
+          "signed_error": -0.2373218363785357
+        },
+        "rmse": 0.014836233397198076
+      },
+      "euler_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 111,
+        "entries": 12288,
+        "entries_above_tolerance": 279,
+        "maximum": {
+          "anchor": 142,
+          "array_index": [
+            142,
+            0,
+            2,
+            2
+          ],
+          "component": "cos2",
+          "horizon": 0.25,
+          "initial": [
+            0.155628433899898,
+            0.7877997091561544,
+            -0.6279096477902835,
+            2.4754260049312333
+          ],
+          "initial_norm": 2.677097873231866,
+          "initial_norm_rank_descending": 38,
+          "second_component": "cos2",
+          "signed_error": 0.1822521817021283
+        },
+        "rmse": 0.018112471559015096
+      },
+      "euler_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 16,
+        "entries": 3072,
+        "entries_above_tolerance": 28,
+        "maximum": {
+          "anchor": 88,
+          "array_index": [
+            88,
+            2,
+            2
+          ],
+          "component": "cos2",
+          "horizon": 1.0,
+          "initial": [
+            2.216963388921975,
+            -0.09153761488244666,
+            2.253354508886613,
+            2.024842351347195
+          ],
+          "initial_norm": 3.7551163621501322,
+          "initial_norm_rank_descending": 1,
+          "signed_error": -0.23470257535598077
+        },
+        "rmse": 0.014136362922379827
+      },
+      "evaluation_gate": {
+        "contrast_within_tolerance": false,
+        "each_uncertainty_budget": 0.0,
+        "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+        "point_estimate_within_tolerance": false,
+        "reference_bias_resolved": true,
+        "sampling_resolved": true,
+        "status": "unresolved",
+        "tolerance": 0.05
+      },
+      "evaluation_sha256": "46ee8b49ccbb7151865f34dc4a3ab020f3c12df17ac2dc30ef8db069b6c8d681",
+      "metadata_sha256": "24d11000dd0000dfff3ebb443b1c1971a8bb284476e7e9622a4cc07e8471dada",
+      "per_horizon_component": [
+        {
+          "component": "cos1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.0625208588612789,
+          "mean_rmse": 0.008555712009733643,
+          "predicted_variance_std_over_initial_states": 0.015070430042545994,
+          "variance_entries_above_tolerance": 1,
+          "variance_maximum_absolute_error": 0.05202318991689048,
+          "variance_rmse": 0.016117409460393164
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.023925218898480427,
+          "mean_rmse": 0.006494362082150491,
+          "predicted_variance_std_over_initial_states": 0.01594333779087495,
+          "variance_entries_above_tolerance": 4,
+          "variance_maximum_absolute_error": 0.05522297045741292,
+          "variance_rmse": 0.02003900973966407
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.038128822612607666,
+          "mean_rmse": 0.010138853675739383,
+          "predicted_variance_std_over_initial_states": 0.043967877945859386,
+          "variance_entries_above_tolerance": 61,
+          "variance_maximum_absolute_error": 0.1822521817021283,
+          "variance_rmse": 0.04397026014198038
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.10769054723987681,
+          "mean_rmse": 0.012876986535743979,
+          "predicted_variance_std_over_initial_states": 0.030088683294617582,
+          "variance_entries_above_tolerance": 29,
+          "variance_maximum_absolute_error": 0.1313625829653282,
+          "variance_rmse": 0.03104285017312467
+        },
+        {
+          "component": "cos1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.06965134295781272,
+          "mean_rmse": 0.009989083086592226,
+          "predicted_variance_std_over_initial_states": 0.01950070382367178,
+          "variance_entries_above_tolerance": 3,
+          "variance_maximum_absolute_error": 0.05871434117509666,
+          "variance_rmse": 0.019717110138232623
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.02892368972727377,
+          "mean_rmse": 0.006704723676862674,
+          "predicted_variance_std_over_initial_states": 0.017756985610374323,
+          "variance_entries_above_tolerance": 7,
+          "variance_maximum_absolute_error": 0.07396992940606018,
+          "variance_rmse": 0.02024136679212515
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 8,
+          "mean_maximum_absolute_error": 0.18371622986062597,
+          "mean_rmse": 0.02070991807211472,
+          "predicted_variance_std_over_initial_states": 0.039733546080685946,
+          "variance_entries_above_tolerance": 38,
+          "variance_maximum_absolute_error": 0.16314623019760133,
+          "variance_rmse": 0.041792824827119365
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 5,
+          "mean_maximum_absolute_error": 0.11407892833735128,
+          "mean_rmse": 0.01766549732913436,
+          "predicted_variance_std_over_initial_states": 0.03594167636104927,
+          "variance_entries_above_tolerance": 47,
+          "variance_maximum_absolute_error": 0.17173904614079627,
+          "variance_rmse": 0.03691962189470696
+        },
+        {
+          "component": "cos1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 2,
+          "mean_maximum_absolute_error": 0.07043048920683304,
+          "mean_rmse": 0.01120176204041266,
+          "predicted_variance_std_over_initial_states": 0.02085461698579791,
+          "variance_entries_above_tolerance": 6,
+          "variance_maximum_absolute_error": 0.08034692146257283,
+          "variance_rmse": 0.022618825150710037
+        },
+        {
+          "component": "sin1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.04397873730021695,
+          "mean_rmse": 0.007131530372468092,
+          "predicted_variance_std_over_initial_states": 0.01587314302545096,
+          "variance_entries_above_tolerance": 4,
+          "variance_maximum_absolute_error": 0.08912496568382888,
+          "variance_rmse": 0.01606778708642801
+        },
+        {
+          "component": "cos2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 5,
+          "mean_maximum_absolute_error": 0.23470257535598077,
+          "mean_rmse": 0.024697811127652868,
+          "predicted_variance_std_over_initial_states": 0.028264999885641864,
+          "variance_entries_above_tolerance": 20,
+          "variance_maximum_absolute_error": 0.16923306575393982,
+          "variance_rmse": 0.02955387503382273
+        },
+        {
+          "component": "sin2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 5,
+          "mean_maximum_absolute_error": 0.1344290766072362,
+          "mean_rmse": 0.018493926609498022,
+          "predicted_variance_std_over_initial_states": 0.03714282260748221,
+          "variance_entries_above_tolerance": 41,
+          "variance_maximum_absolute_error": 0.12731423809509046,
+          "variance_rmse": 0.03868732837480648
+        }
+      ],
+      "seed": 0,
+      "training": {
+        "best_epoch": 80,
+        "best_epoch_training_loss": 0.03563471046965822,
+        "best_validation_loss": 0.03800888674428506,
+        "epochs": 90,
+        "last_training_loss": 0.0344934890684591,
+        "last_validation_loss": 0.03876764977455773,
+        "last_validation_minus_training": 0.00427416070609863,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0002833326302380776,
+            "mean_residual": [
+              0.0004886779879098817,
+              0.001957294718075855,
+              0.00543510682486911,
+              -0.0032351689855064517,
+              -0.009266010557524266,
+              0.002560543164571304,
+              -0.01443618815665736,
+              -0.01746820910617191,
+              -0.0010460595136752892,
+              0.013342164693720267,
+              -0.00772810525950941,
+              0.009511028631014124,
+              -0.0017458159576598199,
+              0.017163413531181414
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03392102108257926
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0004548029791114391,
+            "mean_residual": [
+              -0.0011241425134482612,
+              0.0036712078601123144,
+              0.009042182597512959,
+              -0.005430140522886102,
+              0.00035390629043646716,
+              -0.00042194388418580284,
+              -0.008291058070996228,
+              -0.008087619751204924,
+              0.0018715978438564721,
+              -0.018805704999790476,
+              -0.0027156687023849567,
+              0.00835319741993727,
+              -0.0036466593271128576,
+              0.016352248413792292
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03866146138770131
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0006752374900579558,
+            "mean_residual": [
+              -0.0010130288581391342,
+              -0.0012220101110177446,
+              0.014296334088000833,
+              0.0029528024300456077,
+              0.008633898839622239,
+              0.00541648877787872,
+              -0.00018119891969918707,
+              -0.01407425339783008,
+              0.016172209930746417,
+              -0.0027194280974000788,
+              -0.006315832914993436,
+              -0.011797739794927226,
+              -0.0013221451066204677,
+              -0.005015359682262152
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04003080466316715
+          }
+        }
+      }
+    },
+    {
+      "checkpoint_sha256": "d0685e5de17bf9dd916a3cb516aabf150fd2dfaf99075fea2127d5ed419641de",
+      "continuous_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 138,
+        "entries": 12288,
+        "entries_above_tolerance": 489,
+        "maximum": {
+          "anchor": 233,
+          "array_index": [
+            233,
+            1,
+            3,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            1.5821013341904373,
+            -0.792749263118847,
+            0.6174781300176558,
+            -2.921746994530661
+          ],
+          "initial_norm": 3.471221797425467,
+          "initial_norm_rank_descending": 3,
+          "second_component": "sin2",
+          "signed_error": 0.24698865976588802
+        },
+        "rmse": 0.023109322543706637
+      },
+      "continuous_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 26,
+        "entries": 3072,
+        "entries_above_tolerance": 51,
+        "maximum": {
+          "anchor": 233,
+          "array_index": [
+            233,
+            1,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            1.5821013341904373,
+            -0.792749263118847,
+            0.6174781300176558,
+            -2.921746994530661
+          ],
+          "initial_norm": 3.471221797425467,
+          "initial_norm_rank_descending": 3,
+          "signed_error": 0.21507158577095664
+        },
+        "rmse": 0.015852616596059518
+      },
+      "euler_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 97,
+        "entries": 12288,
+        "entries_above_tolerance": 354,
+        "maximum": {
+          "anchor": 233,
+          "array_index": [
+            233,
+            1,
+            3,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            1.5821013341904373,
+            -0.792749263118847,
+            0.6174781300176558,
+            -2.921746994530661
+          ],
+          "initial_norm": 3.471221797425467,
+          "initial_norm_rank_descending": 3,
+          "second_component": "sin2",
+          "signed_error": 0.23044317428657568
+        },
+        "rmse": 0.020744075029946837
+      },
+      "euler_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 26,
+        "entries": 3072,
+        "entries_above_tolerance": 53,
+        "maximum": {
+          "anchor": 233,
+          "array_index": [
+            233,
+            1,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            1.5821013341904373,
+            -0.792749263118847,
+            0.6174781300176558,
+            -2.921746994530661
+          ],
+          "initial_norm": 3.471221797425467,
+          "initial_norm_rank_descending": 3,
+          "signed_error": 0.20265088872678383
+        },
+        "rmse": 0.015163746414791226
+      },
+      "evaluation_gate": {
+        "contrast_within_tolerance": false,
+        "each_uncertainty_budget": 0.0,
+        "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+        "point_estimate_within_tolerance": false,
+        "reference_bias_resolved": true,
+        "sampling_resolved": true,
+        "status": "unresolved",
+        "tolerance": 0.05
+      },
+      "evaluation_sha256": "85d5faab6da14e419054d21f39dd47476b7f58edeab7652000a6d8e3cc81dbd4",
+      "metadata_sha256": "5d2d6688b32516f8cbfcb0ce02cb50f385c8519a7e5d915a394ad8fe78b4c824",
+      "per_horizon_component": [
+        {
+          "component": "cos1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.03858179403313944,
+          "mean_rmse": 0.007588659716495574,
+          "predicted_variance_std_over_initial_states": 0.011235651271315709,
+          "variance_entries_above_tolerance": 0,
+          "variance_maximum_absolute_error": 0.03843183112064824,
+          "variance_rmse": 0.012672261242333453
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.0395706474596067,
+          "mean_rmse": 0.009526077799900013,
+          "predicted_variance_std_over_initial_states": 0.014971804728737438,
+          "variance_entries_above_tolerance": 2,
+          "variance_maximum_absolute_error": 0.08395997629275548,
+          "variance_rmse": 0.015712202101368318
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 2,
+          "mean_maximum_absolute_error": 0.0790612563530595,
+          "mean_rmse": 0.011115141976240174,
+          "predicted_variance_std_over_initial_states": 0.03729901455391357,
+          "variance_entries_above_tolerance": 43,
+          "variance_maximum_absolute_error": 0.14762669665329442,
+          "variance_rmse": 0.042448885405763095
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 7,
+          "mean_maximum_absolute_error": 0.0878727515618346,
+          "mean_rmse": 0.014633486927191708,
+          "predicted_variance_std_over_initial_states": 0.04407022042067669,
+          "variance_entries_above_tolerance": 50,
+          "variance_maximum_absolute_error": 0.2108911698902063,
+          "variance_rmse": 0.04815337170926544
+        },
+        {
+          "component": "cos1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.0652610466948752,
+          "mean_rmse": 0.010341827659595765,
+          "predicted_variance_std_over_initial_states": 0.016875661818740357,
+          "variance_entries_above_tolerance": 3,
+          "variance_maximum_absolute_error": 0.06318032415377339,
+          "variance_rmse": 0.01847595349442698
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.04443781984603412,
+          "mean_rmse": 0.007825412498659378,
+          "predicted_variance_std_over_initial_states": 0.016582787247371833,
+          "variance_entries_above_tolerance": 2,
+          "variance_maximum_absolute_error": 0.07925926971430775,
+          "variance_rmse": 0.01704537321881124
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 8,
+          "mean_maximum_absolute_error": 0.08482441257726303,
+          "mean_rmse": 0.0170390366816037,
+          "predicted_variance_std_over_initial_states": 0.040599874685937426,
+          "variance_entries_above_tolerance": 56,
+          "variance_maximum_absolute_error": 0.20751651367746315,
+          "variance_rmse": 0.0503250396896907
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 11,
+          "mean_maximum_absolute_error": 0.20265088872678383,
+          "mean_rmse": 0.0227324282078364,
+          "predicted_variance_std_over_initial_states": 0.05025170960568057,
+          "variance_entries_above_tolerance": 53,
+          "variance_maximum_absolute_error": 0.23044317428657568,
+          "variance_rmse": 0.051339232686055794
+        },
+        {
+          "component": "cos1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 2,
+          "mean_maximum_absolute_error": 0.05887159297147149,
+          "mean_rmse": 0.012357973277460053,
+          "predicted_variance_std_over_initial_states": 0.021619704158947997,
+          "variance_entries_above_tolerance": 11,
+          "variance_maximum_absolute_error": 0.10896093255705641,
+          "variance_rmse": 0.02294355803125455
+        },
+        {
+          "component": "sin1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.031567670102982226,
+          "mean_rmse": 0.011042125290625667,
+          "predicted_variance_std_over_initial_states": 0.012572176576010997,
+          "variance_entries_above_tolerance": 1,
+          "variance_maximum_absolute_error": 0.06147611631842542,
+          "variance_rmse": 0.013145305248238237
+        },
+        {
+          "component": "cos2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 11,
+          "mean_maximum_absolute_error": 0.1123274797767064,
+          "mean_rmse": 0.020855186851282053,
+          "predicted_variance_std_over_initial_states": 0.032832142250441454,
+          "variance_entries_above_tolerance": 30,
+          "variance_maximum_absolute_error": 0.15766496229720195,
+          "variance_rmse": 0.03509449687716208
+        },
+        {
+          "component": "sin2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 11,
+          "mean_maximum_absolute_error": 0.19417602397949602,
+          "mean_rmse": 0.024256583275551018,
+          "predicted_variance_std_over_initial_states": 0.04262314273332771,
+          "variance_entries_above_tolerance": 41,
+          "variance_maximum_absolute_error": 0.18638125062676814,
+          "variance_rmse": 0.043457330533358686
+        }
+      ],
+      "seed": 1,
+      "training": {
+        "best_epoch": 77,
+        "best_epoch_training_loss": 0.03527388665995604,
+        "best_validation_loss": 0.038259804956941625,
+        "epochs": 87,
+        "last_training_loss": 0.03515821218805694,
+        "last_validation_loss": 0.03838142096884443,
+        "last_validation_minus_training": 0.0032232087807874885,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003023010051980344,
+            "mean_residual": [
+              8.744007775770163e-05,
+              0.00027986424595049446,
+              -0.00015520976266550476,
+              0.0009324207361582423,
+              -0.0009938805051595782,
+              0.007197754852899022,
+              0.0029443857947848706,
+              -0.014289749494096565,
+              0.0026115157246329648,
+              -0.003863523963458621,
+              0.007986810985271075,
+              0.0024774314291489494,
+              0.010642794884849491,
+              -0.004322746046137516
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03428304173175585
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000360903988766475,
+            "mean_residual": [
+              -0.003479816888587276,
+              0.003109458880460887,
+              -0.001778382444022218,
+              0.001997949214005167,
+              9.367280120882015e-05,
+              0.00464534494109985,
+              0.004229369537439376,
+              -0.006975293420839896,
+              0.0031620680611308682,
+              -0.03521196526287124,
+              0.004458949523964732,
+              0.0045851932853610364,
+              0.006107809627271494,
+              0.006428994566212733
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03852486519563619
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.000632190340423116,
+            "mean_residual": [
+              -0.007091993737174458,
+              0.010705630629080403,
+              0.007225081378985139,
+              0.0070209732530212635,
+              0.0012974167836057112,
+              0.0029641692105314963,
+              -0.0029558847200673393,
+              -0.020081741945542398,
+              0.005165866241941397,
+              -0.007050520047565749,
+              0.0013406566661810393,
+              -0.0060455402586623,
+              -0.0041240637670582475,
+              0.00042676923889446543
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04067611260904521
+          }
+        }
+      }
+    },
+    {
+      "checkpoint_sha256": "2998084073bda11d887185c2d52d1a0ccf4d77926fb96b5f5054e1cf4d50e4c5",
+      "continuous_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 120,
+        "entries": 12288,
+        "entries_above_tolerance": 393,
+        "maximum": {
+          "anchor": 66,
+          "array_index": [
+            66,
+            0,
+            3,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.25,
+          "initial": [
+            -1.4118805682468059,
+            -1.8893727592660055,
+            -1.7733057448707765,
+            -1.8874416993746024
+          ],
+          "initial_norm": 3.5028824695925995,
+          "initial_norm_rank_descending": 2,
+          "second_component": "sin2",
+          "signed_error": 0.2704153022080643
+        },
+        "rmse": 0.02095101643238833
+      },
+      "continuous_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 21,
+        "entries": 3072,
+        "entries_above_tolerance": 46,
+        "maximum": {
+          "anchor": 35,
+          "array_index": [
+            35,
+            1,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            0.227640235984165,
+            -0.7382529730246313,
+            -0.29703953326405164,
+            -2.5735473101606963
+          ],
+          "initial_norm": 2.7033711863478374,
+          "initial_norm_rank_descending": 34,
+          "signed_error": 0.11876981906996409
+        },
+        "rmse": 0.013956293336504071
+      },
+      "euler_target_covariance": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 88,
+        "entries": 12288,
+        "entries_above_tolerance": 281,
+        "maximum": {
+          "anchor": 66,
+          "array_index": [
+            66,
+            0,
+            3,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.25,
+          "initial": [
+            -1.4118805682468059,
+            -1.8893727592660055,
+            -1.7733057448707765,
+            -1.8874416993746024
+          ],
+          "initial_norm": 3.5028824695925995,
+          "initial_norm_rank_descending": 2,
+          "second_component": "sin2",
+          "signed_error": 0.2526058825777069
+        },
+        "rmse": 0.018876828561196875
+      },
+      "euler_target_mean": {
+        "anchors": 256,
+        "anchors_with_entry_above_tolerance": 19,
+        "entries": 3072,
+        "entries_above_tolerance": 43,
+        "maximum": {
+          "anchor": 35,
+          "array_index": [
+            35,
+            1,
+            3
+          ],
+          "component": "sin2",
+          "horizon": 0.5,
+          "initial": [
+            0.227640235984165,
+            -0.7382529730246313,
+            -0.29703953326405164,
+            -2.5735473101606963
+          ],
+          "initial_norm": 2.7033711863478374,
+          "initial_norm_rank_descending": 34,
+          "signed_error": 0.10782936066333654
+        },
+        "rmse": 0.013560828351836838
+      },
+      "evaluation_gate": {
+        "contrast_within_tolerance": false,
+        "each_uncertainty_budget": 0.0,
+        "interpretation": "Pointwise intervals; optimizer seeds are separate. A finite reference refinement difference does not certify remaining continuous-time bias.",
+        "point_estimate_within_tolerance": false,
+        "reference_bias_resolved": true,
+        "sampling_resolved": true,
+        "status": "unresolved",
+        "tolerance": 0.05
+      },
+      "evaluation_sha256": "d0c4850cfeeeddb0682c4e6919752315d0f7bd290a2a3ad5b3733ae040e3f97e",
+      "metadata_sha256": "ef2b06813ccbe3a695869bc15ca2494991a2a41ad506b47d98b0c22fdb677bbf",
+      "per_horizon_component": [
+        {
+          "component": "cos1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.04780168894649228,
+          "mean_rmse": 0.0067220656256388525,
+          "predicted_variance_std_over_initial_states": 0.013118417733030217,
+          "variance_entries_above_tolerance": 0,
+          "variance_maximum_absolute_error": 0.043895805020035705,
+          "variance_rmse": 0.01313406446444877
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.03714763684114608,
+          "mean_rmse": 0.006554746620193382,
+          "predicted_variance_std_over_initial_states": 0.01801918574143546,
+          "variance_entries_above_tolerance": 3,
+          "variance_maximum_absolute_error": 0.05891480750055644,
+          "variance_rmse": 0.01874382447654793
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.07339100512002528,
+          "mean_rmse": 0.011692320141083876,
+          "predicted_variance_std_over_initial_states": 0.029935853942776366,
+          "variance_entries_above_tolerance": 26,
+          "variance_maximum_absolute_error": 0.1411594516749528,
+          "variance_rmse": 0.03138360610688703
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.25,
+          "mean_entries_above_tolerance": 4,
+          "mean_maximum_absolute_error": 0.09723930249434065,
+          "mean_rmse": 0.014729790547352885,
+          "predicted_variance_std_over_initial_states": 0.037768664315514136,
+          "variance_entries_above_tolerance": 39,
+          "variance_maximum_absolute_error": 0.2526058825777069,
+          "variance_rmse": 0.04360904828053886
+        },
+        {
+          "component": "cos1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 1,
+          "mean_maximum_absolute_error": 0.08222402758059122,
+          "mean_rmse": 0.010884986124755906,
+          "predicted_variance_std_over_initial_states": 0.014239463260565468,
+          "variance_entries_above_tolerance": 0,
+          "variance_maximum_absolute_error": 0.042626773562072784,
+          "variance_rmse": 0.014948761463418864
+        },
+        {
+          "component": "sin1",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 0,
+          "mean_maximum_absolute_error": 0.039359022448792524,
+          "mean_rmse": 0.007814728210884173,
+          "predicted_variance_std_over_initial_states": 0.017667871008704376,
+          "variance_entries_above_tolerance": 4,
+          "variance_maximum_absolute_error": 0.05713707344039709,
+          "variance_rmse": 0.019102403950955884
+        },
+        {
+          "component": "cos2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 9,
+          "mean_maximum_absolute_error": 0.09239626037369582,
+          "mean_rmse": 0.017639466089259377,
+          "predicted_variance_std_over_initial_states": 0.03334786739912181,
+          "variance_entries_above_tolerance": 33,
+          "variance_maximum_absolute_error": 0.15181798451763695,
+          "variance_rmse": 0.034081586177368735
+        },
+        {
+          "component": "sin2",
+          "horizon": 0.5,
+          "mean_entries_above_tolerance": 5,
+          "mean_maximum_absolute_error": 0.10782936066333654,
+          "mean_rmse": 0.016170820185633976,
+          "predicted_variance_std_over_initial_states": 0.03994651592336891,
+          "variance_entries_above_tolerance": 43,
+          "variance_maximum_absolute_error": 0.20071700216986532,
+          "variance_rmse": 0.043427835795059884
+        },
+        {
+          "component": "cos1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 2,
+          "mean_maximum_absolute_error": 0.08535888491091537,
+          "mean_rmse": 0.012628922833892702,
+          "predicted_variance_std_over_initial_states": 0.015439564967687572,
+          "variance_entries_above_tolerance": 2,
+          "variance_maximum_absolute_error": 0.05646474070976859,
+          "variance_rmse": 0.01798676495804353
+        },
+        {
+          "component": "sin1",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 4,
+          "mean_maximum_absolute_error": 0.0621075210492793,
+          "mean_rmse": 0.012043285897510768,
+          "predicted_variance_std_over_initial_states": 0.01615287674909002,
+          "variance_entries_above_tolerance": 6,
+          "variance_maximum_absolute_error": 0.0760316883413602,
+          "variance_rmse": 0.018839683648673337
+        },
+        {
+          "component": "cos2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 10,
+          "mean_maximum_absolute_error": 0.07395632235350487,
+          "mean_rmse": 0.020707441957514984,
+          "predicted_variance_std_over_initial_states": 0.033073351174264166,
+          "variance_entries_above_tolerance": 30,
+          "variance_maximum_absolute_error": 0.17657873143871883,
+          "variance_rmse": 0.03471553563556647
+        },
+        {
+          "component": "sin2",
+          "horizon": 1.0,
+          "mean_entries_above_tolerance": 7,
+          "mean_maximum_absolute_error": 0.06688191800336464,
+          "mean_rmse": 0.016715177796277285,
+          "predicted_variance_std_over_initial_states": 0.03739657066860862,
+          "variance_entries_above_tolerance": 45,
+          "variance_maximum_absolute_error": 0.1776926443540381,
+          "variance_rmse": 0.04170011994707377
+        }
+      ],
+      "seed": 2,
+      "training": {
+        "best_epoch": 78,
+        "best_epoch_training_loss": 0.035278870485268225,
+        "best_validation_loss": 0.03794114218023388,
+        "epochs": 88,
+        "last_training_loss": 0.03545842602106438,
+        "last_validation_loss": 0.0393749682410627,
+        "last_validation_minus_training": 0.00391654221999832,
+        "validation_residuals": {
+          "0.25": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00026779852180041134,
+            "mean_residual": [
+              -0.0012149994892218115,
+              -0.0004066134845798257,
+              0.0024496311643878946,
+              -0.000520183367191625,
+              -0.0033074934530728088,
+              0.0008126608491157976,
+              -0.006523348834846637,
+              -0.021658951404591474,
+              -0.00837361244063272,
+              0.028389875435519372,
+              -0.006933841201217195,
+              -0.00016337646551639975,
+              0.005544273092078415,
+              -0.0033364644994755247
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03413417546105485
+          },
+          "0.5": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.0003602446692349189,
+            "mean_residual": [
+              -0.0011663535389254392,
+              -0.0009551687519567851,
+              -0.0018515168616789089,
+              -0.005298248842819287,
+              0.0003883376910700305,
+              -0.009342846511424512,
+              -0.005407139156710554,
+              -0.010137945821419178,
+              -0.0033262379452499023,
+              -0.012369145976045205,
+              -0.0042061550003514026,
+              -1.9121259450728244e-05,
+              -0.004709257607501881,
+              0.00011968885655726626
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.03815093804348183
+          },
+          "1.0": {
+            "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+            "mean_block_mse": 0.00047869341827259704,
+            "mean_residual": [
+              0.0021402729574758394,
+              -0.0022090287391701964,
+              0.00044292801406215464,
+              -0.008060242205645766,
+              0.010588978561492969,
+              -0.013344935663476727,
+              -0.0046689059062337635,
+              -0.005234742332503684,
+              0.022362220287583084,
+              0.0014295082947506903,
+              0.0033075527285071444,
+              -0.011293051569231303,
+              -0.021021335924506265,
+              -0.005958244705162564
+            ],
+            "n_paths": 1024,
+            "second_moment_block_mse": 0.04043157642685703
+          }
+        }
+      }
+    }
+  ],
+  "source_hash": "7d24dcb7b6c80a1f6856ee08b379c8c46fb564188bc3c59eca1ce9debdcd61ef",
+  "test_bank_hash": "4f4e34c97b92626263b259b42b9b648bfe2e36311770a00cc314397d4a663203",
+  "tolerance": 0.05
+}

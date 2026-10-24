@@ -1,0 +1,98 @@
+{
+  "config": {
+    "bootstrap_samples": 200,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform",
+      "nonuniform"
+    ],
+    "conditional_anchors": 8,
+    "conditional_paths": 2048,
+    "diffusion": 1.0,
+    "dt": 0.0078125,
+    "horizon": 1.0,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "bsde-first-batch",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "ou_test_anchors": 256,
+    "outer_paths": 8192,
+    "query_times": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "reference_batch_size": 64,
+    "reference_dt": 0.0001220703125,
+    "refinement_paths": 32,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 20261024,
+    "tolerance": 0.05,
+    "train_anchors": 128,
+    "train_continuations": 16,
+    "training": {
+      "batch_size": 32,
+      "epochs": 100,
+      "gradient_clip": 100.0,
+      "learning_rate": 0.001,
+      "patience": 10,
+      "threads": 1,
+      "weight_decay": 1e-05
+    },
+    "uncertainty_budget": 0.0125,
+    "validation_anchors": 32,
+    "validation_continuations": 32,
+    "width": 64
+  },
+  "config_hash": "20e7fdae25f659c999ba443fc8ab99cfe01c8fbb9347cb5d7d59b9c9d045aaf3",
+  "covariance_scope": "Four-by-four same-time blocks only; no joint temporal covariance",
+  "created_unix": 1792834586.8300328,
+  "dependencies": {
+    "h5py": "3.16.0",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "torch": "2.14.1"
+  },
+  "device": "cpu",
+  "elapsed_seconds": 3161.6944105417933,
+  "forward_pool_generation_seconds": {
+    "dk": 7.885030540870503,
+    "ou": 1.585097708972171
+  },
+  "last_completed_stage": "report",
+  "native_target": {
+    "initialization": "iid-particle-histogram-v1",
+    "law": "stopped-discrete-dk-v1",
+    "length": 6.283185307179586,
+    "n_cells": 32,
+    "rho_stop": 0.0015915494309189536,
+    "state_representation": "finite-volume-mass-v1",
+    "stopping": "euler-polygon-first-crossing-freeze-v1"
+  },
+  "platform": "macOS-15.0.1-arm64-arm-64bit",
+  "python": "3.12.0",
+  "query_bank": {
+    "modes": [
+      1,
+      2
+    ],
+    "times": [
+      0.25,
+      0.5,
+      1.0
+    ]
+  },
+  "scope": "Conditional moments of the stopped Euler chain at the recorded forward dt; continuous-time DK accuracy requires a separate reference-bias argument",
+  "source_hash": "7d24dcb7b6c80a1f6856ee08b379c8c46fb564188bc3c59eca1ce9debdcd61ef",
+  "status": "complete",
+  "targets": {
+    "dk": "2d7d81e303144054e9e4f70368dfc8f38ba465d4e70e58c9bde0e3c8797df686",
+    "ou": "1d1e0e7457806d45229403634b4260ca3292de3ff01bf3042241cc44a5508548"
+  },
+  "workflow": "conditional-bsde-moments-v1"
+}
