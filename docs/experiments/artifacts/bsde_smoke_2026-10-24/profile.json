@@ -1,0 +1,143 @@
+{
+  "checkpoint_loading_seconds": 0.008897499879822135,
+  "checkpoint_sha256": "2023bc212e87e7d32fe60de4eb9f01e02350a38a61a23c598d08e116b16650a6",
+  "conditional_inference": [
+    {
+      "horizons_per_state": 3,
+      "initial_states": 1,
+      "median_seconds": 0.0005143750458955765,
+      "median_seconds_per_initial_state": 0.0005143750458955765,
+      "scope": "Precomputed initial masses; validation and value-head inference included",
+      "seconds": [
+        0.000654666917398572,
+        0.0005143750458955765,
+        0.0004657080862671137
+      ]
+    },
+    {
+      "horizons_per_state": 3,
+      "initial_states": 64,
+      "median_seconds": 0.001536916010081768,
+      "median_seconds_per_initial_state": 2.4014312657527626e-05,
+      "scope": "Precomputed initial masses; validation and value-head inference included",
+      "seconds": [
+        0.0018102498725056648,
+        0.001536916010081768,
+        0.0014526669401675463
+      ]
+    }
+  ],
+  "config_hash": "3a7d8cc2af8d12ad10e8a6036be7bd690102ea846f5f4f72a5178b1f95a1b2f2",
+  "device": "cpu",
+  "dt": 0.0078125,
+  "dtype": "float64",
+  "elapsed_seconds": 4.067035125102848,
+  "horizon": 1.0,
+  "integrand_parameters": 39872,
+  "parameters": 51214,
+  "pool_generation_seconds": 1.9494247499387711,
+  "pool_loading_seconds": 0.3874968751333654,
+  "scope": "Performance diagnostic only: reduced pool, one epoch, no accuracy conclusion",
+  "source_hash": "7d24dcb7b6c80a1f6856ee08b379c8c46fb564188bc3c59eca1ce9debdcd61ef",
+  "state_dimension": 32,
+  "torch_threads": 1,
+  "training": {
+    "best_validation_loss": 9.261379293045833,
+    "complete": true,
+    "epochs": 1,
+    "first_epoch_seconds": 0.42390204197727144,
+    "history": [
+      {
+        "epoch": 1,
+        "epoch_seconds": 0.42390204197727144,
+        "training_loss": 11.8866812501252,
+        "validation_loss": 9.261379293045833
+      }
+    ],
+    "identity_hash": "663888de0957b2186a3a0d1a89481d102c61dd2a3cdb92ccf1c7ac4da8029e7d",
+    "kind": "native-dk-bsde-moments-v1",
+    "path": "runs/bsde-batch-profile/checkpoints/dk/seed_0.pt",
+    "problem": "dk",
+    "seed": 0,
+    "shared_forward_pool_generation_seconds": 1.9494247499387711,
+    "training_anchors": 64,
+    "training_paths": 128,
+    "training_seconds": 1.6300729170907289,
+    "validation_anchors": 16,
+    "validation_paths": 32,
+    "validation_residuals": {
+      "0.25": {
+        "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+        "mean_block_mse": 1.1146210284826288,
+        "mean_residual": [
+          -0.8147973956366525,
+          0.052242808162635414,
+          0.2395199520265338,
+          -0.3244972243176146,
+          -0.7907242068906648,
+          -0.016476719142582415,
+          -0.0040175317762487055,
+          -0.45955277824981383,
+          0.10202003400923317,
+          0.6815640139919695,
+          -0.1547685866250759,
+          -0.0511739660800838,
+          0.3087969832043991,
+          0.38878758098705646
+        ],
+        "n_paths": 32,
+        "second_moment_block_mse": 1.1637668112809079
+      },
+      "0.5": {
+        "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+        "mean_block_mse": 1.8044244049827567,
+        "mean_residual": [
+          -1.2489614674546177,
+          -0.3602386244033793,
+          -0.02741424041720511,
+          -0.35824153996206504,
+          -2.984650744334961,
+          -0.06862895563559843,
+          -0.08732832318775699,
+          -0.6013579495900434,
+          0.06968695213423187,
+          -0.06826878756996227,
+          -0.8792187052657895,
+          0.16442147894328116,
+          -0.37034826173876323,
+          0.22040408822902044
+        ],
+        "n_paths": 32,
+        "second_moment_block_mse": 3.9237017770698444
+      },
+      "1.0": {
+        "interpretation": "Terminal mismatch includes finite-step martingale representation error",
+        "mean_block_mse": 3.197575737558931,
+        "mean_residual": [
+          -1.8835746844034498,
+          -0.05610215354497898,
+          -0.23271333629554644,
+          -0.34864290623107574,
+          -7.904831494579566,
+          -0.3972979130691847,
+          -0.7683822046422719,
+          -1.2985666332946442,
+          0.04548755382528656,
+          -0.46548902017562105,
+          -1.5792871317065091,
+          0.19751169361568346,
+          -0.0015004730699799164,
+          -0.7329409022736275
+        ],
+        "n_paths": 32,
+        "second_moment_block_mse": 16.58004811976243
+      }
+    }
+  },
+  "training_anchors": 64,
+  "training_paths": 128,
+  "validation_anchors": 16,
+  "validation_paths": 32,
+  "value_parameters": 11342,
+  "width": 64
+}

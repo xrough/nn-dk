@@ -6,6 +6,8 @@ The **Project A convergence workflow** learns autonomous drift and noise coeffic
 
 The original particle-observation benchmark remains available: its Project A samples smooth coarse observations at a fixed learned lag, while Project B predicts means and joint covariances. Native DK coefficient checkpoints and particle-observation checkpoints have distinct target/model identifiers.
 
+The **conditional Deep BSDE workflow** learns observable means and same-time covariances using known forward dynamics. Its value network supplies predictions without a future-path rollout; a separate martingale network is used during training. This is the first stage toward comparing learned SPDE paths with directly learned statistics. See [the implementation and noise conventions](docs/BSDE_STATISTICS.md).
+
 ## Install and run
 
 Python **3.12** is required. The exact environment is recorded in `uv.lock`.
@@ -14,6 +16,7 @@ Python **3.12** is required. The exact environment is recorded in `uv.lock`.
 uv sync --locked --group dev
 uv run pytest
 uv run nn-dk convergence --preset a-smoke --output runs/a-smoke
+uv run nn-dk bsde --preset bsde-smoke --output runs/bsde-smoke
 ```
 
 The A-only smoke workflow exercises numerical calibration, both coefficient-training objectives, ablations, learning/capacity axes, temporal refinement, and reporting. Its small ensembles and three training epochs validate execution; they cannot certify 5% fluctuation accuracy. The scientific configuration starts with:

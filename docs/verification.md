@@ -54,3 +54,18 @@ The configured `a-first-batch` run completed successfully in **5548.91 seconds (
 The [experiment note](experiments/a_first_batch_2026-10-24.md) documents the findings and limitations. Compact tables, figures, provenance, and timing records are archived beside it; full datasets and checkpoints remain under `runs/a-first-batch/`. Analysis commands are documented in [analysis/README.md](../analysis/README.md).
 
 This completes the uniform, noninteracting oracle-supervised first batch. The larger data/capacity ladder, nonuniform and interacting cases, increment-supervised study, 65,536-path precision follow-ups, and particle comparisons have **not** been run at their scientific allocations.
+
+## Conditional Deep BSDE implementation — 24 October 2026
+
+The separate `nn-dk bsde` workflow predicts conditional means and same-time four-by-four covariances, then applies the law of total covariance for IID histogram starts. Known forward dynamics generate grouped training traces; value-network prediction requires no future rollout. Legacy particle, coefficient-learning and checkpoint formats remain distinct.
+
+- Full suite: **161 tests pass**. Ruff passes.
+- Saved `bsde-smoke`: numerical Brownian/OU calibration and coupled native-DK reference audit passed; both neural problems completed training, evaluation and reports in **2.4033 seconds** of recorded run time.
+- The exact smoke uses G=32, N=2048, T=1/8, one optimizer seed, three training epochs, 16 training anchors with two continuations each, eight validation anchors with two continuations each, and 32 ensemble reference paths per DK profile. It is smaller than the configured scientific first batch.
+- Tests cover predictable integrand inputs, shared forward/martingale increments, full crossing-step noise, uncensored proposal capture, time-zero and initially stopped outputs, positive covariances without a floor, anchor isolation, training-only normalization, complete-epoch resumption, target compatibility, immutable completed checkpoints, and rejection of incomplete or incompatible reports.
+- Analytic OU moment errors distinguish the trained Euler law from continuous-time truth. Conditional and ensemble bootstrap tests preserve trajectory families and include variation between initial histograms. Numerical refinement retains every stopped path and never treats finite reference contrasts as certified bias bounds.
+- A separate width-64, T=1 performance probe used 64 training anchors × two continuations, 16 validation anchors × two continuations, batch 32 and one epoch. The epoch including validation took **0.42390 seconds**. Conditional prediction at three horizons took median **0.51438 ms** for one precomputed state and **1.53692 ms** for 64 states, excluding histogram initialization/loading. It establishes execution cost only; its one-epoch model has no scientific accuracy claim.
+- Offline wheel and source-distribution builds succeed with the BSDE modules. Completed saved-CLI replay and immutable checkpoint hashes pass.
+- Saved smoke ensemble mean/covariance RMSEs were **10.32% / 12.85%** for uniform DK and **28.91% / 19.86%** for nonuniform DK. These undertrained predictions do **not** meet the 5% target. All DK accuracy gates remain unresolved; software acceptance is the only conclusion.
+
+The [BSDE guide](BSDE_STATISTICS.md) gives APIs, noise conventions, staged commands and scientific allocations. The [saved smoke note](experiments/bsde_smoke_2026-10-24.md) records exact provenance, calibration, errors and costs, with compact archived results and figures. The full scientific first batch, forward-step refinement, interacting case, multitime covariance and pathwise SPDE formulation have **not** been run by this implementation smoke.

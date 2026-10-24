@@ -15,3 +15,22 @@ The uniform-state probe loads completed coefficient checkpoints and differentiat
 Standalone timing requires a completed primary run and matching numerical source. Run it after other CPU work has finished. It measures three repeats at each declared native timestep and, optionally, every complete neural checkpoint at the finest step. Costs include histogram initialization, internal random-number generation, and the current shared simulation backend. Neural rollouts also incur that backend's native-coefficient calculation before the neural coefficients override it. Model loading is recorded separately. These are specified-step timings, without an accuracy-matched speedup claim.
 
 Numerical source and configuration must stay unchanged while an experiment runs. Derived analysis files do not change the package source hash. The saved experiment note links the compact archived findings; full trajectory caches and checkpoints remain under the ignored `runs/` directory.
+
+## Conditional BSDE execution profile
+
+```bash
+.venv/bin/python analysis/profile_bsde_batch.py runs/bsde-batch-profile
+```
+
+This independent diagnostic uses the planned width 64, G=32, N=2048, horizon 1,
+forward step 2^-7, and path batch 32. It fits one epoch on 64 initial anchors with
+two continuations each, with 16 separate validation anchors and two continuations
+each. It records pool generation/loading, epoch cost, parameter counts, checkpoint
+loading, and three repeats of conditional value inference for one and 64 initial
+states. These reduced allocations measure execution cost; they provide no
+scientific accuracy or speedup conclusion. Timings exclude histogram generation
+at inference because the initial masses are already available.
+
+`profile.json` is immutable on replay and has its own configuration/source hashes.
+Run it without competing CPU work. The full configured BSDE workflow and its
+statistical targets are documented in [the guide](../docs/BSDE_STATISTICS.md).

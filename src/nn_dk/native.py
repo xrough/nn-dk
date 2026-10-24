@@ -152,7 +152,8 @@ def simulate_native(context: Context, spec: NativeDKSpec, times: Sequence[float]
                     initial_masses: np.ndarray | None = None,
                     brownian_increments: np.ndarray | None = None,
                     coefficients: Callable | None = None, ablation: str = "both",
-                    family_ids: Sequence[str] | None = None) -> NativeBatch:
+                    family_ids: Sequence[str] | None = None,
+                    trace_capture: dict | None = None) -> NativeBatch:
     """Simulate stopped native DK, retaining only requested snapshots.
 
     ``coefficients(masses, context)`` supplies learned native coefficients.
@@ -160,6 +161,9 @@ def simulate_native(context: Context, spec: NativeDKSpec, times: Sequence[float]
     With no coefficient callable, the native oracle is used. Supplied Brownian
     increments have shape ``(paths, steps, faces)`` and variance ``step_size``;
     otherwise face noise is generated one step at a time.
+    ``trace_capture`` optionally receives predictable pre-step states, full
+    Brownian increments, active-at-start masks, and uncensored proposals. It
+    never changes the default snapshot-only simulation or stopping convention.
     """
     started = time.perf_counter()
     times, save_steps, n_steps = _time_grid(times, step_size)
@@ -187,12 +191,18 @@ def simulate_native(context: Context, spec: NativeDKSpec, times: Sequence[float]
     rng = seeded_rng(seed, "native-face-noise", context.context_id, spec.target_id)
     save = dict(zip(save_steps.tolist(), range(len(times)), strict=True))
     minimum_proposal = float(masses.min())
+    if trace_capture is not None:
+        trace_capture.clear()
+        shape = (n_paths, n_steps, spec.n_cells)
+        trace_capture.update(pre_states=np.empty(shape), increments=np.empty(shape),
+                             proposals=np.empty(shape),
+                             active=np.empty((n_paths, n_steps), dtype=bool))
     for step in range(n_steps + 1):
         if step in save:
             states[:, save[step]] = masses
         if step == n_steps:
             break
-        if not np.any(active):
+        if not np.any(active) and trace_capture is None:
             # Include every frozen path in every remaining observation.
             for remaining_step, index in save.items():
                 if remaining_step > step:
@@ -202,6 +212,13 @@ def simulate_native(context: Context, spec: NativeDKSpec, times: Sequence[float]
         # by another trajectory's stopping event.
         dw = (rng.normal(0, np.sqrt(step_size), masses.shape)
               if brownian_increments is None else brownian_increments[:, step])
+        if trace_capture is not None:
+            trace_capture["pre_states"][:, step] = masses
+            trace_capture["increments"][:, step] = dw
+            trace_capture["active"][:, step] = active
+            trace_capture["proposals"][:, step] = masses
+        if not np.any(active):
+            continue
         origins = masses[active]
         drift, amplitudes, _ = _native_parts(origins, context, spec)
         if coefficients is not None and ablation != "oracle":
@@ -213,6 +230,8 @@ def simulate_native(context: Context, spec: NativeDKSpec, times: Sequence[float]
         noise_flux = amplitudes * dw[active] / np.sqrt(context.n_particles)
         proposal = (origins + step_size * drift
                     + np.roll(noise_flux, 1, axis=-1) - noise_flux)
+        if trace_capture is not None:
+            trace_capture["proposals"][active, step] = proposal
         minimum_proposal = min(minimum_proposal, float(proposal.min()))
         stopped_state, crossed, crossing_time = boundary_step(
             origins, proposal, step * step_size, step_size, spec)
