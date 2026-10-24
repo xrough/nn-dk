@@ -1,0 +1,100 @@
+{
+  "config": {
+    "base_width": 32,
+    "bootstrap_samples": 200,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform"
+    ],
+    "coefficient_test_paths": 64,
+    "diagnostic_paths": 8192,
+    "diffusion": 1.0,
+    "evaluation_batch_size": 64,
+    "final_paths": 65536,
+    "horizon": 1.0,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "a-first-batch",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "particle_numbers": [],
+    "proposal_dt": 0.0078125,
+    "query_times": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "reference_dt": 0.0001220703125,
+    "refinement_paths": 32,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 20261024,
+    "states_per_path": 32,
+    "step_sizes": [
+      0.0078125,
+      0.00390625,
+      0.001953125,
+      0.0009765625
+    ],
+    "tolerance": 0.05,
+    "train_path_counts": [
+      64
+    ],
+    "training": {
+      "batch_size": 128,
+      "epochs": 100,
+      "learning_rate": 0.001,
+      "patience": 10,
+      "threads": 1,
+      "weight_decay": 1e-05
+    },
+    "training_modes": [
+      "oracle"
+    ],
+    "trajectory_batch_size": 32,
+    "uncertainty_budget": 0.0125,
+    "validation_paths": 64,
+    "widths": [
+      32
+    ]
+  },
+  "config_hash": "cd1627a2a1ea14eb64974f0f3aec7b330ef82c4709952f955905a56fb63bd4af",
+  "created_unix": 1792802291.0572731,
+  "dependencies": {
+    "h5py": "3.16.0",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "torch": "2.14.1"
+  },
+  "device": "cpu",
+  "elapsed_seconds": 5548.913310749922,
+  "python": "3.12.0",
+  "query_bank": {
+    "modes": [
+      1,
+      2
+    ],
+    "times": [
+      0.25,
+      0.5,
+      1.0
+    ]
+  },
+  "scientific_status": "See uncertainty gates; workflow completion does not certify convergence",
+  "scope": "Weak errors for stopped native DK at fixed grid; no continuum convergence claim",
+  "source_hash": "865faee0d24b982db69fd1890ae2378ded36129f3c51d623232d2563eb710780",
+  "status": "complete",
+  "target": {
+    "initialization": "iid-particle-histogram-v1",
+    "law": "stopped-discrete-dk-v1",
+    "length": 6.283185307179586,
+    "n_cells": 32,
+    "rho_stop": 0.0015915494309189536,
+    "state_representation": "finite-volume-mass-v1",
+    "stopping": "euler-polygon-first-crossing-freeze-v1"
+  },
+  "workflow": "native-dk-convergence-v1"
+}

@@ -25,6 +25,8 @@ uv run nn-dk convergence --config configs/a_first_batch.toml --output runs/a-fir
 
 These two commands select the same configuration. Rerun the identical command to resume the same run. `a-first-batch` allocates an eight-hour invocation budget to numerical calibration and the uniform, noninteracting oracle-supervised case. `a-full` adds the three cases, nested data and width studies, increment supervision, and particle-number follow-ups; `a-final` increases diagnostic ensembles to 65,536 paths. Use a fresh output directory when changing configuration or source. See [the Project A convergence guide](docs/PROJECT_A_CONVERGENCE.md) for the mathematical target, experiment ladder, and interpretation of unresolved results.
 
+The first scientific batch completed on 24 October 2026: **40 comparisons, three optimizer seeds, and 8192 evaluation families per configuration** at G=32, N=2048, T=1. Finest-step normalized covariance RMSE against the fine DK reference was 0.200%, 0.178%, and 0.449%. Refining the time step exposed a remaining neural coefficient error, dominated by drift in the ablations. Individual sampling precision and continuous-time reference bias remain unresolved, so this is not a convergence certificate. Read [the experiment findings](docs/experiments/a_first_batch_2026-10-24.md) for calibration, uncertainty, stopping, costs, saved artifacts, and follow-up decisions.
+
 Run the original combined A/B benchmark with:
 
 ```bash
