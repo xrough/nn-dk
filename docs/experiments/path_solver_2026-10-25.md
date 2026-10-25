@@ -132,6 +132,22 @@ case, width32/depth4, three optimizer seeds and step 2^-7: 15 fits. A full
 three-step design is available as `path-pilot`, with a separate fit at each
 resolution. Validation selection and final tests remain distinct.
 
+The first batch was launched in `runs/path-first-batch-2026-10-25-v2`.
+After the six controls passed validation, remaining fits moved to three
+exclusive one-thread seed processes. An independent software audit reproduced
+all ten small sequential/worker fits bitwise, including a genuine seven-update
+checkpoint resume. A one-shot continuation waits for those processes to exit,
+restores all 15 models, then performs locked evaluation, plotting, independent
+timing and archival. Its progress log is `execution/finish_continuation.log`;
+the subsequent numerical report is `report/path_results.md`. This implementation
+note reports only the completed short runs; it does not anticipate T=1 results.
+
+Active execution, per-fit durations, worker CPU cost and UTC wall time are
+separate. The UTC clock advanced much more than the recorded execution timers
+during this batch. Possible suspension is not proved by that discrepancy.
+The continuation retains the solver's monotonic eight-hour allocation and
+records UTC chronology separately; it does not charge a UTC gap as computation.
+
 After establishing T=1 behavior, prioritize temporal refinement with exact
 coefficients and the neural operator on the same physical drivers. Audit
 reference refinement independently before estimating an order. Then vary

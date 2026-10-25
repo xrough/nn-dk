@@ -37,9 +37,18 @@ The original CLI validates every completed fit before final evaluation.
 
 Worker wall intervals overlap and are absent from the CLI manifest's recorded
 elapsed time. Preserve their execution records and helper SHA; distinguish
-host wall span, summed per-fit wall time, and worker process CPU time. Use the
-actual remaining project wall budget when resuming. The ordinary sequential
+UTC wall span, recorded monotonic execution duration, summed per-fit durations,
+and worker process CPU time. Use the remaining monotonic execution budget when
+resuming; a UTC gap alone does not establish active-budget exhaustion. The ordinary sequential
 CLI is sufficient for reproduction and avoids this manual ownership protocol.
+
+`finish_path_batch.py` is the one-shot continuation for the recorded three-seed,
+15-fit batch. It waits for actual process exit and released locks, checks the
+frozen helper/source/configuration hashes and restores every fit before resuming
+the original workflow. It then saves density plots, separate warm timings and
+the compact archive. `--check-only` reads the gate without launching evaluation.
+Its frozen plan is in that run's `execution/parallel_plan.json`; this helper is
+not a recurring scheduler. Permission to inspect the recorded PIDs is required.
 
 The [path method](../docs/PATH_SOLVER.md) and
 [experiment findings](../docs/experiments/path_solver_2026-10-25.md) define the

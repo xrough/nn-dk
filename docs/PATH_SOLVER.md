@@ -170,6 +170,8 @@ Controls are fitted and checked before DK regardless of case ordering.
 An unresolved control gate leaves final inputs locked. Exit 75 means the
 invocation budget expired with resumable work. Rerun the identical command;
 source/configuration changes require a new directory.
+Execution budgets use a monotonic clock; UTC timestamps provide separate
+chronology and wall-time accounting.
 
 HDF5 stores initial/noise banks, fine reference paths, and each model's full
 density paths and raw proposals. Content hashes protect completed rows, saved

@@ -11,6 +11,7 @@ import gzip
 import hashlib
 import importlib.metadata
 import json
+import math
 import shutil
 from pathlib import Path
 
@@ -31,6 +32,24 @@ def sha(path):
 
 def write_json(path, packet):
     Path(path).write_text(json.dumps(packet, indent=2, sort_keys=True)+"\n")
+
+
+def active_parallel_span(workers):
+    """Cost of overlapping native monotonic worker intervals, separate from UTC."""
+    if not workers:
+        return {"active_parallel_span_seconds": 0., "worker_launch_spread_seconds": 0.}
+    if any(not all(isinstance(worker.get(key), (int, float))
+                       and not isinstance(worker.get(key), bool) and math.isfinite(worker[key])
+                       for key in ("started_unix", "wall_seconds"))
+           or worker["wall_seconds"] < 0 for worker in workers):
+        raise ValueError("Worker active-span records are missing finite monotonic durations")
+    first = min(worker["started_unix"] for worker in workers)
+    spread = max(worker["started_unix"] for worker in workers) - first
+    if spread > 60.:
+        raise ValueError("Worker launches are too far apart for the short-launch active parallel ledger")
+    return {"active_parallel_span_seconds": max(
+                worker["started_unix"]-first+worker["wall_seconds"] for worker in workers),
+            "worker_launch_spread_seconds": spread}
 
 
 def archive(directory, destination):
@@ -72,6 +91,15 @@ def archive(directory, destination):
         execution.append(json.loads(path.read_text()))
     workers = [packet for packet in execution if "process_cpu_seconds" in packet]
     finishes = [packet for packet in execution if packet.get("kind") == "workflow-finished"]
+    active_parallel = active_parallel_span(workers)
+    finished = max(finishes, key=lambda packet: packet["finished_unix"]) if finishes else None
+    active_execution = None if finished is None else finished.get("active_execution_ledger_seconds")
+    utc_elapsed = None if finished is None else finished["finished_unix"]-manifest["created_unix"]
+    if (finished is not None and "active_parallel_span_seconds" in finished
+            and not math.isclose(finished["active_parallel_span_seconds"],
+                                 active_parallel["active_parallel_span_seconds"],
+                                 rel_tol=0, abs_tol=1e-9)):
+        raise ValueError("Workflow completion and worker active-span ledgers disagree")
     banks = {}
     for role in ("train", "validation", "test"):
         with h5py.File(directory/f"path_{role}.h5", "r") as bank:
@@ -114,9 +142,14 @@ def archive(directory, destination):
             max(worker["finished_unix"] for worker in workers)
             -min(worker["started_unix"] for worker in workers) if workers else 0.),
         "standalone_worker_process_cpu_seconds": sum(worker["process_cpu_seconds"] for worker in workers),
-        "end_to_end_wall_seconds": (finishes[-1]["finished_unix"]-manifest["created_unix"]
-                                    if finishes else None),
-        "parallel_cost_scope": "worker fit walltimes overlap and are excluded from manifest workflow elapsed; CPU seconds cover standalone worker processes only",
+        **active_parallel,
+        "active_execution_ledger_seconds": active_execution,
+        "active_budget_target_seconds": config.budget_seconds,
+        "end_to_end_wall_seconds": utc_elapsed,
+        "utc_wall_minus_active_ledger_seconds": (
+            utc_elapsed-active_execution if utc_elapsed is not None and active_execution is not None else None),
+        "parallel_cost_scope": "worker monotonic fit durations overlap and are excluded from manifest CLI elapsed; active parallel span uses bounded launch offsets plus those monotonic durations. CPU seconds cover standalone worker processes only",
+        "clock_scope": "End-to-end UTC wall time includes any suspension or clock adjustment. A UTC/monotonic discrepancy does not establish its cause; UTC elapsed alone is not the active execution budget",
         "uncertainty_scope": "pointwise paired whole-family bootstrap; not simultaneous or marginal-law certification",
         "fine_reference_scope": "finite Euler difference, not a continuous stopping-bias bound",
         "evaluation_cost_scope": "includes oracle comparison, diagnostics, bootstrap and output; not neural latency"

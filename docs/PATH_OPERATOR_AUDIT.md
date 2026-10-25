@@ -322,11 +322,20 @@ Safe execution requires the following operational conditions:
   previous invocation's timing history.
 - Account for the parallel segment explicitly. Workers leave
   `manifest.elapsed_seconds` unchanged. Active project wall time adds the
-  **union** of worker intervals to the sequential intervals, rather than
+  **union** of recorded monotonic worker intervals to the sequential intervals, rather than
   summing overlapping worker durations. Remaining invocation budgets must use
   that corrected accounting. Per-checkpoint `training_seconds` is fit wall
   time under concurrent CPU contention; it is neither total project wall time
   nor process CPU time. Worker process CPU fields cover only those workers.
+
+The one-shot continuation uses the same monotonic clock as the native solver.
+For these nearly simultaneous launches, its active parallel span is the maximum
+of launch offset plus each worker's monotonic duration; launch spreads over
+60 seconds are rejected. UTC start/finish times provide a separate wall span.
+A substantial UTC/monotonic discrepancy was observed while the pilot was active;
+machine suspension is one possible cause, not an established diagnosis. A UTC
+gap alone neither consumes the active execution allocation nor changes the
+numerical target. Final ledgers retain both clocks and process CPU measurements.
 
 These are orchestration and timing qualifications, not a change to the
 stochastic ansatz. The original CLI remains responsible for validating the

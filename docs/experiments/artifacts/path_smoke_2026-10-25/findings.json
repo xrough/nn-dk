@@ -1,4 +1,7 @@
 {
+  "active_budget_target_seconds": 28800.0,
+  "active_execution_ledger_seconds": null,
+  "active_parallel_span_seconds": 0.0,
   "all_causality_checks_passed": true,
   "all_same_noise_replays_passed": true,
   "cases": [
@@ -8,6 +11,7 @@
     "dk_nonuniform",
     "dk_interacting"
   ],
+  "clock_scope": "End-to-end UTC wall time includes any suspension or clock adjustment. A UTC/monotonic discrepancy does not establish its cause; UTC elapsed alone is not the active execution budget",
   "config_hash": "ac392518dcf71e7478021b060da4cf8e45cb37b6f71f0c401583e64995f04276",
   "configured_models": 5,
   "continuous_time_accuracy_certified": false,
@@ -49,7 +53,7 @@
   "optimizer_seeds": [
     0
   ],
-  "parallel_cost_scope": "worker fit walltimes overlap and are excluded from manifest workflow elapsed; CPU seconds cover standalone worker processes only",
+  "parallel_cost_scope": "worker monotonic fit durations overlap and are excluded from manifest CLI elapsed; active parallel span uses bounded launch offsets plus those monotonic durations. CPU seconds cover standalone worker processes only",
   "paths_per_case": {
     "test": 64,
     "train": 32,
@@ -67,5 +71,7 @@
   "total_generation_seconds": 0.8722712493035942,
   "training_seconds": 17.762823541881517,
   "uncertainty_scope": "pointwise paired whole-family bootstrap; not simultaneous or marginal-law certification",
+  "utc_wall_minus_active_ledger_seconds": null,
+  "worker_launch_spread_seconds": 0.0,
   "workflow_cost_scope": "cumulative recorded invocations, including resume/report replay"
 }

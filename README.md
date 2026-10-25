@@ -24,7 +24,7 @@ These are full-field errors in fixed fluctuation units, including the maximum ov
 
 All saved short-run paths replayed exactly from their physical noise. Independent numerical references, future-noise perturbations, full joint covariance, trajectory-family separation and Brownian aggregation passed the [evidence audit](docs/PATH_SOLVER_EVIDENCE_AUDIT.md). Mass error was at most 2.23e-16; no invalid paths or stops were observed. Zero observed stops does not establish rare-event accuracy.
 
-The [experiment report](docs/experiments/path_solver_2026-10-25.md) retains uncertainty and target distinctions. A larger **T=1, three-seed, 15-fit first batch** is in progress; its final input bank stays locked until all fits finish. The committed three-step `path-pilot` configuration supports the subsequent scientific refinement study.
+The [experiment report](docs/experiments/path_solver_2026-10-25.md) retains uncertainty and target distinctions. A larger **T=1, three-seed, 15-fit first batch** was submitted; its final input bank stays locked until all fits finish. A one-shot continuation then evaluates, times and archives the results automatically. Runtime progress is saved under `runs/path-first-batch-2026-10-25-v2/execution/`; this note reports the completed short runs. The committed three-step `path-pilot` configuration supports the subsequent scientific refinement study.
 
 ![An actual held-out full-grid realization](docs/experiments/artifacts/path_smoke_2026-10-25/density_realizations.png)
 
