@@ -19,7 +19,7 @@ import nn_dk.path_reporting as path_reporting
 import nn_dk.path_study as study
 import nn_dk.path_training as path_training
 from nn_dk.experiments import BudgetExhausted
-from nn_dk.path_config import PathConfig
+from nn_dk.path_config import PathConfig, path_preset
 from nn_dk.path_model import PATH_MODEL_KIND
 from nn_dk.path_numerics import torch_euler
 
@@ -232,3 +232,12 @@ def test_expired_workflow_deadline_does_not_start_generation(tmp_path, workflow)
         study.run_path_study(tmp_path, config, deadline=time.monotonic()-1)
     assert not events
     assert not list(tmp_path.glob("path_*.h5"))
+
+
+def test_full_horizon_covariance_calibration_avoids_growing_block_exponential(tmp_path):
+    config = path_preset("path-first-batch")
+    study.prepare_path_run(tmp_path, config)
+    result = study.calibrate_paths(tmp_path, config)
+    assert result["passed"]
+    assert result["full_covariance_lyapunov_ode_error"] < 1e-12
+    assert result["physical_face_covariance_error"] < 1e-14

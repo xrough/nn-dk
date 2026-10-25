@@ -11,7 +11,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 import torch
-from scipy.linalg import expm
+from scipy.integrate import solve_ivp
 
 from .data import json_ready, source_hash, write_json
 from .experiments import BudgetExhausted
@@ -102,7 +102,7 @@ def prepare_path_run(directory, config: PathConfig):
 
 
 def calibrate_paths(directory, config):
-    """Independent full-grid Gaussian matrix-exponential and driver checks."""
+    """Independent full-grid Gaussian Lyapunov ODE and physical driver checks."""
     from .observations import incidence_matrix
     from .path_numerics import linear_moments, path_coefficients, torch_euler
 
@@ -121,11 +121,18 @@ def calibrate_paths(directory, config):
     result = linear_moments(initial, np.zeros((g, g)), config.query_times,
                             context, spec, "additive")
     a, q = result["drift_matrix"], result["noise_covariance"]
-    error = 0.
-    for index, t in enumerate(config.query_times):
-        van_loan = expm(t*np.block([[a, q], [np.zeros_like(a), -a.T]]))
-        covariance = van_loan[:g, g:]@expm(t*a.T)
-        error = max(error, float(np.max(np.abs(covariance-result["covariance"][index]))))
+    def covariance_rhs(t, vector):
+        covariance = vector.reshape(g, g)
+        return (a@covariance+covariance@a.T+q).ravel()
+
+    # A Van Loan block containing -A grows as exp(lambda_max*T). Multiplying
+    # its result by exp(A*T) loses accuracy at T=1 on the 32-cell grid. This
+    # independent forward covariance ODE has only dissipative dynamics.
+    solved = solve_ivp(covariance_rhs, (0., config.query_times[-1]), np.zeros(g*g),
+                       t_eval=config.query_times, method="DOP853", rtol=1e-11, atol=1e-14)
+    if not solved.success:
+        raise RuntimeError("Independent full-grid covariance calibration ODE failed")
+    error = float(np.max(np.abs(solved.y.T.reshape(-1, g, g)-result["covariance"])))
     _, amplitudes = path_coefficients(torch.tensor(initial), context, spec, "additive")
     b = incidence_matrix(g)
     q_error = float(np.max(np.abs(b@np.diag(amplitudes.numpy()**2)@b.T/context.n_particles-q)))
@@ -134,7 +141,7 @@ def calibrate_paths(directory, config):
                        min(config.step_sizes), "heat")["states"].numpy()
     mass_error = float(np.max(np.abs(heat.sum(-1)-1)))
     passed = bool(error < 1e-10 and q_error < 1e-12 and mass_error < 1e-12)
-    packet = {"passed": passed, "full_covariance_matrix_exponential_error": error,
+    packet = {"passed": passed, "full_covariance_lyapunov_ode_error": error,
               "physical_face_covariance_error": q_error, "mass_error": mass_error,
               "noise": "Independent shared-face Brownian drivers; Ito left endpoint",
               "stopping": "Native first Euler-segment crossing tests cover uncensored proposals and freezing",
