@@ -8,6 +8,8 @@ The [method guide](docs/PATH_SOLVER.md) explains the ansatz, Itô residual, stop
 
 The [interacting extension](docs/INTERACTING_SOLVERS.md) adds paired uniform/nonuniform density-path experiments and a separate full-state generator-residual statistics network. The latter retains all 31 mass-zero coordinates because interacting dynamics do not close on the four measured modes. New commands are `path-solver --preset path-interacting-smoke` and `interacting-moments --preset interacting-moments-smoke`. Its Monte Carlo reference reports continuous-time bias as unresolved.
 
+The [completed interacting smoke](docs/experiments/interacting_solvers_2026-10-25.md) gives NN/same-step Euler path errors of 0.025–0.037%, versus about 15.8% against fine Euler. Statistics validation loss fell 8.8 times, but covariance residuals worsened and 10–16% Monte Carlo uncertainty leaves 5% moment accuracy unresolved. Verification of the interacting implementation: 752 tests passed; Ruff passed.
+
 ## Verified results
 
 The completed short-horizon checks use **G=32, N=2048, D=1, T=1/16**. They cover deterministic heat, additive-noise heat, uniform DK, nonuniform DK and interacting DK. All 20 fitted-model comparisons across two completed runs passed the declared strong/weak gates against **Euler at the same step**.
