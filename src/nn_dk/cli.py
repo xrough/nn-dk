@@ -16,19 +16,25 @@ from .experiments import BudgetExhausted, calibrate, evaluate_run, fit, report
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Neural Dean–Kawasaki coarse dynamics benchmark")
-    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study", "generator"))
+    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study", "generator", "path-solver"))
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--config", type=Path)
     source.add_argument("--preset", choices=("smoke", "pilot", "n2048", "resolution64", "long-horizon",
                                            "a-smoke", "a-first-batch", "a-full", "a-final",
                                            "bsde-smoke", "bsde-first-batch", "bsde-refinement",
                                            "bsde-study-smoke", "bsde-anchor-study",
-                                           "generator-smoke", "generator-accuracy"), default=None)
+                                           "generator-smoke", "generator-accuracy",
+                                           "path-smoke", "path-controls", "path-first-batch",
+                                           "path-pilot"), default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--budget-seconds", type=float, help="Per-invocation wall budget; checkpoints preserve progress")
     parser.add_argument("--stage", choices=("all", "calibrate", "generate", "fit", "evaluate", "report"),
-                        default="all", help="Independent stage of a BSDE workflow")
+                        default="all", help="Independent stage of a statistics or density-path workflow")
     args = parser.parse_args(argv)
+    if args.command == "path-solver":
+        return _path_main(args, parser)
+    if args.preset and args.preset.startswith("path-"):
+        parser.error("Density-path presets require the path-solver command")
     if args.command == "generator":
         return _generator_main(args, parser)
     if args.preset and args.preset.startswith("generator-"):
@@ -203,6 +209,34 @@ def _generator_main(args, parser):
     print(f"[{config.name}] continuous-generator moment accuracy ({args.stage}): {directory}", flush=True)
     try:
         result = run_generator(directory, config, time.monotonic()+budget, stage=args.stage)
+        print(json.dumps(json_ready(result)), flush=True)
+        return 0
+    except BudgetExhausted as error:
+        print(str(error), file=sys.stderr)
+        return 75
+
+
+def _path_main(args, parser):
+    from .path_config import PathConfig, path_preset
+    from .path_study import run_path_study
+
+    if args.config:
+        config = PathConfig.load(args.config)
+    elif args.preset:
+        if not args.preset.startswith("path-"):
+            parser.error("The path-solver command requires a path-* preset")
+        config = path_preset(args.preset)
+    elif args.output and (args.output/"config.json").exists():
+        config = PathConfig.load(args.output/"config.json")
+    else:
+        config = path_preset("path-smoke")
+    budget = config.budget_seconds if args.budget_seconds is None else args.budget_seconds
+    if not 0 < budget < float("inf"):
+        parser.error("Budget must be finite and positive")
+    directory = (args.output or Path("runs")/config.name/config.config_hash[:12]).resolve()
+    print(f"[{config.name}] full density-path Ito solver ({args.stage}): {directory}", flush=True)
+    try:
+        result = run_path_study(directory, config, time.monotonic()+budget, args.stage)
         print(json.dumps(json_ready(result)), flush=True)
         return 0
     except BudgetExhausted as error:

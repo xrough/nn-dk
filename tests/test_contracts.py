@@ -17,6 +17,11 @@ def test_config_roundtrip_and_presets(tmp_path):
         assert ExperimentConfig.load(path) == config
         assert ExperimentConfig.load(path).config_hash == config.config_hash
     for path in __import__("pathlib").Path("configs").glob("*.toml"):
+        if path.stem.startswith("path_"):
+            from nn_dk.path_config import PathConfig, path_preset
+
+            assert PathConfig.load(path) == path_preset(path.stem.replace("_", "-"))
+            continue
         if path.stem.startswith("generator_"):
             from nn_dk.generator_config import GeneratorStudyConfig, generator_preset
 

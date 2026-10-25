@@ -1,0 +1,28 @@
+# First eight-hour CPU batch: all five cases at one fixed learned resolution.
+# Time-resolution ladders remain separate configured follow-up experiments.
+name = "path-first-batch"
+seed = 2026102503
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 1.0
+step_sizes = [0.0078125]
+reference_step = 0.0001220703125
+query_times = [0.25, 0.5, 1.0]
+cases = ["heat", "additive", "dk_uniform", "dk_nonuniform", "dk_interacting"]
+optimizer_seeds = [0, 1, 2]
+width = 32
+depth = 4
+train_paths = 256
+validation_paths = 64
+test_paths = 256
+adam_steps = 1000
+lbfgs_steps = 100
+lbfgs_max_iter = 5
+learning_rate = 0.003
+batch_size = 32
+n_bootstrap = 200
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 28800.0
