@@ -1,0 +1,71 @@
+{
+  "all_causality_checks_passed": true,
+  "all_same_noise_replays_passed": true,
+  "cases": [
+    "heat",
+    "additive",
+    "dk_uniform",
+    "dk_nonuniform",
+    "dk_interacting"
+  ],
+  "config_hash": "ac392518dcf71e7478021b060da4cf8e45cb37b6f71f0c401583e64995f04276",
+  "configured_models": 5,
+  "continuous_time_accuracy_certified": false,
+  "end_to_end_wall_seconds": null,
+  "evaluation_cost_scope": "includes oracle comparison, diagnostics, bootstrap and output; not neural latency",
+  "evaluation_seconds": 2.312264374922961,
+  "fine_reference_scope": "finite Euler difference, not a continuous stopping-bias bound",
+  "horizon": 0.0625,
+  "input_and_reference_generation": {
+    "test": {
+      "complete": true,
+      "generation_seconds": 0.6372598751913756,
+      "paths": 320,
+      "scope": "initial histograms, physical-noise generation, storage and hashing, fine Euler reference simulation"
+    },
+    "train": {
+      "complete": true,
+      "generation_seconds": 0.15685458318330348,
+      "paths": 160,
+      "scope": "initial histograms, physical-noise generation, storage and hashing"
+    },
+    "validation": {
+      "complete": true,
+      "generation_seconds": 0.07815679092891514,
+      "paths": 80,
+      "scope": "initial histograms, physical-noise generation, storage and hashing"
+    }
+  },
+  "maximum_euler_fine_strong_rms": 0.35949275164064115,
+  "maximum_mass_error": 2.220446049250313e-16,
+  "maximum_neural_fine_strong_rms": 0.3594827049207163,
+  "maximum_neural_invalid_paths": 0.0,
+  "maximum_neural_stopped_paths": 0.0,
+  "maximum_same_step_joint_covariance_ci_endpoint": 0.008505407061130284,
+  "maximum_same_step_mean_ci_endpoint": 0.00895660742059324,
+  "maximum_same_step_strong_ci_upper": 0.0027657258821904077,
+  "maximum_same_step_strong_rms": 0.0026913041141393883,
+  "minimum_mass": 0.011151482459006093,
+  "optimizer_seeds": [
+    0
+  ],
+  "parallel_cost_scope": "worker fit walltimes overlap and are excluded from manifest workflow elapsed; CPU seconds cover standalone worker processes only",
+  "paths_per_case": {
+    "test": 64,
+    "train": 32,
+    "validation": 16
+  },
+  "recorded_workflow_seconds": 27.117324374848977,
+  "run_directory": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/path-smoke-2026-10-25-v2",
+  "same_step_accuracy_passed": true,
+  "source_hash": "a37ebd4fa82c8c590922417004d47150b1ea71d75be635a316b670506053223a",
+  "standalone_worker_process_cpu_seconds": 0,
+  "standalone_worker_wall_span_seconds": 0.0,
+  "step_sizes": [
+    0.0078125
+  ],
+  "total_generation_seconds": 0.8722712493035942,
+  "training_seconds": 17.762823541881517,
+  "uncertainty_scope": "pointwise paired whole-family bootstrap; not simultaneous or marginal-law certification",
+  "workflow_cost_scope": "cumulative recorded invocations, including resume/report replay"
+}

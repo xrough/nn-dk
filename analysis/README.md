@@ -1,5 +1,52 @@
 # Analysis of completed Project A runs
 
+## Causal full-density path operator
+
+```bash
+.venv/bin/python analysis/plot_density_paths.py runs/path-first-batch
+.venv/bin/python analysis/benchmark_path_solver.py --run runs/path-first-batch \
+  --output runs/path-first-batch/report/path_timings.json
+.venv/bin/python analysis/archive_density_paths.py runs/path-first-batch \
+  docs/experiments/artifacts/path_first_batch
+```
+
+These tools require completed models and unchanged source/configuration. The
+plot selects trajectory zero, the first declared optimizer seed and coarsest
+step before reading values. It shows actual full-grid density paths and their
+same-noise Euler differences. The archive verifies the final artifact lock and
+copies lossless compressed report data, checkpoint metadata and hashes, plots,
+environment and execution records; large input/path banks and complete binary
+checkpoints remain in the original local run.
+
+Run timing only after other training/evaluation jobs have finished. It uses
+validation inputs, not final inputs, and measures full warm trajectories at
+P=1 and P=64 with randomized method order. Native NumPy Euler and Torch Euler
+are distinct backend comparisons. Checkpoint restoration and IID histogram
+initialization are timed separately. Inference excludes generation, loading,
+training, bootstrap and file I/O. The accuracy check concerns a strong point
+error on those validation inputs, not a joint weak or continuous-time gate.
+
+`fit_path_seed_batch.py` is an optional manual execution helper, not a concurrent
+scheduler. **Stop the sequential CLI first**, finish its control-development
+caches, and assign exactly one process per declared optimizer seed. Wait for
+every worker process to exit before resuming the identical original CLI. The
+CLI does not consult worker lock files. Preserve previous execution records
+before any worker restart. Workers reuse the same fitting implementation and
+existing physical inputs; they never unlock final inputs or finalize reports.
+The original CLI validates every completed fit before final evaluation.
+
+Worker wall intervals overlap and are absent from the CLI manifest's recorded
+elapsed time. Preserve their execution records and helper SHA; distinguish
+host wall span, summed per-fit wall time, and worker process CPU time. Use the
+actual remaining project wall budget when resuming. The ordinary sequential
+CLI is sufficient for reproduction and avoids this manual ownership protocol.
+
+The [path method](../docs/PATH_SOLVER.md) and
+[experiment findings](../docs/experiments/path_solver_2026-10-25.md) define the
+new target. The following older analyses concern distinct experiment tracks.
+
+## Autonomous coefficient solver
+
 Run these commands from the repository root, using its locked Python environment:
 
 ```bash

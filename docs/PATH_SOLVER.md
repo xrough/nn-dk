@@ -46,25 +46,31 @@ mode is retained, including Nyquist. The constant mode is fixed at one.
 Positive Euler poles and a bounded learned lag correction parameterize the
 kernel. Initially the poles correspond to **half** the known instantaneous
 Laplacian rates; the initial network is not an exact future solution. The
-family contains the exact linear Euler response at the supported grid/step.
+per-mode pole parameterization admits the exact linear Euler response at the
+supported grid/step. The finite MLP must jointly approximate the required
+frequency corrections, and training must actually find them. Admissible Euler
+poles alone do not establish a successful neural fit.
 The positive-pole constraint requires `dt*lambda_max<1`; the G32 ladder
 `2^-7,2^-8,2^-9` satisfies it.
 
 Heat and additive-noise trajectories apply this learned response to the
 initial field and supplied physical noise. DK adds fixed-depth causal Picard
-blocks:
+blocks. Let \(\bar m_j^\ell\) be the stopped preceding iterate and
+\(a_j^\ell\) its active-at-start indicator:
 
 \[
 \widehat m^{\ell+1}_n=G_\theta(n)m_0+
-\sum_{j<n}G_\theta(n-1-j)
-\left[\Delta f_{\rm int}(\widehat m^\ell_j)
- +N^{-1/2}S_h(\widehat m^\ell_j)\Delta W_j\right].
+\sum_{j<n}G_\theta(n-1-j)a_j^\ell
+\left[\Delta f_{\rm int}(\bar m^\ell_j)
+ +N^{-1/2}S_h(\bar m^\ell_j)\Delta W_j\right].
 \]
 
 The interaction and mobility are the **known native formulas**, not another
 learned coefficient network. Intermediate Picard paths are stopped before
-mobility evaluation; their densities are not repaired. The outer path retains
-its raw crossing proposal before applying the same stopping rule.
+mobility evaluation; their densities are not repaired. Forcing after their
+absorption is zeroed. The outer path retains its raw crossing proposal before
+applying the same stopping rule; raw outputs after absorption are not physical
+frozen states.
 
 The lower-triangular contraction has exactly zero future-noise dependency in
 the computation graph. Its current cost is O(K²G), where K is the number of
@@ -72,7 +78,9 @@ time steps. This deliberately transparent implementation is not an assumed
 speed improvement. Blocked/scan implementations are later performance work.
 
 With the exact Euler kernel, each Picard block recovers an additional correct
-time-step prefix, and K blocks recover the K-step solution in exact arithmetic.
+time-step prefix, and K blocks recover the K-step stopped states in exact
+arithmetic. This statement covers active proposals up to absorption; it makes
+no promise about raw proposals after absorption.
 Useful accuracy at depth four is an experimental observation, not a global
 contraction theorem. Learned-kernel error and finite-depth error must both be
 measured. Stable poles alone do not prove nonlinear stochastic stability.
@@ -187,7 +195,7 @@ problem/target identifiers.
 ## Literature and boundaries
 
 The implementation follows the approved idea of a neural trial operator with
-an integrated weak/Itô residual. Relevant foundations are
+an integrated Itô residual. Relevant foundations are
 [Deep Ritz](https://arxiv.org/abs/1710.00211),
 [Neural Galerkin](https://arxiv.org/abs/2203.01360),
 [Neural SPDE](https://arxiv.org/abs/2110.10249), and the 2026
