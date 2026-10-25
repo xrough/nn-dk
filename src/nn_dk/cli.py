@@ -16,18 +16,23 @@ from .experiments import BudgetExhausted, calibrate, evaluate_run, fit, report
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Neural Dean–Kawasaki coarse dynamics benchmark")
-    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study"))
+    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study", "generator"))
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--config", type=Path)
     source.add_argument("--preset", choices=("smoke", "pilot", "n2048", "resolution64", "long-horizon",
                                            "a-smoke", "a-first-batch", "a-full", "a-final",
                                            "bsde-smoke", "bsde-first-batch", "bsde-refinement",
-                                           "bsde-study-smoke", "bsde-anchor-study"), default=None)
+                                           "bsde-study-smoke", "bsde-anchor-study",
+                                           "generator-smoke", "generator-accuracy"), default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--budget-seconds", type=float, help="Per-invocation wall budget; checkpoints preserve progress")
     parser.add_argument("--stage", choices=("all", "calibrate", "generate", "fit", "evaluate", "report"),
                         default="all", help="Independent stage of a BSDE workflow")
     args = parser.parse_args(argv)
+    if args.command == "generator":
+        return _generator_main(args, parser)
+    if args.preset and args.preset.startswith("generator-"):
+        parser.error("Generator presets require the generator command")
     if args.command == "bsde-study":
         return _bsde_study_main(args, parser)
     if args.preset in ("bsde-study-smoke", "bsde-anchor-study"):
@@ -170,6 +175,34 @@ def _bsde_study_main(args, parser):
     print(f"[{config.name}] coverage/structure study ({args.stage}): {directory}", flush=True)
     try:
         result = run_bsde_study(directory, config, time.monotonic()+budget, stage=args.stage)
+        print(json.dumps(json_ready(result)), flush=True)
+        return 0
+    except BudgetExhausted as error:
+        print(str(error), file=sys.stderr)
+        return 75
+
+
+def _generator_main(args, parser):
+    from .generator_config import GeneratorStudyConfig, generator_preset
+    from .generator_study import run_generator
+
+    if args.config:
+        config = GeneratorStudyConfig.load(args.config)
+    elif args.preset:
+        if not args.preset.startswith("generator-"):
+            parser.error("The generator command requires a generator-* preset")
+        config = generator_preset(args.preset)
+    elif args.output and (args.output / "config.json").exists():
+        config = GeneratorStudyConfig.load(args.output / "config.json")
+    else:
+        config = generator_preset("generator-smoke")
+    budget = config.budget_seconds if args.budget_seconds is None else args.budget_seconds
+    if not 0 < budget < float("inf"):
+        parser.error("Budget must be finite and positive")
+    directory = (args.output or Path("runs") / config.name / config.config_hash[:12]).resolve()
+    print(f"[{config.name}] continuous-generator moment accuracy ({args.stage}): {directory}", flush=True)
+    try:
+        result = run_generator(directory, config, time.monotonic()+budget, stage=args.stage)
         print(json.dumps(json_ready(result)), flush=True)
         return 0
     except BudgetExhausted as error:
