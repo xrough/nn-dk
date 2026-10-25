@@ -1,114 +1,70 @@
 # NN-DK
 
-Conservative neural stochastic solvers for Dean–Kawasaki dynamics and coarse interacting-particle systems.
+Neural numerical experiments for Dean–Kawasaki dynamics and coarse particle systems.
 
-The **Project A convergence workflow** learns autonomous drift and noise coefficients for a stopped, spatially discrete DK system. It separates coefficient approximation, time discretization, reference bias, and Monte Carlo uncertainty at a fixed grid. A convergence rate or neural speed advantage is an experimental result, not an assumption.
+**The structured neural moment solver met the 5% accuracy target on 25 October 2026.** All 15 final comparisons passed, covering three optimizer seeds, an OU control, and conditional and ensemble DK moments. The largest error bounds were **0.1373% for means** and **0.180% for full same-time covariance**, including the independent reference error. This result concerns observable statistics of a fixed-grid stopped system; density-path simulation remains a separate track.
 
-The original particle-observation benchmark remains available: its Project A samples smooth coarse observations at a fixed learned lag, while Project B predicts means and joint covariances. Native DK coefficient checkpoints and particle-observation checkpoints have distinct target/model identifiers.
+## Current result
 
-The **conditional Deep BSDE workflow** learns observable means and same-time covariances using known forward dynamics. Its value network supplies predictions without a future-path rollout; a separate martingale network is used during training. This is the first stage toward comparing learned SPDE paths with directly learned statistics. See [the implementation and noise conventions](docs/BSDE_STATISTICS.md).
+The DK target is the **continuous-time, noninteracting finite-volume system** on the periodic interval `[0, 2π)`, with **32 cells, N=2048, D=1, T=1**. Paths freeze at the first continuous hit of density `0.01/(2π)`. Initial masses are IID particle histograms from the uniform or normalized `exp(0.2 cos x)` profile.
 
-The [first scientific BSDE batch](docs/experiments/bsde_first_batch_2026-10-24.md) completed with substantial conditional prediction errors. Its findings distinguish conditional accuracy, ensemble averages, variance errors, and execution cost.
+We tested **32 fresh initial histograms per profile**, **1024 fresh OU states**, and the known IID ensemble laws at times **1/4, 1/2 and 1**. The four observables are exactly cell-integrated normalized sine/cosine modes 1 and 2. All six fits were locked before generating final inputs; 512 separate development histograms supported the preceding development check. The final states come from the specified profile laws, not new physics or profiles.
 
-The [initial-state and structure study](docs/BSDE_ANCHOR_STUDY.md) compares 128, 512 and 2048 independent training initial states at a fixed trajectory budget, using both the MLP and a structured value head on a fresh common test bank.
+The table retains every optimizer seed. DK rows take the maximum across both profiles and conditional/ensemble outputs; the [full report](docs/experiments/generator_accuracy_2026-10-25.md) retains all 15 comparisons.
 
-## Install and run
+| Problem | Seed | Maximum mean bound | Maximum full-covariance bound | Result |
+|---|---:|---:|---:|---|
+| DK | 0 | 0.0567% | 0.0839% | Pass |
+| DK | 1 | 0.1373% | 0.0765% | Pass |
+| DK | 2 | 0.0834% | 0.1258% | Pass |
+| OU | 0 | 0.0221% | 0.0869% | Pass |
+| OU | 1 | 0.0748% | 0.0100% | Pass |
+| OU | 2 | 0.0492% | 0.1797% | Pass |
 
-Python **3.12** is required. The exact environment is recorded in `uv.lock`.
+Every absolute normalized error **plus its reference bound** must be ≤5%; each reference contribution must also be ≤1.25%. The largest final reference contribution was **0.0628%**. Means use `sqrt(N)` scaling and covariance uses `N` scaling, divided by fixed observable scales. These percentages are not relative errors divided by possibly zero means or covariance entries. Acceptance checks every entry, including off-diagonal covariance; RMSE and best-seed selection cannot substitute for it. Displayed table values are rounded upward.
+
+The reference independently solves the full native degree-two moment equations and bounds the correction from continuous stopping. It encloses numerical, geometry and profile-integration errors. Ensemble initialization uses exact known multinomial moments, so reference Monte Carlo uncertainty is absent. See the [certificate derivation](docs/GENERATOR_REFERENCE_CERTIFICATE.md) and [independent mathematical audit](docs/GENERATOR_REFERENCE_AUDIT.md) for the arithmetic assumptions and audited scope.
+
+## What changed
+
+The network builds linear mean dependence and translation-equivariant covariance dependence on initial masses into its architecture. A three-hidden-layer, width-32 SiLU network learns time propagators and positive-semidefinite covariance kernels. Training uses **known continuous-generator residuals**, with Adam followed by LBFGS. Known instantaneous forcing enters the residual and initialization; exact future moment forecasts are not supplied to the predictor.
+
+This changes both the architecture and training objective from the earlier trajectory BSDE fits. It requires no stochastic training trajectories or auxiliary sampling noise. The known IID initialization law is integrated analytically. The [method guide](docs/GENERATOR_MOMENTS.md) states the model, loss, normalization and noise conventions.
+
+The six fits took **86.19 seconds** in total; the initial end-to-end invocation took **219.50 seconds** on the local CPU. All exhausted their declared optimizer budget without attaining the stricter internal `1e-6` residual tolerance. They nevertheless passed the separately evaluated statistical accuracy gates. These timings do not establish a matched-accuracy neural speed advantage over classical moment methods.
+
+This noninteracting problem has closed interior moment equations, making it a useful validation case. The result establishes the stated finite-bank moment accuracy, not a convergence rate, continuum DK limit, density-path accuracy, cross-time joint law, or accuracy for interacting dynamics. A useful next experiment is the interacting case, where this simple moment closure fails.
+
+## Reproduce
+
+Python **3.12** and the committed `uv.lock` define the environment.
 
 ```bash
 uv sync --locked --group dev
 uv run pytest
-uv run nn-dk convergence --preset a-smoke --output runs/a-smoke
-uv run nn-dk bsde --preset bsde-smoke --output runs/bsde-smoke
+uv run nn-dk generator --config configs/generator_accuracy.toml \
+  --output runs/generator-accuracy
 ```
 
-The A-only smoke workflow exercises numerical calibration, both coefficient-training objectives, ablations, learning/capacity axes, temporal refinement, and reporting. Its small ensembles and three training epochs validate execution; they cannot certify 5% fluctuation accuracy. The scientific configuration starts with:
+Use `.venv/bin/pytest` and `.venv/bin/nn-dk` in the provisioned local environment if `uv` is not on your path. For a small execution check:
 
 ```bash
-uv run nn-dk convergence --preset a-first-batch --output runs/a-first-batch
-uv run nn-dk convergence --config configs/a_first_batch.toml --output runs/a-first-batch
+uv run nn-dk generator --preset generator-smoke --output runs/generator-smoke
 ```
 
-These two commands select the same configuration. Rerun the identical command to resume the same run. `a-first-batch` allocates an eight-hour invocation budget to numerical calibration and the uniform, noninteracting oracle-supervised case. `a-full` adds the three cases, nested data and width studies, increment supervision, and particle-number follow-ups; `a-final` increases diagnostic ensembles to 65,536 paths. Use a fresh output directory when changing configuration or source. See [the Project A convergence guide](docs/PROJECT_A_CONVERGENCE.md) for the mathematical target, experiment ladder, and interpretation of unresolved results.
+The smoke configuration has two optimizer steps per phase and is not expected to meet scientific accuracy. A failed development gate leaves final inputs locked. `--stage` supports `calibrate`, `generate`, `fit`, `evaluate`, `report`, and `all`.
 
-The first scientific batch completed on 24 October 2026: **40 comparisons, three optimizer seeds, and 8192 evaluation families per configuration** at G=32, N=2048, T=1. Finest-step normalized covariance RMSE against the fine DK reference was 0.200%, 0.178%, and 0.449%. Refining the time step exposed a remaining neural coefficient error, dominated by drift in the ablations. Individual sampling precision and continuous-time reference bias remain unresolved, so this is not a convergence certificate. Read [the experiment findings](docs/experiments/a_first_batch_2026-10-24.md) for calibration, uncertainty, stopping, costs, saved artifacts, and follow-up decisions.
+Rerun the identical command to resume; exit **75** means the invocation budget expired with resumable work. `--budget-seconds 600` changes that budget. Source/configuration checks and content hashes protect checkpoints, input arrays and cached evaluations. Use a new output directory after changing source or configuration.
 
-Run the original combined A/B benchmark with:
+The completed local experiment is in `runs/generator-accuracy-2026-10-25/`, including all six restorable checkpoints. An identical completed-run replay passed without changing the locked artifacts. Compact results, complete compressed report data, test inputs, reference packets and checksums are preserved in the [experiment archive](docs/experiments/artifacts/generator_accuracy_2026-10-25/README.md). Source freeze: **`49a6528`**; verification: **378 tests passed**, Ruff passed.
 
-```bash
-uv run nn-dk run --config configs/smoke.toml --output runs/smoke
-```
+## Other experiment tracks
 
-This checkout also has a provisioned local environment. Without a global `uv` command, use `.venv/bin/python -m pytest` and `.venv/bin/nn-dk` directly, or invoke `.venv/bin/uv`.
+Earlier findings remain available and retain their original targets and unresolved conclusions:
 
-The smoke run has 12 contexts and 8 independent particle trajectories per context. It trains both neural models for three epochs, fits classical regressions, evaluates every method, and writes Markdown, strict JSON, and a PNG accuracy–cost figure under `runs/smoke/report/`. Small ensembles support software validation; their confidence intervals do not certify 5% statistical accuracy.
+- [Initial-state coverage and structured BSDE study](docs/experiments/bsde_anchor_study_2026-10-24.md): 36 fits; broader initial-state coverage helped, but 5% accuracy remained unresolved. [BSDE implementation](docs/BSDE_STATISTICS.md).
+- [Autonomous coefficient-learning experiment](docs/experiments/a_first_batch_2026-10-24.md): native DK coefficient learning, ablations and time refinement. [Convergence workflow](docs/PROJECT_A_CONVERGENCE.md).
+- [First trajectory BSDE batch](docs/experiments/bsde_first_batch_2026-10-24.md): conditional/ensemble errors and noise diagnostics.
+- Original particle A/B benchmark: `uv run nn-dk run --config configs/smoke.toml --output runs/smoke`. [Numerical methods](docs/methods.md), [provenance](docs/provenance.md), [verification](docs/verification.md).
 
-Run stages independently against the same saved configuration:
-
-```bash
-uv run nn-dk calibrate --config configs/pilot.toml --output runs/pilot
-uv run nn-dk generate --output runs/pilot
-uv run nn-dk fit --output runs/pilot
-uv run nn-dk evaluate --output runs/pilot
-uv run nn-dk report --output runs/pilot
-```
-
-Or run all stages with `uv run nn-dk run --config configs/pilot.toml --output runs/pilot`.
-
-Each invocation has an eight-hour default budget. `--budget-seconds 600` sets a shorter invocation budget. Expiration is checked between atomic trajectory, epoch, or evaluation units, so a running unit can overrun the boundary. Exit code **75** means work was checkpointed; rerun the identical command to continue. Configuration and source hashes prevent mixing results from different implementations. Use a new output directory after changing source code. Evaluation records already written are reused without resimulation.
-
-## Legacy particle benchmark: model and target
-
-The reference system is
-
-\[
-dX_i=-N^{-1}\sum_j V'(X_i-X_j)dt+\sqrt{2D}\,dB_i,
-\qquad V(x)=-\kappa\cos x+a_2\cos2x.
-\]
-
-The default is (D=1,N=512,M=32). Initial particles are sampled independently from a three-mode exponential Fourier profile using exact rejection sampling. Forces use empirical trigonometric moments in (O(NK)) work.
-
-The learned state is the vector of periodic cubic B-spline masses, centered at (j2\pi/M). Particle observations and piecewise-constant field observations use the same spline functions. Finite-volume masses are projected by integrating those functions over each cell; they are never identified directly with the learned state.
-
-The shared observable vector contains normalized sine/cosine modes 1 and 2 at three positive times. Covariances are reported after multiplication by (N). Both neural methods receive the initial-profile descriptor and known physics. Project A additionally receives its present coarse state and elapsed time.
-
-## Legacy particle benchmark: methods
-
-| Method | Behavior |
-| --- | --- |
-| Particle MC | Independent particle paths at the reference timestep |
-| Mean field | Deterministic finite-volume mean; zero fluctuation covariance |
-| Linear fluctuations | Mean-field linearization, Gaussian forcing, IID initial covariance, and multitime cross covariances |
-| Discrete DK | Centered conservative fluxes and shared Gaussian face noise |
-| Autoregression | Gaussian linear transition in mass-zero coordinates |
-| Polynomial/kernel ridge | Direct mean and paired-covariance regressions |
-| Neural A | Three-layer periodic CNN, conservative current and banded noise factor |
-| Neural B | Three-layer MLP, means and a joint Cholesky covariance head |
-
-Neural A uses a fixed lag (2^{-6}). Its likelihood is computed in (M-1) orthonormal tangent coordinates using double-precision Cholesky. A physically scaled covariance floor acts only on this subspace. Neural B uses disjoint independent replicate pairs for unbiased covariance labels, avoiding cancellation between two fitted order-one moments. Regression baselines use the same path pool and validation-only regularization selection.
-
-For this legacy particle benchmark, Gaussian transitions can produce negative masses. A raw mass below (-10^{-12}) invalidates a trajectory. Paths are stopped without clipping or renormalization. **One failed path makes the corresponding unconditional ensemble estimate unavailable.** Reports show failure rates and attempted minimum masses; surviving paths are never silently averaged. The new native convergence target instead declares boundary stopping as part of its law and includes every absorbed path in its estimates.
-
-## Data, reproducibility, and cost
-
-HDF5 stores whole paths, seeds, trajectory identifiers, completion markers, costs, and grouped context splits. Oracle provenance and learner inputs occupy separate groups. Training normalization is fitted on training contexts only. Checkpoints contain optimizer state, shuffle/RNG state, selected model state, supported particle counts, and training-data fingerprints.
-
-Reports distinguish reference Monte Carlo intervals, online sampling intervals for simulators, optimizer-seed variation, and numerical calibration. Pointwise bootstrap intervals are not simultaneous coverage guarantees. The free-particle oracle uses the actual filtered spline observables, including aliases, rather than bare particle Fourier modes.
-
-Cost records include data generation, training, initialization, complete-query latency, and sampling throughput; Neural B also has a vectorized multi-context timing. Each standalone learned method is charged the shared training/validation pool. The benchmark's independent reference audit is recorded separately. The combined mean-field/linearized computation is a declared upper timing bound for each of those methods. Online timing differences do not establish matched-accuracy end-to-end savings.
-
-## Configurations and boundaries
-
-- `a_smoke.toml`: short A-only integration check; all three cases, oracle/increment training, tiny learning/capacity curves.
-- `a_first_batch.toml`: fixed-grid scientific starting point; uniform case, oracle supervision, three optimizer seeds, eight-hour invocation budget.
-- `a_full.toml`: nested 64–4096-path learning curves, widths 16/32/64, three cases, and increment-supervision comparison. These allocations can require multiple resumed batches.
-- `smoke.toml`: 8 training, 2 validation, and 2 test contexts; eight replicas each; three training epochs; one optimizer seed.
-- `pilot.toml`: 64×16 training paths, 16×32 validation paths, 8×512 reference test paths; three optimizer seeds.
-- `n2048.toml`, `resolution64.toml`, `long-horizon.toml`: separately trained follow-ups. Transfer and extrapolation are not inferred from their names.
-
-The discrete DK baseline uses its own specified spatial/noise approximation. Initialization, observation, and spatial projection discrepancies are reported separately. The numerical calibration gate must pass before training. Research certification can remain unresolved even when software checks pass.
-
-Memory closures, non-Gaussian generators, unknown mechanisms, noise-conditioned continuum solution operators, rare events, and two-dimensional systems are later branches.
-
-See [numerical conventions](docs/methods.md), [legacy provenance](docs/provenance.md), and [verification](docs/verification.md).
+Native DK states, legacy spline observations, finite-lag transitions, BSDE value maps and continuous-generator moment maps have distinct target/model identifiers. Their checkpoints and accuracy claims are not interchangeable.

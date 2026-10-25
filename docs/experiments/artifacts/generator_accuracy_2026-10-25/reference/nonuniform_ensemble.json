@@ -1,0 +1,337 @@
+{
+  "identity": {
+    "case": "nonuniform",
+    "config_hash": "f70f6d4252dd82cd2c26ded0545ced96b26e1602715ced816b61aa53a1b968da",
+    "initial_hash": null,
+    "input_bank_sha256": "f22de5dc41a872feece8b2738b84f6c38a0ab865a0fc910b7715cad62d0092e0",
+    "role": "locked-final",
+    "scope": "ensemble",
+    "source_hash": "b7bbbff59cbd838096862e50d8f520e077eed5137dcadb912f1031fbfe72e9be",
+    "target_id": "f3c5871b34a690df5c0f35fbffeab67cd49f0a599b1f7f2fc01e0af9d36da3a7"
+  },
+  "reference": {
+    "certificate": {
+      "ambiguous_initial_boundary_states": 0,
+      "geometry": "Target coefficients use mathematical h=2*pi/G and recorded D,rho_stop. Machin/pi decimal enclosures bound their difference from binary64 alpha/mass_stop used by the numerical algorithms; observation weights use enclosed mathematical trigonometry.",
+      "initial_mass_upper_bound": 1.0,
+      "initially_stopped_conditional_states": 0,
+      "input_mass_tolerance": "Nonnegative stored masses within 1e-12 of unit mass; compact bounds use the outward upper mass and numerical radii include a 1e-9 normalization allowance",
+      "interpretation": "Bounds enclose the stopped target; certificate validity does not imply neural accuracy or attainment of a requested tolerance",
+      "manually_audited_scope": "G=32, N=2048, D=1, noninteracting, horizons<=1; other settings return an unresolved certificate",
+      "maximum_numerical_mean_error": 1.1895887877585526e-12,
+      "maximum_numerical_scaled_covariance_error": 3.0025691213643626e-09,
+      "maximum_total_mean_error": 4.742138656338766e-09,
+      "maximum_total_scaled_covariance_error": 4.113397424944949e-05,
+      "moment_methods": [
+        {
+          "alpha_absolute_error": 1.0153702091364972e-15,
+          "arithmetic": "80-digit decimal Poisson enclosures; IEEE gamma bounds for backward coefficient operations and summation",
+          "method": "degree-two backward generator Poisson uniformization",
+          "poisson_probability_tail_bound": 6.08657398619529e-114,
+          "poisson_rate": 25.93822301243847,
+          "poisson_terms": 211,
+          "radius_construction_operation_allowance": 56064
+        },
+        {
+          "alpha_absolute_error": 1.0153702091364972e-15,
+          "arithmetic": "80-digit decimal Poisson enclosures; IEEE gamma bounds for backward coefficient operations and summation",
+          "method": "degree-two backward generator Poisson uniformization",
+          "poisson_probability_tail_bound": 1.8138016236650677e-107,
+          "poisson_rate": 51.87644602487694,
+          "poisson_terms": 279,
+          "radius_construction_operation_allowance": 73472
+        },
+        {
+          "alpha_absolute_error": 1.0153702091364972e-15,
+          "arithmetic": "80-digit decimal Poisson enclosures; IEEE gamma bounds for backward coefficient operations and summation",
+          "method": "degree-two backward generator Poisson uniformization",
+          "poisson_probability_tail_bound": 3.0173879263861087e-102,
+          "poisson_rate": 103.75289204975388,
+          "poisson_terms": 390,
+          "radius_construction_operation_allowance": 101888
+        }
+      ],
+      "physical_target": {
+        "diffusion": 1.0,
+        "law": "continuous stopped native noninteracting DK",
+        "mass_stop": 0.0003125,
+        "n_cells": 32,
+        "n_particles": 2048,
+        "stopping": "first continuous boundary hitting followed by freezing"
+      },
+      "profile_probability_error": [
+        1.3595286591125396e-15,
+        1.3566328158916848e-15,
+        1.3436906392064774e-15,
+        1.327822847459225e-15,
+        1.3094227616700043e-15,
+        1.2877529223304613e-15,
+        1.2627685030691496e-15,
+        1.2384092605401418e-15,
+        1.2138057770837073e-15,
+        1.1913430574372388e-15,
+        1.1710568935680568e-15,
+        1.1540882511677813e-15,
+        1.1396420230384433e-15,
+        1.1270716275815983e-15,
+        1.1204380754501562e-15,
+        1.115826471780088e-15,
+        1.115826471780088e-15,
+        1.1204380754501562e-15,
+        1.1270716275815983e-15,
+        1.1396420230384433e-15,
+        1.1540882511677813e-15,
+        1.1710568935680568e-15,
+        1.1913430574372388e-15,
+        1.2138057770837073e-15,
+        1.2384092605401418e-15,
+        1.2627685030691496e-15,
+        1.2877529223304613e-15,
+        1.3094227616700043e-15,
+        1.327822847459225e-15,
+        1.3436906392064774e-15,
+        1.3566328158916848e-15,
+        1.3595286591125396e-15
+      ],
+      "stopping": {
+        "alpha_absolute_error": 1.0153702091364972e-15,
+        "boundary_exponent_coefficient": 0.0007081621905173914,
+        "fifth_derivative_bound": 820547472296.57,
+        "iid_initialization": "E exp(-N*u.m0) = (sum_j p_j exp(-u_j))^N; cell-probability upper intervals used",
+        "integration_step": 1.52587890625e-05,
+        "local_roundoff_bound": 5.691101933451914e-14,
+        "local_taylor_remainder": 5.6561746730259605e-15,
+        "maximum_u_error": 4.100406672590037e-09,
+        "optional_stopping": "P(first hit in window H-epsilon..H at cell i) <= exp(N*boundary_coefficient - N*u_i_shift(H).m0); sum all windows/cells",
+        "probability_bound": [
+          [
+            1.209351416952071e-09,
+            1.5244095515305957e-09,
+            1.6788742296178825e-09
+          ]
+        ],
+        "roundoff": "512-operation gamma allowance per projected Taylor step; elementary +,-,*,/ with IEEE round-to-nearest",
+        "stability": "invariant unit cube, Metzler Jacobian with zero row sums, nonexpansive maximum-norm flow",
+        "steps": 65536,
+        "tilt": 1.0,
+        "time_windows": 65536,
+        "valid": true,
+        "window_step": 1.52587890625e-05
+      },
+      "stopping_bias_proof": "Stopped Dynkin's identity gives the interior backward polynomial plus a boundary correction. In normalized units |Y|<=sqrt(2N), the formal heat mean has the same bound and its conditional covariance entries have magnitude<=2. Hence mean correction<=2sqrt(2N)P; raw-second correction<=(4N+2)P; the mean-product correction<=8NP, giving covariance bound(12N+2)P. No globally defined unstopped DK process is assumed.",
+      "stopping_covariance_bound_normalized": "(12*N+2)*P(stop by T), from bounded raw moments and mean-product perturbations",
+      "stopping_mean_bound_normalized": "2*sqrt(2*N)*P(stop by T)",
+      "valid": true,
+      "within_manually_audited_profile_family": true,
+      "within_manually_audited_scope": true
+    },
+    "horizons": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "mean": [
+      [
+        0.10932803632704577,
+        -5.204170427930421e-18,
+        0.002583863874026031,
+        -5.204170427930421e-18
+      ],
+      [
+        0.08521308733889435,
+        2.168404344971009e-17,
+        0.0009627813666389625,
+        1.5178830414797062e-18
+      ],
+      [
+        0.05176733476090811,
+        6.288372600415926e-18,
+        0.000133673022967998,
+        2.710505431213761e-20
+      ]
+    ],
+    "mean_error_bound": [
+      [
+        3.415450169974936e-09,
+        3.415450169974936e-09,
+        3.398971767750795e-09,
+        3.398971767750795e-09
+      ],
+      [
+        4.3054084945757506e-09,
+        4.3054084945757506e-09,
+        4.2846367668109454e-09,
+        4.2846367668109454e-09
+      ],
+      [
+        4.742138656338766e-09,
+        4.742138656338766e-09,
+        4.719263955137451e-09,
+        4.719263955137451e-09
+      ]
+    ],
+    "reference_seconds": 1.2342764590866864,
+    "scaled_covariance": [
+      [
+        [
+          0.9866717048372067,
+          -1.0624655516228547e-14,
+          0.0765465078165255,
+          6.729331893645339e-15
+        ],
+        [
+          -1.0624655516228547e-14,
+          0.9949584037256152,
+          2.531758145663785e-15,
+          0.07679263772774797
+        ],
+        [
+          0.0765465078165255,
+          2.531758145663785e-15,
+          0.9872082435024567,
+          -1.7494526113328278e-16
+        ],
+        [
+          6.729331893645339e-15,
+          0.07679263772774797,
+          -1.7494526113328278e-16,
+          0.9872147416783366
+        ]
+      ],
+      [
+        [
+          0.9902130787033929,
+          -1.2853044308253067e-14,
+          0.059788331008753776,
+          -2.8725371965829637e-16
+        ],
+        [
+          -1.2853044308253067e-14,
+          0.9961083791327117,
+          2.0440465686196784e-15,
+          0.0598662858384659
+        ],
+        [
+          0.059788331008753776,
+          2.0440465686196784e-15,
+          0.9872139058145349,
+          -1.3624015361751152e-16
+        ],
+        [
+          -2.8725371965829637e-16,
+          0.0598662858384659,
+          -1.3624015361751152e-16,
+          0.9872148287708212
+        ]
+      ],
+      [
+        [
+          0.9942063330468329,
+          4.6434348284672895e-15,
+          0.03636338584442465,
+          7.851032743093668e-16
+        ],
+        [
+          4.6434348284672895e-15,
+          0.9966965380948284,
+          3.8641919136162064e-16,
+          0.03637025410941856
+        ],
+        [
+          0.03636338584442465,
+          3.8641919136162064e-16,
+          0.9872148128991826,
+          -4.841964014386356e-18
+        ],
+        [
+          7.851032743093668e-16,
+          0.03637025410941856,
+          -4.841964014386356e-18,
+          0.9872148307656563
+        ]
+      ]
+    ],
+    "scaled_covariance_error_bound": [
+      [
+        [
+          2.9629694791211205e-05,
+          2.962889025645014e-05,
+          2.94865192228292e-05,
+          2.9486286135924225e-05
+        ],
+        [
+          2.962889025645014e-05,
+          2.962952464840431e-05,
+          2.9486441753301994e-05,
+          2.9486208666978958e-05
+        ],
+        [
+          2.94865192228292e-05,
+          2.9486441753301994e-05,
+          2.9344260600833382e-05,
+          2.9343858649884572e-05
+        ],
+        [
+          2.9486286135924225e-05,
+          2.9486208666978958e-05,
+          2.9343858649884572e-05,
+          2.934425693901035e-05
+        ]
+      ],
+      [
+        [
+          3.7348702971007125e-05,
+          3.734772219977411e-05,
+          3.716836490179691e-05,
+          3.716805829312182e-05
+        ],
+        [
+          3.734772219977411e-05,
+          3.734847607413353e-05,
+          3.7168258988280495e-05,
+          3.7167952379807774e-05
+        ],
+        [
+          3.716836490179691e-05,
+          3.7168258988280495e-05,
+          3.698918671737819e-05,
+          3.6988578688639135e-05
+        ],
+        [
+          3.716805829312182e-05,
+          3.7167952379807774e-05,
+          3.6988578688639135e-05,
+          3.698918432404952e-05
+        ]
+      ],
+      [
+        [
+          4.113397424944949e-05,
+          4.1132488467840996e-05,
+          4.093557506783923e-05,
+          4.093500900609627e-05
+        ],
+        [
+          4.1132488467840996e-05,
+          4.1133722005355216e-05,
+          4.093545379706647e-05,
+          4.0934887735368395e-05
+        ],
+        [
+          4.093557506783923e-05,
+          4.093545379706647e-05,
+          4.073829415344977e-05,
+          4.073710393232549e-05
+        ],
+        [
+          4.093500900609627e-05,
+          4.0934887735368395e-05,
+          4.073710393232549e-05,
+          4.073829352716186e-05
+        ]
+      ]
+    ],
+    "target_id": "f3c5871b34a690df5c0f35fbffeab67cd49f0a599b1f7f2fc01e0af9d36da3a7"
+  },
+  "reference_sha256": "745bcc68a9d0999721bc9907dd00fb6b7ee74523c9adb5bc6a9499ba9992eb09"
+}

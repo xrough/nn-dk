@@ -1,0 +1,45 @@
+{
+  "accuracy": {
+    "each_uncertainty_budget": 0.0125,
+    "maximum_pointwise_error": 0.05,
+    "rmse_is_not_acceptance": true,
+    "seeds_pooled": false
+  },
+  "all_models_locked_before_final_inputs": true,
+  "conditional_anchors_per_profile": 32,
+  "config_hash": "f70f6d4252dd82cd2c26ded0545ced96b26e1602715ced816b61aa53a1b968da",
+  "covariance": "full same-time 4x4",
+  "final_input_namespace": [
+    2026102601,
+    "f70f6d4252dd82cd2c26ded0545ced96b26e1602715ced816b61aa53a1b968da",
+    "locked-final"
+  ],
+  "horizons": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "initial_ensemble": "exact known IID multinomial law, with profile-integration enclosure",
+  "law": "continuous stopped finite-volume DK; continuous four-mode OU control",
+  "optimizer_seeds": [
+    0,
+    1,
+    2
+  ],
+  "ou_initial_states": 1024,
+  "previous_inspected_banks_are_development_only": [
+    20261024,
+    20261025
+  ],
+  "profiles": [
+    "uniform",
+    "nonuniform"
+  ],
+  "reference": "independent native moment operator plus validated continuous first-exit bound",
+  "target_ids": {
+    "dk": "f3c5871b34a690df5c0f35fbffeab67cd49f0a599b1f7f2fc01e0af9d36da3a7",
+    "ou": "a801676aa6fd4d0fb25f48e6f64c0cdc87bffdc7024778412fd194c69cf7b6fa"
+  },
+  "training": "deterministic known-generator residual; learned time coefficients",
+  "workflow": "continuous-generator-neural-accuracy-v1"
+}
