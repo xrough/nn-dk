@@ -2,6 +2,8 @@
 
 Neural numerical experiments for Dean–Kawasaki dynamics and coarse particle systems.
 
+The [completed interacting follow-up](docs/experiments/interacting_followup_2026-10-25.md) compares time refinement, two statistics losses and task-specific cost across 24 fits. On a common time grid, path error against fine Euler falls **16.5–16.7% → 7.72–7.73% → 3.60–3.65%**. The unscaled statistics network gives **1.22–2.42% conditional mean errors** and **0.73–2.58% covariance errors**, with all reported pointwise interval endpoints below 5% relative to finite Euler. Conditional queries take about **0.4–0.8 ms**; ensemble initialization largely removes the kernel-cost advantage. Loss balancing reduced covariance residuals but gave no clear predictive improvement. Continuous-time accuracy remains unresolved. Verification: **796 tests passed**, Ruff passed.
+
 **Project A now has a causal neural solver that generates full stochastic density paths.** It takes native initial cell masses and physical Brownian increments, and returns all 32 cell masses along each realization. A learned Volterra response kernel and fixed-depth Picard blocks retain the known interaction and multiplicative noise. Network weights remain fixed during simulation.
 
 The [method guide](docs/PATH_SOLVER.md) explains the ansatz, Itô residual, stopping convention and sampler API. The [mathematical audit](docs/PATH_OPERATOR_AUDIT.md) separates architectural properties from claims that require experiments. The earlier neural moment predictor is a separate statistics model.
