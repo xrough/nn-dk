@@ -304,9 +304,8 @@ dedicated shuffle RNGs, and saved optimizer/RNG state preserve the numerical
 procedure when an interrupted fit resumes. Read-only HDF5 access to completed
 training and validation banks is shared; checkpoint and metadata paths are
 distinct by seed. The helper does not request final inputs or mutate the
-manifest/design. Source inspection supports algorithmic equivalence; this
-audit did not compare complete sequential and parallel reruns for bitwise
-parameter equality.
+manifest/design. A separate small software experiment, described below,
+compared actual sequential and parallel reruns for bitwise equality.
 
 Safe execution requires the following operational conditions:
 
@@ -333,6 +332,37 @@ These are orchestration and timing qualifications, not a change to the
 stochastic ansatz. The original CLI remains responsible for validating the
 complete checkpoint inventory, locking every fit, and unlocking final inputs
 after the workers have finished.
+
+### Actual sequential/worker software comparison
+
+The [archived software result](experiments/artifacts/path_worker_repro_2026-10-25/README.md)
+compares sequential fitting with two actual worker subprocesses on the same
+small configuration and physical input arrays: `G=8`, `N=2048`, `T=1/16`,
+step `1/128`, width eight, depth two, 12 training and eight validation paths,
+all five cases, and optimizer seeds zero and one. Both copies fitted and passed
+all control validation gates before worker fitting. Worker zero resumed an
+incomplete checkpoint after **seven AdamW updates**.
+
+All **10 model pairs** had bitwise identical current and selected weights,
+weight hashes, AdamW/LBFGS states, Torch and shuffle RNG states, selected steps,
+validation diagnostics, provenance, and complete training/validation histories
+after excluding timing. Each subprocess's observed seed-lock PID matched its
+actual child-process handle; both exited successfully. Pre-existing common
+files remained unchanged, and no final input bank or fit lock was created.
+
+The script is `analysis/audit_parallel_path_fitting.py`, SHA-256
+`5f3a2a5fc922495726ff652c4166a6fdea165a477193052dd641a23122619ebd`.
+The result JSON SHA-256 is
+`d89a15b196c4322ae3c5853f3ca4bd9b29e0939d382a742fb3a50cd1250c8548`.
+The archive retains its configuration, worker logs, and checksums. Local raw
+software checkpoints and banks remain under
+`runs/path-worker-repro-2026-10-25-v2`; they are not duplicated in the archive.
+
+This establishes reproducibility for that software experiment with one
+BLAS/Torch thread per process on the recorded machine and software versions.
+It does not establish arbitrary-hardware bitwise reproducibility, validate
+scientific `G=32, T=1` accuracy, or measure parallel speedup. No production run
+file or locked scientific final input was used by this comparison.
 
 ## Source anchors and documentation qualifications
 
