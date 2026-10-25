@@ -163,7 +163,9 @@ uv run nn-dk interacting-moments --preset interacting-moments-smoke \
 The local runs were executed with the existing Python 3.12 environment and
 `PYTHONPATH` pointing to the isolated worktree; no environment reinstallation
 or source change in the original checkout was made. Re-running completed runs
-verifies immutable artifacts and returns their saved results.
+verifies locked numerical artifacts and returns their saved results. The legacy
+path runner refreshes elapsed manifest/report metadata; the archive snapshot
+was refreshed after this replay check. Numerical artifacts remained unchanged.
 
 [Compact evidence and full-file inventories](artifacts/interacting_smoke_2026-10-25/README.md)
 retain configuration hashes, reference uncertainty, checkpoint metadata and
