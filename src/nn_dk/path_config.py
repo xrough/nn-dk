@@ -11,6 +11,8 @@ from .native_types import NativeDKSpec
 from .types import LENGTH, Context, stable_hash
 
 CASES = ("heat", "additive", "dk_uniform", "dk_nonuniform", "dk_interacting")
+SUPPORTED_CASES = (*CASES, "dk_interacting_uniform")
+INTERACTING_CASES = ("dk_interacting_uniform", "dk_interacting")
 
 
 @dataclass(frozen=True)
@@ -20,6 +22,8 @@ class PathConfig:
     n_cells: int = 32
     n_particles: int = 2048
     diffusion: float = 1.
+    interaction_kappa: float = .75
+    interaction_a2: float = .1
     rho_stop: float = .01 / LENGTH
     horizon: float = .0625
     step_sizes: tuple[float, ...] = (2**-7,)
@@ -58,10 +62,15 @@ class PathConfig:
                       "tolerance", "uncertainty_budget", "budget_seconds"):
             if not math.isfinite(getattr(self, field)) or getattr(self, field) <= 0:
                 raise ValueError(f"Positive finite density-path setting {field} required")
+        for field in ("interaction_kappa", "interaction_a2"):
+            value = getattr(self, field)
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or not math.isfinite(value)):
+                raise ValueError(f"Finite real interaction parameter {field} required")
         if not 0 < self.uncertainty_budget < self.tolerance < 1:
             raise ValueError("Require 0 < uncertainty budget < accuracy tolerance < 1")
         if (not self.cases or len(set(self.cases)) != len(self.cases)
-                or set(self.cases) - set(CASES)):
+                or set(self.cases) - set(SUPPORTED_CASES)):
             raise ValueError("Unique supported density-path cases required")
         if (not self.optimizer_seeds or len(set(self.optimizer_seeds)) != len(self.optimizer_seeds)
                 or any(type(s) is not int or s < 0 for s in self.optimizer_seeds)):
@@ -87,6 +96,9 @@ class PathConfig:
             for case in self.cases:
                 c = self.context(case)
                 velocity = abs(c.kappa) + 2 * abs(c.a2)
+                if (self.problem(case) == "dk"
+                        and velocity*self.spec.h > 2*c.diffusion + 1e-12):
+                    raise ValueError("Density-path centered advection violates native Peclet condition")
                 if dt * (2*c.diffusion/self.spec.h**2 + velocity/self.spec.h) > 1 + 1e-12:
                     raise ValueError("Density-path Euler discretization violates native CFL")
         if any(4*self.diffusion*dt/self.spec.h**2 >= 1-1e-8 for dt in self.step_sizes):
@@ -110,11 +122,13 @@ class PathConfig:
         return case if case in ("heat", "additive") else "dk"
 
     def context(self, case):
-        if case not in CASES:
+        if case not in SUPPORTED_CASES:
             raise ValueError("Unsupported density-path case")
-        return Context(cos_coeffs=(0., 0., 0.) if case == "dk_uniform" else (.2, 0., 0.),
-                       kappa=.75 if case == "dk_interacting" else 0.,
-                       a2=.1 if case == "dk_interacting" else 0.,
+        uniform = case in ("dk_uniform", "dk_interacting_uniform")
+        interacting = case in INTERACTING_CASES
+        return Context(cos_coeffs=(0., 0., 0.) if uniform else (.2, 0., 0.),
+                       kappa=self.interaction_kappa if interacting else 0.,
+                       a2=self.interaction_a2 if interacting else 0.,
                        diffusion=self.diffusion, n_particles=self.n_particles)
 
     def target_id(self, case, dt):
@@ -145,4 +159,15 @@ def path_preset(name):
                        optimizer_seeds=(0, 1, 2), adam_steps=1000, lbfgs_steps=100,
                        n_bootstrap=200,
                        cases=("heat", "additive") if name == "path-controls" else CASES)
+    if name in ("path-interacting-smoke", "path-interacting-pilot"):
+        common = {"name": name, "seed": 2026102504,
+                  "cases": ("heat", "additive", *INTERACTING_CASES),
+                  "step_sizes": (2**-8,)}
+        if name == "path-interacting-smoke":
+            return replace(PathConfig(), **common, reference_step=2**-11)
+        return replace(PathConfig(), **common, horizon=1., reference_step=2**-13,
+                       query_times=(.25, .5, 1.), width=32, depth=4,
+                       train_paths=256, validation_paths=64, test_paths=512,
+                       optimizer_seeds=(0, 1, 2), adam_steps=1000, lbfgs_steps=100,
+                       n_bootstrap=200)
     raise ValueError("Unknown density-path preset")

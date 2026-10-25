@@ -6,6 +6,8 @@ Neural numerical experiments for Dean–Kawasaki dynamics and coarse particle sy
 
 The [method guide](docs/PATH_SOLVER.md) explains the ansatz, Itô residual, stopping convention and sampler API. The [mathematical audit](docs/PATH_OPERATOR_AUDIT.md) separates architectural properties from claims that require experiments. The earlier neural moment predictor is a separate statistics model.
 
+The [interacting extension](docs/INTERACTING_SOLVERS.md) adds paired uniform/nonuniform density-path experiments and a separate full-state generator-residual statistics network. The latter retains all 31 mass-zero coordinates because interacting dynamics do not close on the four measured modes. New commands are `path-solver --preset path-interacting-smoke` and `interacting-moments --preset interacting-moments-smoke`. Its Monte Carlo reference reports continuous-time bias as unresolved.
+
 ## Verified results
 
 The completed short-horizon checks use **G=32, N=2048, D=1, T=1/16**. They cover deterministic heat, additive-noise heat, uniform DK, nonuniform DK and interacting DK. All 20 fitted-model comparisons across two completed runs passed the declared strong/weak gates against **Euler at the same step**.

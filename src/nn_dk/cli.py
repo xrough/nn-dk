@@ -16,7 +16,7 @@ from .experiments import BudgetExhausted, calibrate, evaluate_run, fit, report
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Neural Dean–Kawasaki coarse dynamics benchmark")
-    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study", "generator", "path-solver"))
+    parser.add_argument("command", choices=("calibrate", "generate", "fit", "evaluate", "report", "run", "convergence", "bsde", "bsde-study", "generator", "path-solver", "interacting-moments"))
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--config", type=Path)
     source.add_argument("--preset", choices=("smoke", "pilot", "n2048", "resolution64", "long-horizon",
@@ -25,12 +25,17 @@ def main(argv=None) -> int:
                                            "bsde-study-smoke", "bsde-anchor-study",
                                            "generator-smoke", "generator-accuracy",
                                            "path-smoke", "path-controls", "path-first-batch",
-                                           "path-pilot"), default=None)
+                                           "path-pilot", "path-interacting-smoke", "path-interacting-pilot",
+                                           "interacting-moments-smoke", "interacting-moments-pilot"), default=None)
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--budget-seconds", type=float, help="Per-invocation wall budget; checkpoints preserve progress")
     parser.add_argument("--stage", choices=("all", "calibrate", "generate", "fit", "evaluate", "report"),
                         default="all", help="Independent stage of a statistics or density-path workflow")
     args = parser.parse_args(argv)
+    if args.command == "interacting-moments":
+        return _interacting_main(args, parser)
+    if args.preset and args.preset.startswith("interacting-moments-"):
+        parser.error("Interacting moment presets require the interacting-moments command")
     if args.command == "path-solver":
         return _path_main(args, parser)
     if args.preset and args.preset.startswith("path-"):
@@ -209,6 +214,34 @@ def _generator_main(args, parser):
     print(f"[{config.name}] continuous-generator moment accuracy ({args.stage}): {directory}", flush=True)
     try:
         result = run_generator(directory, config, time.monotonic()+budget, stage=args.stage)
+        print(json.dumps(json_ready(result)), flush=True)
+        return 0
+    except BudgetExhausted as error:
+        print(str(error), file=sys.stderr)
+        return 75
+
+
+def _interacting_main(args, parser):
+    from .interacting_config import InteractingStudyConfig, interacting_preset
+    from .interacting_study import run_interacting_study
+
+    if args.config:
+        config = InteractingStudyConfig.load(args.config)
+    elif args.preset:
+        if not args.preset.startswith("interacting-moments-"):
+            parser.error("The interacting-moments command requires an interacting-moments-* preset")
+        config = interacting_preset(args.preset)
+    elif args.output and (args.output/"config.json").exists():
+        config = InteractingStudyConfig.load(args.output/"config.json")
+    else:
+        config = interacting_preset("interacting-moments-smoke")
+    budget = config.budget_seconds if args.budget_seconds is None else args.budget_seconds
+    if not 0 < budget < float("inf"):
+        parser.error("Budget must be finite and positive")
+    directory = (args.output or Path("runs")/config.name/config.config_hash[:12]).resolve()
+    print(f"[{config.name}] full-state interacting generator moments ({args.stage}): {directory}", flush=True)
+    try:
+        result = run_interacting_study(directory, config, time.monotonic()+budget, args.stage)
         print(json.dumps(json_ready(result)), flush=True)
         return 0
     except BudgetExhausted as error:
