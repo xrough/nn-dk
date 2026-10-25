@@ -10,7 +10,13 @@ import torch
 
 import nn_dk.interacting_training as training
 from nn_dk.interacting_config import InteractingStudyConfig
-from nn_dk.interacting_training import fit_interacting, load_interacting_model
+from nn_dk.interacting_model import InteractingMomentModel
+from nn_dk.interacting_training import (
+    fit_interacting,
+    interacting_objective,
+    load_interacting_model,
+)
+from nn_dk.types import stable_hash
 
 
 @pytest.fixture(autouse=True)
@@ -64,9 +70,10 @@ def _assert_nested_equal(left, right):
 
 
 @pytest.mark.parametrize("deadline,expected_steps", [(5, (1, 0)), (11, (3, 1))])
+@pytest.mark.parametrize("balancing", ["none", "training-initial-rms"])
 def test_exact_checkpoint_continuation_including_lbfgs_and_shuffle_rng(
-        tmp_path, monkeypatch, deadline, expected_steps):
-    cfg = _config()
+        tmp_path, monkeypatch, deadline, expected_steps, balancing):
+    cfg = _config(loss_balancing=balancing)
     train, validation = _banks(cfg)
     full_path, resumed_path = tmp_path / "full.pt", tmp_path / "resumed.pt"
     full = fit_interacting(cfg, 0, full_path, train, validation)
@@ -85,12 +92,13 @@ def test_exact_checkpoint_continuation_including_lbfgs_and_shuffle_rng(
     first = torch.load(full_path, weights_only=True)
     second = torch.load(resumed_path, weights_only=True)
     for key in ("model_state", "best_state", "adam_state", "lbfgs_state",
-                "torch_rng_state", "shuffle_rng_state", "best_validation", "best_step"):
+                "torch_rng_state", "shuffle_rng_state", "best_validation", "best_step", "provenance"):
         _assert_nested_equal(first[key], second[key])
     before_rng = torch.get_rng_state().clone()
     model = load_interacting_model(resumed_path)
     assert model.complete and model.config.config_hash == cfg.config_hash
     assert model.target_id == cfg.target_id and model.provenance["seed"] == 0
+    assert model.loss_scaling == second["provenance"]["loss_scaling"]
     assert torch.equal(torch.get_rng_state(), before_rng)
 
 
@@ -172,3 +180,73 @@ def test_short_actual_fit_reduces_independent_generator_residual(tmp_path):
     assert metadata["best_validation"]["objective"] < .9 * metadata["initial_validation"]["objective"]
     fitted = load_interacting_model(tmp_path / "learning.pt")
     assert all(parameter.grad is None for parameter in fitted.parameters())
+
+
+def test_default_objective_matches_original_unscaled_sum_exactly():
+    mean = torch.arange(8, dtype=torch.float64).reshape(2, 4)
+    covariance = torch.arange(32, dtype=torch.float64).reshape(2, 4, 4)
+    model = SimpleNamespace(horizon=.0625, residual=lambda states, horizons: (mean, covariance))
+    loss, values = interacting_objective(model, None, None)
+    expected = model.horizon**2*(mean.square().mean()+covariance.square().mean())
+    assert torch.equal(loss, expected)
+    assert values == (mean, covariance)
+    scaled, _ = interacting_objective(model, None, None,
+                                      {"mean_scale": 2., "covariance_scale": 4.})
+    assert torch.equal(scaled, model.horizon**2*(
+        mean.square().mean()/4+covariance.square().mean()/16))
+
+
+def test_initial_rms_uses_training_only_and_freezes_each_component(tmp_path):
+    cfg = _config(loss_balancing="training-initial-rms")
+    train, validation = _banks(cfg)
+    altered = {**validation, "states": np.full_like(validation["states"], 1/cfg.n_cells),
+               "horizons": np.zeros_like(validation["horizons"]),
+               "content_hash": "different-independent-validation"}
+    first = fit_interacting(cfg, 0, tmp_path/"first.pt", train, validation, deadline=-1.)
+    second = fit_interacting(cfg, 0, tmp_path/"second.pt", train, altered, deadline=-1.)
+    assert first["loss_scaling"] == second["loss_scaling"]
+    assert first["initial_validation"] != second["initial_validation"]
+    training_bank, fingerprint = training._bank(train, cfg, "train")
+    torch.manual_seed(0)
+    model = InteractingMomentModel(cfg.spec, cfg.physics, cfg.horizon, cfg.width)
+    scales = training._initial_loss_scaling(model, training_bank, cfg, fingerprint)
+    diagnostics = training._validation(model, training_bank, cfg, scales)
+    assert scales == first["loss_scaling"]
+    assert not scales["mean_floor_applied"] and not scales["covariance_floor_applied"]
+    assert diagnostics["mean_normalized_mse"] == pytest.approx(1.)
+    assert diagnostics["covariance_normalized_mse"] == pytest.approx(1.)
+    assert diagnostics["objective"] == pytest.approx(2.)
+    for component in ("mean", "covariance"):
+        assert diagnostics[f"{component}_raw_rms"] > 0
+        assert diagnostics[f"{component}_normalized_rms"] == pytest.approx(1.)
+    assert scales["source_role"] == "train" and scales["frozen_before_optimizer"]
+    assert "no-physical-covariance-floor" in scales["floor_interpretation"]
+
+
+def test_zero_initial_residual_has_finite_declared_loss_scale_safeguard():
+    cfg = _config(loss_balancing="training-initial-rms", loss_scale_floor=1e-5)
+    states = torch.full((3, cfg.n_cells), 1/cfg.n_cells, dtype=torch.float64)
+    model = SimpleNamespace(eval=lambda: None, state_dict=lambda: {}, horizon=cfg.horizon,
+                            residual=lambda states, horizons: (
+                                torch.zeros((len(states), 4), dtype=torch.float64),
+                                torch.zeros((len(states), 4, 4), dtype=torch.float64)))
+    bank = {"states": states, "horizons": torch.zeros(3), "family_ids": np.array(["a", "b", "c"])}
+    scales = training._initial_loss_scaling(model, bank, cfg, {"role": "train"})
+    assert scales["mean_scale"] == scales["covariance_scale"] == cfg.loss_scale_floor
+    assert scales["mean_floor_applied"] and scales["covariance_floor_applied"]
+    objective, _ = interacting_objective(model, states, bank["horizons"], scales)
+    assert objective == 0. and torch.isfinite(objective)
+
+
+def test_invalid_saved_scale_rejected_even_with_recomputed_identity(tmp_path):
+    cfg = _config(loss_balancing="training-initial-rms")
+    train, validation = _banks(cfg)
+    path = tmp_path/"invalid-scale.pt"
+    fit_interacting(cfg, 0, path, train, validation)
+    saved = torch.load(path, weights_only=True)
+    saved["provenance"]["loss_scaling"]["mean_scale"] *= 2
+    saved["provenance"]["identity_hash"] = stable_hash({
+        key: value for key, value in saved["provenance"].items() if key != "identity_hash"})
+    torch.save(saved, path)
+    with pytest.raises(ValueError, match="frozen residual scales"):
+        load_interacting_model(path)

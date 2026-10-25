@@ -1,8 +1,9 @@
 """Resumable full-state Itô-generator training, without future moment labels.
 
-The objective is T^2 times the mean squared mean residual plus the mean squared
-full covariance residual.  Raw residual RMS/maxima remain diagnostics: neither
-completed optimization nor a small collocation loss certifies statistical error.
+The default objective retains the unscaled residual sum.  Optional initial-RMS
+balancing freezes separate dimensionless residual scales using training states
+only, before optimization. Neither objective nor a small collocation loss
+certifies statistical error.
 """
 
 from __future__ import annotations
@@ -72,13 +73,53 @@ def _bank(bank, cfg, role):
             "family_ids": families}, fingerprint
 
 
-def interacting_objective(model, states, horizons):
+def interacting_objective(model, states, horizons, loss_scaling=None):
     mean, covariance = model.residual(states, horizons)
-    loss = model.horizon**2 * (mean.square().mean() + covariance.square().mean())
+    mean_scale = 1. if loss_scaling is None else loss_scaling["mean_scale"]
+    covariance_scale = 1. if loss_scaling is None else loss_scaling["covariance_scale"]
+    loss = model.horizon**2 * (mean.square().mean()/mean_scale**2
+                              + covariance.square().mean()/covariance_scale**2)
     return loss, (mean, covariance)
 
 
-def _validation(model, bank, cfg):
+def _initial_loss_scaling(model, training, cfg, train_fingerprint):
+    """Freeze scales on initial TRAIN residuals; no validation/reference input."""
+    squared = np.zeros(2, dtype=np.float64)
+    size = len(training["states"])
+    model.eval()
+    with torch.no_grad():
+        for start in range(0, size, cfg.batch_size):
+            end = min(start+cfg.batch_size, size)
+            mean, covariance = model.residual(training["states"][start:end],
+                                               training["horizons"][start:end])
+            values = np.asarray((float(mean.square().mean()),
+                                 float(covariance.square().mean())))
+            if not np.all(np.isfinite(values)):
+                raise FloatingPointError("Nonfinite initial training residual scale")
+            squared += (end-start)/size*values
+    raw_rms = np.sqrt(squared)
+    dimensionless_rms = cfg.horizon*raw_rms
+    scales = (np.maximum(dimensionless_rms, cfg.loss_scale_floor)
+              if cfg.loss_balancing == "training-initial-rms" else np.ones(2))
+    return {"mode": cfg.loss_balancing,
+            "units": "fixed-observable-scaled-residual-times-physical-horizon",
+            "mean_scale": float(scales[0]), "covariance_scale": float(scales[1]),
+            "mean_initial_train_raw_rms": float(raw_rms[0]),
+            "covariance_initial_train_raw_rms": float(raw_rms[1]),
+            "mean_initial_train_dimensionless_rms": float(dimensionless_rms[0]),
+            "covariance_initial_train_dimensionless_rms": float(dimensionless_rms[1]),
+            "floor": cfg.loss_scale_floor,
+            "mean_floor_applied": bool(cfg.loss_balancing == "training-initial-rms"
+                                       and dimensionless_rms[0] < cfg.loss_scale_floor),
+            "covariance_floor_applied": bool(cfg.loss_balancing == "training-initial-rms"
+                                             and dimensionless_rms[1] < cfg.loss_scale_floor),
+            "floor_interpretation": "numerical-loss-scale-safeguard-only-no-physical-covariance-floor",
+            "frozen_before_optimizer": True, "source_role": "train",
+            "training_fingerprint_hash": stable_hash(train_fingerprint),
+            "initial_model_state_hash": _state_hash(model.state_dict())}
+
+
+def _validation(model, bank, cfg, loss_scaling):
     result = {"objective": 0., "mean_raw_rms": 0., "covariance_raw_rms": 0.,
               "mean_raw_maximum": 0., "covariance_raw_maximum": 0.,
               "n_states": len(bank["states"]),
@@ -90,7 +131,7 @@ def _validation(model, bank, cfg):
             end = min(start + cfg.batch_size, size)
             weight = (end - start) / size
             loss, (mean, covariance) = interacting_objective(
-                model, bank["states"][start:end], bank["horizons"][start:end])
+                model, bank["states"][start:end], bank["horizons"][start:end], loss_scaling)
             if not bool(torch.isfinite(loss)):
                 raise FloatingPointError("Nonfinite interacting generator validation residual")
             result["objective"] += weight * float(loss)
@@ -101,6 +142,13 @@ def _validation(model, bank, cfg):
                                                     float(covariance.abs().max()))
     result["mean_raw_rms"] **= .5
     result["covariance_raw_rms"] **= .5
+    for component in ("mean", "covariance"):
+        normalized = cfg.horizon*result[f"{component}_raw_rms"]/loss_scaling[f"{component}_scale"]
+        result[f"{component}_normalized_rms"] = normalized
+        result[f"{component}_normalized_mse"] = normalized**2
+    result["raw_objective"] = cfg.horizon**2 * (
+        result["mean_raw_rms"]**2+result["covariance_raw_rms"]**2)
+    result["loss_balancing"] = loss_scaling["mode"]
     result["raw_maximum"] = max(result["mean_raw_maximum"], result["covariance_raw_maximum"])
     return result
 
@@ -129,6 +177,7 @@ def _metadata(saved, path):
             "training_seconds": saved["training_seconds"],
             "parameter_count": saved["parameter_count"],
             "architecture": provenance["architecture"],
+            "loss_scaling": provenance["loss_scaling"],
             "interpretation": "Allocated fitting completed is distinct from convergence or statistical accuracy"}
 
 
@@ -147,6 +196,27 @@ def _verify(saved):
             or provenance.get("training") != INTERACTING_TRAINING_KIND
             or stable_hash(provenance.get("data_fingerprints")) != provenance.get("data_hash")):
         raise ValueError("Interacting checkpoint configuration, target or data fingerprint mismatch")
+    scaling = provenance.get("loss_scaling", {})
+    if (scaling.get("mode") != cfg.loss_balancing
+            or scaling.get("floor") != cfg.loss_scale_floor
+            or scaling.get("source_role") != "train"
+            or scaling.get("frozen_before_optimizer") is not True
+            or scaling.get("training_fingerprint_hash") != stable_hash(
+                provenance["data_fingerprints"]["training"])):
+        raise ValueError("Interacting checkpoint training-only loss scaling mismatch")
+    for component in ("mean", "covariance"):
+        raw = scaling.get(f"{component}_initial_train_raw_rms")
+        dimensionless = scaling.get(f"{component}_initial_train_dimensionless_rms")
+        scale = scaling.get(f"{component}_scale")
+        if (any(type(value) not in (int, float) or not np.isfinite(value) or value < 0
+                for value in (raw, dimensionless, scale))
+                or dimensionless != cfg.horizon*raw
+                or scale != (max(dimensionless, cfg.loss_scale_floor)
+                             if cfg.loss_balancing == "training-initial-rms" else 1.)
+                or scaling.get(f"{component}_floor_applied") != bool(
+                    cfg.loss_balancing == "training-initial-rms"
+                    and dimensionless < cfg.loss_scale_floor)):
+            raise ValueError("Interacting checkpoint frozen residual scales are invalid")
     if (saved.get("best_state_hash") != _state_hash(saved["best_state"])
             or saved.get("model_state_hash") != _state_hash(saved["model_state"])):
         raise ValueError("Interacting checkpoint model state checksum mismatch")
@@ -187,12 +257,15 @@ def fit_interacting(cfg, seed, path, train_bank, validation_bank, deadline=None)
     torch.manual_seed(seed)
     model = InteractingMomentModel(cfg.spec, cfg.physics, cfg.horizon, cfg.width)
     fingerprints = {"training": train_fingerprint, "validation": validation_fingerprint}
+    loss_scaling = _initial_loss_scaling(model, training, cfg, train_fingerprint)
     provenance = {"kind": model.kind, "training": INTERACTING_TRAINING_KIND,
                   "seed": seed, "target_id": cfg.target_id, "config": cfg.to_dict(),
                   "config_hash": cfg.config_hash, "source_hash": source_hash(),
                   "data_fingerprints": fingerprints, "data_hash": stable_hash(fingerprints),
                   "weight_decay": 0., "threads": 1,
-                  "objective": "horizon^2*(mean-residual-entry-MSE+full-covariance-residual-entry-MSE)",
+                  "objective": "horizon^2*(mean-residual-entry-MSE/mean_scale^2"
+                               "+full-covariance-residual-entry-MSE/covariance_scale^2)",
+                  "loss_scaling": loss_scaling,
                   "selection": "minimum-independent-validation-objective-at-declared-checks",
                   "architecture": model.architecture_metadata,
                   "learner_inputs": "current-full-native-state-and-remaining-horizon",
@@ -221,7 +294,7 @@ def fit_interacting(cfg, seed, path, train_bank, validation_bank, deadline=None)
         initial_validation, best_validation = saved["initial_validation"], saved["best_validation"]
         best_state, best_step = saved["best_state"], saved["best_step"]
     else:
-        best_validation = _validation(model, validation, cfg)
+        best_validation = _validation(model, validation, cfg, loss_scaling)
         initial_validation = best_validation.copy()
         best_state = {key: value.detach().clone() for key, value in model.state_dict().items()}
 
@@ -251,7 +324,7 @@ def fit_interacting(cfg, seed, path, train_bank, validation_bank, deadline=None)
             selected = torch.randperm(size, generator=shuffle)[:cfg.batch_size]
             adam.zero_grad(set_to_none=True)
             loss, _ = interacting_objective(model, training["states"][selected],
-                                             training["horizons"][selected])
+                                             training["horizons"][selected], loss_scaling)
             if not bool(torch.isfinite(loss)):
                 raise FloatingPointError("Nonfinite interacting generator training residual")
             loss.backward()
@@ -271,7 +344,7 @@ def fit_interacting(cfg, seed, path, train_bank, validation_bank, deadline=None)
                     end = min(start + cfg.batch_size, size)
                     weight = (end - start) / size
                     chunk_loss, _ = interacting_objective(model, training["states"][start:end],
-                                                           training["horizons"][start:end])
+                                                           training["horizons"][start:end], loss_scaling)
                     if not bool(torch.isfinite(chunk_loss)):
                         raise FloatingPointError("Nonfinite interacting LBFGS residual")
                     (weight * chunk_loss).backward()
@@ -287,7 +360,7 @@ def fit_interacting(cfg, seed, path, train_bank, validation_bank, deadline=None)
         diagnostics = None
         if (step % cfg.validation_every == 0 or complete()
                 or (phase == "adamw" and adam_done == cfg.adam_steps)):
-            diagnostics = _validation(model, validation, cfg)
+            diagnostics = _validation(model, validation, cfg, loss_scaling)
             if diagnostics["objective"] < best_validation["objective"]:
                 best_validation, best_step = diagnostics, step
                 best_state = {key: value.detach().clone() for key, value in model.state_dict().items()}
@@ -306,11 +379,16 @@ def load_interacting_model(path):
     if not saved["complete"]:
         raise ValueError("Cannot evaluate an incomplete interacting moment checkpoint")
     with torch.random.fork_rng():
+        torch.manual_seed(saved["provenance"]["seed"])
         model = InteractingMomentModel(cfg.spec, cfg.physics, cfg.horizon, cfg.width)
     if saved["provenance"].get("architecture") != model.architecture_metadata:
         raise ValueError("Interacting checkpoint architecture metadata mismatch")
+    scaling = saved["provenance"]["loss_scaling"]
+    if scaling["initial_model_state_hash"] != _state_hash(model.state_dict()):
+        raise ValueError("Interacting checkpoint initial loss-scaling model mismatch")
     model.load_state_dict(saved["best_state"])
     model.provenance, model.checkpoint_path = saved["provenance"], str(path.resolve())
     model.config, model.complete = cfg, True
+    model.loss_scaling = scaling
     model.eval()
     return model

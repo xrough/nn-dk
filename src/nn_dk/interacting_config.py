@@ -55,6 +55,8 @@ class InteractingStudyConfig:
     learning_rate: float = 1e-3
     batch_size: int = 64
     validation_every: int = 10
+    loss_balancing: str = "none"
+    loss_scale_floor: float = 1e-6
     conditional_anchors: int = 2
     conditional_paths: int = 128
     ensemble_paths: int = 512
@@ -86,10 +88,13 @@ class InteractingStudyConfig:
         if self.refinement_paths > min(self.conditional_paths, self.ensemble_paths):
             raise ValueError("Reference refinement paths cannot exceed either independent ensemble allocation")
         for key in ("diffusion", "rho_stop", "horizon", "state_step", "reference_step",
-                    "learning_rate", "budget_seconds", "tolerance", "uncertainty_budget"):
+                    "learning_rate", "budget_seconds", "tolerance", "uncertainty_budget",
+                    "loss_scale_floor"):
             value = getattr(self, key)
             if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
                 raise ValueError(f"Positive finite interacting setting required: {key}")
+        if self.loss_balancing not in ("none", "training-initial-rms"):
+            raise ValueError("Interacting loss balancing must be none or training-initial-rms")
         if any(type(getattr(self, key)) not in (int, float)
                or not math.isfinite(getattr(self, key)) for key in ("kappa", "a2")):
             raise ValueError("Finite physical interaction coefficients are required")

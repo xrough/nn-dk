@@ -14,11 +14,13 @@ import pytest
 from nn_dk.data import source_hash
 from nn_dk.interacting_config import InteractingStudyConfig
 from nn_dk.interacting_data import (
+    collocation_data_id,
     ensure_interacting_bank,
     ensure_interacting_reference,
     file_sha256,
     load_interacting_bank,
     load_interacting_reference,
+    reference_data_id,
     verify_interacting_fit_lock,
 )
 from nn_dk.interacting_evaluation import (
@@ -94,6 +96,43 @@ def test_atomic_partial_resume_and_exact_native_snapshots(tmp_path, cfg):
         np.testing.assert_array_equal(store["uniform"]["states"][0], exact.states[0])
 
 
+def test_candidates_share_literal_collocation_without_sharing_artifact_provenance(tmp_path, cfg):
+    candidates = (cfg, replace(cfg, name="balanced-comparator", width=16,
+                              optimizer_seeds=(2, 3), adam_steps=2, learning_rate=.002,
+                              loss_balancing="training-initial-rms", batch_size=8))
+    packets = []
+    for index, candidate in enumerate(candidates):
+        directory = tmp_path/str(index)
+        for role in ("train", "validation"):
+            ensure_interacting_bank(directory, candidate, role)
+        packets.append(load_interacting_bank(directory, candidate, "train"))
+    assert candidates[0].config_hash != candidates[1].config_hash
+    assert packets[0]["config_hash"] != packets[1]["config_hash"]
+    assert packets[0]["bank_data_id"] == packets[1]["bank_data_id"]
+    assert packets[0]["content_hash"] == packets[1]["content_hash"]
+    for key in ("states", "horizons", "snapshot_times", "family_ids", "case_ids"):
+        np.testing.assert_array_equal(packets[0][key], packets[1][key])
+    with pytest.raises(ValueError, match="configuration"):
+        load_interacting_bank(tmp_path/"0", candidates[1], "train")
+
+
+def test_physical_data_keys_distinguish_allocations_not_optimizer_or_io_knobs(cfg):
+    fit_change = replace(cfg, name="another-fit", loss_balancing="training-initial-rms",
+                         width=64, optimizer_seeds=(1, 2), n_bootstrap=30,
+                         reference_batch_size=1, budget_seconds=100)
+    assert collocation_data_id(cfg) == collocation_data_id(fit_change)
+    assert reference_data_id(cfg) == reference_data_id(fit_change)
+    physical_change = replace(cfg, kappa=.5)
+    assert collocation_data_id(cfg) != collocation_data_id(physical_change)
+    assert reference_data_id(cfg) != reference_data_id(physical_change)
+    more_training = replace(cfg, train_paths=cfg.train_paths+1)
+    assert collocation_data_id(cfg) != collocation_data_id(more_training)
+    assert reference_data_id(cfg) == reference_data_id(more_training)
+    more_reference = replace(cfg, ensemble_paths=cfg.ensemble_paths+1)
+    assert collocation_data_id(cfg) == collocation_data_id(more_reference)
+    assert reference_data_id(cfg) != reference_data_id(more_reference)
+
+
 def test_tamper_config_shape_and_file_hash_are_rejected(tmp_path, cfg):
     ensure_interacting_bank(tmp_path, cfg, "train")
     with pytest.raises(ValueError, match="configuration"):
@@ -145,6 +184,56 @@ def test_reference_literals_coupling_allocation_independence_and_replay(tmp_path
                                    exact.states[0]@weights.T, atol=3e-16, rtol=0)
     # Non-refinement paths have no fabricated fine observations.
     assert np.isnan(reference["ensemble"]["refinement_values"][2, 1:]).all()
+
+
+def test_reference_draws_are_loss_and_batch_invariant(tmp_path, cfg, monkeypatch):
+    candidates = (replace(cfg, reference_batch_size=1),
+                  replace(cfg, reference_batch_size=1, loss_balancing="training-initial-rms"),
+                  replace(cfg, reference_batch_size=3, loss_balancing="training-initial-rms"))
+    references = []
+    for index, candidate in enumerate(candidates):
+        directory = tmp_path/str(index)
+        directory.mkdir()
+        _lock(directory, candidate, monkeypatch)
+        ensure_interacting_reference(directory, candidate)
+        references.append(load_interacting_reference(directory, candidate, "nonuniform"))
+    assert len({item["bank_data_id"] for item in references}) == 1
+    # Different training losses use exactly the same numerical reference pool.
+    assert references[0]["content_hash"] == references[1]["content_hash"]
+    for reference in references[1:]:
+        for key in ("anchors", "integration_initial", "integration_family_ids"):
+            np.testing.assert_array_equal(references[0][key], reference[key])
+        for role in ("conditional", "ensemble"):
+            for name in references[0][role]:
+                before, after = references[0][role][name], reference[role][name]
+                if before.dtype.kind == "f":
+                    # Native BLAS force contractions can differ in their final
+                    # bits when the path batch shape changes. Random draws,
+                    # initialization and family addresses are unchanged.
+                    np.testing.assert_allclose(before, after, atol=5e-16, rtol=0)
+                else:
+                    np.testing.assert_array_equal(before, after)
+
+
+def test_interrupted_reference_initialization_never_publishes_partial_bank(tmp_path, cfg, monkeypatch):
+    import nn_dk.interacting_data as data
+    _lock(tmp_path, cfg, monkeypatch)
+    original = data.initialize_masses
+    count = 0
+
+    def interrupted(*args, **kwargs):
+        nonlocal count
+        count += 1
+        if count == 3:
+            raise RuntimeError("simulated initialization interruption")
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(data, "initialize_masses", interrupted)
+    with pytest.raises(RuntimeError, match="interruption"):
+        ensure_interacting_reference(tmp_path, cfg)
+    assert not (tmp_path/"interacting_reference.h5").exists()
+    monkeypatch.setattr(data, "initialize_masses", original)
+    assert ensure_interacting_reference(tmp_path, cfg)["complete"]
 
 
 def test_full_total_covariance_includes_initial_sampling():

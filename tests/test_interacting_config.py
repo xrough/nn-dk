@@ -162,3 +162,23 @@ def test_query_snapshot_refinement_and_native_stability_contracts(changes):
 def test_unknown_interacting_preset_is_rejected():
     with pytest.raises(ValueError, match="Unknown"):
         interacting_preset("generator-accuracy")
+
+
+def test_loss_balancing_is_explicit_default_preserves_unscaled_objective():
+    default = InteractingStudyConfig()
+    balanced = replace(default, loss_balancing="training-initial-rms")
+    assert default.loss_balancing == "none"
+    assert default.loss_scale_floor == 1e-6
+    assert balanced.target_id == default.target_id
+    assert balanced.config_hash != default.config_hash
+
+
+@pytest.mark.parametrize("changes", [
+    {"loss_balancing": "validation-rms"}, {"loss_balancing": "adaptive"},
+    {"loss_balancing": None}, {"loss_scale_floor": 0.},
+    {"loss_scale_floor": -1.}, {"loss_scale_floor": float("nan")},
+    {"loss_scale_floor": float("inf")}, {"loss_scale_floor": True},
+])
+def test_loss_scaling_safeguard_and_train_only_modes_are_validated(changes):
+    with pytest.raises(ValueError):
+        replace(InteractingStudyConfig(), **changes)

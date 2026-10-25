@@ -14,7 +14,13 @@ import numpy as np
 
 from .data import json_ready, source_hash
 from .experiments import BudgetExhausted
-from .interacting_data import file_sha256, load_interacting_reference, verify_interacting_fit_lock
+from .interacting_data import (
+    collocation_data_id,
+    file_sha256,
+    load_interacting_reference,
+    reference_data_id,
+    verify_interacting_fit_lock,
+)
 from .native import physical_observable_weights
 from .types import seeded_rng, stable_hash
 
@@ -285,7 +291,8 @@ def evaluate_interacting_model(directory, cfg, model, seed, deadline=None):
     temporary_predictions = Path(str(prediction_path)+".tmp")
     with h5py.File(temporary_predictions, "w") as store:
         store.attrs.update(source_hash=source_hash(), config_hash=cfg.config_hash, target_id=cfg.target_id,
-                           evaluation_signature=signature, seed=seed, complete=True)
+                           evaluation_signature=signature, reference_bank_data_id=reference_data_id(cfg),
+                           seed=seed, complete=True)
         for case, arrays in prediction_data.items():
             group = store.create_group(case)
             for name, values in arrays.items():
@@ -293,6 +300,8 @@ def evaluate_interacting_model(directory, cfg, model, seed, deadline=None):
     temporary_predictions.replace(prediction_path)
     result = json_ready(dict(kind="interacting-generator-moment-evaluation-v1", source_hash=source_hash(),
                              config_hash=cfg.config_hash, target_id=cfg.target_id, seed=seed,
+                             collocation_bank_data_id=collocation_data_id(cfg),
+                             reference_bank_data_id=reference_data_id(cfg),
                              covariance_scope="all same-time 4x4 entries, not cross-time covariance",
                              reference_law="finite stopped Euler polygon", reference_step=cfg.reference_step,
                              continuous_bias_status="unresolved", records=records,

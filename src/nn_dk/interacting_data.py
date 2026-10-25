@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import json
 import time
+from functools import lru_cache
 from pathlib import Path
 
 import h5py
@@ -18,6 +19,47 @@ from .native import initialize_masses, physical_observable_weights, simulate_nat
 from .types import seeded_rng, stable_hash
 
 KIND = "interacting-generator-state-and-reference-bank-v1"
+DATA_KEY_KIND = "interacting-independent-physical-data-streams-v2"
+
+
+@lru_cache(maxsize=32)
+def collocation_data_id(cfg):
+    """Physical state/horizon pool identity, independent of the fitted method.
+
+    Strict artifact provenance still includes the complete configuration and
+    source hash. Two separately locked candidates can therefore share literal
+    current states and residual horizons without accepting each other's files.
+    """
+    return stable_hash(dict(
+        kind=DATA_KEY_KIND, role="collocation", seed=cfg.seed,
+        target_id=cfg.target_id, native_spec_id=cfg.spec.target_id,
+        context_ids={case: cfg.context(case).context_id for case in cfg.cases},
+        train_paths=cfg.train_paths, validation_paths=cfg.validation_paths,
+        state_step=cfg.state_step, state_times=cfg.state_times,
+        horizon_samples=cfg.horizon_samples))
+
+
+@lru_cache(maxsize=32)
+def reference_data_id(cfg):
+    """Predeclared independent reference/integration pool, excluding fit knobs."""
+    return stable_hash(dict(
+        kind=DATA_KEY_KIND, role="reference", seed=cfg.seed,
+        target_id=cfg.target_id, native_spec_id=cfg.spec.target_id,
+        context_ids={case: cfg.context(case).context_id for case in cfg.cases},
+        query_times=cfg.query_times, reference_step=cfg.reference_step,
+        reference_factors=cfg.reference_factors,
+        conditional_anchors=cfg.conditional_anchors,
+        conditional_paths=cfg.conditional_paths, ensemble_paths=cfg.ensemble_paths,
+        ensemble_initial_paths=cfg.ensemble_initial_paths,
+        refinement_paths=cfg.refinement_paths))
+
+
+def _stream_data_id(cfg, keys):
+    if keys and keys[0] in ("train", "validation"):
+        return collocation_data_id(cfg)
+    if keys and keys[0] in ("reference", "reference-anchor", "integration-initial"):
+        return reference_data_id(cfg)
+    raise ValueError("Undeclared interacting independent data stream")
 
 
 def file_sha256(path):
@@ -39,23 +81,30 @@ def _expired(deadline):
 
 
 def _seed(cfg, *keys):
-    return int(seeded_rng(cfg.seed, KIND, cfg.config_hash, *keys).integers(0, 2**63-1))
+    return int(seeded_rng(cfg.seed, DATA_KEY_KIND, _stream_data_id(cfg, keys), *keys).integers(0, 2**63-1))
 
 
 def _family(cfg, *keys):
-    return stable_hash([KIND, cfg.seed, cfg.config_hash, *keys])[:24]
+    return stable_hash([DATA_KEY_KIND, cfg.seed, _stream_data_id(cfg, keys), *keys])[:24]
 
 
 def _identity(cfg, role):
     return dict(kind=KIND, source_hash=source_hash(), config_hash=cfg.config_hash,
-                target_id=cfg.target_id, role=role)
+                target_id=cfg.target_id, role=role,
+                bank_data_id=(reference_data_id(cfg) if role == "reference"
+                              else collocation_data_id(cfg)))
 
 
 def _row_hash(group, index):
+    return _array_row_hash({name: group[name][index] for name in group
+                            if name not in ("complete", "row_hash")})
+
+
+def _array_row_hash(arrays):
     digest = hashlib.sha256()
-    for name in sorted(set(group)-{"complete", "row_hash"}):
+    for name in sorted(arrays):
         digest.update(name.encode())
-        digest.update(np.ascontiguousarray(group[name][index]).tobytes())
+        digest.update(np.ascontiguousarray(arrays[name]).tobytes())
     return digest.hexdigest()
 
 
@@ -96,9 +145,20 @@ def _validate_group(group, shapes):
     for name, (shape, dtype) in shapes.items():
         if group[name].shape != shape or group[name].dtype != np.dtype(dtype):
             raise ValueError("Interacting bank dataset shape or dtype changed")
-    for index in np.flatnonzero(group["complete"][:]):
-        if _row_hash(group, int(index)) != group["row_hash"][index].decode():
-            raise ValueError("A committed interacting trajectory-family row changed")
+    complete = group["complete"][:]
+    # Read blocks once per dataset rather than issuing a separate HDF5 read for
+    # every small scalar/vector row of large diagnostic ensembles.
+    for start in range(0, len(complete), 256):
+        stop = min(start+256, len(complete))
+        indices = np.flatnonzero(complete[start:stop])
+        if not len(indices):
+            continue
+        arrays = {name: group[name][start:stop] for name in group
+                  if name not in ("complete", "row_hash")}
+        hashes = group["row_hash"][start:stop]
+        for index in indices:
+            if _array_row_hash({name: values[index] for name, values in arrays.items()}) != hashes[index].decode():
+                raise ValueError("A committed interacting trajectory-family row changed")
     if bool(group.attrs.get("complete")):
         if not np.all(group["complete"][:]) or group.attrs.get("content_hash") != _group_hash(group):
             raise ValueError("Interacting group completion or content hash changed")
@@ -302,7 +362,10 @@ def verify_interacting_fit_lock(directory, cfg):
 
 
 def _create_reference(path, cfg):
-    with h5py.File(path, "w") as store:
+    # A crash while drawing a large initialization pool cannot leave a partially
+    # declared final bank. Only initialized inventories receive the final name.
+    temporary = Path(str(path)+".initializing")
+    with h5py.File(temporary, "w") as store:
         store.attrs.update(**_identity(cfg, "reference"), complete=False, generation_seconds=0.,
                            finite_reference_law="stopped-Euler-first-polygon-crossing-v1",
                            continuous_bias_status="unresolved", all_paths_retained=True)
@@ -326,6 +389,7 @@ def _create_reference(path, cfg):
                 subgroup = group.create_group(role)
                 subgroup.attrs["complete"] = False
                 _datasets(subgroup, _reference_shapes(cfg, role))
+    temporary.replace(path)
 
 
 def ensure_interacting_reference(directory, cfg, deadline=None):
@@ -387,25 +451,30 @@ def ensure_interacting_reference(directory, cfg, deadline=None):
                                                         cfg.reference_step/factor, seeds[0], len(indices),
                                                         initial_masses=initials, brownian_increments=dw,
                                                         family_ids=families)
-                                values[:, level] = batch.states @ weights.T
+                                # Explicit fixed-axis reduction avoids changing
+                                # BLAS GEMV/GEMM summation with the batch size.
+                                values[:, level] = np.einsum("ptg,og->pto", batch.states, weights,
+                                                            optimize=False)
                                 stops[:, level] = batch.stopped_at
                                 failed |= ~np.all(np.isfinite(values[:, level]), axis=(1, 2))
                             except (FloatingPointError, ValueError):
                                 # Retain every failed row; no survivor-conditioned estimator.
                                 failed[:] = True
-                        for row, index in enumerate(indices):
-                            group["initial"][index] = initials[row]
-                            group["values"][index] = values[row, 0]
-                            group["refinement_values"][index] = values[row]
-                            group["refinement_stopped_at"][index] = stops[row]
-                            group["stopped_at"][index] = stops[row, 0]
-                            group["family_ids"][index] = families[row].encode()
-                            group["anchor_ids"][index] = anchors[row]
-                            group["failed"][index] = failed[row]
-                            group["row_hash"][index] = _row_hash(group, index).encode()
-                            store.flush()
-                            group["complete"][index] = True
-                            store.flush()
+                        rows = dict(initial=initials, values=values[:, 0], refinement_values=values,
+                                    refinement_stopped_at=stops, stopped_at=stops[:, 0],
+                                    family_ids=np.asarray(families, dtype="S24"),
+                                    anchor_ids=np.asarray(anchors, dtype="i8"), failed=failed)
+                        hashes = np.asarray([
+                            _array_row_hash({name: array[row] for name, array in rows.items()}).encode()
+                            for row in range(len(indices))], dtype="S64")
+                        # Each row has its own commit marker. All arrays/hashes
+                        # reach storage before any marker can become committed.
+                        for name, array in rows.items():
+                            group[name][indices] = array
+                        group["row_hash"][indices] = hashes
+                        store.flush()
+                        group["complete"][indices] = True
+                        store.flush()
         store.attrs["generation_seconds"] += time.perf_counter()-started
         _finish(store, cfg, "reference")
     packet = _packet(path, cfg, "reference")
