@@ -31,6 +31,7 @@ from nn_dk.native_types import NativeDKSpec  # noqa: E402
 from nn_dk.path_model import CausalPathOperator  # noqa: E402
 from nn_dk.path_numerics import torch_stop_paths  # noqa: E402
 from nn_dk.path_runtime import PreparedPathRuntime  # noqa: E402
+from nn_dk.payoff_learning import PayoffBank  # noqa: E402
 from nn_dk.types import stable_hash  # noqa: E402
 
 _probe_spec = importlib.util.spec_from_file_location(
@@ -104,10 +105,11 @@ def cell_probabilities(context, spec):
     return unnormalized / unnormalized.sum()
 
 
-def fresh_inputs(context, spec, steps, batch, dt, *, seed, case):
+def fresh_inputs(context, spec, steps, batch, dt, *, seed, case, conditional=False):
     """Separate initial/noise RNG families; initialization is shared by every method."""
     identity = stable_hash({"seed": seed, "case": case, "steps": steps, "batch": batch,
-                            "dt": dt, "role": "timing-only-independent-of-accuracy"})
+                            "dt": dt, "role": "timing-only-independent-of-accuracy",
+                            "conditioning": "fixed-histogram" if conditional else "IID-initial-law"})
     entropy = (seed, *np.frombuffer(bytes.fromhex(identity), dtype="<u4").tolist())
     initial_sequence, noise_sequence = np.random.SeedSequence(entropy).spawn(2)
     initial_rng = np.random.default_rng(initial_sequence)
@@ -116,7 +118,10 @@ def fresh_inputs(context, spec, steps, batch, dt, *, seed, case):
     probabilities = cell_probabilities(context, spec)
     probability_seconds = time.perf_counter() - started
     started = time.perf_counter()
-    initial = initial_rng.multinomial(context.n_particles, probabilities, size=batch) / context.n_particles
+    initial = initial_rng.multinomial(context.n_particles, probabilities,
+                                     size=1 if conditional else batch) / context.n_particles
+    if conditional:
+        initial = np.repeat(initial, batch, axis=0)
     initial_seconds = time.perf_counter() - started
     started = time.perf_counter()
     noise = noise_rng.normal(0, np.sqrt(dt), (batch, steps, spec.n_cells))
@@ -126,9 +131,121 @@ def fresh_inputs(context, spec, steps, batch, dt, *, seed, case):
             "initial_probability_rule": "fixed-32-point-per-cell-Gauss-Legendre-normalized-profile",
             "probability_seconds": probability_seconds, "initialization_seconds": initial_seconds,
             "physical_noise_seconds": noise_seconds, "seed": seed,
+            "conditioning": "fixed-histogram" if conditional else "IID-initial-law",
             "rng_roles": ["initial-multinomial", "physical-face-noise"],
             "trajectory_families": [stable_hash([identity, i])[:24] for i in range(batch)],
             "conditional_inputs_supplied_to_every_method": True}
+
+
+def positive_time_observables(states, spec):
+    """The literal evaluation bank: 30 modes at T*j/16, j=1,...,16.
+
+    Small unit-test grids with fewer than 16 steps use every positive node.
+    All scientific short/long grids nest the declared 16 physical times.
+    """
+    count = min(17, states.shape[1])
+    indices = np.unique(np.linspace(0, states.shape[1] - 1, count).round().astype(int))
+    values = probe.many_observables(states[:, indices], spec, n_times=len(indices))
+    return values[:, 2 * (spec.n_cells // 2 - 1):]
+
+
+def empirical_moments(values, n_particles):
+    values = np.asarray(values, dtype=np.float64)
+    if values.ndim != 3 or len(values) < 2 or not np.isfinite(values).all():
+        raise ValueError("At least two finite complete-family bank outcomes [P,T,O] required")
+    mean = values.mean(0)
+    centered = values - mean
+    return mean, n_particles * np.einsum("pti,ptj->tij", centered, centered) / (len(values) - 1)
+
+
+def benchmark_moment_tasks(model, context, dt, horizon, *, case, arrays_directory, compiled=None,
+                           n_paths=16384, chunk_size=64, repeats=7, warmup=1, seed=DEFAULT_SEED):
+    """Measured complete Monte Carlo queries, not extrapolated path throughput."""
+    if type(n_paths) is not int or n_paths < 2 or type(chunk_size) is not int or chunk_size < 1:
+        raise ValueError("At least two paths and a positive chunk size required")
+    directory = Path(arrays_directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    steps = round(horizon / dt)
+    times = np.arange(steps + 1) * dt
+    queries = np.asarray((horizon / 4, horizon / 2, horizon))
+    indices = np.rint(queries / dt).astype(int)
+    if not np.allclose(indices * dt, queries, atol=1e-12, rtol=0):
+        raise ValueError("Literal payoff query times must lie on the integration grid")
+    banks = (PayoffBank.terminal_high_modes(model.spec, horizon),
+             PayoffBank.mixed_terminal_integral(model.spec, horizon))
+    runtimes = {label: PreparedPathRuntime(model, context, dt, horizon, learned=learned,
+        mode="dense-cached", depth=3) for label, learned in (("learned_dense_path", True),
+                                                            ("exact_kernel_picard_depth3", False))}
+    with torch.no_grad():
+        for runtime in runtimes.values():
+            runtime.prepare(steps)
+    records, pools = [], []
+    for role in ("conditional", "IID-ensemble"):
+        initial, noise, pool = fresh_inputs(context, model.spec, steps, n_paths, dt, seed=seed,
+            case=case + ":matched-moment-query:" + role, conditional=role == "conditional")
+        input_path = directory / f"{case}_{role}_p{n_paths}_inputs.npz"
+        np.savez_compressed(input_path, initial=initial, brownian=noise)
+        pool.update(role=role, case=case, paths=n_paths, artifact_path=str(input_path.resolve()),
+                    artifact_sha256=hashlib.sha256(input_path.read_bytes()).hexdigest(),
+                    input_scope="fresh-independent-timing-family; shared-across-banks-and-methods")
+        pools.append(pool)
+        methods = {"compiled_native_euler" if compiled is not None else "numpy_native_euler":
+            lambda origin, increments: (compiled(origin, increments, context, model.spec, dt)
+                if compiled is not None else probe.numpy_euler(origin, increments, context, model.spec, dt))}
+        methods.update({label: (lambda origin, increments, runtime=runtime: runtime(
+            origin, increments, return_raw=True)[0]) for label, runtime in runtimes.items()})
+        for bank in banks:
+            reference = None
+            for label, method in methods.items():
+                components = []
+
+                def query():
+                    simulation = reduction = 0.
+                    values = np.empty((n_paths, len(queries), 4), dtype=np.float64)
+                    for start in range(0, n_paths, chunk_size):
+                        end = min(start + chunk_size, n_paths)
+                        tick = time.perf_counter()
+                        with torch.no_grad():
+                            packet = method(initial[start:end], noise[start:end])
+                        simulated = time.perf_counter()
+                        states = _tensor_array(packet["states"])
+                        stops = _tensor_array(packet["stopped_at"])
+                        values[start:end] = bank.evaluate_paths(states, times, stops)[:, indices]
+                        reduced = time.perf_counter()
+                        simulation += simulated - tick
+                        reduction += reduced - simulated
+                    tick = time.perf_counter()
+                    mean, covariance = empirical_moments(values, context.n_particles)
+                    aggregation = time.perf_counter() - tick
+                    components.append((simulation, reduction, aggregation))
+                    return mean, covariance
+
+                prediction = query()
+                if reference is None:
+                    reference = prediction
+                components.clear()
+                measured = timing(query, repeats=repeats, warmup=warmup)
+                measured_components = np.asarray(components[warmup:])
+                output_path = directory / f"{case}_{role}_{bank.name}_{label}_moments.npz"
+                np.savez_compressed(output_path, mean=prediction[0], scaled_covariance=prediction[1])
+                records.append({"case": case, "role": role, "bank": bank.name, "method": label,
+                    "paths": n_paths, "chunk_size": chunk_size, "dt": dt, "horizon": horizon,
+                    "query_times": queries.tolist(), "optimizer_seed": 0 if label == "learned_dense_path" else None,
+                    "input_identity": pool["identity"], "initial_hash": pool["initial_hash"],
+                    "brownian_hash": pool["brownian_hash"], "initialization_seconds": pool["initialization_seconds"],
+                    "physical_noise_seconds": pool["physical_noise_seconds"],
+                    "mean_error_vs_native_development_pool": errors(prediction[0], reference[0]),
+                    "covariance_error_vs_native_development_pool": errors(prediction[1], reference[1]),
+                    "simulation_component_seconds": measured_components[:, 0].tolist(),
+                    "new_bank_readout_component_seconds": measured_components[:, 1].tolist(),
+                    "aggregation_component_seconds": measured_components[:, 2].tolist(),
+                    "components_sum_to_end_to_end_up_to_clock_and_allocation_overhead": True,
+                    "sample_pool_reuse_scope": "Readout component measured while each full-path chunk is available; persistent-path I/O excluded",
+                    "cost_scope": "measured complete fixed-input Monte Carlo query: all paths+stopping+literal bank+mean+N-covariance; no throughput extrapolation",
+                    "accuracy_scope": "timing-only development pool; independent final accuracy measured separately",
+                    "output_artifact": {"path": str(output_path.resolve()), "sha256": hashlib.sha256(output_path.read_bytes()).hexdigest()},
+                    **measured})
+    return records, pools
 
 
 def _tensor_array(value):
@@ -223,19 +340,19 @@ def benchmark_case(model, context, dt, horizon, *, batch, seed=DEFAULT_SEED, cas
                           "family": "learned-causal-picard" if learned else "classical-exact-kernel-picard",
                           "depth": depth, "backend": mode,
                           "uses_fitted_parameters": learned}
-    reference_observables = probe.many_observables(reference["states"], spec)
+    reference_observables = positive_time_observables(reference["states"], spec)
     for label, method in methods.items():
         with torch.no_grad():
             states = method["forward"]()
             array = _tensor_array(states)
             arrays[label + "_states"] = array
             diagnostic = {"states": errors(array, reference["states"]),
-                          "many_observables": errors(_tensor_array(probe.many_observables(states, spec)),
+                          "many_observables": errors(_tensor_array(positive_time_observables(states, spec)),
                                                        reference_observables),
                           "mass_error": float(np.abs(array.sum(-1) - 1).max()),
                           "minimum_mass": float(array.min())}
             for task, call in (("full_density_path", method["forward"]),
-                               ("many_new_observables", lambda method=method: probe.many_observables(
+                               ("many_new_observables", lambda method=method: positive_time_observables(
                                    method["forward"](), spec))):
                 cost = timing(call, repeats=repeats, warmup=warmup)
                 records.append({**common, "method": label, "family": method["family"], "task": task,
@@ -380,7 +497,7 @@ def _load_current_model(path, commit):
 
 def run_benchmark(output, *, checkpoint_root=None, include_long=False, long_checkpoint=None,
                    smoke=False, repeats=21, warmup=3, seed=DEFAULT_SEED, final_timing=False,
-                   use_compiled=True):
+                   use_compiled=True, moment_paths=16384, moment_repeats=7, moment_warmup=1):
     """Write incremental JSON and raw arrays, rejecting any source change during timing."""
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -421,6 +538,15 @@ def run_benchmark(output, *, checkpoint_root=None, include_long=False, long_chec
                   "load_average_start": os.getloadavg()},
               "timing_scope": "Warm complete paths/readouts/derivatives with fixed supplied inputs; preparation and initialization separate",
               "derivative_scope": "Piecewise pathwise derivatives of fixed sum of three path tasks; shared physics aggregated over batch",
+              "many_observable_bank": {"times": "T*j/16,j=1,...,16", "zero_time_included": False,
+                  "modes": "normalized exact-cell-integrated sine/cosine modes 1,...,15", "dimension": 480},
+              "moment_task_design": {"paths": 8 if smoke else moment_paths, "chunk_size": 64,
+                  "repeats": 1 if smoke else moment_repeats, "warmup": 0 if smoke else moment_warmup,
+                  "roles": ["conditional", "IID-ensemble"], "banks": ["terminal-modes34", "terminal3-integral1"],
+                  "methods": ["learned_dense_path", "exact_kernel_picard_depth3", "compiled_native_euler-or-NumPy-fallback"],
+                  "short_step": 2 ** -10, "optimizer_seed": 0, "input_seed": seed,
+                  "sampling_scope": "all complete families; uncensored simulation plus declared stopping; no survivor averages"},
+              "moment_tasks": [], "moment_input_pools": [],
               "learned_physics_derivative_limitation": "Checkpoints were trained at fixed D,kappa,a2. Their physics AD is a diagnostic derivative of the parametrization, not validated inverse-problem or parameter-generalization capability. Finite differences check implementation only.",
               "unsupported": {"legacy_learned_torch": "No tensor-physics argument; only forward comparison",
                               "old_fixed_four_moment_statistics_network": "Does not supply density paths, arbitrary observables or pathwise gradients"},
@@ -451,6 +577,19 @@ def run_benchmark(output, *, checkpoint_root=None, include_long=False, long_chec
             save()
             print(json.dumps({"case": case, "steps": round(horizon / dt), "batch": batch,
                               "completed_cases": len(result["cases"])}), flush=True)
+        if smoke or (horizon == 1 / 16 and dt == 2 ** -10):
+            moment_rows, input_pools = benchmark_moment_tasks(model, context, dt, horizon, case=case,
+                arrays_directory=array_directory / "moment_queries", compiled=compiled,
+                n_paths=8 if smoke else moment_paths, repeats=1 if smoke else moment_repeats,
+                warmup=0 if smoke else moment_warmup, seed=seed)
+            for row in moment_rows:
+                row["checkpoint"] = provenance if row["method"] == "learned_dense_path" else {
+                    "training_required": False, "physical_context": asdict(context)}
+            result["moment_tasks"].extend(moment_rows)
+            result["moment_input_pools"].extend(input_pools)
+            result["elapsed_seconds"] = time.perf_counter() - started
+            save()
+            print(json.dumps({"case": case, "complete_moment_query_rows": len(result["moment_tasks"])}), flush=True)
     if (source_hash() != before_source or hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != script_hash
             or hashlib.sha256(Path(probe.__file__).read_bytes()).hexdigest() != probe_hash
             or (compiled is not None and (
@@ -478,13 +617,17 @@ def main():
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--no-compiled", action="store_true",
                         help="Explicitly omit the optional serial C++ Euler/JVP control")
+    parser.add_argument("--moment-paths", type=int, default=16384)
+    parser.add_argument("--moment-repeats", type=int, default=7)
+    parser.add_argument("--moment-warmup", type=int, default=1)
     parser.add_argument("--final-timing", action="store_true",
                         help="Record that the caller confirmed other fitting jobs have finished")
     args = parser.parse_args()
     run_benchmark(args.output, checkpoint_root=args.checkpoint_root, include_long=args.include_long,
                   long_checkpoint=args.long_checkpoint, smoke=args.smoke, repeats=args.repeats,
                   warmup=args.warmup, seed=args.seed, final_timing=args.final_timing,
-                  use_compiled=not args.no_compiled)
+                  use_compiled=not args.no_compiled, moment_paths=args.moment_paths,
+                  moment_repeats=args.moment_repeats, moment_warmup=args.moment_warmup)
 
 
 if __name__ == "__main__":

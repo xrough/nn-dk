@@ -64,6 +64,60 @@ def test_projected_gradient_and_error_metrics_preserve_tangent_derivative():
         benchmark.errors(np.ones(2), np.ones(3))
 
 
+@pytest.mark.parametrize("steps", [16, 32, 64, 128])
+def test_many_bank_is_literal_sixteen_positive_physical_times(steps):
+    spec = NativeDKSpec()
+    states = np.random.default_rng(91).uniform(.01, .1, (2, steps + 1, 32))
+    actual = benchmark.positive_time_observables(states, spec)
+    indices = np.arange(17) * (steps // 16)
+    expected = benchmark.probe.many_observables(states[:, indices], spec, n_times=17)[:, 30:]
+    assert actual.shape == (2, 480)
+    np.testing.assert_array_equal(actual, expected)
+    changed = states.copy()
+    changed[:, 0] += 100
+    np.testing.assert_array_equal(benchmark.positive_time_observables(changed, spec), actual)
+    np.testing.assert_allclose(benchmark.positive_time_observables(torch.tensor(states), spec), actual,
+                               atol=3e-16, rtol=3e-14)
+
+
+def test_complete_moment_query_uses_all_paths_and_shared_native_inputs(tmp_path):
+    torch.manual_seed(71)
+    model = CausalPathOperator(NativeDKSpec(n_cells=16), "dk", width=4, depth=3)
+    context = Context(kappa=.75, a2=.1, n_particles=2048)
+    rows, pools = benchmark.benchmark_moment_tasks(model, context, 1 / 256, 1 / 64,
+        case="unit", arrays_directory=tmp_path, n_paths=4, repeats=1, warmup=0)
+    assert len(rows) == 12
+    assert len(pools) == 2
+    assert {row["role"] for row in rows} == {"conditional", "IID-ensemble"}
+    assert {row["bank"] for row in rows} == {"terminal-modes34", "terminal3-integral1"}
+    for pool in pools:
+        with np.load(pool["artifact_path"]) as arrays:
+            assert arrays["initial"].shape == (4, 16)
+            assert arrays["brownian"].shape == (4, 4, 16)
+            if pool["role"] == "conditional":
+                np.testing.assert_array_equal(arrays["initial"], np.repeat(arrays["initial"][:1], 4, axis=0))
+        selected = [row for row in rows if row["role"] == pool["role"]]
+        assert len({row["input_identity"] for row in selected}) == 1
+        assert len({row["brownian_hash"] for row in selected}) == 1
+    for row in rows:
+        assert row["paths"] == 4
+        assert row["median_seconds"] > 0
+        assert len(row["simulation_component_seconds"]) == 1
+        assert "no throughput extrapolation" in row["cost_scope"]
+        with np.load(row["output_artifact"]["path"]) as arrays:
+            assert arrays["mean"].shape == (3, 4)
+            assert arrays["scaled_covariance"].shape == (3, 4, 4)
+    native = [row for row in rows if row["method"] == "numpy_native_euler"]
+    assert all(row["mean_error_vs_native_development_pool"]["maximum_absolute_error"] == 0 for row in native)
+
+
+def test_empirical_bank_moments_include_between_path_covariance():
+    values = np.array([[[1., 2., 3., 4.]], [[3., 6., 9., 12.]]])
+    mean, covariance = benchmark.empirical_moments(values, 2048)
+    np.testing.assert_array_equal(mean, np.array([[2., 4., 6., 8.]]))
+    np.testing.assert_array_equal(covariance[0], 4096 * np.outer([1., 2., 3., 4.], [1., 2., 3., 4.]))
+
+
 def test_numerical_smoke_compares_native_and_neural_paths_and_derivatives():
     model, context = _model()
     result, arrays = benchmark.benchmark_case(model, context, 1 / 256, 1 / 64,
@@ -97,7 +151,8 @@ def test_numerical_smoke_compares_native_and_neural_paths_and_derivatives():
 
 def test_incremental_benchmark_writes_audited_raw_arrays(tmp_path, monkeypatch):
     def fake_load(path, commit):
-        model, context = _model()
+        model = CausalPathOperator(NativeDKSpec(n_cells=16), "dk", width=4, depth=3)
+        context = Context(kappa=.75, a2=.1, n_particles=2048)
         return model, context, 1 / 256, 1 / 64, {"historical_commit": commit,
             "checkpoint_path": str(path), "checkpoint_sha256": "unit-test"}, .001
 
@@ -118,6 +173,9 @@ def test_incremental_benchmark_writes_audited_raw_arrays(tmp_path, monkeypatch):
         assert "learned_dense_cached_depth3_shared_physics_gradient" in arrays
     assert "universal superiority" in result["claim"]
     assert "physics" in result["derivative_scope"]
+    assert not result["many_observable_bank"]["zero_time_included"]
+    assert len(result["moment_tasks"]) == 12
+    assert len(result["moment_input_pools"]) == 2
     assert "fixed D" in result["learned_physics_derivative_limitation"]
     if result["compiled_classical_control"]["available"]:
         assert any(record["method"] == "compiled_native_euler"
