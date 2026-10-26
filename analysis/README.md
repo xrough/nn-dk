@@ -52,7 +52,76 @@ not a recurring scheduler. Permission to inspect the recorded PIDs is required.
 
 The [path method](../docs/PATH_SOLVER.md) and
 [experiment findings](../docs/experiments/path_solver_2026-10-25.md) define the
-new target. The following older analyses concern distinct experiment tracks.
+new target. The sections below document this and other experiment tracks.
+
+## Path and new-payoff generalization tools
+
+The broader generalization study is **not complete**. These scripts provide its
+frozen execution and reporting workflow; their presence is not a final accuracy
+or speedup result. They require the original full-history checkout and local
+historical inputs under `runs/interacting-followup-2026-10-25/`: path and moment
+checkpoints with metadata, configurations, and train/validation HDF5 banks. The
+compact public archives do not contain these full inputs.
+
+For that fixed study, prepare the shared payoff pools, finish all three optimizer
+seeds, and lock all twelve fresh heads before generating held-out references:
+
+```bash
+uv run python analysis/run_payoff_generalization.py prepare --root runs/path-generalization-2026-10-26
+uv run python analysis/run_payoff_generalization.py fit --seed 0 --root runs/path-generalization-2026-10-26
+uv run python analysis/run_payoff_generalization.py fit --seed 1 --root runs/path-generalization-2026-10-26
+uv run python analysis/run_payoff_generalization.py fit --seed 2 --root runs/path-generalization-2026-10-26
+uv run python analysis/run_payoff_generalization.py lock --root runs/path-generalization-2026-10-26
+uv run python analysis/run_generalization_evaluation.py --prepare-only --root runs/path-generalization-2026-10-26
+uv run python analysis/benchmark_payoff_generalization.py --prepare-only --root runs/path-generalization-2026-10-26
+uv run python analysis/audit_payoff_gaussian.py --prepare-only --root runs/path-generalization-2026-10-26
+```
+
+The last command preregisters the literal three-query Gaussian cost/quality
+bridge before any `reference/reference.h5` outcomes exist. It freezes source,
+configuration, helper, fit-lock, timing-plan and reference-plan hashes; rerunning
+with a changed identity fails. Keep that order when reproducing the study.
+
+After preparation, generate the full reference bank and complete every evaluation
+group. Only after all fitting and other CPU work have stopped, run the two final
+timing experiments sequentially. `--final-timing` records the caller's confirmation
+of this condition; it does not detect external workers.
+
+```bash
+uv run python analysis/path_generalization_reference.py \
+  --directory runs/path-generalization-2026-10-26/reference \
+  --fit-lock runs/path-generalization-2026-10-26/payoffs/fit_lock.json
+uv run python analysis/run_generalization_evaluation.py --root runs/path-generalization-2026-10-26
+uv run python analysis/audit_payoff_gaussian.py --root runs/path-generalization-2026-10-26
+uv run python analysis/benchmark_path_generalization.py \
+  --output runs/path-generalization-2026-10-26/timing/path_benchmark.json --final-timing
+uv run python analysis/benchmark_payoff_generalization.py --root runs/path-generalization-2026-10-26 --final-timing
+uv run python analysis/report_path_generalization.py --root runs/path-generalization-2026-10-26 \
+  --path-timing runs/path-generalization-2026-10-26/timing/path_benchmark.json
+```
+
+`audit_payoff_gaussian.py` evaluates same-time marginal moments at the exact three
+queries and requested RK4 steps used by the payoff timing comparison. It retains
+both step sizes in all six groups and uses whole-trajectory-family bootstrap
+counts shared with the broader evaluator. Its unstopped linear-Gaussian law is
+an approximation: linearization, stopping and killed-integral bias remain
+unresolved, and it supplies no joint-time covariance claim.
+
+`report_path_generalization.py` fits no model and simulates no trajectories. It
+requires a complete evaluation index and all declared group/method records,
+reference-refinement audits, twelve locked fits, three complete worker records,
+both final timing experiments, and all twelve Gaussian audit records. By default
+it verifies linked checkpoints, reference, reduced/bootstrap arrays and timing
+artifacts against their SHA-256 hashes. Keep artifact verification enabled for
+scientific reports. It writes tables, figures, `report.md` and a hashed output
+manifest under the study's `report/`; `--output` selects another directory.
+
+The report keeps optimizer seeds, same-time and joint-time tasks, paired error
+uncertainty, standalone candidate Monte Carlo uncertainty, initial-law integration
+uncertainty and reference refinement separate. Full paths and statistical heads
+have different capacities and training data. Any eventual comparison concerns
+the declared finite-grid tasks and costs, with continuous-reference and hitting
+bias unresolved.
 
 ## Autonomous coefficient solver
 

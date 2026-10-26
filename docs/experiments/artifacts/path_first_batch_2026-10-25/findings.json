@@ -1,0 +1,79 @@
+{
+  "active_budget_target_seconds": 28800.0,
+  "active_execution_ledger_seconds": 8060.926971967798,
+  "active_parallel_span_seconds": 6661.61024505063,
+  "all_causality_checks_passed": true,
+  "all_same_noise_replays_passed": true,
+  "cases": [
+    "heat",
+    "additive",
+    "dk_uniform",
+    "dk_nonuniform",
+    "dk_interacting"
+  ],
+  "clock_scope": "End-to-end UTC wall time includes any suspension or clock adjustment. A UTC/monotonic discrepancy does not establish its cause; UTC elapsed alone is not the active execution budget",
+  "config_hash": "c97dc2f1b9882f5ae1c4b3e644bf9981c8812eda0e341f80939f65ec956407bf",
+  "configured_models": 15,
+  "continuous_time_accuracy_certified": false,
+  "end_to_end_wall_seconds": 30071.227800130844,
+  "evaluation_cost_scope": "includes oracle comparison, diagnostics, bootstrap and output; not neural latency",
+  "evaluation_seconds": 76.95491550094448,
+  "fine_reference_scope": "finite Euler difference, not a continuous stopping-bias bound",
+  "horizon": 1.0,
+  "input_and_reference_generation": {
+    "test": {
+      "complete": true,
+      "generation_seconds": 116.27519354200922,
+      "paths": 1280,
+      "scope": "initial histograms, physical-noise generation, storage and hashing, fine Euler reference simulation"
+    },
+    "train": {
+      "complete": true,
+      "generation_seconds": 2.6658731249626726,
+      "paths": 1280,
+      "scope": "initial histograms, physical-noise generation, storage and hashing"
+    },
+    "validation": {
+      "complete": true,
+      "generation_seconds": 0.6536946250125766,
+      "paths": 320,
+      "scope": "initial histograms, physical-noise generation, storage and hashing"
+    }
+  },
+  "maximum_euler_fine_strong_rms": 0.4498737554210224,
+  "maximum_mass_error": 2.220446049250313e-16,
+  "maximum_neural_fine_strong_rms": 0.4498745724564294,
+  "maximum_neural_invalid_paths": 0.0,
+  "maximum_neural_stopped_paths": 0.0,
+  "maximum_same_step_joint_covariance_ci_endpoint": 0.0027958249571010296,
+  "maximum_same_step_mean_ci_endpoint": 0.005860166285345103,
+  "maximum_same_step_strong_ci_upper": 0.0011252515096199023,
+  "maximum_same_step_strong_rms": 0.0011036455945794873,
+  "minimum_mass": 0.005551562987263947,
+  "optimizer_seeds": [
+    0,
+    1,
+    2
+  ],
+  "parallel_cost_scope": "worker monotonic fit durations overlap and are excluded from manifest CLI elapsed; active parallel span uses bounded launch offsets plus those monotonic durations. CPU seconds cover standalone worker processes only",
+  "paths_per_case": {
+    "test": 256,
+    "train": 256,
+    "validation": 64
+  },
+  "recorded_workflow_seconds": 1387.6894666249864,
+  "run_directory": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/path-first-batch-2026-10-25-v2",
+  "same_step_accuracy_passed": true,
+  "source_hash": "a37ebd4fa82c8c590922417004d47150b1ea71d75be635a316b670506053223a",
+  "standalone_worker_process_cpu_seconds": 16516.242851,
+  "standalone_worker_wall_span_seconds": 28623.6252720356,
+  "step_sizes": [
+    0.0078125
+  ],
+  "total_generation_seconds": 119.59476129198447,
+  "training_seconds": 20745.33212208585,
+  "uncertainty_scope": "pointwise paired whole-family bootstrap; not simultaneous or marginal-law certification",
+  "utc_wall_minus_active_ledger_seconds": 22010.300828163046,
+  "worker_launch_spread_seconds": 1.380492925643921,
+  "workflow_cost_scope": "cumulative recorded invocations, including resume/report replay"
+}
