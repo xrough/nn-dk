@@ -154,7 +154,9 @@ def compile_native(cache_directory=None, *, compiler=None):
     executable = shutil.which(compiler or "clang++")
     if executable is None:
         raise RuntimeError("Optional compiled analysis control requires a C++ compiler")
-    executable = str(Path(executable).resolve())
+    # Keep the clang++ driver name: resolving its symlink can select clang and
+    # omit automatic C++ runtime linkage on Linux.
+    executable = os.path.abspath(executable)
     source = Path(__file__).with_name("native_euler_control.cpp")
     compiler_version = subprocess.check_output([executable, "--version"], text=True)
     flags = ["-O3", "-std=c++17", "-ffp-contract=off"]

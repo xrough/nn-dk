@@ -1,6 +1,7 @@
 """Optional serial compiled classical control matches native Euler and its JVP."""
 
 import importlib.util
+import shutil
 from dataclasses import replace
 from pathlib import Path
 
@@ -115,6 +116,18 @@ def test_unavailable_compiler_is_optional(tmp_path):
     assert not control.compiler_available("nn_dk_no_such_compiler")
     with pytest.raises(RuntimeError, match="Optional"):
         control.compile_native(tmp_path, compiler="nn_dk_no_such_compiler")
+
+
+def test_compiler_driver_symlink_preserves_cpp_linking(tmp_path):
+    compiler = shutil.which("clang++")
+    if compiler is None:
+        pytest.skip("Optional C++ compiler unavailable")
+    driver = tmp_path / "clang++"
+    driver.symlink_to(Path(compiler).resolve())
+    compiled = control.compile_native(tmp_path / "cache", compiler=str(driver))
+    assert compiled.library.nn_dk_control_abi() == 2
+    assert compiled.metadata["compiler"] == str(driver.absolute())
+    assert compiled.metadata["command"][0] == str(driver.absolute())
 
 
 @pytest.mark.parametrize("interaction", [(0., 0.), (.731, .123), (-.4, -.2)])
