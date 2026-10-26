@@ -87,14 +87,18 @@ def test_chunked_predictions_and_total_covariance_match_direct_output():
     initial = benchmark.fresh_histograms(cfg, "nonuniform", 13)
     chunked = benchmark.predict_chunks(model, initial, cfg.query_times, chunk_size=4)
     direct = model.predict_conditional(initial, cfg.query_times)
-    np.testing.assert_array_equal(chunked[0], direct.mean)
+    assert chunked[0].shape == direct.mean.shape
+    # BLAS may round batch and single-row tail reductions differently.
+    np.testing.assert_allclose(chunked[0], direct.mean, atol=2e-16, rtol=1e-14)
     np.testing.assert_array_equal(chunked[1], direct.scaled_covariance)
     mean, covariance = benchmark.mixture_moments(*chunked, n_particles=cfg.n_particles)
     centered = direct.mean-direct.mean.mean(0)
     expected = direct.scaled_covariance.mean(0)+cfg.n_particles*np.einsum(
         "bti,btj->tij", centered, centered)/(len(initial)-1)
     np.testing.assert_allclose(covariance, expected, atol=3e-16)
-    np.testing.assert_array_equal(mean, direct.mean.mean(0))
+    expected_mean = direct.mean.mean(0)
+    assert mean.shape == expected_mean.shape
+    np.testing.assert_allclose(mean, expected_mean, atol=2e-16, rtol=1e-14)
 
 
 def _fake_lock(root, cfg, monkeypatch):
