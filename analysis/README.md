@@ -56,9 +56,11 @@ new target. The sections below document this and other experiment tracks.
 
 ## Path and new-payoff generalization tools
 
-The broader generalization study is **not complete**. These scripts provide its
-frozen execution and reporting workflow; their presence is not a final accuracy
-or speedup result. They require the original full-history checkout and local
+The [broader generalization study](../docs/experiments/path_task_advantages_2026-10-27.md)
+is complete. The independent reference contains 98,304 families; all six groups,
+174 main evaluations, twelve Gaussian marginal audits and both final timing
+experiments are complete. These scripts provide its frozen execution and
+reporting workflow. They require the original full-history checkout and local
 historical inputs under `runs/interacting-followup-2026-10-25/`: path and moment
 checkpoints with metadata, configurations, and train/validation HDF5 banks. The
 compact public archives do not contain these full inputs.
@@ -74,18 +76,23 @@ uv run python analysis/run_payoff_generalization.py fit --seed 2 --root runs/pat
 uv run python analysis/run_payoff_generalization.py lock --root runs/path-generalization-2026-10-26
 uv run python analysis/run_generalization_evaluation.py --prepare-only --root runs/path-generalization-2026-10-26
 uv run python analysis/benchmark_payoff_generalization.py --prepare-only --root runs/path-generalization-2026-10-26
+uv run python analysis/benchmark_payoff_generalization.py --root runs/path-generalization-2026-10-26 --final-timing
 uv run python analysis/audit_payoff_gaussian.py --prepare-only --root runs/path-generalization-2026-10-26
 ```
 
 The last command preregisters the literal three-query Gaussian cost/quality
 bridge before any `reference/reference.h5` outcomes exist. It freezes source,
-configuration, helper, fit-lock, timing-plan and reference-plan hashes; rerunning
-with a changed identity fails. Keep that order when reproducing the study.
+configuration, helper, fit-lock, completed payoff timing, timing-plan and
+reference-plan hashes; rerunning with a changed identity fails. Finish fitting
+and all other CPU work before the payoff timing command. Keep this order:
+preregistering the Gaussian audit before the payoff timing exists would freeze
+a different identity.
 
 After preparation, generate the full reference bank and complete every evaluation
-group. Only after all fitting and other CPU work have stopped, run the two final
-timing experiments sequentially. `--final-timing` records the caller's confirmation
-of this condition; it does not detect external workers.
+group. Only after all fitting and other CPU work have stopped, run the final
+path timing. `--final-timing` records the caller's confirmation of this condition;
+it does not detect external workers. Preserve the already completed payoff
+timing frozen into the Gaussian audit.
 
 ```bash
 uv run python analysis/path_generalization_reference.py \
@@ -94,10 +101,9 @@ uv run python analysis/path_generalization_reference.py \
 uv run python analysis/run_generalization_evaluation.py --root runs/path-generalization-2026-10-26
 uv run python analysis/audit_payoff_gaussian.py --root runs/path-generalization-2026-10-26
 uv run python analysis/benchmark_path_generalization.py \
-  --output runs/path-generalization-2026-10-26/timing/path_benchmark.json --final-timing
-uv run python analysis/benchmark_payoff_generalization.py --root runs/path-generalization-2026-10-26 --final-timing
+  --output runs/path-generalization-2026-10-26/timing/path_workloads.json --include-long --final-timing
 uv run python analysis/report_path_generalization.py --root runs/path-generalization-2026-10-26 \
-  --path-timing runs/path-generalization-2026-10-26/timing/path_benchmark.json
+  --path-timing runs/path-generalization-2026-10-26/timing/path_workloads.json
 ```
 
 `audit_payoff_gaussian.py` evaluates same-time marginal moments at the exact three
@@ -119,9 +125,26 @@ manifest under the study's `report/`; `--output` selects another directory.
 The report keeps optimizer seeds, same-time and joint-time tasks, paired error
 uncertainty, standalone candidate Monte Carlo uncertainty, initial-law integration
 uncertainty and reference refinement separate. Full paths and statistical heads
-have different capacities and training data. Any eventual comparison concerns
+have different capacities and training data. The completed comparison concerns
 the declared finite-grid tasks and costs, with continuous-reference and hitting
 bias unresolved.
+
+The report includes fitting and historical pretraining, shared data preparation,
+restoration, kernel preparation, input generation and online costs. Repeated-call
+totals are known-component accounting, not accuracy-qualified break-even claims.
+No neural cost advantage passes the declared accuracy and uncertainty gates.
+The new integral-head failure is documented by a read-only exact-heat and
+small-time covariance audit; the failed fits are retained without post-test
+refitting.
+
+`archive_path_generalization.py` verifies the completed report's input/output
+hashes and creates a compact lossless evidence snapshot, leaving binary weights,
+physical-noise arrays and full HDF5 banks in the indexed local run. The committed
+[archive](../docs/experiments/artifacts/path_task_advantages_2026-10-27/README.md)
+also retains all individual result JSON, checkpoint metadata, analysis-code
+provenance and diagnostic replays. Historical immutable paths inside those
+records are preserved; they are not portable substitutes for the original raw
+inputs.
 
 ## Autonomous coefficient solver
 

@@ -42,6 +42,89 @@ def _check_artifact(packet, cache):
         raise ValueError(f"Evidence artifact changed: {path}")
 
 
+def _nested(packet, field):
+    """Dotted paths can end in literal filenames containing dots."""
+    if field in packet:
+        return packet[field]
+    first, remaining = field.split(".", 1)
+    return _nested(packet[first], remaining)
+
+
+def verify_code_provenance(root, source_hash, inputs, cache):
+    """Verify exact archived analysis code, including the bounded driver fix.
+
+    The macOS benchmark used the historical compiler wrapper. Its immutable
+    source and binary are retained; a later Linux driver-name portability fix
+    must not silently make the old timing appear to use the newer source.
+    """
+    path = Path(root) / "audit/code_provenance.json"
+    packet = read(path)
+    if (not packet.get("complete") or packet["package_source_hash"] != source_hash
+            or not packet.get("package_source_unchanged")):
+        raise ValueError("Complete matching archived analysis-code provenance is required")
+    inputs[str(path.resolve())] = sha(path)
+    for artifact in packet["archived_sources"].values():
+        _check_artifact(artifact, cache)
+        inputs[str(Path(artifact["path"]).resolve())] = artifact["sha256"]
+    for check in packet["experiment_identity_checks"]:
+        source = packet["archived_sources"][check["source_name"]]
+        if (not check["match"] or source["sha256"] != check["expected_sha256"]
+                or source["sha256"] != check["archived_sha256"]
+                or sha(check["identity_path"]) != check["identity_sha256"]
+                or _nested(read(check["identity_path"]), check["field"]) != source["sha256"]):
+            raise ValueError("Archived analysis source differs from an immutable experiment identity")
+        inputs[str(Path(check["identity_path"]).resolve())] = check["identity_sha256"]
+    bridge = packet["compiled_wrapper_bridge"]
+    if (bridge["historical_timing_rewritten"] or not bridge["library_checksum_verified"]
+            or not bridge["driver_abspath_equals_previous_resolved_path_on_this_machine"]
+            or packet["archived_sources"]["compiled_native.py"]["sha256"] != bridge["historical_wrapper_sha256"]
+            or packet["archived_sources"]["native_euler_control.cpp"]["sha256"] != bridge["cpp_sha256"]):
+        raise ValueError("Historical compiled-control code bridge is incomplete")
+    _check_artifact({"path": bridge["library_path"], "sha256": bridge["library_sha256"]}, cache)
+    return packet
+
+
+def verify_timing_checkpoints(timing, design, package_source, inputs, cache):
+    """Bind every timing model and cost sidecar to its historical evidence.
+
+    The optional T=1 run predates the present candidate plan. Its original
+    completed-run artifact lock supplies the already recorded metadata hash,
+    while the current timing supplies the independently recorded weight hash.
+    Historical source hashes intentionally differ from the current package.
+    """
+    planned = {Path(item["checkpoint_path"]).resolve(): item for item in design["candidate_plan"]
+               if "checkpoint_path" in item}
+    for case in timing["cases"]:
+        checkpoint = case["checkpoint"]
+        path = Path(checkpoint["checkpoint_path"]).resolve()
+        metadata_path = path.with_suffix(".json")
+        if checkpoint["current_source_hash"] != package_source or checkpoint["kind"] != "path":
+            raise ValueError("Timing checkpoint has an incompatible derivation source or model kind")
+        _check_artifact({"path": path, "sha256": checkpoint["checkpoint_sha256"]}, cache)
+        metadata_sha = checkpoint.get("metadata_sha256")
+        if metadata_sha is None and path in planned:
+            if planned[path]["checkpoint_sha256"] != checkpoint["checkpoint_sha256"]:
+                raise ValueError("Timing checkpoint differs from the immutable candidate plan")
+            metadata_sha = planned[path]["metadata_sha256"]
+        if metadata_sha is None:
+            original_root = path.parent.parent
+            manifest_path = original_root / "manifest.json"
+            manifest = read(manifest_path)
+            lock = manifest["artifact_lock"]
+            if (manifest.get("status") != "complete"
+                    or manifest["source_hash"] != checkpoint["historical_source_hash"]
+                    or lock[str(path.relative_to(original_root))] != checkpoint["checkpoint_sha256"]):
+                raise ValueError("Optional timing model lacks a compatible completed historical artifact lock")
+            metadata_sha = lock[str(metadata_path.relative_to(original_root))]
+            inputs[str(manifest_path)] = sha(manifest_path)
+        _check_artifact({"path": metadata_path, "sha256": metadata_sha}, cache)
+        metadata = read(metadata_path)
+        if (metadata["source_hash"] != checkpoint["historical_source_hash"]
+                or metadata["target_id"] != checkpoint["original_target_id"]):
+            raise ValueError("Timing metadata differs from its declared historical source or target")
+        inputs[str(metadata_path)] = metadata_sha
+
+
 def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=True, gaussian_audit=None):
     """Open final outcomes only once every predeclared experiment is complete."""
     root = Path(root).resolve()
@@ -88,6 +171,37 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
     cache, groups, records, audits = {}, [], [], []
     inputs = {str(path): sha(path) for path in (index_path, design_path, fit_lock_path,
                                               path_timing, payoff_timing)}
+    provenance = verify_code_provenance(root, index["source_hash"], inputs, cache)
+    manifest_path = root / "reference/manifest.json"
+    if sha(manifest_path) != index["input_lock"]["reference_manifest_sha256"]:
+        raise ValueError("The completed reference manifest changed")
+    inputs[str(manifest_path)] = sha(manifest_path)
+    reference_manifest = read(manifest_path)
+    independence_path = root / "audit/reference_independence_audit.json"
+    independence = read(independence_path)
+    if (not independence.get("complete")
+            or independence["reference_sha256"] != index["input_lock"]["reference_sha256"]
+            or not independence["all_reference_families_disjoint"]
+            or not independence["all_reference_families_disjoint_from_current_and_historical_learner_inputs"]
+            or not independence["physical_brownian_hashes_unique_across_families"]):
+        raise ValueError("The independent reference-family/RNG audit must be complete")
+    inputs[str(independence_path)] = sha(independence_path)
+    replay_path = root / "audit/selected_accuracy_replay.json"
+    replay = read(replay_path)
+    if not replay.get("complete") or replay["reference_sha256"] != index["input_lock"]["reference_sha256"]:
+        raise ValueError("Selected independent numerical/metric replays must be complete")
+    inputs[str(replay_path)] = sha(replay_path)
+    diagnostic_path = root / "audit/integral_head_diagnostic.json"
+    diagnostic = read(diagnostic_path)
+    mixed_fits = {(item["seed"], item["init"]): item["checkpoint_sha256"]
+                  for item in fit_lock["models"] if item["bank"] == "terminal3-integral1"}
+    diagnostic_fits = {(item["seed"], item["initialization"]): item["checkpoint_sha256"]
+                       for item in diagnostic["mixed_fit_records"]}
+    if (not diagnostic.get("complete") or diagnostic["post_test_refitting"]
+            or diagnostic_fits != mixed_fits
+            or not diagnostic["source_review"]["no_identified_basis_source_sign_or_time_factor_mismatch"]):
+        raise ValueError("The read-only integral-head diagnostic must match all six frozen mixed-bank fits")
+    inputs[str(diagnostic_path)] = sha(diagnostic_path)
     if verify_artifacts:
         _check_artifact({"path": root / "reference/reference.h5",
                          "sha256": index["input_lock"]["reference_sha256"]}, cache)
@@ -97,12 +211,15 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
         inputs[str(group_path)] = sha(group_path)
         if (not group.get("complete") or not group.get("reference_audit_complete")
                 or group["identity"]["input_lock"] != index["input_lock"]
+                or group["identity"]["source_hash"] != index["source_hash"]
                 or group["identity"]["group"] != key):
             raise ValueError(f"Incomplete or incompatible evaluation group {key}")
         names = [item["name"] for item in group["methods"]]
         case = key.split("__")[0]
-        expected = len([item for item in design["candidate_plan"] if item["case"] == case]) + 12 + 2
-        if len(names) != len(set(names)) or len(names) != expected:
+        expected = {item["name"] for item in design["candidate_plan"] if item["case"] == case}
+        expected |= {f"statistics_{item['bank']}_{item['init']}_seed{item['seed']}" for item in fit_lock["models"]}
+        expected |= {"linear_gaussian_rk4_7", "linear_gaussian_rk4_10"}
+        if len(names) != len(set(names)) or set(names) != expected:
             raise ValueError(f"Predeclared candidate inventory is incomplete in {key}")
         if sha(group["reference_audit_path"]) != group["reference_audit_sha256"]:
             raise ValueError("Coupled reference audit changed")
@@ -117,6 +234,8 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
             packet = read(item["json_path"])
             inputs[str(Path(item["json_path"]).resolve())] = sha(item["json_path"])
             if (not packet.get("complete") or packet["method"]["name"] != item["name"]
+                    or packet["method"] != item["method"]
+                    or packet["identity"]["source_hash"] != index["source_hash"]
                     or packet["identity"]["input_lock"] != index["input_lock"]):
                 raise ValueError("A completed method result changed identity")
             if verify_artifacts:
@@ -128,6 +247,13 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
             _check_artifact(group["reference_bootstrap"], cache)
         groups.append({"path": str(group_path), **group})
     if verify_artifacts:
+        for method in design["candidate_plan"]:
+            if "checkpoint_path" in method:
+                _check_artifact({"path": method["checkpoint_path"], "sha256": method["checkpoint_sha256"]}, cache)
+                metadata_path = Path(method["checkpoint_path"]).with_suffix(".json")
+                _check_artifact({"path": metadata_path, "sha256": method["metadata_sha256"]}, cache)
+                inputs[str(metadata_path.resolve())] = method["metadata_sha256"]
+        verify_timing_checkpoints(timing_paths, design, index["source_hash"], inputs, cache)
         for case in timing_paths["cases"]:
             _check_artifact({"path": case["raw_arrays"], "sha256": case["raw_arrays_sha256"]}, cache)
         for pool in timing_paths.get("moment_input_pools", []):
@@ -139,6 +265,10 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
         for model in fit_lock["models"]:
             _check_artifact({"path": model["checkpoint_path"], "sha256": model["checkpoint_sha256"]}, cache)
             _check_artifact({"path": model["metadata_path"], "sha256": model["metadata_sha256"]}, cache)
+        for pool in fit_lock["input_banks"].values():
+            _check_artifact({"path": pool["path"], "sha256": pool["sha256"]}, cache)
+            _check_artifact({"path": pool["metadata_path"], "sha256": pool["metadata_sha256"]}, cache)
+            inputs[str(Path(pool["metadata_path"]).resolve())] = pool["metadata_sha256"]
     worker_paths = [root / f"payoffs/execution/worker_seed{seed}.json" for seed in (0, 1, 2)]
     workers = [read(path) for path in worker_paths]
     inputs.update({str(path): sha(path) for path in worker_paths})
@@ -152,6 +282,10 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
             or marginal_index["fit_lock_sha256"] != index["input_lock"]["fit_lock_sha256"]
             or marginal_index["expected_records"] != 12 or len(marginal_index["records"]) != 12):
         raise ValueError("The complete literal three-query Gaussian quality bridge is required")
+    if (set(marginal_index["groups"]) != set(index["declared_groups"])
+            or marginal_index["input_lock"]["broader_evaluation_index_sha256"] != sha(index_path)
+            or any(marginal_index["input_lock"][key] != value for key, value in index["input_lock"].items())):
+        raise ValueError("Gaussian quality bridge was not evaluated against this complete frozen experiment")
     _check_artifact(marginal_index["preregistration"], cache)
     inputs[str(Path(marginal_index["preregistration"]["path"]).resolve())] = marginal_index["preregistration"]["sha256"]
     marginal_slots = set()
@@ -160,7 +294,9 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
         inputs[str(Path(item["path"]).resolve())] = item["sha256"]
         packet = read(item["path"])
         key = item["group"]
-        if key not in index["declared_groups"] or packet["identity"]["group"] != key:
+        if (key not in index["declared_groups"] or packet["identity"]["group"] != key
+                or packet["identity"]["source_hash"] != index["source_hash"]
+                or packet["identity"]["input_lock"] != marginal_index["input_lock"]):
             raise ValueError("Supplemental Gaussian group is incompatible")
         slot = (key, packet["method"]["requested_max_step"])
         if slot in marginal_slots or packet["method"]["method"] != "linear-Gaussian-marginals":
@@ -177,7 +313,9 @@ def load_complete(root, path_timing, payoff_timing=None, *, verify_artifacts=Tru
             "path_timing": timing_paths, "payoff_timing": timing_payoffs,
             "groups": groups, "records": records, "audits": audits, "workers": workers,
             "training_design": read(training_design_path), "input_files": inputs,
-            "verified_artifact_count": len(cache)}
+            "verified_artifact_count": len(cache), "code_provenance": provenance,
+            "reference_manifest": reference_manifest, "reference_independence": independence,
+            "integral_head_diagnostic": diagnostic}
 
 
 def _identity(packet):
@@ -369,6 +507,7 @@ def flatten_costs(evidence):
             "dt": item.get("step"), "optimizer_seed": item.get("optimizer_seed"), "initialization": item.get("init"),
             "median_seconds": cost["median_seconds"], "p10_seconds": cost.get("p10_seconds"),
             "p90_seconds": cost.get("p90_seconds"), "fresh_training_seconds": item.get("fresh_head_training_seconds", 0.),
+            "p05_seconds": cost.get("p05_seconds"), "p95_seconds": cost.get("p95_seconds"),
             "historical_training_seconds": item.get("historical_trunk_training_seconds", 0.),
             "scope": "literal same-time four-means/full-4x4-covariance; fresh initial-law integration included for NN ensemble"})
     return rows
@@ -614,6 +753,14 @@ def _plot_costs(plt, costs, output, *, derivatives=False):
              {"compiled_native_euler", "numpy_native_euler", "torch_native_euler", "legacy_learned_torch",
               "learned_dense_cached_depth3", "learned_causal_block_fft_depth3", "exact_kernel_dense_cached_depth3"})
     figure, axes = plt.subplots(2, 2, figsize=(12, 8), constrained_layout=True)
+    task_titles = {"full_density_path": "Full density path", "many_new_observables": "480 observable values",
+                   "scalar_initial_and_physics_reverse": "Initial/physics adjoint", "initial_path_jvp": "Initial tangent"}
+    method_titles = {"compiled_native_euler": "Compiled native", "numpy_native_euler": "NumPy native",
+        "compiled_native_analytic_adjoint": "Compiled analytic", "compiled_native_analytic_jvp": "Compiled analytic",
+        "numpy_native_analytic_adjoint": "NumPy analytic", "numpy_native_analytic_jvp": "NumPy analytic",
+        "torch_native_euler": "PyTorch Euler", "legacy_learned_torch": "NN legacy",
+        "learned_dense_cached_depth3": "NN cached dense", "learned_causal_block_fft_depth3": "NN causal FFT",
+        "exact_kernel_dense_cached_depth3": "Exact-kernel Picard"}
     for column, case in enumerate(("dk_interacting_uniform", "dk_interacting")):
         for row_index, task in enumerate(tasks):
             axis = axes[row_index, column]
@@ -623,15 +770,17 @@ def _plot_costs(plt, costs, output, *, derivatives=False):
                     grouped[row["method"]].append(row)
             for label, values in grouped.items():
                 values.sort(key=lambda row: row["batch"])
-                axis.plot([row["batch"] for row in values], [1000 * row["median_seconds"] for row in values], marker="o", label=label)
+                axis.plot([row["batch"] for row in values], [1000 * row["median_seconds"] for row in values],
+                          marker="o", label=method_titles[label])
             axis.set_xscale("log", base=2)
             axis.set_yscale("log")
             axis.set_xlabel("Realizations in one call")
             axis.set_ylabel("Complete measured latency (ms)")
-            axis.set_title(case + " / " + task)
+            profile = "Uniform" if case == "dk_interacting_uniform" else "Nonuniform"
+            axis.set_title(profile + ": " + task_titles[task])
             axis.grid(alpha=.2)
-    axes[0, 0].legend(fontsize=6)
-    figure.suptitle("Short T=1/16, Δ=1/1024; fixed supplied inputs; cold preparation separate")
+    axes[0, 0].legend(fontsize=8)
+    figure.suptitle(("Derivative" if derivatives else "Forward") + " cost: supplied inputs, T=1/16, Δ=1/1024")
     figure.savefig(output / ("derivative_costs.png" if derivatives else "forward_costs.png"), dpi=180)
     plt.close(figure)
 
@@ -665,6 +814,8 @@ def _matched_cost(row, costs):
 
 
 def _plot_accuracy_cost(plt, tables, costs, output):
+    from matplotlib.lines import Line2D
+
     figure, axes = plt.subplots(2, 2, figsize=(11, 7), constrained_layout=True)
     for column, bank in enumerate(BANKS):
         for row_index, role in enumerate(("conditional", "ensemble")):
@@ -682,16 +833,22 @@ def _plot_accuracy_cost(plt, tables, costs, output):
                     if is_head else "tab:green" if is_lga else "tab:red", alpha=.5, s=20)
             axis.set_xscale("log")
             axis.axhline(5, color="gray", linestyle="--")
-            axis.set_xlabel("Literal matched moment-query latency (ms)")
-            axis.set_ylabel("Method discrepancy + comparison sampling radius (%)")
-            axis.set_title(bank + " / " + role)
+            axis.set_xlabel("Complete query latency (ms)")
+            label = "Modes 3/4" if bank == BANKS[0] else "Terminal 3 + integral 1"
+            axis.set_title(label + " / " + role)
             axis.grid(alpha=.2)
-    figure.suptitle("Same-time 4×4 moments: blue=cold, orange=transfer, green=LGA, red=path MC; standalone MC separate")
+    axes[0, 0].legend(handles=[Line2D([], [], marker=marker, color=color, linestyle="", label=label)
+        for marker, color, label in (("o", "tab:blue", "Cold head"), ("o", "tab:orange", "Transferred head"),
+                                     ("s", "tab:green", "LGA"), ("^", "tab:red", "Path MC"))], fontsize=8)
+    figure.supylabel("Covariance discrepancy + sampling radius (%)")
+    figure.suptitle("Same-time moments: query cost and comparison uncertainty")
     figure.savefig(output / "accuracy_cost_matched_moments.png", dpi=180)
     plt.close(figure)
 
 
 def _plot_deployed_sampling(plt, tables, costs, output):
+    from matplotlib.lines import Line2D
+
     figure, axes = plt.subplots(2, 2, figsize=(11, 7), constrained_layout=True)
     for column, bank in enumerate(BANKS):
         for row_index, role in enumerate(("conditional", "ensemble")):
@@ -709,11 +866,15 @@ def _plot_deployed_sampling(plt, tables, costs, output):
                     color="tab:blue" if is_head else "tab:green" if is_lga else "tab:red", alpha=.5, s=20)
             axis.set_xscale("log")
             axis.axhline(1.25, color="gray", linestyle="--")
-            axis.set_xlabel("Literal matched moment-query latency (ms)")
-            axis.set_ylabel("Standalone candidate MC covariance 95% radius (%)")
-            axis.set_title(bank + " / " + role)
+            axis.set_xlabel("Complete query latency (ms)")
+            label = "Modes 3/4" if bank == BANKS[0] else "Terminal 3 + integral 1"
+            axis.set_title(label + " / " + role)
             axis.grid(alpha=.2)
-    figure.suptitle("Deployed estimator variability, separate from paired bias; deterministic approximation bias is NOT zero")
+    axes[0, 0].legend(handles=[Line2D([], [], marker=marker, color=color, linestyle="", label=label)
+        for marker, color, label in (("o", "tab:blue", "NN head"), ("s", "tab:green", "LGA"),
+                                     ("^", "tab:red", "Path MC"))], fontsize=8)
+    figure.supylabel("Standalone covariance MC 95% radius (%)")
+    figure.suptitle("Deployment sampling uncertainty; approximation bias assessed separately")
     figure.savefig(output / "deployed_sampling_cost.png", dpi=180)
     plt.close(figure)
 
@@ -732,7 +893,63 @@ def make_plots(tables, costs, output):
     _plot_deployed_sampling(plt, tables, costs, output)
 
 
+def cost_overview_tables(costs):
+    """Describe literal runtime measurements without declaring an accuracy win."""
+    paths = ["| Supplied-input task, one realization, 64 steps | Compiled native (ms) | Learned path (ms) | Exact-kernel Picard (ms) |",
+             "|---|---:|---:|---:|"]
+    for task, label, native in (("full_density_path", "Full density path", "compiled_native_euler"),
+            ("many_new_observables", "480 new Fourier/time values", "compiled_native_euler"),
+            ("scalar_initial_and_physics_reverse", "Complete discrete initial/physics adjoint", "compiled_native_analytic_adjoint"),
+            ("initial_path_jvp", "Conservative initial JVP", "compiled_native_analytic_jvp")):
+        cells = []
+        for method in (native, "learned_dense_cached_depth3", "exact_kernel_dense_cached_depth3"):
+            cells.append(_range([row["median_seconds"] for row in costs if row["benchmark"] == "path"
+                and row["task"] == task and row["method"] == method and row["batch"] == 1
+                and row["steps"] == 64 and row["horizon"] == 1 / 16], scale=1000))
+        paths.append(f"| {label} | " + " | ".join(cells) + " |")
+    moments = ["| One four-observable bank at three horizons; same-time covariance only | Fresh fitting per model (s) | Conditional online (ms) | Initial-ensemble online (ms) |",
+               "|---|---:|---:|---:|"]
+    for method, label, step in (("new-payoff-statistics-head", "Statistics head, all cold/transfer seeds", None),
+            ("native-linear-Gaussian-RK4", "Unstopped LGA, maximum step 1/128", 2 ** -7),
+            ("native-linear-Gaussian-RK4", "Unstopped LGA, fine 1/1024 audit", 2 ** -10),
+            ("compiled_native_euler", "Native Euler, 16,384-path MC", None),
+            ("learned_dense_path", "Learned path, 16,384-path MC", None),
+            ("exact_kernel_picard_depth3", "Exact-kernel Picard, 16,384-path MC", None)):
+        selected = [row for row in costs if row["benchmark"] in ("payoff", "path-moments") and row["method"] == method
+                    and (step is None or row["dt"] == step)]
+        training = _range([row["fresh_training_seconds"] for row in selected if "fresh_training_seconds" in row], scale=1)
+        if method != "new-payoff-statistics-head":
+            training = "historical; see training.csv" if method == "learned_dense_path" else "0"
+        times = []
+        for task in ("conditional_same_time_moments", "initial_ensemble_same_time_moments"):
+            values = [row["median_seconds"] for row in selected if row["task"] == task
+                      and (row["benchmark"] == "path-moments" or task != "conditional_same_time_moments" or row["batch"] == 1)]
+            times.append(_range(values, scale=1000))
+        moments.append(f"| {label} | {training} | " + " | ".join(times) + " |")
+    return "\n".join(paths), "\n".join(moments)
+
+
+def new_head_accuracy_table(tables):
+    """Every optimizer seed is reported, with the same declared worst-case task."""
+    lines = ["| New payoff bank / initialization | Seed 0: worst mean / covariance (%) | Seed 1 (%) | Seed 2 (%) |",
+             "|---|---:|---:|---:|"]
+    for bank in BANKS:
+        for initialization in ("cold", "trunk-transfer"):
+            cells = []
+            for seed in (0, 1, 2):
+                rows = [row for row in tables["moments"] if row["method"] == "statistics-head"
+                        and row["bank"] == bank and row["initialization"] == initialization
+                        and row["optimizer_seed"] == seed]
+                cells.append(f"{100 * max(row['max_mean_error_in_reference_std'] for row in rows):.3g} / "
+                             f"{100 * max(row['max_normalized_covariance_error'] for row in rows):.3g}")
+            lines.append(f"| {bank} / {initialization} | " + " | ".join(cells) + " |")
+    return "\n".join(lines)
+
+
 def render_markdown(evidence, tables, costs, references):
+    path_cost_table, moment_cost_table = cost_overview_tables(costs)
+    head_accuracy_table = new_head_accuracy_table(tables)
+    timing_environment = evidence["path_timing"]["environment"]
     native = [row for row in costs if row["benchmark"] == "path" and row["method"] == "compiled_native_euler"
               and row["task"] == "full_density_path" and row["steps"] == 64 and row["batch"] == 1 and row["horizon"] == 1 / 16]
     learned = [row for row in costs if row["benchmark"] == "path" and row["method"] == "learned_dense_cached_depth3"
@@ -765,10 +982,24 @@ def render_markdown(evidence, tables, costs, references):
             long_table.append(f"| {row['method']} | {row['batch']} | {1000 * row['median_seconds']:.4g} |")
     compiled_statement = (f"At Δ=1/1024 and one realization, the prepared learned path runtime takes **{_range(ratios, scale=1)}×** the compiled native Euler latency."
                           if ratios else "The complete timing inventory contains no comparable compiled single-path row; no forward winner is asserted.")
-    lines = ["# Broader interacting DK task comparison — 26 October 2026", "",
+    fine_many = [row for row in tables["many480_summary"] if row["method"] == "prepared-learned-path" and row["dt"] == 2 ** -10]
+    fine_nonlinear = [row for row in tables["moments"] if row["method"] == "prepared-learned-path"
+                      and row["dt"] == 2 ** -10 and row["bank"] == "nonlinear3"]
+    lines = ["# Broader interacting DK task comparison — 27 October 2026", "",
+        "The study was preregistered and fitted on 26 October; the independent reference, accuracy evaluation and report were completed on 27 October.",
+        "**The broader comparison does not establish a computational advantage for the neural SPDE path solver. It also shows that the earlier statistics-network advantage does not extend automatically to new statistical tasks.** The newly fitted high-mode heads miss the 5% point-error target, and the mixed terminal/integral heads fail much more severely under this training budget. Classical native paths are the current choice for general stochastic tasks; the no-training linear-Gaussian approximation is the inexpensive statistical control in this short, weak-noise regime, subject to its approximation and uncertainty limits.",
         compiled_statement,
         f"Fresh statistical heads have normalized mean point errors **{_range([row['max_mean_error_in_reference_std'] for row in head_rows])}%** and same-time covariance point errors **{_range([row['max_normalized_covariance_error'] for row in head_rows])}%** across all declared groups, times, seeds and initializations. These ranges are descriptive; the sampling and coupled-reference diagnostics below control their interpretation.",
         "A full density-path model supplies realizations, new observables, joint-time covariances and pathwise derivatives. The fixed payoff heads supply their declared same-time means and 4×4 covariances. Capability alone is not a measured runtime or accuracy advantage.", "",
+        "\n".join(["| Task | Current practical choice in this experiment | Evidence and limitation |",
+        "|---|---|---|",
+        "| Full density realizations and new observables | Compiled native Euler, with step refinement as required | No fitting; supports the same complete paths and new payoffs; lower measured latency at every tested path batch. |",
+        "| Repeated conditional moments of a fixed bank | LGA as a fast approximation; native MC when the stopped nonlinear law must be retained | New NN heads are cheaper per inference, but their current errors fail acceptance; no accuracy-qualified training crossover is established. |",
+        "| Mixed terminal values and killed path integrals | Native path MC; LGA as a separately validated approximation | The new integral heads fail despite cold and trunk-transfer fits; the existing path model handles the new bank without retraining. Native paths have that same flexibility at lower cost. |",
+        "| Initial-ensemble statistics | LGA when its approximation is adequate | It uses analytic IID covariance. NN-head histogram integration costs 175–488 ms and retains integration uncertainty; future-noise MC is slower still. |",
+        "| 480 marginal queries and nonlinear path functionals | Classical solver plus an appropriate numerical refinement audit | The finest NN and same-step Euler share noticeable high-mode and nonlinear-mean bias; a good full-state path error does not establish the 5% target for every payoff. |",
+        "| Conservative sensitivities and discrete adjoints | Compiled native JVP/adjoint | Lower measured cost, no training; fixed-parameter NN physics AD is not inverse-problem validation. |",
+        "| Rare stopping events or a continuum DK claim | Unresolved | No reference exits were observed, and the experiment fixes G=32 and T=1/16. |"]), "",
         "## What was compared", "",
         "The target is the stopped native finite-volume DK system with G=32, N=2048, D=1 and V(x)=−0.75 cos(x)+0.1 cos(2x). Initial histograms are IID multinomial draws from uniform or exp(0.2 cos(x)) profiles. The scientific comparison uses T=1/16, 16,384 independent families per group, four fresh conditional histograms and two initial-law ensemble groups. Every stopped trajectory is retained. Observation weights integrate physical Fourier functions exactly against cellwise densities.",
         "The reference step is 2⁻¹³, with literally coupled 2⁻¹⁴/2⁻¹⁵ audits on 1,024 families per group. Whole-family bootstrap intervals are simultaneous within each reported bank. Numerical reference differences and sampling uncertainty are separate; continuous hitting-boundary and continuum-DK bias remain unresolved.",
@@ -777,7 +1008,13 @@ def render_markdown(evidence, tables, costs, references):
         "The density-path ansatz learns its causal Volterra response kernel while retaining the known interaction force and density-dependent physical face-noise mobility. Each integration resolution has a separately fitted checkpoint. The refinement ladder does not establish time convergence of a single frozen network. The statistical heads learn full-native-state conditional moment functions from the known-generator residual, with exact deterministic noise-trace calculations and no future-payoff training labels.", "",
         "## Accuracy and uncertainty", "",
         f"The finest learned paths have normalized strong sup-path point errors **{_range([row['normalized_rms'] for row in path_rows])}%** relative to the finite reference, on all cells and the common physical-time grid.",
+        r"The strong-error quantity is $\{N(1-1/G)^{-1}\,\mathbb E[\sup_{t\in\mathcal T}\|m_\theta(t)-m_{\rm ref}(t)\|_2^2]\}^{1/2}$ on the stored common grid $\mathcal T$, and is displayed as a percentage. Its denominator is the uniform-IID histogram fluctuation scale; it is not a relative density error or a normalization by the reference path magnitude. The time-RMS variant replaces the supremum with the mean over stored times.",
         f"The no-training linear-Gaussian approximation has same-time normalized covariance point discrepancies **{_range([row['max_normalized_covariance_error'] for row in lga_rows])}%**. Its law is an unstopped Gaussian linearization; agreement here does not establish stopped-DK equivalence.",
+        head_accuracy_table,
+        "Each cell reports that optimizer seed's worst mean and covariance point error over both profiles, all fresh conditional/ensemble groups and the three query times. Mean percentages use the reference outcome standard deviation; covariance percentages use products of reference standard deviations. Thus a 665% mean error is about 6.65 reference standard deviations, not a 665% relative error in a possibly small mean. The failed heads remain in the result set; no seed or initialization was selected or refitted after the independent evaluation.",
+        "A read-only audit of the six failed mixed-bank fits found no identified source-sign, basis, time-factor or public-output normalization defect. An independent exact free-heat solution satisfies the implemented interior mean residual to 6.22×10⁻¹⁴, and the public N-scaled pure-integral covariance matches the required τ³qAqᵀ/3 leading term to 8.93×10⁻¹⁶ relative error. These controls validate those particular equations and units; they do not prove the entire learned solution correct.",
+        "All six mixed-bank fits selected their final permitted step, 1030. Their unbalanced summed residual objective reduced the raw mean residual RMS from 37.87 to 1.68–3.40 while increasing the raw covariance residual RMS from 0.338 to 0.848–1.176. The ansatz hard-codes the leading τ³ covariance but leaves the correct initial integral-mean derivative to be learned. This is a candidate optimization/ansatz limitation of the trained configuration and budget, rather than a demonstrated unique cause or evidence that statistical learning is intrinsically inferior. The frozen histories, conditional variance collapse and analytic checks are preserved in audit/integral_head_diagnostic.json; no post-test refitting was performed.",
+        f"For the finest learned path fits, worst 480-bank variance discrepancies range **{_range([row['variance_max_relative'] for row in fine_many])}%**, while worst nonlinear-bank normalized mean discrepancies range **{_range([row['max_mean_error_in_reference_std'] for row in fine_nonlinear])}%**. The same-step native/Picard controls exhibit essentially the same temporal bias. Strong path accuracy and accurate low-mode covariance do not imply acceptance for these more sensitive functionals.",
         "![](path_refinement.png)", "![](many_variances.png)", "![](novel_payoff_heads.png)", "",
         "The 480-output bank reports marginal means and variances only. Full joint-time covariance is assessed separately for each 12-dimensional B/C bank (four observables at three times). The statistical heads do not predict these joint-time matrices, scalar distributions, full density realizations or stopping probabilities.", "",
         "\n".join(reference_table),
@@ -786,6 +1023,9 @@ def render_markdown(evidence, tables, costs, references):
         "These nonlinear functionals are terminal normalized cos(3x), a density-energy integral and a smooth maximum on the fixed common polygon. Scalar Wasserstein/KS diagnostics are retained separately; their empirical values are not population distribution certificates. Gaussian nonlinear outcomes use independent samples of an unstopped approximate law.", "",
         "## Cost and the role of learning", "",
         "Complete path timings include stopping; many-observable timings include the readout. Initial histogram generation, physical Brownian generation, tensor conversion, checkpoint restoration and kernel preparation are recorded separately. The optional serial C++ controls use FP64 without fast-math, with source/compiler/flag/library fingerprints and cold compilation cost. They supply full forward paths, conservative initial JVPs and the complete discrete adjoint. Exact-kernel Picard controls isolate improvements caused by cached/parallel algebra from improvements requiring trained weights.",
+        f"The inference benchmarks use {timing_environment['cpu_threads']} CPU thread on {timing_environment['platform']}, with PyTorch {timing_environment['torch']} and NumPy {timing_environment['numpy']}. This is the measured macOS ARM64 CPU setting, not a GPU or hardware-independent comparison. Thread environment settings and load averages at the start and end are retained in the timing JSON. New fitting costs were collected under the separately recorded three-worker schedule.",
+        path_cost_table,
+        "Entries are ranges of measured medians across the two profiles. These supplied-input tasks retain their exact output allocation; the derivative rows do not represent an inverse-parameter validation. Batched throughput and latency spread remain in costs.csv and the plots.",
         "![](forward_costs.png)", "![](derivative_costs.png)", "",
         "Initial sensitivities are projected onto mass-zero directions. Physical-parameter AD of a neural checkpoint trained only at fixed D, κ and a₂ is a diagnostic derivative of that parametrization. Finite-difference agreement validates the derivative implementation; it does not validate parameter generalization or an inverse-problem solver.",
         "Sensitivity timing objectives use terminal cos(3x), the density-energy trapezoid and the smooth maximum on every solver integration node. The nonlinear accuracy bank uses the fixed 17-node common polygon. Derivative comparisons are literal NN/native comparisons within one step size; their costs are not attached to that distinct 17-node nonlinear accuracy task or used to claim a temporal derivative convergence rate.",
@@ -794,6 +1034,8 @@ def render_markdown(evidence, tables, costs, references):
         "## Matched statistical queries and amortization", "",
         "![](accuracy_cost_matched_moments.png)", "",
         "This comparison uses literal same-time four-mean/4×4-covariance queries. Conditional heads use one supplied histogram. Path moment queries actually simulate all 16,384 realizations in chunks of 64, apply the exact bank and aggregate means/N-covariances; they are not extrapolated B≤256 throughput. Fresh initial-histogram and Brownian generation are separate components of the path costs. Ensemble statistics-head costs include a fresh 16,384-histogram multinomial pool, inference and total-covariance aggregation; Gaussian ensemble initialization uses analytic IID covariance.",
+        moment_cost_table,
+        "Each call returns means and same-time 4×4 covariance matrices for one declared four-observable bank at all three horizons. It does not return the full joint 12×12 covariance or jointly predict both banks. Ranges retain every declared profile, alternative bank, optimizer seed and initialization. The coarse Gaussian row uses only the three query knots with maximum step 1/128; its 1/1024 row is a separate fine ODE audit, whose N-scaled covariance differs by at most 0.00312% in reference products. Neither ODE refinement resolves linearization or stopping bias. Fitting elapsed times were recorded under concurrent workers; online timings were collected after external workers finished. These rows are descriptive costs at fixed allocations, not equal-accuracy cost certifications. Prior trunk/path fitting, cold restoration, fresh pool generation and input generation are separate in the CSVs and total-cost accounting below.",
         "![](deployed_sampling_cost.png)",
         "A tight paired path/reference interval measures a method-discrepancy estimate under shared physical noise. It is not the standalone variability of a deployed 16,384-path Monte Carlo estimate. The latter is recomputed from complete candidate-family bootstrap estimates and reported in deployed_sampling.csv and the separate plot. Conditional heads have zero inference Monte Carlo noise; initial-ensemble heads still have initial-law integration variability. Adding bias, paired sampling, standalone sampling and reference-audit quantities does not automatically give a rigorous independent coverage statement.",
         "A newly declared bank can reuse stored full-path samples without retraining the path model, but a fresh-path query still pays simulation and Monte Carlo uncertainty. A new statistical head pays fitting and optional historical trunk costs before cheap repeated conditional queries. A numerical break-even count is meaningful only for the same supported query after matched finite-reference error and uncertainty gates; unresolved comparisons are left without a winner or crossover count.", "",
@@ -802,11 +1044,33 @@ def render_markdown(evidence, tables, costs, references):
     workers = worker_rows(evidence)
     wall = [worker.get("wall_seconds", 0.) for worker in workers]
     cpu = [worker.get("cpu_seconds", 0.) for worker in workers]
+    fitting = training_rows(evidence)
+    path_fits = [row["training_seconds"] for row in fitting if row["model"] == "historical-path"]
+    fine_path_fits = [row["training_seconds"] for row in fitting
+                     if row["model"] == "historical-path" and row["dt"] == 2 ** -10]
+    prior = {row["optimizer_seed"]: row["training_seconds"] for row in fitting
+             if row["model"] == "historical-statistics-trunk"}
+    fresh_fits = [row["training_seconds"] for row in fitting if row["model"] == "new-payoff-head"]
+    transferred = [row["training_seconds"] + prior[row["optimizer_seed"]] for row in fitting
+                   if row["model"] == "new-payoff-head" and row["initialization"] == "trunk-transfer"]
+    new_data_seconds = sum(row["generation_seconds"] for row in fitting if row["model"] == "shared-new-current-state-data")
+    fitting_table = "\n".join([
+        "| Offline fitting component | Models in this comparison | Recorded fitting seconds per model |",
+        "|---|---:|---:|",
+        f"| Historical density-path fits, all three steps | {len(path_fits)} | {_range(path_fits, scale=1, digits=5)} |",
+        f"| Historical density-path fits, step 1/1024 | {len(fine_path_fits)} | {_range(fine_path_fits, scale=1, digits=5)} |",
+        f"| Historical statistics trunks | {len(prior)} | {_range(list(prior.values()), scale=1, digits=5)} |",
+        f"| Fresh payoff heads, cold and transferred | {len(fresh_fits)} | {_range(fresh_fits, scale=1, digits=5)} |",
+        f"| Transferred head including its prior trunk fit | {len(transferred)} | {_range(transferred, scale=1, digits=5)} |"])
     lines.extend([f"The twelve new fits used three independent optimizer workers. Recorded worker wall times are {_range(wall, scale=1, digits=5)} s; aggregate worker CPU time is {sum(cpu):.5g} s. Summing worker wall times ({sum(wall):.5g} s) is not the elapsed concurrent batch duration. Per-model fitting times, historical pretraining costs and checkpoint hashes remain in training.csv and the locked metadata.",
+        fitting_table,
+        f"The shared fresh training/validation state pools took {new_data_seconds:.3f} s to generate and are charged once when constructing a new deployment. A transferred head constructed from scratch pays both its historical trunk fit and its fresh head fit; counting only the latter describes adaptation from an already available trunk. Historical data-generation costs were not fully recorded and are excluded explicitly, so the sums including historical fitting are known-component lower bounds. The table gives the experiment's full model inventory; using one trained model does not require charging all optimizer seeds to every future prediction.",
         "Stopping probabilities use exact binomial intervals; zero observed exits is not a zero-probability claim. Gaussian negative-density and below-boundary sample fractions concern its 17 stored common-grid nodes, with binomial sampling intervals in gaussian_law_diagnostics.csv. They are not between-node or continuous Gaussian hitting probabilities and do not establish stopped-DK equivalence. No trajectory or Gaussian sample is clipped or discarded to improve a comparison.",
         "All three optimizer seeds remain separate in the CSVs and plots. No seed, step, initialization or sample count was chosen after reading final outcomes. The 5% normalized error and 1.25% component uncertainty levels are research targets, not blanket certification.", "",
-        "CSV evidence: moments.csv, many480_summary.csv, many480_components.csv.gz, strong_paths.csv, stopping.csv, scalar_distributions.csv, initial_integration.csv, deployed_sampling.csv, reference_refinement.csv, costs.csv and training.csv. The report manifest records exact input and output hashes; original arrays/checkpoints remain referenced by their immutable experiment manifests.", ""])
-    return "\n\n".join(lines)
+        "Total-cost arithmetic is in total_costs.csv for 1, 100, 10,000 and 100,000 repeated literal calls, with each call's measured batch allocation retained. It separates fresh fitting, prior trunk/path fitting, the shared fresh state-pool generation, restoration, kernel preparation, inference and recorded initial-state/Brownian generation. These are known-component sums: unrecorded historical data generation, research, hyperparameter search and uncontrolled process/OS startup are not assigned invented costs. Supplied-input path and derivative rows do not silently include unmeasured input-generation costs. A cost sum is not an accuracy-qualified winner; amortization.csv retains unresolved gates instead of reporting a numerical crossover.",
+        "Analysis-code provenance is separately archived and checksum verified. The completed macOS compiled-control timing used its exact historical wrapper and C++ binary. A subsequent compiler-driver path portability fix is explicitly bridged in audit/code_provenance.json; neither the timing evidence nor its source identity was rewritten.", "",
+        "CSV evidence: moments.csv, task_summary.csv, many480_summary.csv, many480_components.csv.gz, strong_paths.csv, stopping.csv, scalar_distributions.csv, initial_integration.csv, deployed_sampling.csv, reference_refinement.csv, gaussian_law_diagnostics.csv, costs.csv, total_costs.csv, preparation_costs.csv, training.csv, worker_costs.csv and amortization.csv. The report manifest records exact input and output hashes; original arrays/checkpoints remain referenced by their immutable experiment manifests.", ""])
+    return "\n\n".join(line for line in lines if line.strip()) + "\n"
 
 
 def training_rows(evidence):
@@ -846,6 +1110,103 @@ def worker_rows(evidence):
         for worker in evidence["workers"]]
 
 
+def total_cost_rows(evidence, costs, *, query_counts=(1, 100, 10000, 100000)):
+    """Account for repeated measured calls without interpreting them as wins.
+
+    Each Q repeats a literal timing row, including its declared batch allocation.
+    This is cost arithmetic rather than a prediction of Q independent errors or
+    an accuracy-qualified crossover. Shared data are charged once to a deployment
+    started from scratch, not once per optimizer seed or observable-bank output.
+    Historical data-generation costs are left missing when not recorded; known
+    component totals are explicitly lower bounds rather than fabricated totals.
+    """
+    shared_data = sum(read(item["metadata_path"])["generation_seconds"]
+                      for item in evidence["fit_lock"]["input_banks"].values())
+    restoration = {item["name"]: item["median_seconds"]
+                   for item in evidence["payoff_timing"]["cold_restoration"]}
+    path_cases = {}
+    for case in evidence["path_timing"]["cases"]:
+        item = case["records"][0]
+        path_cases[(item["case"], item["dt"], item["horizon"], item["batch_paths"])] = case
+    rows = []
+    for cost in costs:
+        if cost["benchmark"] not in ("payoff", "path", "path-moments"):
+            continue
+        head = cost["method"] == "new-payoff-statistics-head"
+        learned_path = cost["method"].startswith(("learned_", "legacy_learned"))
+        learned_moments = cost["method"] == "learned_dense_path"
+        fit = float(cost.get("fresh_training_seconds", 0.)) if head else 0.
+        historical = float(cost.get("historical_training_seconds", 0.)) if head else 0.
+        generation = shared_data if head else 0.
+        load = prepare = build = 0.
+        historical_data_recorded = not (head and cost["initialization"] == "trunk-transfer")
+        scope = cost["scope"]
+        if head:
+            load = restoration[f"{cost['bank']}_{cost['initialization']}_seed{cost['optimizer_seed']}"]
+        elif cost["benchmark"] == "path":
+            case = path_cases[(cost["case"], cost["dt"], cost["horizon"], cost["batch"])]
+            prep = [item for item in case["preparation"] if item["method"] == cost["method"]]
+            prepare = prep[0]["median_seconds"] if len(prep) == 1 else 0.
+            if learned_path:
+                load = case["checkpoint_loading_seconds"]
+                metadata_path = Path(case["checkpoint"]["checkpoint_path"]).with_suffix(".json")
+                historical = read(metadata_path)["training_seconds"]
+                historical_data_recorded = False
+        elif cost["benchmark"] == "path-moments" and cost["method"] in ("learned_dense_path", "exact_kernel_picard_depth3"):
+            original_case = "dk_interacting_uniform" if cost["case"] == "uniform" else "dk_interacting"
+            case = path_cases[(original_case, cost["dt"], cost["horizon"], 64)]
+            prepare = next(item["median_seconds"] for item in case["preparation"]
+                           if item["method"] == ("learned_dense_cached_depth3" if learned_moments
+                                                  else "exact_kernel_dense_cached_depth3"))
+            if learned_moments:
+                historical = read(Path(case["checkpoint"]["checkpoint_path"]).with_suffix(".json"))["training_seconds"]
+                load = case["checkpoint_loading_seconds"]
+                historical_data_recorded = False
+        compiler = evidence["path_timing"].get("compiled_classical_control", {})
+        if cost["method"].startswith("compiled_") and compiler.get("available"):
+            # Setup includes any build performed in this process; retain that
+            # build separately so an uncached run is never charged twice.
+            load = compiler["complete_setup_seconds"] - compiler["compile_seconds_this_process"]
+            if not np.isfinite(load) or load < -1e-12:
+                raise ValueError("Compiled-control setup is smaller than its recorded build component")
+            load = max(float(load), 0.)
+            build = compiler["compile_seconds"]
+        online = cost["median_seconds"]
+        initialization = float(cost.get("initialization_seconds_separate", 0.))
+        forcing = float(cost.get("physical_noise_seconds_separate", 0.))
+        # Only literal moment-query timings have separately measured input
+        # generation for their whole pool. Do not attach a B=64 preparation
+        # component to unrelated full-path or derivative batch sizes.
+        supplied_input = cost["benchmark"] == "path"
+        for count in query_counts:
+            rows.append({"benchmark": cost["benchmark"], "case": cost["case"], "method": cost["method"],
+                "task": cost["task"], "bank": cost.get("bank"), "batch_per_call": cost["batch"],
+                "dt": cost.get("dt"), "horizon": cost.get("horizon"),
+                "optimizer_seed": cost.get("optimizer_seed"), "initialization": cost.get("initialization"),
+                "repeated_calls": count, "fresh_fitting_seconds_once": fit,
+                "historical_fitting_seconds_once": historical,
+                "shared_current_data_generation_seconds_once": generation,
+                "restoration_seconds_once": load, "kernel_preparation_seconds_once": prepare,
+                "uncached_compiled_control_build_seconds_once": build,
+                "warm_inference_seconds_per_call": online,
+                "separate_initialization_seconds_per_call": initialization,
+                "separate_forcing_seconds_per_call": forcing,
+                "online_seconds_all_calls": count * online,
+                "online_with_recorded_inputs_seconds_all_calls": count * (online + initialization + forcing),
+                "existing_model_known_component_seconds": load + prepare + count * (online + initialization + forcing),
+                "new_head_known_component_seconds": generation + fit + load + prepare + count * (online + initialization + forcing),
+                "including_historical_fit_known_component_seconds": generation + fit + historical + load + prepare + build
+                    + count * (online + initialization + forcing),
+                "historical_data_generation_recorded": historical_data_recorded,
+                "complete_end_to_end_cost": False,
+                "cost_interpretation": "known-component sum, not a fully costed runtime or accuracy-qualified winner",
+                "input_scope": "supplied initial states and Brownian increments" if supplied_input
+                    else "literal query allocation; separately recorded input costs included once per call",
+                "timing_scope": scope,
+                "research_and_hyperparameter_search_cost_included": False})
+    return rows
+
+
 def generate(root, path_timing, *, payoff_timing=None, output=None, docs_output=None,
              verify_artifacts=True, plots=True, gaussian_audit=None):
     evidence = load_complete(root, path_timing, payoff_timing, verify_artifacts=verify_artifacts,
@@ -863,6 +1224,7 @@ def generate(root, path_timing, *, payoff_timing=None, output=None, docs_output=
     write_csv(output / "preparation_costs.csv", preparation_rows(evidence))
     write_csv(output / "training.csv", training_rows(evidence))
     write_csv(output / "worker_costs.csv", worker_rows(evidence))
+    write_csv(output / "total_costs.csv", total_cost_rows(evidence, costs))
     write_csv(output / "amortization.csv", amortization_rows(evidence, tables, costs, references))
     if plots:
         make_plots(tables, costs, output)

@@ -1,0 +1,187 @@
+{
+  "kind": "completed-independent-DK-task-comparison-audit-v1",
+  "complete": true,
+  "completed_utc": "2026-10-27T02:25:07.682187+00:00",
+  "user_request": "Finish independent accuracy experiments and compare which solver is better for which tasks, including training and inference costs.",
+  "source_hash": "1a274fcf4d2b9c9b19f4605f514f38d8465807216a99419504f77d7796442df1",
+  "numerical_source_unchanged": true,
+  "requirements": [
+    {
+      "requirement": "Complete independent accuracy experiments",
+      "complete": true,
+      "reference_families": 98304,
+      "groups": 6,
+      "paths_per_group": 16384,
+      "main_evaluations": 174,
+      "literal_Gaussian_checks": 12,
+      "learner_families_disjoint_from_references": 960,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/audit/reference_independence_audit.json",
+        "sha256": "9c66e8f94dfe7bf0a4cbe5aa6c1c35c7e8aa345d47eb5afc9e5f81316f96709d"
+      }
+    },
+    {
+      "requirement": "Retain all seeds and failed fits",
+      "complete": true,
+      "optimizer_seeds": [
+        0,
+        1,
+        2
+      ],
+      "fresh_statistics_heads": 12,
+      "post_test_refitting": false,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/payoffs/fit_lock.json",
+        "sha256": "68c8be750f1dafaf7c53b525571bfa21e5ad85cd19b10cac3874765ce6d21040"
+      }
+    },
+    {
+      "requirement": "Compare task-specific capabilities",
+      "complete": true,
+      "tasks": [
+        "full density paths",
+        "480 new marginal Fourier/time queries",
+        "same-time and joint-time moments",
+        "terminal and killed-integral payoffs",
+        "nonlinear functionals",
+        "scalar distributions",
+        "initial-law ensembles",
+        "stopping diagnostics",
+        "conservative JVP and discrete adjoint"
+      ],
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/report/task_summary.csv",
+        "sha256": "7a9b8c71a27f4c48a80c3f31f4f93b52d79ace076c16873bcc8140b0e06d9b70"
+      }
+    },
+    {
+      "requirement": "Compare training, preparation and inference cost",
+      "complete": true,
+      "training_rows": 35,
+      "total_cost_rows": 3480,
+      "repeated_literal_calls": [
+        1,
+        100,
+        10000,
+        100000
+      ],
+      "components": [
+        "fresh fitting",
+        "historical path/trunk fitting",
+        "shared data generation",
+        "restoration",
+        "kernel preparation",
+        "compilation",
+        "initial states",
+        "physical noise",
+        "inference",
+        "aggregation"
+      ],
+      "accuracy_qualified_crossover_established": false,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/report/total_costs.csv",
+        "sha256": "91712fbafaf3d5cb7bf8c7e3ae5c9e7734f50ad6c858ab569ca0c095ac579331"
+      }
+    },
+    {
+      "requirement": "Assess reference refinement and uncertainty",
+      "complete": true,
+      "reference_steps": [
+        0.0001220703125,
+        6.103515625e-05,
+        3.0517578125e-05
+      ],
+      "coupled_audit_families_per_group": 1024,
+      "whole_family_bootstrap": true,
+      "paired_difference_and_standalone_MC_separate": true,
+      "all_stopped_paths_retained": true,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/report/reference_refinement.csv",
+        "sha256": "b174c4ad5a5b3d26e2fd7cd335fa5e92a07a4d880b049acab96fde15e6a29e54"
+      }
+    },
+    {
+      "requirement": "Diagnose failed integral heads without refitting",
+      "complete": true,
+      "identified_equation_or_units_defect": false,
+      "training_or_ansatz_limitation_candidate": true,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/audit/integral_head_diagnostic.json",
+        "sha256": "b8baa112021f10246649623be059e7b673d1b6c3044f945ffb322ef2c6685b86"
+      }
+    },
+    {
+      "requirement": "Document recommendations and preserve verified evidence",
+      "complete": true,
+      "archive_verification": {
+        "kind": "broad-dk-task-comparison-evidence-snapshot-v1",
+        "complete": true,
+        "archive": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/path_task_advantages_2026-10-27",
+        "copied_and_restored_artifacts_verified": 300,
+        "historical_inputs": 20,
+        "historical_checkpoint_metadata": 19,
+        "report_outputs": 25,
+        "indexed_run_files": 857,
+        "indexed_run_bytes": 5357159261,
+        "archive_manifest_sha256": "40a5e6ee1c1a20755e7bbaaf008ad30ceaa5ad434c2c88bcaf1e9c29e9a90396"
+      },
+      "report": {
+        "path": "docs/experiments/path_task_advantages_2026-10-27.md",
+        "sha256": "c24793705cc715b76414a5312c93fc9a3553e71ee4f92de58bc0509fcf1635ac"
+      },
+      "archive_manifest": {
+        "path": "docs/experiments/artifacts/path_task_advantages_2026-10-27/archive_manifest.json",
+        "sha256": "40a5e6ee1c1a20755e7bbaaf008ad30ceaa5ad434c2c88bcaf1e9c29e9a90396"
+      }
+    },
+    {
+      "requirement": "Verify software and figure layout",
+      "complete": true,
+      "tests_passed": 1007,
+      "warnings": 2,
+      "elapsed_seconds": 66.48,
+      "ruff_passed": true,
+      "seven_figures_visually_checked": true,
+      "evidence": {
+        "path": "runs/path-generalization-2026-10-26/audit/final_tests_2026-10-27.json",
+        "sha256": "ac8edabdcc1f2ff1d8d407c163582e075387feef23812c92c951feaec851bf32"
+      }
+    }
+  ],
+  "all_required_work_complete": true,
+  "findings": {
+    "general_paths_and_sensitivities": "compiled native Euler is the practical current choice across measured batches",
+    "approximate_statistics": "linear Gaussian is inexpensive in the tested short weak-noise regime, with approximation and uncertainty limits",
+    "new_statistics_heads": "conditional inference is cheap but accuracy targets fail under the recorded fit budget",
+    "accuracy_qualified_neural_computational_advantage_established": false
+  },
+  "scope": {
+    "grid": 32,
+    "particle_count": 2048,
+    "diffusivity": 1,
+    "kappa": 0.75,
+    "a2": 0.1,
+    "accuracy_horizon": 0.0625,
+    "initial_profiles": [
+      "uniform",
+      "exp(0.2 cos x)"
+    ],
+    "timing_cpu_threads": 1,
+    "platform": "macOS ARM64"
+  },
+  "scientific_limits": [
+    "Fixed-grid stopped system, no continuum-DK claim",
+    "No rare-event validation: zero reference stops observed",
+    "Sampling and reference uncertainty targets are not blanket certified",
+    "Historical path and fresh statistics models use different capacities and data",
+    "Fixed-physics neural AD does not validate inverse-parameter tasks",
+    "Some historical data generation and research costs unrecorded: known-component totals only"
+  ],
+  "report_manifest": {
+    "path": "runs/path-generalization-2026-10-26/report/manifest.json",
+    "sha256": "b9d60fefff9acbeaea38ecd5aed16a22cfc0e26ec427ec0867c3f97d9c1f5b7f"
+  },
+  "full_raw_inputs_and_weights_retained_locally": true,
+  "superseded_archive_preserved_locally": "runs/path-generalization-archive-review-v1",
+  "publication_or_push_performed": false
+}

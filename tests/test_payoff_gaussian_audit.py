@@ -64,6 +64,73 @@ def test_group_audit_matches_literal_cost_predictions_and_whole_family_bootstrap
         assert "exact killed-integral law" in record["unsupported"]
 
 
+def test_ensemble_uses_analytic_iid_moments_not_empirical_histogram_pool(monkeypatch):
+    cfg = audit.ReferenceConfig(n_cells=16, paths_per_group=32, refinement_paths=8)
+    rng = np.random.default_rng(781)
+    probabilities = np.arange(1, 17, dtype=float)
+    probabilities /= probabilities.sum()
+    initial = rng.multinomial(cfg.n_particles, probabilities, size=32)/cfg.n_particles
+    data = {"metadata": {"role": "ensemble", "case": "nonuniform"},
+            "initial": initial, "probabilities": probabilities,
+            "bank_b": rng.normal(size=(32, 3, 4))/np.sqrt(cfg.n_particles),
+            "bank_c": rng.normal(size=(32, 3, 4))/np.sqrt(cfg.n_particles)}
+    calls = []
+    original = audit.lga_marginals
+
+    def recording_lga(initial, context, spec, times, step, bank, initial_covariance):
+        calls.append((initial.copy(), initial_covariance.copy(), bank.name, step))
+        return original(initial, context, spec, times, step, bank, initial_covariance)
+
+    monkeypatch.setattr(audit, "lga_marginals", recording_lga)
+    counts = audit.bootstrap_counts(32, audit._group_seed("nonuniform__ensemble__0"), 8)
+    results = audit.evaluate_group(data, cfg, "nonuniform__ensemble__0", counts)
+    assert len(calls) == 4
+    expected = np.diag(probabilities)-np.outer(probabilities, probabilities)
+    for used_initial, covariance, _, _ in calls:
+        np.testing.assert_array_equal(used_initial, probabilities)
+        np.testing.assert_array_equal(covariance, expected)
+    for record in results:
+        assert record["initialization"] == "analytic-IID-moments"
+        assert not record["initial_pool_integration_MC"]
+        for metrics in record["metrics"].values():
+            assert metrics["same_time"]["bootstrap"]["counts_sha256"] == audit.array_sha(counts)
+
+
+@pytest.mark.parametrize("ensemble", [False, True])
+def test_literal_marginals_match_full_gaussian_algorithm_on_same_requested_grid(ensemble):
+    cfg = audit.ReferenceConfig(n_cells=16)
+    centers = (np.arange(16)+.5)*cfg.spec.h
+    initial = (1+.2*np.cos(centers))/16
+    covariance = audit.iid_scaled_covariance(initial) if ensemble else None
+    for bank in audit._banks(cfg):
+        literal = audit.lga_marginals(initial, cfg.context("nonuniform"), cfg.spec,
+            cfg.query_times, 2**-7, bank, covariance)
+        full = linear_gaussian(initial, cfg.context("nonuniform"), cfg.spec,
+            cfg.query_times, 2**-7, initial_scaled_covariance=covariance,
+            terminal_weights=bank.terminal_weights, running_weights=bank.running_weights,
+            return_joint=False)
+        # The full API returns terminal and integral outputs separately. The
+        # fixed-bank cost algorithm returns their declared payoff-wise sums.
+        projection = np.hstack((np.eye(4), np.eye(4)))
+        projected_mean = full["mean"] @ projection.T
+        projected_covariance = projection @ full["scaled_covariance"] @ projection.T
+        np.testing.assert_allclose(literal[0], projected_mean, atol=2e-16, rtol=0)
+        np.testing.assert_allclose(literal[1], projected_covariance, atol=2e-14, rtol=0)
+        assert literal[2]["integration_steps"] == full["diagnostics"]["integration_steps"]
+
+
+def test_bridge_bootstrap_seeds_match_all_declared_whole_family_groups():
+    from analysis.run_generalization_evaluation import _seed
+
+    cfg = audit.ReferenceConfig()
+    seeds = [audit._group_seed(group) for group in cfg.group_keys]
+    assert len(set(seeds)) == len(cfg.group_keys)
+    for group, seed in zip(cfg.group_keys, seeds, strict=True):
+        assert seed == _seed(group)
+        np.testing.assert_array_equal(audit.bootstrap_counts(32, seed, 8),
+                                      audit.bootstrap_counts(32, _seed(group), 8))
+
+
 def _prepare_inputs(tmp_path, cfg, monkeypatch):
     monkeypatch.setattr(audit, "source_hash", lambda: audit.SOURCE_FREEZE)
     reference = {"status": "waiting-for-complete-fit-lock",

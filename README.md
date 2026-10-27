@@ -67,11 +67,28 @@ and the [verification guide](docs/verification.md).
 
 Every workflow has its own target identifiers, configuration, checkpoints, and
 reference conventions. Their fitted weights and accuracy claims are not
-interchangeable. The [analysis guide](analysis/README.md) describes postprocessing
-and timing tools, including the newer generalization tooling whose completed
-study inputs are still required.
+interchangeable. The [analysis guide](analysis/README.md) describes postprocessing,
+timing and the completed independent generalization study. Reproducing its
+historical models requires the full local study inputs.
 
 ## Current evidence
+
+The [independent broader-task comparison](docs/experiments/path_task_advantages_2026-10-27.md)
+is complete: 98,304 independent reference families, six initial-state groups,
+174 main evaluations, twelve literal Gaussian checks and twelve newly fitted
+statistics heads, retaining all optimizer seeds. It compares full paths, new
+Fourier queries, time-integrated functionals, moments and sensitivities, with
+fitting, preparation and inference costs recorded separately.
+
+**Neither neural method establishes a general advantage in this comparison.**
+Compiled native Euler is faster for complete paths and derivatives. The
+linear-Gaussian approximation is the inexpensive statistical control in this
+short, weak-noise setting. New statistics heads have fast conditional inference
+but miss the accuracy targets, particularly for integrated observables. The
+earlier fixed-bank success below therefore remains specific to that bank.
+The [compact evidence archive](docs/experiments/artifacts/path_task_advantages_2026-10-27/README.md)
+retains the complete tables, figures, training metadata and audits. No
+accuracy-qualified neural training-cost crossover is established.
 
 The [completed interacting follow-up](docs/experiments/interacting_followup_2026-10-25.md)
 covers **24 fits**, uniform/nonuniform initial laws, and three time steps at
