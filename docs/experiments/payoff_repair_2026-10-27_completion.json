@@ -1,0 +1,83 @@
+{
+  "kind": "payoff-repair-task-completion-audit-v1",
+  "complete": true,
+  "completed_utc": "2026-10-27T03:30:01.689822+00:00",
+  "source_freeze_commit": "10a898d",
+  "source_hash": "b7876b03f8f4fc6b5b030a3e631ed7404b35529f6ac3b391d4c4c1cdc90a8b15",
+  "archive": {
+    "complete": true,
+    "archive": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/payoff_repair_2026-10-27",
+    "copied_artifacts_verified": 403,
+    "indexed_raw_files": 501,
+    "manifest_sha256": "d9ad49c6575e1781c38ebc3baabcb2873cff27a8acf41eaff5e6a043c0163467"
+  },
+  "verified_checkpoint_count": 10,
+  "independent_reference_families": 98304,
+  "accuracy_records": 198,
+  "timing_records": 232,
+  "full_test_passed": 1043,
+  "full_test_seconds": 70.88,
+  "ruff_changed_files_passed": true,
+  "seven_figures_visually_checked": true,
+  "all_optimizer_seeds_retained": true,
+  "test_based_refitting": false,
+  "population_five_percent_accuracy_certificate": false,
+  "accuracy_qualified_cost_crossover": false,
+  "continuous_DK_claim": false,
+  "scope": "Interacting stopped native G32,N2048,D1,T1/16; two fixed four-output banks; means and same-time covariances at three horizons.",
+  "requirements_completed": [
+    "Diagnose raw loss imbalance, integral small-time ansatz and coupled mean/covariance degeneration.",
+    "Implement analytic heat anchors, time-ordered PSD corrections, separate networks and staged frozen-mean covariance training.",
+    "Run raw/balanced controls and all three repaired optimizer seeds on literal shared train/validation states.",
+    "Freeze all ten fits before drawing fresh independent reference outcomes.",
+    "Rerun accuracy, bootstrap and reference-refinement diagnostics without survivor filtering.",
+    "Measure single-thread conditional, batched and actual 16384-state ensemble costs after all compute workers exit.",
+    "Account for fitting, data, restoration, first prediction, known-horizon cache and warm calls separately.",
+    "Retain all seeds, uncertainty limits, compact evidence and raw local artifacts."
+  ],
+  "audits": {
+    "pretest_audit": {
+      "path": "runs/payoff-repair-2026-10-27/audit/pretest_audit.json",
+      "sha256": "a6c6ed9d1b5a97bc3210fa20a82588acd39b6986692cd1a780fd101c72ac8de8"
+    },
+    "postfit_validation_diagnostic": {
+      "path": "runs/payoff-repair-2026-10-27/audit/postfit_validation_diagnostic.json",
+      "sha256": "c1448a19d8ec4978272948ab494f4ebd4fbab5281530d10dc5e95a956901b3cc"
+    },
+    "reference_independence_audit": {
+      "path": "runs/payoff-repair-2026-10-27/audit/reference_independence_audit.json",
+      "sha256": "c5a7878d37443d84fa88282361ec1311ddc98c9e5e4a0ccf4310af40acd94b83"
+    },
+    "selected_accuracy_replay": {
+      "path": "runs/payoff-repair-2026-10-27/audit/selected_accuracy_replay.json",
+      "sha256": "b8e9cac47bdce564444c9c588bf3f3a68fa23885ee22ca4b6688cdf7de8ac9db"
+    },
+    "final_comparison_audit": {
+      "path": "runs/payoff-repair-2026-10-27/audit/final_comparison_audit.json",
+      "sha256": "6dbe61413f51ad2552c43dfa517f8bca0248f4304e0365a311cdf4ae8b8199f5"
+    },
+    "report_claims_audit": {
+      "path": "runs/payoff-repair-2026-10-27/audit/report_claims_audit.json",
+      "sha256": "dc511dd8e78e44456f650f1b3515aa68bb180e46d1d10f4a52c551b6da730aa4"
+    },
+    "visual_report_qa": {
+      "path": "runs/payoff-repair-2026-10-27/audit/visual_report_qa.json",
+      "sha256": "fd54402ec3f2b5db332057bc0e87d1caf032d7d517a1f21b243469615dba8d0a"
+    },
+    "final_tests_2026-10-27": {
+      "path": "runs/payoff-repair-2026-10-27/audit/final_tests_2026-10-27.json",
+      "sha256": "ea1bc58d7551e4081ccf2f3fdd98cb3c41c98e4dea2caa9870cdae6f5612c1ce"
+    }
+  },
+  "final_artifact_sha256": {
+    "README.md": "9663587ba4fb14422cd1a96781463a1d485db1e1da2495e948d9733ae61181c0",
+    "analysis/README.md": "5c9aac95bcb54b0ee76a8112213b7c6d8c4d2810061a23ba92bffd923708572f",
+    "docs/experiments/payoff_repair_2026-10-27.md": "b1aedc08fb2de8fb83f62d171cb4c5e7896070675cfa1fac22fc94a8c8e29c4f",
+    "runs/payoff-repair-2026-10-27/report/manifest.json": "2a1fcdba7cfd209b5541e0d1597bfeb7d561097e3c647791049846b7f2690251",
+    "runs/payoff-repair-2026-10-27/payoffs/fit_lock.json": "334e9200838205540e51907f3fced9643291a3da15f4f2a8c234d5406fa1b29f",
+    "runs/payoff-repair-2026-10-27/reference/manifest.json": "ac87177b3e7095bcce9baf2b9f1648111162d1b4f775097944ecb98c3bc5e7ee",
+    "runs/payoff-repair-2026-10-27/comparison/accuracy_index.json": "22b88c38c60b7ba24e863eb63874672bdea51e8b6422d3f8d515a826d9855af8",
+    "runs/payoff-repair-2026-10-27/comparison/timing.json": "035ead169a800f963ffcbe965bf4a8f1b2f4ccae55b299b695f8ca17b5641039"
+  },
+  "local_raw_artifacts_remain_available": true
+}

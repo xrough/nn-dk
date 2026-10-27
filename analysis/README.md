@@ -146,6 +146,67 @@ provenance and diagnostic replays. Historical immutable paths inside those
 records are preserved; they are not portable substitutes for the original raw
 inputs.
 
+## Repairing the terminal and integral moment formulation
+
+The [completed repair study](../docs/experiments/payoff_repair_2026-10-27.md)
+uses source freeze `10a898d` and an independent test seed. Its known free-heat
+mean and covariance anchors preserve the integral small-time orders; separate
+networks train the mean first and then covariance with the selected mean frozen.
+Training-only output/pair scales include the different integral time powers.
+The covariance has no physical floor. Exact face traces introduce no auxiliary
+noise estimator, and physical and optimizer RNG streams remain separate.
+
+The fixed study retains ten fits: both banks with raw and balanced v1 loss at
+seed zero, and repaired models at all three seeds. The repaired variant uses
+two networks and two complete optimizer stages, so the full repair comparison
+changes formulation, capacity and training allocation together. The v1 loss
+ablation isolates only balancing. Untrained repaired models measure the value
+of the known physical anchor separately from fitting.
+
+With the original full historical inputs available, reproduce in this order:
+
+```bash
+uv run python analysis/run_payoff_repair.py prepare --root runs/payoff-repair-2026-10-27
+uv run python analysis/evaluate_payoff_repair.py prepare --root runs/payoff-repair-2026-10-27
+uv run python analysis/run_payoff_repair.py fit --seed 0 --root runs/payoff-repair-2026-10-27
+uv run python analysis/run_payoff_repair.py fit --seed 1 --root runs/payoff-repair-2026-10-27
+uv run python analysis/run_payoff_repair.py fit --seed 2 --root runs/payoff-repair-2026-10-27
+uv run python analysis/run_payoff_repair.py lock --root runs/payoff-repair-2026-10-27
+uv run python analysis/run_payoff_repair.py reference --root runs/payoff-repair-2026-10-27
+uv run python analysis/evaluate_payoff_repair.py evaluate --root runs/payoff-repair-2026-10-27
+uv run python analysis/evaluate_payoff_repair.py benchmark --final-timing --root runs/payoff-repair-2026-10-27
+uv run python analysis/report_payoff_repair.py --root runs/payoff-repair-2026-10-27
+```
+
+Run the final benchmark after all fitting, accuracy, audit and test processes
+have exited. The study used three seed workers; the commands above are a simpler
+sequential reproduction. Atomic checkpoints preserve optimizer and RNG state.
+Both preregistrations precede fitting; all ten checkpoints must restore before
+the first fresh test anchor or future-noise outcome can be created.
+
+Reporting also requires the independent pretest, postfit-validation, reference
+and selected-accuracy audits preserved in the
+[compact archive](../docs/experiments/artifacts/payoff_repair_2026-10-27/README.md).
+Their replay scripts are included there. The reference and metric replays verify
+the actual saved arrays; the postfit diagnostic reconstructs the covariance
+phase's starting target using the selected mean, rather than the obsolete
+initial mean's quadratic variation. All six repaired fits and four v1 controls
+remain in this audit.
+
+Accuracy compares the same three horizons and same-time 4×4 covariance bank as
+the timing calls. Initial-ensemble NN and path costs use actual 16,384-sample
+integrations. B1 first-query costs, later cached-batch costs, warm latency,
+restoration and kernel preparation are distinct. Repeated-call totals assume
+new initial-state queries with fixed physics, bank and horizons. They retain
+all known fitting and setup costs; unresolved accuracy gates cannot produce a
+certified crossover. The original source-strict historical loaders execute in
+their exact Git snapshots; no guard or saved checkpoint is rewritten.
+
+`archive_payoff_repair.py` verifies the complete report and creates a lossless
+compact snapshot. Full raw trajectories, Brownian arrays and restorable weights
+remain in the checksummed local inventory; the public compact archive does not
+replace those inputs or a full Git history.
+
 ## Autonomous coefficient solver
 
 Run these commands from the repository root, using its locked Python environment:

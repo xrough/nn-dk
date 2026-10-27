@@ -73,7 +73,25 @@ historical models requires the full local study inputs.
 
 ## Current evidence
 
-The [independent broader-task comparison](docs/experiments/path_task_advantages_2026-10-27.md)
+The [statistics formulation repair](docs/experiments/payoff_repair_2026-10-27.md)
+uses known heat moments, separate mean/covariance networks and staged training
+to resolve the earlier integral-variance collapse. Ten fresh fits and another
+98,304 independent reference families retain every ablation and optimizer seed.
+Repaired worst mean/covariance point discrepancies are about **2.4% / 3.3%**;
+sampling intervals still leave the blanket 5% criterion unresolved.
+
+One fixed-bank conditional query takes **0.586–0.683 ms**, after **230–276 s**
+of fitting per model, versus **1.83–2.00 ms** for the no-training Gaussian
+approximation. Initial-ensemble NN integration takes **265–289 ms**, versus
+**1.87–2.04 ms** for the Gaussian approximation. Costs refer to four means and
+same-time 4×4 covariances at three horizons. The
+[repair archive](docs/experiments/artifacts/payoff_repair_2026-10-27/README.md)
+contains the controlled diagnosis, all seeds, cold/warm costs and uncertainty
+accounting. The [completion checks](docs/experiments/payoff_repair_2026-10-27_completion.json)
+record the final tests and archive verification. No accuracy-qualified training-cost
+crossover is certified.
+
+The earlier [independent broader-task comparison](docs/experiments/path_task_advantages_2026-10-27.md)
 is complete: 98,304 independent reference families, six initial-state groups,
 174 main evaluations, twelve literal Gaussian checks and twelve newly fitted
 statistics heads, retaining all optimizer seeds. It compares full paths, new
@@ -83,7 +101,7 @@ fitting, preparation and inference costs recorded separately.
 **Neither neural method establishes a general advantage in this comparison.**
 Compiled native Euler is faster for complete paths and derivatives. The
 linear-Gaussian approximation is the inexpensive statistical control in this
-short, weak-noise setting. New statistics heads have fast conditional inference
+short, weak-noise setting. The original statistics heads have fast conditional inference
 but miss the accuracy targets, particularly for integrated observables. The
 earlier fixed-bank success below therefore remains specific to that bank.
 The [compact evidence archive](docs/experiments/artifacts/path_task_advantages_2026-10-27/README.md)
