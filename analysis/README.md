@@ -207,6 +207,81 @@ compact snapshot. Full raw trajectories, Brownian arrays and restorable weights
 remain in the checksummed local inventory; the public compact archive does not
 replace those inputs or a full Git history.
 
+## Longer horizons and stronger interactions
+
+`run_payoff_regimes.py` freezes six fixed problems: T=0.25/1 and κ=0.75/3/6,
+with G=32, N=2048, D=1 and a₂=0.1. Each problem fits all three repaired
+statistics seeds to the mixed terminal-mode-3/time-integral-mode-1 bank. The
+mean and covariance stages each receive the complete declared optimizer
+allocation; selection uses validation only. Sixteen deterministic quadrature
+nodes keep the known heat anchor accurate through T=1.
+
+```bash
+.venv/bin/python analysis/run_payoff_regimes.py prepare --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_regimes.py prepare --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_regimes.py pretest --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_regimes_deployment.py prepare --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_regimes_deployment.py --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/run_payoff_regimes.py fit --root runs/payoff-regimes-2026-10-27 --seed 0
+.venv/bin/python analysis/run_payoff_regimes.py fit --root runs/payoff-regimes-2026-10-27 --seed 1
+.venv/bin/python analysis/run_payoff_regimes.py fit --root runs/payoff-regimes-2026-10-27 --seed 2
+.venv/bin/python analysis/run_payoff_regimes.py lock --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_regimes_validation.py --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_corner.py --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/run_payoff_regimes.py reference --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_regimes.py evaluate --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_regimes_deployment.py evaluate --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_regimes_native.py --root runs/payoff-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_regimes_metrics.py --root runs/payoff-regimes-2026-10-27
+```
+
+The three seed workers may run concurrently in separate processes; their
+checkpoint ownership locks are disjoint. Wait for every worker to exit before
+locking. Native references remain unavailable until all 18 complete checkpoints
+pass strict restoration. References can run concurrently by supplying distinct
+`--case` values; each case owns its HDF5 and generation lock. The frozen plan
+records every source/helper hash. Exit 75 denotes a resumable budget boundary;
+repeat the same invocation without changing its plan or source.
+
+Each problem retains two supplied histograms per initial law and one IID-start
+ensemble per law. The independent native deployment has fresh forcing in every
+group and fresh initial histograms for ensemble groups. Conditional methods
+share the declared supplied histogram. Whole-family bootstrap intervals compare
+NN and Gaussian errors using a shared reference resample. Standalone initial-law
+and native-Monte-Carlo sampling uncertainty remain separate.
+
+The independent-deployment supplement preregisters 12 additional initial-law
+integration pools before any reference draw. Its 48 NN/control records use
+initial histograms and bootstrap counts independent of the reference. They
+replace the 48 shared-initial NN ensemble records in primary deployment tables;
+all 300 records remain retained, with the original paired estimates available
+as approximation-bias diagnostics. Fresh ensemble timing already uses this
+same prediction algorithm. This evaluation control does not change any fit.
+
+After **all fitting, reference, accuracy and audit processes have exited**, run:
+
+```bash
+.venv/bin/python analysis/evaluate_payoff_regimes.py benchmark --root runs/payoff-regimes-2026-10-27 --final-timing
+.venv/bin/python analysis/report_payoff_regimes.py report --run runs/payoff-regimes-2026-10-27 \
+  --documentation docs/experiments/payoff_regimes_2026-10-27.md
+```
+
+The report preserves both literal Gaussian steps, all NN seeds, observed
+stopping/near-boundary frequencies, physical payoff bounds and the exact
+supported four means/same-time covariance bank. It charges one model fit, its
+training/validation pool, restoration, first-query/cache costs and warm calls.
+Native deployment actually simulates 16,384 paths per call; no large-ensemble
+cost is extrapolated. Resolved pointwise accuracy contrasts, the absolute 5%
+diagnostic, and accuracy-qualified payback are distinct outputs. All stopped
+paths are retained; the unstopped Gaussian law and continuous hitting bias are
+explicit limitations.
+
+After final tests have been saved in `audit/final_tests.json`, preserve compact
+evidence with `analysis/report_payoff_regimes.py archive --run RUNROOT`; use
+`verify-archive --archive ARCHIVE` to verify stored and restored checksums.
+Raw HDF5, arrays and weights remain local with a full inventory. Prior studies
+and checkpoint formats are preserved.
+
 ## Autonomous coefficient solver
 
 Run these commands from the repository root, using its locked Python environment:

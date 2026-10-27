@@ -73,6 +73,28 @@ historical models requires the full local study inputs.
 
 ## Current evidence
 
+The [longer-horizon, stronger-interaction study](docs/experiments/payoff_regimes_2026-10-27.md)
+tests T=0.25/1 and κ=0.75/3/6 at G=32, N=2048. All 18 repaired statistics
+fits and 589,824 independent native reference families are retained. Across
+216 group/horizon/statistic comparisons, **none favors the NN for all three
+optimizer seeds with resolved pointwise intervals**; 57 favor the fine Gaussian
+approximation. This is not a simultaneous grid-wide confidence statement.
+
+At T=1, κ=6, the NN's worst mean discrepancy reaches **5.85–6.30 reference
+standard deviations**, versus **0.252** for Gaussian. Worst normalized
+covariance discrepancies are **94.5–95.2% versus 18.2%**. Native Monte Carlo
+retains all stopped paths. The audit identifies an inconsistent short-time
+boundary gate and concentrated validation loss; it also finds substantial
+interior fitting error. No fit was changed after reading reference outcomes.
+Each NN fit recorded **481–743 seconds**. The report retains conditional and
+independent-ensemble inference, cold setup, training and total prediction costs;
+no accuracy-qualified NN cost crossover is established.
+Warm conditional NN inference is **0.63–0.73 ms**, versus **7.9–32.6 ms** for
+the cheaper Gaussian step. Initial-ensemble NN integration takes **259–296 ms**,
+versus **7.9–32.6 ms** for Gaussian. Native MC takes **2–8.5 s** per independent
+16,384-path estimate. These findings concern the declared stopped finite-grid
+law and fixed observable bank.
+
 The [statistics formulation repair](docs/experiments/payoff_repair_2026-10-27.md)
 uses known heat moments, separate mean/covariance networks and staged training
 to resolve the earlier integral-variance collapse. Ten fresh fits and another

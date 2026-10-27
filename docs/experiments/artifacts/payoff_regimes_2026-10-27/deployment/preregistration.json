@@ -1,0 +1,224 @@
+{
+  "LGA_contrast": "reuse locked original LGA_dt10; identical reference resample, independent NN integration resample",
+  "all_declared_fits_strictly_locked_before_initial_draw": true,
+  "all_records_primary_initial_ensemble_predictions": true,
+  "bootstrap_count": 128,
+  "cases": [
+    "T0p25_k0p75",
+    "T0p25_k3",
+    "T0p25_k6",
+    "T1_k0p75",
+    "T1_k3",
+    "T1_k6"
+  ],
+  "expected_records": 48,
+  "helpers": {
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/benchmark_payoff_generalization.py": "d252a7b36a5466d4829e41f28c74a219d179ab66ad1d876161e792e6282fbba4",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_path_generalization.py": "f4575a992b14b84210e3e90d8eef2cfc59062b458e70463f860426cfad80dad4",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_regimes.py": "2247cd069cab2af29648b378550051ecf056e79715d41a4462fa404f9f81401d",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_regimes_deployment.py": "0c2d83d7c6aa049b62cb407d8588c550754196cfec80b88fd6eeeccdfce5f979",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/run_payoff_regimes.py": "b8d1be8c22322b3682dab0051945914b4b204991e29fecef9e10436984f99cb6"
+  },
+  "independent_NN_and_reference_bootstrap": true,
+  "initials_drawn_during_preparation": false,
+  "kind": "independent-hard-regime-neural-initial-integration-v1",
+  "matching_timing": "same model names, regime/profile/ensemble role; unchanged fresh-IID histogram integration algorithm",
+  "models_per_pool": 4,
+  "optimizer_seeds": [
+    0,
+    1,
+    2
+  ],
+  "original_comparison_preregistration_sha256": "3c0255b10e32a842fa1dcd7c72064660fcdd271141e6dcacde28032936399a5c",
+  "original_paired_initial_records": "preserved diagnostic; no numerical edits",
+  "pool_family_formula": "stable_hash([SEED,KIND,regime,profile,index])",
+  "pool_rng": "seeded_rng(initial_seed,KIND,'multinomial-initials'); one multinomial call",
+  "pool_seed_formula": "int(stable_hash([SEED,KIND,regime,profile,'independent-initial-pool'])[:12],16)",
+  "pools": [
+    {
+      "bootstrap_seed": 237139662149664,
+      "family_ids_array_sha256": "17a63644fc8f22721941c32b2509a9cb8668266956c4a8281e84519bd4426a55",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 197639671042205,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k0p75__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k0p75"
+    },
+    {
+      "bootstrap_seed": 201590010192697,
+      "family_ids_array_sha256": "6c2a0b6ef95b4e5034cad370150176e8735110b16d3f06f51f03599b11a76d9e",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 215452039215337,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k0p75__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k0p75"
+    },
+    {
+      "bootstrap_seed": 208905455848711,
+      "family_ids_array_sha256": "a46292c464cc7273cac8fc2c101984f5ef8fcd8f117da171f7bf9fa971916038",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 107376131222965,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k3__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k3"
+    },
+    {
+      "bootstrap_seed": 213608355329618,
+      "family_ids_array_sha256": "2f5ac63e1cf3aa47590f6b6142851e1108a60970959f7e9899aed78f59263b1b",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 116504104222402,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k3__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k3"
+    },
+    {
+      "bootstrap_seed": 44891116274583,
+      "family_ids_array_sha256": "21805cefd375a2623fd69adde49deb631b5f8b2c5b2bcddae4d035bd75ace70a",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 84736610623379,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k6__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k6"
+    },
+    {
+      "bootstrap_seed": 82894390170976,
+      "family_ids_array_sha256": "6f2a0872d1b65ecd5b639a55c89d6e27c9592c97667e41aa32bf146a3531df39",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 262069253834296,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k6__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k6"
+    },
+    {
+      "bootstrap_seed": 276472405286789,
+      "family_ids_array_sha256": "063110c5799885a7279cf99ab9f0f80c4fb12f595a7aed4f4a0c9d507a047013",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 222535382007587,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k0p75__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k0p75"
+    },
+    {
+      "bootstrap_seed": 209070948555276,
+      "family_ids_array_sha256": "f819901b86aca5bb39b5e140bbb267ba52ad648fe1eb6e626214d2fda9c61627",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 169595109672047,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k0p75__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k0p75"
+    },
+    {
+      "bootstrap_seed": 153385713166190,
+      "family_ids_array_sha256": "88fdbdaaaa42d0deec3ecba0b7b5cd31b8faee865879842b8f1cc215b4b16764",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 176757139126780,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k3__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k3"
+    },
+    {
+      "bootstrap_seed": 274165677890357,
+      "family_ids_array_sha256": "93f48152644ea3a671a22771cda4acc185fff9cc902060a5b2e68f17f59d8c73",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 25450332299946,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k3__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k3"
+    },
+    {
+      "bootstrap_seed": 30908048213597,
+      "family_ids_array_sha256": "fd65743c2c410b4786e524d551fed11e98c5f5c4b2ab611ef355ade0f3d06e15",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 60012865140932,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k6__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k6"
+    },
+    {
+      "bootstrap_seed": 54149991285560,
+      "family_ids_array_sha256": "389da0534545be26b00c47ac49338489b279ee5e78a070d86a9f45fe5e20f223",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 175955281589855,
+      "initial_stream": [
+        "independent-hard-regime-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k6__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k6"
+    }
+  ],
+  "post_test_refitting": false,
+  "pretest_address_audit": "audit/deployment_pretest_independence.json",
+  "reference_bootstrap": {
+    "canonical_evaluator_seed": 2026102819,
+    "seed_formula": "int(stable_hash([original.SEED,regime,profile+'__ensemble__0'])[:12],16)"
+  },
+  "required_audit_checks": [
+    "planned_families_disjoint",
+    "address_streams_disjoint"
+  ],
+  "seed": 2026102827,
+  "selection_using_final_reference": false,
+  "shared_pool_across_optimizer_seeds_and_untrained_control": true,
+  "source_hash": "b7876b03f8f4fc6b5b030a3e631ed7404b35529f6ac3b391d4c4c1cdc90a8b15",
+  "study_plan_hash": "1a9847a5997dc78a1eb997a77410f6351819fcb61871780d28dd2310baa83857",
+  "study_plan_sha256": "578863512428fc9e19086c419094894f8f1715757bce0dda89e58116b87ff027",
+  "training_preregistration_sha256": "7aadc2cd9365ab729a6942156496d1285842694fd0d0ba4cd27c4b3fca2afef4"
+}

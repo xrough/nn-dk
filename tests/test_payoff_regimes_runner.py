@@ -231,4 +231,3 @@ def test_zero_chunk_limit_does_not_draw_any_held_out_outcomes(tmp_path, monkeypa
     path = tmp_path/"reference"/case/"reference.h5"
     with h5py.File(path, "r") as store:
         assert not any(store[key]["chunk_complete"][:].any() for key in cfg.group_keys)
-

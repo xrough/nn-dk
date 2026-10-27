@@ -35,6 +35,8 @@ markers = ["integration: end-to-end training and experiment checks"]
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+# Immutable experiment snapshots are evidence, not maintained implementation.
+extend-exclude = ["docs/experiments/artifacts"]
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]

@@ -128,4 +128,3 @@ def test_complete_small_reference_candidate_and_deployment_evidence_audit(tmp_pa
     assert result["maximum_native_candidate_replay_error"] < 3e-12
     with pytest.raises(ValueError, match="overwrite"):
         audit.audit(root)
-
