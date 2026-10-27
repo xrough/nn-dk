@@ -1,0 +1,231 @@
+{
+  "LGA_contrast": "reuse locked original LGA_dt10; identical reference resample, independent NN integration resample",
+  "all_declared_fits_strictly_locked_before_initial_draw": true,
+  "all_records_primary_initial_ensemble_predictions": true,
+  "bootstrap_count": 128,
+  "cases": [
+    "T0p25_k0p75",
+    "T0p25_k3",
+    "T0p25_k6",
+    "T1_k0p75",
+    "T1_k3",
+    "T1_k6"
+  ],
+  "expected_records": 84,
+  "helpers": {
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/benchmark_payoff_generalization.py": "d252a7b36a5466d4829e41f28c74a219d179ab66ad1d876161e792e6282fbba4",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_path_generalization.py": "f4575a992b14b84210e3e90d8eef2cfc59062b458e70463f860426cfad80dad4",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_boundary_deployment.py": "80f7aaf0e206727155ed833b1cc6487ac8c39806411ba54885804a34b4148a1e",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_boundary_regimes.py": "87804d5f1dc1dfae124ff53a9e85451a5a2966899777d52305546e635833d8a2",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/run_payoff_boundary_regimes.py": "f878d4958ae4d1ddde08e2713fbd8c6fa3e69e9f9e04c1323994fe81c5622f17"
+  },
+  "independent_NN_and_reference_bootstrap": true,
+  "initials_drawn_during_preparation": false,
+  "kind": "independent-boundary-repair-neural-initial-integration-v1",
+  "legacy_control_family": "legacy-v2",
+  "legacy_control_optimizer_seeds": [
+    0,
+    1,
+    2
+  ],
+  "legacy_controls_sha256": "da3792b0588410da828717a26f07fcb92d797c0087c8b1a7f9accc92fd73e12a",
+  "matching_timing": "same model names, regime/profile/ensemble role; unchanged fresh-IID histogram integration algorithm",
+  "models_per_pool": 7,
+  "optimizer_seeds": [
+    0,
+    1,
+    2
+  ],
+  "original_comparison_preregistration_sha256": "7b186ba8bc13a1ce5040a0b655901ec7bf54de91a2e6a92bfe4c065d526c71a9",
+  "original_paired_initial_records": "preserved diagnostic; no numerical edits",
+  "pool_family_formula": "stable_hash([SEED,KIND,regime,profile,index])",
+  "pool_rng": "seeded_rng(initial_seed,KIND,'multinomial-initials'); one multinomial call",
+  "pool_seed_formula": "int(stable_hash([SEED,KIND,regime,profile,'independent-initial-pool'])[:12],16)",
+  "pools": [
+    {
+      "bootstrap_seed": 201878049390311,
+      "family_ids_array_sha256": "c5fd13de3b7213c90a33b8e6c384da66bf12495a8ff086d7259dc9bea684e8b7",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 188772909574397,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k0p75__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k0p75"
+    },
+    {
+      "bootstrap_seed": 167393875317213,
+      "family_ids_array_sha256": "6ec115e313f96513a9a20b62fb173ea4fa111109323fd2168b9cd244b910caa1",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 224018129109120,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k0p75__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k0p75"
+    },
+    {
+      "bootstrap_seed": 59725755502695,
+      "family_ids_array_sha256": "adf100f346b19d06d7d8037bfa1c85901b9a8964143216520d2956d9aa4a1fd5",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 137547742279696,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k3__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k3"
+    },
+    {
+      "bootstrap_seed": 242976236374695,
+      "family_ids_array_sha256": "49598024eae5e42e1696749abfa884af7f4544db3e2a761841e82694ed7c55d7",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 94027791944916,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k3__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k3"
+    },
+    {
+      "bootstrap_seed": 36014305632520,
+      "family_ids_array_sha256": "2f374b21f0762ef0c95d367c184a54d0d716b979fc7e3244cff66c5b65c0cc19",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 137623544828133,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k6__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T0p25_k6"
+    },
+    {
+      "bootstrap_seed": 253189847764605,
+      "family_ids_array_sha256": "9b2aae797e987f9d211fdd0411d9f4a1f3b63e878b2247ebf90b16ab94722bb6",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 212319961423305,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T0p25_k6__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T0p25_k6"
+    },
+    {
+      "bootstrap_seed": 237476759669246,
+      "family_ids_array_sha256": "ee01870756dd2ece4d300a9a383a9ccf73509086302abb393ed396467257badf",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 66118156180672,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k0p75__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k0p75"
+    },
+    {
+      "bootstrap_seed": 123489329048276,
+      "family_ids_array_sha256": "f1a45d356a35f7e7ae70a91f01459e8ffe94f86638ad402dcda6652061a7d9e2",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 160752514387497,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k0p75__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k0p75"
+    },
+    {
+      "bootstrap_seed": 83284274421555,
+      "family_ids_array_sha256": "dabfb7525f1d93532b9d37f445d2e037155d2bb8f038a5e34eb962b38dcbb8d2",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 195775303213664,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k3__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k3"
+    },
+    {
+      "bootstrap_seed": 153156395373659,
+      "family_ids_array_sha256": "abcc7ded6fce04210cdd0e553f38edee29aff02443e7dd73278d6121c4efcc4e",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 188446743269789,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k3__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k3"
+    },
+    {
+      "bootstrap_seed": 229994916158743,
+      "family_ids_array_sha256": "a66be349eb4f2451ecf0458e6393c472ac5708c844412a750ca4b728338c6dfc",
+      "group": "uniform__ensemble__0",
+      "initial_seed": 168281614978498,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k6__uniform",
+      "paths": 16384,
+      "profile": "uniform",
+      "regime": "T1_k6"
+    },
+    {
+      "bootstrap_seed": 261704930353343,
+      "family_ids_array_sha256": "670ccf11557584614cb2532e8b7e76f673410e09bf8b530b4f27e768e53a79b2",
+      "group": "nonuniform__ensemble__0",
+      "initial_seed": 12888247159051,
+      "initial_stream": [
+        "independent-boundary-repair-neural-initial-integration-v1",
+        "multinomial-initials"
+      ],
+      "key": "T1_k6__nonuniform",
+      "paths": 16384,
+      "profile": "nonuniform",
+      "regime": "T1_k6"
+    }
+  ],
+  "post_test_refitting": false,
+  "pretest_address_audit": "audit/deployment_pretest_independence.json",
+  "reference_bootstrap": {
+    "canonical_evaluator_seed": 2026102919,
+    "seed_formula": "int(stable_hash([original.SEED,regime,profile+'__ensemble__0'])[:12],16)"
+  },
+  "required_audit_checks": [
+    "planned_families_disjoint",
+    "address_streams_disjoint"
+  ],
+  "seed": 2026102927,
+  "selection_using_final_reference": false,
+  "shared_pool_across_optimizer_seeds_and_untrained_control": true,
+  "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "study_plan_hash": "7ccbdb678c7abd6f6b3cd379752a56c8afaafc10010388c9488275e64b5ad6bc",
+  "study_plan_sha256": "a941e5618d5d5ceaae0147874a2ec18dd5a2e30a0bf6d83bec82b785ac64817c",
+  "training_preregistration_sha256": "d653e5442782a23189b01a9b79f347a57d0124d980ddf5f7c2ce15858412b1fb"
+}

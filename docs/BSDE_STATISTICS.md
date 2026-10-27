@@ -143,3 +143,100 @@ The scientific targets remain 5% normalized error and 1.25% for each uncertainty
 Reports separate neural error against the same-step Euler law, total error against the fine reference, and coarse/fine time differences. Covariance residuals and stopping diagnostics remain available even when overall gates are unresolved. Costs include forward generation, first-epoch profiling, fitting, initialization, inference and reference work. Shared costs repeated across optimizer-seed rows must not be summed. A speed advantage requires matched, resolved accuracy and amortization over distinct initial-state queries.
 
 Next stages add interactions, joint temporal statistics, then an independently specified pathwise SPDE solver. Spatial refinement is a resolution study until a continuum regularization/noise target is declared.
+
+## Boundary consistent generator formulation
+
+The separate `nn_dk.payoff_boundary` workflow predicts moments by a continuous
+native-DK generator residual. It uses simulated **states** for collocation and
+known drift/noise coefficients; it does not train against simulated future
+payoffs. Its checkpoints have the distinct identifier
+`continuous-native-dk-moving-boundary-native-slope-moments-v3`. Historical BSDE
+and v2 moment checkpoints retain their original formulations and loaders.
+
+For a terminal weight \(\phi\), running weight \(r\), and remaining time \(\tau\),
+the payoff is the frozen terminal observable plus the running integral killed
+at stopping. Its mean and conditional covariance satisfy
+
+\[
+\partial_\tau u=\mathcal L_h u+r,\qquad
+\partial_\tau C=\mathcal L_h C+\Gamma_h(u,u).
+\]
+
+These equations use physical means and ordinary conditional covariances.
+Here \(\Gamma_h(u,u)=(\nabla u)A_h(\nabla u)^\top\), with
+\(A_h=N^{-1}S_h S_h^\top\), uses the native finite-volume noise. The native
+coefficient API stores \(S_h S_h^\top\) before the factor \(1/N\), while neural
+predictions return \(N\)-scaled covariance. At an absorbed state, the outputs
+are exactly \(u=\phi\) and \(C=0\),
+with no subsequent running contribution. The neural maps return selected means
+and same-time covariances; they do not generate density paths or hitting times.
+
+The v2 fixed spatial gate changed the mean's required right derivative at zero
+remaining time. The v3 moving gate is
+
+\[
+g(\tau,m)=\prod_i\operatorname{erf}
+ \left(\frac{(m_i-m_*)\sqrt T}{w\sqrt\tau}\right),\qquad w=0.05/G.
+\]
+
+For each strict interior state it approaches one with flat time derivatives as
+\(\tau\downarrow0\), while permitting linear vanishing with distance to a
+boundary at positive time. Absorbed states are handled by an exact override.
+Gate derivatives are evaluated in the log domain. This is a consistent
+boundary ansatz, not an exact hitting-probability formula for the coupled DK
+system.
+
+The mean uses known heat evolution, the exact native interaction contribution
+to the initial terminal slope, and a learned correction of order \(\tau^2/T\).
+Thus \(u(0,m)=\phi(m)\) and
+\(\partial_\tau u(0,m)=\mathcal L_h\phi(m)+r(m)\) hold independently of the
+learned weights. The covariance is a positive heat covariance transformed by
+a learned congruence and multiplied by the moving gate, with no additive
+floor. Its construction preserves the leading terminal/terminal,
+terminal/integral, and integral/integral time orders \(\tau,\tau^2,\tau^3\).
+These consistency checks do not by themselves establish accurate predictions
+at finite time.
+
+Both stages use fixed, training-only full-horizon heat fluctuation scales.
+Mean residuals are normalized by \(s_i/T\), and covariance residuals by
+\(s_i s_j/T\); no inverse power of the sampled remaining time enters the loss.
+For each normalized residual \(z\), the objective uses
+
+\[
+\ell(z)=2\delta^2\left(\sqrt{1+(z/\delta)^2}-1\right),\qquad\delta=3.
+\]
+
+It is quadratic near zero and has bounded influence at large residuals.
+Validation retains raw physical RMS, normalized squared residuals, and the
+robust objective separately, including boundary-distance strata. Comparing a
+robust objective with a previous squared objective cannot establish a solver
+improvement. Mean fitting and covariance fitting remain separate; the selected
+mean is frozen throughout covariance fitting.
+
+The six-case runner is `analysis/run_payoff_boundary_regimes.py`, with separate
+accuracy, independent-initial integration, and timing helpers documented in
+the [analysis guide](../analysis/README.md). Native Monte Carlo and the frozen
+v2 models are controls. Final reference draws are unlocked only after all
+eighteen new fits are restored and locked. New training and validation pools
+mean that an observed prediction improvement cannot be attributed uniquely to
+the boundary and loss changes.
+
+The [fresh six-case experiment](experiments/payoff_boundary_regimes_2026-10-27.md)
+also demonstrates a limitation of this loss repair. On identical new validation
+states in common fixed units, the \(T=1,\kappa=6\) mean-residual RMS is
+21.85–23.86 for v3 versus 24.69–28.35 for frozen v2. Covariance-residual RMS is
+372.1–535.5 versus 49.35–86.42. Covariance sources use each version's learned
+mean, so this cross-version comparison does not isolate covariance-head fitting.
+These equation residuals are distinct from observable prediction errors.
+
+The matched covariance-stage comparison holds the selected mean fixed. On its
+256-row diagnostic subset, the robust criterion falls 4.3–7.4%, while ordinary
+squared-residual RMS rises 2.0–4.2%. In the full strongest-case validation pool,
+only 12 of 4,096 collocation rows, at two to five times the stopping mass,
+contribute 98.2–98.9% of covariance squared residual and 62.7–69.4% of robust
+loss. These are correlated collocation rows, not independent trajectories.
+Substantial bulk-state residuals remain as well. Bounded residual influence
+therefore reduces one source of imbalance without establishing accurate
+covariance predictions. The archived
+[read-only residual review](experiments/artifacts/payoff_boundary_regimes_2026-10-27/audit/fit_interpretation_review.json.gz)
+retains both formulations, phase comparisons, and boundary strata.

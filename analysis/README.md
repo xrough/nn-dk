@@ -282,6 +282,90 @@ evidence with `analysis/report_payoff_regimes.py archive --run RUNROOT`; use
 Raw HDF5, arrays and weights remain local with a full inventory. Prior studies
 and checkpoint formats are preserved.
 
+## Boundary and residual loss repair
+
+`run_payoff_boundary_regimes.py` runs the distinct v3 statistics formulation
+described in the [statistics guide](../docs/BSDE_STATISTICS.md#boundary-consistent-generator-formulation).
+It keeps the earlier six horizon/interaction cases, all three optimizer seeds,
+and the earlier v2 checkpoints as controls. Full historical local inputs from
+`runs/payoff-regimes-2026-10-27/` and the checksum-indexed public evidence archive
+are required to restore those controls. The legacy loader verifies the archived
+source bytes against the corresponding current historical modules and checks
+the local weights, metadata, and fit lock. The compact archive indexes binary
+weights and numerical banks that remain local.
+
+Use a fresh directory and keep package source and all preregistered helper
+files unchanged during execution. The study freezes fresh training, validation,
+reference, native-MC comparison, and neural initial-integration streams before
+fitting. Preparation and identifier-only independence checks precede any final
+outcomes:
+
+```bash
+.venv/bin/python analysis/run_payoff_boundary_regimes.py prepare --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_boundary_regimes.py prepare --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_boundary_deployment.py prepare --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_regimes.py pretest --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_deployment.py --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_formulation.py --output runs/payoff-boundary-regimes-2026-10-27/audit/formulation_control.json
+```
+
+Finish all eighteen fits before generating final reference paths. The ordinary
+sequential commands are sufficient; separate optimizer seeds may run in three
+processes with one owner per seed. No reference job may overlap fitting. A
+budget exit of 75 checkpoints the unfinished allocation; resume the identical
+seed command before locking. Never discard a seed or refit after viewing final
+outcomes.
+
+```bash
+.venv/bin/python analysis/run_payoff_boundary_regimes.py fit --seed 0 --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/run_payoff_boundary_regimes.py fit --seed 1 --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/run_payoff_boundary_regimes.py fit --seed 2 --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/run_payoff_boundary_regimes.py lock --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_validation.py --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/review_payoff_boundary_fit.py --root runs/payoff-boundary-regimes-2026-10-27
+```
+
+For each of `T0p25_k0p75`, `T0p25_k3`, `T0p25_k6`, `T1_k0p75`, `T1_k3`,
+and `T1_k6`, run the reference command below with that `--case`. Native reference
+refinements share Brownian families within a group. Reference, comparison-MC,
+and neural initial-integration families are independent. Every stopped path
+contributes to the statistics.
+
+```bash
+.venv/bin/python analysis/run_payoff_boundary_regimes.py reference --case T0p25_k0p75 --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_boundary_regimes.py evaluate --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/evaluate_payoff_boundary_deployment.py evaluate --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_native.py --root runs/payoff-boundary-regimes-2026-10-27
+.venv/bin/python analysis/audit_payoff_boundary_metrics.py --root runs/payoff-boundary-regimes-2026-10-27
+```
+
+The evaluation commands require all six references. They retain 360 original
+method records and 84 independent-initial neural records. The latter replace
+the shared-initial ensemble predictions in the 360-record primary comparison;
+the original paired diagnostics remain available. Matched-seed v3/v2 contrasts
+and v3/Gaussian contrasts use whole-family bootstrap uncertainty, with
+independent reference and initial-integration resampling. Neither consistency
+across seeds nor pointwise intervals constitute a simultaneous grid-wide claim.
+
+After **every** fitting, reference, review, audit, and other heavy CPU process
+has exited, measure final timing in isolation:
+
+```bash
+.venv/bin/python analysis/evaluate_payoff_boundary_regimes.py benchmark --root runs/payoff-boundary-regimes-2026-10-27 --final-timing
+.venv/bin/python analysis/report_payoff_boundary_regimes.py report --run runs/payoff-boundary-regimes-2026-10-27 --documentation docs/experiments/payoff_boundary_regimes_2026-10-27.md
+.venv/bin/python analysis/audit_payoff_boundary_report.py --root runs/payoff-boundary-regimes-2026-10-27
+```
+
+Conditional timings accept supplied histograms; independent-ensemble timings
+include drawing and integrating 16,384 fresh histograms. Both v2 and v3 neural
+costs include restoration, cold prediction, literal warm calls, and their own
+one-model training and shared state-generation costs. Historical v2 fitting is
+disclosed separately from work incurred by this rerun. Summed concurrent fit
+durations are not elapsed batch time; worker process CPU and monotonic wall
+intervals remain separate. Arithmetic amortization is qualified by accuracy
+and uncertainty only when all corresponding gates pass. The finite-grid stopped
+Euler reference and its refinements do not certify a continuum DK limit.
+
 ## Autonomous coefficient solver
 
 Run these commands from the repository root, using its locked Python environment:

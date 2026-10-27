@@ -62,6 +62,7 @@ and the [verification guide](docs/verification.md).
 | `interacting-moments` | Selected means and full same-time covariance, conditioned on the complete interacting state | [Interacting solvers](docs/INTERACTING_SOLVERS.md) |
 | `generator` | Structured generator-residual moment predictions for the declared observable bank | [Generator moments](docs/GENERATOR_MOMENTS.md) |
 | `bsde`, `bsde-study` | Conditional value/statistics maps and initial-state coverage studies | [BSDE statistics](docs/BSDE_STATISTICS.md) |
+| `analysis/run_payoff_boundary_regimes.py` | Boundary-consistent generator-residual statistics with native short-time slopes, robust fixed-unit losses, and independent all-seed comparison | [Boundary formulation](docs/BSDE_STATISTICS.md#boundary-consistent-generator-formulation) |
 | `convergence` | Autonomous native-DK coefficient learning, ablations, and refinement experiments | [Coefficient convergence](docs/PROJECT_A_CONVERGENCE.md) |
 | `run` | Original particle/coarse-dynamics A/B benchmark | [Numerical methods](docs/methods.md) |
 
@@ -73,7 +74,32 @@ historical models requires the full local study inputs.
 
 ## Current evidence
 
-The [longer-horizon, stronger-interaction study](docs/experiments/payoff_regimes_2026-10-27.md)
+The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
+is complete: 18 new v3 fits, 18 frozen v2 controls, and 589,824 fresh native
+reference families at T=0.25/1 and κ=0.75/3/6. The moving boundary gate and exact
+native short-time slopes pass their consistency audits. **Overall prediction
+accuracy does not improve.** Of 216 group/time/statistic comparisons, 21 favor
+v3 over v2 for all three seeds with resolved pointwise intervals; 49 favor v2.
+Against fine Gaussian, none consistently favors v3 and 85 favor Gaussian.
+These counts do not establish simultaneous grid-wide confidence.
+
+At T=1, κ=6, v3's worst mean error improves to **2.47–3.05 reference SD**, versus
+**5.75–5.86** for v2 and **0.260** for Gaussian. Terminal covariance error worsens
+to **304–326%** of reference SD products; integral covariance error remains
+**94.3–94.6%**. Rare boundary rows still dominate covariance residuals under the
+robust objective. The [statistics guide](docs/BSDE_STATISTICS.md#boundary-consistent-generator-formulation)
+records the common-unit residual and matched-stage diagnosis.
+
+Each new fit takes **513–635 s**. Warm supplied-state inference takes
+**0.701–0.738 ms**, versus **7.8–31.8 ms** for the cheaper Gaussian step.
+Independent-IID integration takes **312–349 ms**, versus **7.9–31.8 ms** for
+Gaussian; native MC takes **1.9–7.8 s** per 16,384-path estimate. No
+accuracy-qualified training-cost crossover is established. All **1,181 tests**,
+numerical replay audits, and the **408-workload** isolated timing benchmark
+passed. Full costs, uncertainty, all seeds and the stopped finite-grid scope
+remain in the [evidence archive](docs/experiments/artifacts/payoff_boundary_regimes_2026-10-27/README.md).
+
+The preceding [longer-horizon, stronger-interaction study](docs/experiments/payoff_regimes_2026-10-27.md)
 tests T=0.25/1 and κ=0.75/3/6 at G=32, N=2048. All 18 repaired statistics
 fits and 589,824 independent native reference families are retained. Across
 216 group/horizon/statistic comparisons, **none favors the NN for all three
