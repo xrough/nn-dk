@@ -1,0 +1,280 @@
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py prepare --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate
+{
+  "prepared": true,
+  "records": 24,
+  "pools": 2
+}
+
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py freeze --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate
+{
+  "kind": "joint-locked-independent-IID-nonlinear-LNA-correction-evaluation-v1",
+  "complete": true,
+  "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "packet_sha256": "2c20ab2f7df7c0114bd728c0ce58782eb5fc221cb1904b8abae5ccd30f68641e",
+  "planned_families_sha256": "9a299f86a549e8b66222ac653235a13c2dfcf1cf7741621152b289853dc9b55e",
+  "identifier_audit_sha256": "5134ecc9fca56b566d1138dd378c563a06649b9618ab762b7c57218cbf0fbdb4",
+  "candidate_fit_lock_sha256": "ecf78f86a2bdb5c3cb23aff44ebdadf356ed261377960212eef9b9e7bdf814de",
+  "collocation_fit_lock_sha256": "4272d1c5602827ed1142be1e076cbec9300002cb3e6aab7cdbb9a7ca96ebf285",
+  "collocation_evaluation_lock_sha256": "0bda56a48d9dda1c149d9761b2c1fb3232181317405d3a0e1c9700477dcabaf8",
+  "before_any_final_reference_or_independent_initials": true
+}
+
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py reference --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate
+{
+  "T0p015625_k0p75": {
+    "status": "complete",
+    "committed_chunks": 8
+  }
+}
+
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_collocation_study.py evaluate --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/collocation
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed0
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_squared_seed0
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed0
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_squared_seed0
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed1
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_squared_seed1
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed1
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_squared_seed1
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed2
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_uniform_squared_seed2
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed2
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_stratified_squared_seed2
+accuracy T0p015625_k0p75 uniform__conditional__0 T0p015625_k0p75_untrained
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed0
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_squared_seed0
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed0
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_squared_seed0
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed1
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_squared_seed1
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed1
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_squared_seed1
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_pseudo_huber_seed2
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_uniform_squared_seed2
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_pseudo_huber_seed2
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_stratified_squared_seed2
+accuracy T0p015625_k0p75 nonuniform__conditional__0 T0p015625_k0p75_untrained
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed0
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed0
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed0
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed0
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed1
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed1
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed1
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed1
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed2
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed2
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed2
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed2
+accuracy T0p015625_k0p75 uniform__ensemble__0 T0p015625_k0p75_untrained
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed0
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed0
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed0
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed0
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed1
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed1
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed1
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed1
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_pseudo_huber_seed2
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_uniform_squared_seed2
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_pseudo_huber_seed2
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_stratified_squared_seed2
+accuracy T0p015625_k0p75 nonuniform__ensemble__0 T0p015625_k0p75_untrained
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_pseudo_huber_seed0
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_squared_seed0
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_pseudo_huber_seed0
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_squared_seed0
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_pseudo_huber_seed1
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_squared_seed1
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_pseudo_huber_seed1
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_squared_seed1
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_pseudo_huber_seed2
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_uniform_squared_seed2
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_pseudo_huber_seed2
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_stratified_squared_seed2
+independent-deployment T0p015625_k0p75 uniform T0p015625_k0p75_untrained
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_pseudo_huber_seed0
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_squared_seed0
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_pseudo_huber_seed0
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_squared_seed0
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_pseudo_huber_seed1
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_squared_seed1
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_pseudo_huber_seed1
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_squared_seed1
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_pseudo_huber_seed2
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_uniform_squared_seed2
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_pseudo_huber_seed2
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_stratified_squared_seed2
+independent-deployment T0p015625_k0p75 nonuniform T0p015625_k0p75_untrained
+{"complete": true, "command": "evaluate", "records": 90}
+
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py evaluate --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate
+{
+  "kind": "joint-locked-independent-IID-nonlinear-LNA-correction-evaluation-v1",
+  "joint_lock_sha256": "4384ffeee10e9f12db773d0003c33bd2f02db4732959a306ae4fbaba7c3f8151",
+  "complete": true,
+  "groups": [
+    {
+      "case": "T0p015625_k0p75",
+      "group": "nonuniform__conditional__0",
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/accuracy/T0p015625_k0p75/nonuniform__conditional__0/group.json",
+      "sha256": "44a02e8e985b1ffd75a0776b1064d05ccb76fb7663ff9bd312bb86c6ee003c6f"
+    },
+    {
+      "case": "T0p015625_k0p75",
+      "group": "nonuniform__ensemble__0",
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/accuracy/T0p015625_k0p75/nonuniform__ensemble__0/group.json",
+      "sha256": "d0a1560ca81f74b1b9f1679f5554865e93f68b8d5f789a38fcc55fdfe43dd8df"
+    },
+    {
+      "case": "T0p015625_k0p75",
+      "group": "uniform__conditional__0",
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/accuracy/T0p015625_k0p75/uniform__conditional__0/group.json",
+      "sha256": "33a457d01a944508d6c2bf88bf760cc3321a7a459439522999e66fc4e6536b5d"
+    },
+    {
+      "case": "T0p015625_k0p75",
+      "group": "uniform__ensemble__0",
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/accuracy/T0p015625_k0p75/uniform__ensemble__0/group.json",
+      "sha256": "933e367cb60561ea786e999decfa631dbc8c9e59ad3adf29d21e59be07edba08"
+    }
+  ],
+  "expected_groups": 4,
+  "expected_records": 24
+}
+
+$ /Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py contrasts --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate
+{
+  "complete": true,
+  "contrasts": 120
+}
+
+{
+  "kind": "real-tiny-joint-guard-and-accuracy-software-acceptance-v1",
+  "candidate_root": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+  "collocation_root": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/collocation",
+  "scientific_allocation": false,
+  "whole_joint_end_to_end_complete": false,
+  "benchmarks_run": false,
+  "global_quiet_required_before_timing": true,
+  "stages": [
+    {
+      "stage": "prepare",
+      "script": "evaluate_lna_payoff_correction.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 22.525039833970368
+    },
+    {
+      "stage": "freeze",
+      "script": "evaluate_lna_payoff_correction.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 9.706642166012898
+    },
+    {
+      "stage": "reference",
+      "script": "evaluate_lna_payoff_correction.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 9.196723458124325
+    },
+    {
+      "stage": "evaluate",
+      "script": "evaluate_payoff_collocation_study.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 45.71726162498817
+    },
+    {
+      "stage": "evaluate",
+      "script": "evaluate_lna_payoff_correction.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 13.094456457998604
+    },
+    {
+      "stage": "contrasts",
+      "script": "evaluate_lna_payoff_correction.py",
+      "exit_code": 0,
+      "driver_observed_wall_seconds": 17.563967667054385
+    }
+  ],
+  "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "source_shas": {
+    "evaluate_lna_payoff_correction.py": "7351675644c83732ec507b87751c21877c42cd994ab2a8ccaaf5770ee589b091",
+    "report_lna_payoff_correction.py": "ffbab1cf7ed05a7f1341c280837296209c294fdaa7c0a49cff2d454dc7425d7e",
+    "run_lna_payoff_correction_study.py": "f237f90b289e24c1cd989e7d7422a6c73a8f9cfb58ceccc35581e45e3dd9944b",
+    "fit_lna_payoff_correction.py": "2d5ac564721ab9afe4c57ae5ed6c354e4a27a594014d0548ce449039acc3e1f7",
+    "batched_native_gaussian.py": "9ffdf9ea7475d71ecbdc221309e8bcbfcd9dd74d63d9a6613d3e0b94edb6fb8c",
+    "audit_lna_supervised_labels.py": "c33e42465c124053f87e5c93505f71f47f1ac25c8d807917a010e15a4781e039",
+    "evaluate_payoff_collocation_study.py": "974f5c0fee507653b92059af6b1eb2d5017f354fd971b7a402354296f263378c",
+    "run_payoff_collocation_study.py": "4690a3bdf1de93b2897cf2a5ec54a4a83447026e96b39106efd976f342aff890"
+  },
+  "fit_lock_sha256_before": {
+    "candidate": "ecf78f86a2bdb5c3cb23aff44ebdadf356ed261377960212eef9b9e7bdf814de",
+    "collocation": "4272d1c5602827ed1142be1e076cbec9300002cb3e6aab7cdbb9a7ca96ebf285"
+  },
+  "joint_lock_sha256": "4384ffeee10e9f12db773d0003c33bd2f02db4732959a306ae4fbaba7c3f8151",
+  "joint_packet_sha256": "2c20ab2f7df7c0114bd728c0ce58782eb5fc221cb1904b8abae5ccd30f68641e",
+  "joint_lock_preceded_all_final_materialization": true,
+  "fit_lock_sha256_after_CLI_receipts": {
+    "candidate": "ecf78f86a2bdb5c3cb23aff44ebdadf356ed261377960212eef9b9e7bdf814de",
+    "collocation": "4272d1c5602827ed1142be1e076cbec9300002cb3e6aab7cdbb9a7ca96ebf285"
+  },
+  "allocation": {
+    "candidate_models": 3,
+    "candidate_primary_records": 24,
+    "baseline_primary_records": 64,
+    "unavailable_candidate_records": 0,
+    "timing_jobs": 0
+  },
+  "baseline_original_accuracy_records": 64,
+  "baseline_independent_initial_records": 26,
+  "contrasts": 120,
+  "candidate_initial_pool_families": 8,
+  "evaluator_process_receipts": [
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_contrasts_47675_1793302792098251000.json",
+      "sha256": "faa8619e77986b4d90fc844fa8f8fd737c7d4b71cf67cb26ac1a2daeb73c7237",
+      "stage": "contrasts",
+      "whole_process": true,
+      "status": "success"
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_evaluate_47570_1793302781441262000.json",
+      "sha256": "40583e31b140a3a4ccd3923cc586d494db8aaf2bd6a5d09c26545029654f8eeb",
+      "stage": "evaluate",
+      "whole_process": true,
+      "status": "success"
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_freeze_47004_1793302711358569000.json",
+      "sha256": "d71f91b0ee37ea60f796636348430c51995a429c654fb7458dc9d1ad80491485",
+      "stage": "freeze",
+      "whole_process": true,
+      "status": "success"
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_prepare_46817_1793302687089451000.json",
+      "sha256": "92cfd7a7eeb380135875f22fa06a14fb83351b78b8164b1d848acd3920867a83",
+      "stage": "prepare",
+      "whole_process": true,
+      "status": "success"
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_reference_47089_1793302724278911000.json",
+      "sha256": "b7880a49a1a5e9b5e22dc10f9c1596ea0dfc490c20351e5b0fb3fb50fdd0ca58",
+      "stage": "reference",
+      "whole_process": true,
+      "status": "success"
+    }
+  ],
+  "guard_reference_accuracy_complete": true,
+  "pending_commands_after_global_quiet": [
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_collocation_study.py benchmark --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/collocation --final-timing",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py benchmark --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate --final-timing",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py verify --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py report --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+    "After actual tiny acceptance,write honest candidate/audit/final_tests.json before archive.",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py archive --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate --output /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/compact-evidence",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py verify-archive --output /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/compact-evidence"
+  ],
+  "driver_wall_seconds": 137.77504300000146,
+  "no_actual_scientific_final_values_accessed": true
+}

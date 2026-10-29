@@ -240,3 +240,43 @@ therefore reduces one source of imbalance without establishing accurate
 covariance predictions. The archived
 [read-only residual review](experiments/artifacts/payoff_boundary_regimes_2026-10-27/audit/fit_interpretation_review.json.gz)
 retains both formulations, phase comparisons, and boundary strata.
+
+## Matched sampling and objective investigation
+
+The subsequent study crosses uniform/stratified proposals with squared and
+pseudo-Huber losses on the same literal state pools, initial weights and
+train-only scales. All **72 fits** are complete. Each proposal's importance
+weight multiplies the per-row loss after the robust transform, preserving the
+natural-pool objective. The selected mean remains frozen during covariance
+fitting. No future-payoff labels or synthetic stress states enter this cross.
+
+The [completed residual supplement](experiments/payoff_collocation_residuals_2026-10-30.md)
+retains all nineteen input-only strata and all sixteen covariance entries in
+solver, physical and original training units. Empty bins have undefined
+residual metrics. The closest boundary bin is empty in every case, so balancing
+occupied rows cannot establish accuracy there. A counterfactual common-source
+substitution is separate from training with a shared mean. Residual reductions
+on these selection data require the independent final accuracy comparison.
+
+## Supervised nonlinear-LNA correction
+
+A separate candidate uses the existing nonlinear deterministic mean and
+linear-noise covariance ODE along that mean as its baseline. Two correction
+heads learn selected conditional payoff means and covariances from independent
+native-Euler continuation labels. The mean correction vanishes quadratically
+at zero remaining time; a moving absorption gate and time-ordered covariance
+congruence retain the formulation's initial conditions and covariance geometry.
+Raw conditional LNA at two steps and the gated zero-correction model remain
+explicit controls. The baseline is an approximation to the stopped nonlinear
+law; its structure alone supplies no accuracy certificate.
+
+All **18 fits**, **307,200 learner continuations** and the independent label
+prefix audit are complete. All candidate and collocation fits, criteria and
+evaluation sources were jointly locked before the fresh final references.
+Final independent accuracy, literal full-IID inference costs and contrasts
+remain pending. IID-law predictions integrate each fresh histogram's own
+conditional ODE and use the law of total covariance; an analytic initial-law
+shortcut cannot replace that declared work. This candidate supplies a fixed
+payoff bank, not a complete baseline-ODE input-sensitivity or generator API.
+The [analysis guide](../analysis/README.md#supervised-nonlinear-lna-correction-and-joint-final-data-gate)
+records the allocation, controls, stopping and failure rules, and cost scope.

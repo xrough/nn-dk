@@ -1,0 +1,39 @@
+# Standalone configuration matching the a-full preset.
+name = "a-full"
+seed = 20261024
+cases = ["uniform", "nonuniform", "interacting"]
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 1.0
+query_times = [0.25, 0.5, 1.0]
+reference_dt = 0.0001220703125
+step_sizes = [0.0078125, 0.00390625, 0.001953125, 0.0009765625]
+train_path_counts = [64, 256, 1024, 4096]
+widths = [16, 32, 64]
+base_width = 32
+training_modes = ["oracle", "increments"]
+optimizer_seeds = [0, 1, 2]
+states_per_path = 32
+validation_paths = 64
+coefficient_test_paths = 64
+diagnostic_paths = 8192
+final_paths = 65536
+refinement_paths = 32
+proposal_dt = 0.0078125
+trajectory_batch_size = 32
+evaluation_batch_size = 64
+bootstrap_samples = 200
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 28800.0
+particle_numbers = [512, 2048, 8192]
+
+[training]
+epochs = 100
+patience = 10
+batch_size = 128
+learning_rate = 0.001
+weight_decay = 1e-05
+threads = 1

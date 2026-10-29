@@ -1,0 +1,35 @@
+# Continuous-generator moment study; geometry-adapter Euler settings do not define this target.
+name = "generator-smoke"
+seed = 2026102601
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 1.0
+query_times = [0.25, 0.5, 1.0]
+cases = ["uniform", "nonuniform"]
+optimizer_seeds = [0]
+width = 8
+conditional_anchors = 2
+validation_anchors = 4
+ou_test_anchors = 8
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 600.0
+
+[training]
+collocation_nodes = 9
+validation_nodes = 17
+adam_steps = 2
+adam_learning_rate = 0.001
+lbfgs_steps = 2
+lbfgs_max_iter = 2
+lbfgs_learning_rate = 1.0
+residual_tolerance = 1e-06
+threads = 1
+
+[reference_settings]
+ode_step = 1.52587890625e-05
+window_step = 1.52587890625e-05
+tilt = 1.0
+certificate_tolerance = 1e-08

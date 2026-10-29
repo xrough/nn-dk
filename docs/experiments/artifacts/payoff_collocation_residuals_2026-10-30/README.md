@@ -1,0 +1,3 @@
+# Validation residual supplement evidence
+
+See [the supplement](audit/report/report.md). All crossed models, optimizer seeds and 19 bins remain. This is validation-selected descriptive residual evidence, not independent accuracy or an error certificate. Final MC reference/comparison/deployment trees are deliberately neither copied nor indexed here. Per-row NPZ, checkpoints and learner HDF5 banks stay local and checksum-indexed. Tested maintained sources, configuration, licensing and QA logs are copied exactly; this is a partial repository snapshot. See [license coverage](code/LICENSING.md), the [canonical repository](https://github.com/xrough/nn-dk) and [canonical documentation](https://github.com/xrough/nn-dk/tree/main/docs) for omitted Git history/documents.

@@ -1,0 +1,129 @@
+{
+  "allocation": {
+    "baseline_primary_records": 64,
+    "candidate_models": 3,
+    "candidate_primary_records": 24,
+    "timing_jobs": 0,
+    "unavailable_candidate_records": 0
+  },
+  "baseline_independent_initial_records": 26,
+  "baseline_original_accuracy_records": 64,
+  "benchmarks_run": false,
+  "candidate_initial_pool_families": 8,
+  "candidate_root": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+  "collocation_root": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/collocation",
+  "contrasts": 120,
+  "driver_wall_seconds": 137.77504300000146,
+  "evaluator_process_receipts": [
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_contrasts_47675_1793302792098251000.json",
+      "sha256": "faa8619e77986b4d90fc844fa8f8fd737c7d4b71cf67cb26ac1a2daeb73c7237",
+      "stage": "contrasts",
+      "status": "success",
+      "whole_process": true
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_evaluate_47570_1793302781441262000.json",
+      "sha256": "40583e31b140a3a4ccd3923cc586d494db8aaf2bd6a5d09c26545029654f8eeb",
+      "stage": "evaluate",
+      "status": "success",
+      "whole_process": true
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_freeze_47004_1793302711358569000.json",
+      "sha256": "d71f91b0ee37ea60f796636348430c51995a429c654fb7458dc9d1ad80491485",
+      "stage": "freeze",
+      "status": "success",
+      "whole_process": true
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_prepare_46817_1793302687089451000.json",
+      "sha256": "92cfd7a7eeb380135875f22fa06a14fb83351b78b8164b1d848acd3920867a83",
+      "stage": "prepare",
+      "status": "success",
+      "whole_process": true
+    },
+    {
+      "path": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate/evaluation/execution/cli_reference_47089_1793302724278911000.json",
+      "sha256": "b7880a49a1a5e9b5e22dc10f9c1596ea0dfc490c20351e5b0fb3fb50fdd0ca58",
+      "stage": "reference",
+      "status": "success",
+      "whole_process": true
+    }
+  ],
+  "fit_lock_sha256_after_CLI_receipts": {
+    "candidate": "ecf78f86a2bdb5c3cb23aff44ebdadf356ed261377960212eef9b9e7bdf814de",
+    "collocation": "4272d1c5602827ed1142be1e076cbec9300002cb3e6aab7cdbb9a7ca96ebf285"
+  },
+  "fit_lock_sha256_before": {
+    "candidate": "ecf78f86a2bdb5c3cb23aff44ebdadf356ed261377960212eef9b9e7bdf814de",
+    "collocation": "4272d1c5602827ed1142be1e076cbec9300002cb3e6aab7cdbb9a7ca96ebf285"
+  },
+  "global_quiet_required_before_timing": true,
+  "guard_reference_accuracy_complete": true,
+  "joint_lock_preceded_all_final_materialization": true,
+  "joint_lock_sha256": "4384ffeee10e9f12db773d0003c33bd2f02db4732959a306ae4fbaba7c3f8151",
+  "joint_packet_sha256": "2c20ab2f7df7c0114bd728c0ce58782eb5fc221cb1904b8abae5ccd30f68641e",
+  "kind": "real-tiny-joint-guard-and-accuracy-software-acceptance-v1",
+  "no_actual_scientific_final_values_accessed": true,
+  "pending_commands_after_global_quiet": [
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_collocation_study.py benchmark --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/collocation --final-timing",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py benchmark --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate --final-timing",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py verify --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py report --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate",
+    "After actual tiny acceptance,write honest candidate/audit/final_tests.json before archive.",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py archive --root /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/candidate --output /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/compact-evidence",
+    "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python /Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py verify-archive --output /private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/compact-evidence"
+  ],
+  "scientific_allocation": false,
+  "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "source_shas": {
+    "audit_lna_supervised_labels.py": "c33e42465c124053f87e5c93505f71f47f1ac25c8d807917a010e15a4781e039",
+    "batched_native_gaussian.py": "9ffdf9ea7475d71ecbdc221309e8bcbfcd9dd74d63d9a6613d3e0b94edb6fb8c",
+    "evaluate_lna_payoff_correction.py": "7351675644c83732ec507b87751c21877c42cd994ab2a8ccaaf5770ee589b091",
+    "evaluate_payoff_collocation_study.py": "974f5c0fee507653b92059af6b1eb2d5017f354fd971b7a402354296f263378c",
+    "fit_lna_payoff_correction.py": "2d5ac564721ab9afe4c57ae5ed6c354e4a27a594014d0548ce449039acc3e1f7",
+    "report_lna_payoff_correction.py": "ffbab1cf7ed05a7f1341c280837296209c294fdaa7c0a49cff2d454dc7425d7e",
+    "run_lna_payoff_correction_study.py": "f237f90b289e24c1cd989e7d7422a6c73a8f9cfb58ceccc35581e45e3dd9944b",
+    "run_payoff_collocation_study.py": "4690a3bdf1de93b2897cf2a5ec54a4a83447026e96b39106efd976f342aff890"
+  },
+  "stages": [
+    {
+      "driver_observed_wall_seconds": 22.525039833970368,
+      "exit_code": 0,
+      "script": "evaluate_lna_payoff_correction.py",
+      "stage": "prepare"
+    },
+    {
+      "driver_observed_wall_seconds": 9.706642166012898,
+      "exit_code": 0,
+      "script": "evaluate_lna_payoff_correction.py",
+      "stage": "freeze"
+    },
+    {
+      "driver_observed_wall_seconds": 9.196723458124325,
+      "exit_code": 0,
+      "script": "evaluate_lna_payoff_correction.py",
+      "stage": "reference"
+    },
+    {
+      "driver_observed_wall_seconds": 45.71726162498817,
+      "exit_code": 0,
+      "script": "evaluate_payoff_collocation_study.py",
+      "stage": "evaluate"
+    },
+    {
+      "driver_observed_wall_seconds": 13.094456457998604,
+      "exit_code": 0,
+      "script": "evaluate_lna_payoff_correction.py",
+      "stage": "evaluate"
+    },
+    {
+      "driver_observed_wall_seconds": 17.563967667054385,
+      "exit_code": 0,
+      "script": "evaluate_lna_payoff_correction.py",
+      "stage": "contrasts"
+    }
+  ],
+  "whole_joint_end_to_end_complete": false
+}

@@ -1,0 +1,28 @@
+# Short-horizon execution check of coupled, separately fitted time grids.
+# This allocation is not a scientific convergence-rate experiment.
+name = "path-refinement-smoke"
+seed = 2026102504
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 0.0625
+step_sizes = [0.0078125, 0.00390625, 0.001953125]
+reference_step = 0.0009765625
+query_times = [0.03125, 0.0625]
+cases = ["heat", "additive", "dk_uniform", "dk_nonuniform", "dk_interacting"]
+optimizer_seeds = [0]
+width = 16
+depth = 3
+train_paths = 32
+validation_paths = 16
+test_paths = 64
+adam_steps = 200
+lbfgs_steps = 20
+lbfgs_max_iter = 5
+learning_rate = 0.003
+batch_size = 32
+n_bootstrap = 100
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 28800.0

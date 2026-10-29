@@ -1,0 +1,188 @@
+{
+  "all_candidate_fits_locked_before_new_references": true,
+  "balanced": {
+    "a2": 0.1,
+    "adam_steps": 1000,
+    "batch_size": 128,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform",
+      "nonuniform"
+    ],
+    "conditional_anchors": 2,
+    "conditional_paths": 4096,
+    "diffusion": 1.0,
+    "ensemble_initial_paths": 8192,
+    "ensemble_paths": 8192,
+    "horizon": 0.0625,
+    "horizon_samples": 4,
+    "kappa": 0.75,
+    "lbfgs_max_iter": 5,
+    "lbfgs_steps": 30,
+    "learning_rate": 0.001,
+    "loss_balancing": "training-initial-rms",
+    "loss_scale_floor": 1e-06,
+    "n_bootstrap": 200,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "interacting-followup-balanced",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "query_times": [
+      0.015625,
+      0.03125,
+      0.0625
+    ],
+    "reference_batch_size": 64,
+    "reference_factors": [
+      1,
+      2,
+      4
+    ],
+    "reference_step": 0.000244140625,
+    "refinement_paths": 256,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 2026102512,
+    "state_fractions": [
+      0.0,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "state_step": 0.0009765625,
+    "tolerance": 0.05,
+    "train_paths": 128,
+    "uncertainty_budget": 0.0125,
+    "validation_every": 50,
+    "validation_paths": 64,
+    "width": 32
+  },
+  "budget_seconds": 28800,
+  "comparison": {
+    "accuracy_target": 0.05,
+    "bootstrap": 200,
+    "counts": [
+      256,
+      1024,
+      4096
+    ],
+    "reference_bias": "continuous-time unresolved",
+    "reference_origin": "balanced",
+    "repeats": 7,
+    "seed": 2026102513,
+    "seeds_pooled": false,
+    "timing_conditional_anchor": 0,
+    "timing_optimizer_seed": 0,
+    "uncertainty_budget": 0.0125,
+    "warmup": 2
+  },
+  "name": "interacting-followup-2026-10-25",
+  "paths": {
+    "adam_steps": 300,
+    "batch_size": 32,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "dk_interacting_uniform",
+      "dk_interacting"
+    ],
+    "depth": 3,
+    "diffusion": 1.0,
+    "horizon": 0.0625,
+    "interaction_a2": 0.1,
+    "interaction_kappa": 0.75,
+    "lbfgs_max_iter": 5,
+    "lbfgs_steps": 30,
+    "learning_rate": 0.003,
+    "n_bootstrap": 200,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "interacting-followup-paths",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "query_times": [
+      0.015625,
+      0.03125,
+      0.0625
+    ],
+    "reference_step": 0.0001220703125,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 2026102511,
+    "step_sizes": [
+      0.00390625,
+      0.001953125,
+      0.0009765625
+    ],
+    "test_paths": 256,
+    "tolerance": 0.05,
+    "train_paths": 64,
+    "uncertainty_budget": 0.0125,
+    "validation_paths": 32,
+    "width": 16
+  },
+  "unscaled": {
+    "a2": 0.1,
+    "adam_steps": 1000,
+    "batch_size": 128,
+    "budget_seconds": 28800.0,
+    "cases": [
+      "uniform",
+      "nonuniform"
+    ],
+    "conditional_anchors": 2,
+    "conditional_paths": 4096,
+    "diffusion": 1.0,
+    "ensemble_initial_paths": 8192,
+    "ensemble_paths": 8192,
+    "horizon": 0.0625,
+    "horizon_samples": 4,
+    "kappa": 0.75,
+    "lbfgs_max_iter": 5,
+    "lbfgs_steps": 30,
+    "learning_rate": 0.001,
+    "loss_balancing": "none",
+    "loss_scale_floor": 1e-06,
+    "n_bootstrap": 200,
+    "n_cells": 32,
+    "n_particles": 2048,
+    "name": "interacting-followup-unscaled",
+    "optimizer_seeds": [
+      0,
+      1,
+      2
+    ],
+    "query_times": [
+      0.015625,
+      0.03125,
+      0.0625
+    ],
+    "reference_batch_size": 64,
+    "reference_factors": [
+      1,
+      2,
+      4
+    ],
+    "reference_step": 0.000244140625,
+    "refinement_paths": 256,
+    "rho_stop": 0.0015915494309189536,
+    "seed": 2026102512,
+    "state_fractions": [
+      0.0,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "state_step": 0.0009765625,
+    "tolerance": 0.05,
+    "train_paths": 128,
+    "uncertainty_budget": 0.0125,
+    "validation_every": 50,
+    "validation_paths": 64,
+    "width": 32
+  }
+}

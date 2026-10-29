@@ -1,7 +1,8 @@
 # NN-DK current findings
 
-**Status as of 28 October 2026.** This README summarizes completed experiments
-through 27 October. It introduces no new simulation or training results.
+**Status as of 30 October 2026.** The completed accuracy comparisons below run
+through 27 October. New validation diagnostics and the ongoing independent
+comparison are recorded in section 6; their final accuracy and costs are pending.
 
 The project has working neural density-path and neural statistics solvers.
 The path network closely reproduces its numerical training target, but the
@@ -193,6 +194,26 @@ and fluctuation accuracy. A nonlinear mean-field/Gaussian baseline with learned
 corrections is a candidate to test, not an established improvement. Any new
 formulation needs fresh final data after validation choices are frozen.
 
+The [29 October diagnostic study](docs/experiments/payoff_diagnostics_2026-10-29.md)
+completed the mean-gradient/source and residual-transport investigations on
+frozen validation anchors. Remaining derivative-interchange, stopping, time and
+quadrature errors prevent treating the diagnostic residual as an error bound.
+
+The matched proposal/loss study has now completed all **72 fits**. Its
+[residual supplement](docs/experiments/payoff_collocation_residuals_2026-10-30.md)
+retains all nineteen boundary/time strata in common units. Five regimes occupy
+only four strata; the strongest regime occupies eleven. The closest boundary
+bin is empty in every regime. Occupancy reweighting cannot fill that gap, and
+these model-selection data are not independent accuracy evidence.
+
+All **18 learned nonlinear-LNA correction fits** and their label-prefix replays
+also completed. Both studies' fits, sources, criteria and disjoint identifier
+plans were jointly locked before the new **589,824-family** reference bank was
+generated. Its primary step is `2^-12`, with paired-prefix checks at `2^-13` and
+`2^-14`. Independent accuracy evaluations are running. Contrasts, isolated
+inference timings and the overall research completion record remain pending;
+the [task ledger](docs/README_TASKS.md) records those obligations.
+
 The interacting path studies do not establish a temporal convergence order,
 learning-convergence rate, particle-law equivalence, or continuum SPDE limit.
 The restricted noninteracting certificate above remains a separate valid
@@ -200,11 +221,14 @@ result. Its assumptions do not transfer to the strong-interaction experiments.
 
 ## 7. Evidence and reproduction
 
-The latest completed revision records **1,181 passing tests**, passing lint,
+The completed boundary-study revision records **1,181 passing tests**, passing lint,
 independent native/statistical replay, **408 isolated timing workloads**, and
 verified cost accounting. Software acceptance is separate from scientific
-accuracy. This README is a documentation summary; no tests or experiments were
-rerun to produce it.
+accuracy. The current research implementation separately passes **1,502 tests**
+and Ruff, including historical-source loading tests. The clean full-history
+clone, package builds and smoke command also pass; see the
+[verification record](docs/verification.md). Software acceptance does not
+complete the independent scientific comparison.
 
 - [Latest report](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 - [Completion checks](docs/experiments/payoff_boundary_regimes_2026-10-27_completion.json)
@@ -212,8 +236,9 @@ rerun to produce it.
 - [Implementation and execution guide](analysis/README.md#boundary-and-residual-loss-repair)
 - [Project installation and workflow overview](README.md)
 
-The latest scientific source freeze is `0d38243`; its findings/archive commit is
-`d4bd378`. Source/configuration hashes, trajectory-family splits, optimizer
+The completed boundary study's source freeze is `0d38243`; its findings/archive
+commit is `d4bd378`. The new comparison freezes its own source and fit locks.
+Source/configuration hashes, trajectory-family splits, optimizer
 seeds and failures are retained. Large binary checkpoints and numerical banks
 remain in local ignored `runs/` directories. Historical studies must be
 reproduced with their recorded source and inputs; timings from different

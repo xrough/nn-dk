@@ -1,5 +1,38 @@
 # Verification workflow
 
+## Current research implementation — 30 October 2026
+
+Commit `011277684b540860379eb726b2440a3fd0385226` passes Ruff and the full
+**1,502-test** suite locally (570.26 seconds, two upstream warnings). The proof
+records all 287 maintained source, test, configuration and license inputs, with
+the same input digest before and after testing. Historical-source loading
+tests are included. The numerical package source remains
+`0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576`.
+
+[GitHub Actions independently passed](https://github.com/xrough/nn-dk/actions/runs/40943854960)
+all 1,502 tests, Ruff and wheel/source-distribution builds on Linux. A separate
+clean, non-shallow clone of the same commit installed the locked Python 3.12
+environment, built both distributions and completed the exact README smoke
+command with all five fits. Installing the wheel into the isolated environment
+verified its import, package source identity, CLI entry point and license
+metadata. The clone retained all 45 commits and stayed clean; generated products
+were ignored. No package registry publication was performed.
+The compact [clone and software acceptance receipts](experiments/artifacts/readme_research_2026-10-30/README.md)
+preserve the exact commands and logs separately from scientific accuracy.
+
+The current small joint fixture also passed the complete CLI sequence through
+independent accuracy, contrasts, uninterrupted timing, both reports, compact
+archives and offline archive verification. Its reduced allocation validates the
+software path only. The actual 90-fit comparison's independent accuracy and cost
+work remains open in the [task ledger](README_TASKS.md).
+
+The full 72-model validation-residual supplement completed 2,304 chunks and
+verified **2,865 copied artifacts**, while indexing 5,048 local raw files.
+The earlier gradient/transport archive was reverified separately: **1,122 copied
+artifacts**, 1,955 indexed local raw files and 46 external inputs. These byte and
+identity checks do not replay every large numerical bank. Historical reports
+below retain their original test counts and scientific scope.
+
 ## Public release verification — 29–30 October 2026
 
 The implementation reviewed at `495f36c` passes Ruff and the full **1,329-test**

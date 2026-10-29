@@ -4,10 +4,14 @@
 
 The [task/evidence ledger](../docs/README_TASKS.md) separates completed historical
 studies from the open priorities in [the findings README](../README_FINDINGS.md).
-The next diagnostics use frozen v3 models and validation-state anchors, with
+The completed diagnostics use frozen v3 models and validation-state anchors, with
 fresh continuation families. They do not fit a model or reopen historical final
 outcomes, and their completion does not finish the proposed sampling or learned
-Gaussian-correction studies.
+Gaussian-correction studies. On 30 October, all 72 matched-pool fits and all 18
+learned-correction fits are complete and locked. The full validation-residual
+supplement is complete. The joint final-data lock preceded all 589,824 fresh
+reference families; independent accuracy evaluations are running. The final
+contrasts, isolated inference costs and overall completion record remain open.
 Both diagnostics require an available C++ compiler (default `clang++`) for the
 independent native reference, in addition to the locked Python environment.
 
@@ -52,7 +56,8 @@ robust transform; it is not inserted inside that transform or self-normalized.
 Uniform and stratified proposals therefore target the same original-pool
 objective. Synthetic transforms preserve mass and their parent-family IDs;
 they are conditional probes, not independent physical trajectories. These
-utilities still require a controlled, fresh-data fitting/evaluation study.
+utilities are exercised in the controlled study below; its independent accuracy
+and cost comparison remains unfinished.
 
 The [29 October diagnostic report](../docs/experiments/payoff_diagnostics_2026-10-29.md)
 records the completed allocations and their limitations. Diagnostic metadata,
@@ -248,8 +253,9 @@ quiet and all accuracy records are complete:
 ```bash
 .venv/bin/python analysis/evaluate_payoff_collocation_study.py benchmark --final-timing --root runs/payoff-collocation-study-2026-10-29
 .venv/bin/python analysis/evaluate_lna_payoff_correction.py benchmark --final-timing --root runs/lna-payoff-correction-2026-10-30
-.venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29
-.venv/bin/python analysis/report_lna_payoff_correction.py report --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py verify --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --documentation docs/experiments/payoff_collocation_2026-10-30.md
+.venv/bin/python analysis/report_lna_payoff_correction.py report --root runs/lna-payoff-correction-2026-10-30 --documentation docs/experiments/lna_payoff_correction_2026-10-30.md
 ```
 
 The correction report requires all 288 literal uninterrupted cold/warm jobs,
@@ -267,6 +273,10 @@ current input and paid-work inventory against the frozen report. If additional
 work invalidates that report, preserve its directory separately and regenerate
 the default report before archiving. Posthoc verification receipts remain
 separate from the frozen work costs.
+
+Supply the collocation documentation destination on the first report generation;
+its verified cached-report path does not create that mirror. Preserve each
+generated report and archive before adding a later interpretive follow-up.
 
 ```bash
 .venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --archive docs/experiments/artifacts/payoff_collocation_2026-10-30
@@ -322,6 +332,11 @@ The supplement reuses that receipt from the correction study's `audit` folder:
 .venv/bin/python analysis/report_payoff_collocation_residuals.py archive --root runs/payoff-collocation-residuals-2026-10-30 --output docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30 --test-root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/report_payoff_collocation_residuals.py verify-archive --output docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30
 ```
+
+The full supplement completed all **2,304 chunks** for all 72 models. Its
+offline-verified archive contains **2,865 copied artifacts** and indexes 5,048
+local raw files. It retains 570,240 component-statistic rows and 2,880 stratum-loss
+rows, without drawing new physical families or changing a fitted model.
 
 The compact supplement includes the component/stratum summaries, figures,
 checksums, source and test proof. Raw per-row arrays, state banks and complete

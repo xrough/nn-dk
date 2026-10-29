@@ -1,0 +1,181 @@
+{
+  "build_artifacts": {
+    "/private/tmp/nn-dk-readme-verify-0112776-20261030/dist/.gitignore": {
+      "bytes": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    "/private/tmp/nn-dk-readme-verify-0112776-20261030/dist/nn_dk-0.1.0-py3-none-any.whl": {
+      "bytes": 316158,
+      "sha256": "3c61d8574ce18d7ae52b60acd6b63febb200e6401b15512d309f170617918b3b"
+    },
+    "/private/tmp/nn-dk-readme-verify-0112776-20261030/dist/nn_dk-0.1.0.tar.gz": {
+      "bytes": 109810654,
+      "sha256": "ec8a79f059c2bdb408f63be8f5964cec96c42f55396f885b190bb94d48854479"
+    }
+  },
+  "clone": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/commit.log",
+      "log_sha256": "4f95783648e909475c988fa9bd7de1c931f5108c86e0b7aa6cb7ab43c73e7872",
+      "process_cpu_seconds": 0.025118,
+      "wall_seconds": 0.04756254213862121
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "--is-shallow-repository"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/history.log",
+      "log_sha256": "2ed27c1421e6928dbe13dbfdb5c59e1045b30341fe7ebe05700006bc5ac572c0",
+      "process_cpu_seconds": 0.015602999999999995,
+      "wall_seconds": 0.023897083941847086
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/clean_before.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "process_cpu_seconds": 0.060998999999999984,
+      "wall_seconds": 0.09566162503324449
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-release-tools-20261026/bin/uv",
+        "sync",
+        "--locked",
+        "--group",
+        "dev",
+        "--python",
+        "3.12"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/locked_install.log",
+      "log_sha256": "9722ad10eb571b4a4b457a508ac096ed2e32372b02c8e7780d82612d1cc15cf2",
+      "process_cpu_seconds": 5.334178,
+      "wall_seconds": 67.88617166690528
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-release-tools-20261026/bin/uv",
+        "build"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/build.log",
+      "log_sha256": "97447963e1a718dc802ee770873acc8640f3a9e183cb9b0ccda7cb027b6a495e",
+      "process_cpu_seconds": 7.224270999999998,
+      "wall_seconds": 7.8008747501298785
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-release-tools-20261026/bin/uv",
+        "run",
+        "nn-dk",
+        "path-solver",
+        "--preset",
+        "path-smoke",
+        "--output",
+        "runs/path-smoke"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/documented_smoke.log",
+      "log_sha256": "6f8e0fc3d6e1f70335356cfdfbbd3f9e8b115dcbabd906bcb17bc6eb2b33353b",
+      "process_cpu_seconds": 55.195947999999994,
+      "wall_seconds": 88.75526679190807
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-release-tools-20261026/bin/uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/tmp/nn-dk-readme-verify-0112776-20261030/.venv/bin/python",
+        "--no-deps",
+        "--force-reinstall",
+        "/private/tmp/nn-dk-readme-verify-0112776-20261030/dist/nn_dk-0.1.0-py3-none-any.whl"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/wheel_install.log",
+      "log_sha256": "fdef3796765ff1d89c106765084400e7bdf9c7b503de2478968841248eceb7e0",
+      "process_cpu_seconds": 0.10379799999999761,
+      "wall_seconds": 0.1444912909064442
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-readme-verify-0112776-20261030/.venv/bin/python",
+        "-c",
+        "import json,nn_dk;from nn_dk.data import source_hash;print(json.dumps({\"path\":nn_dk.__file__,\"source_hash\":source_hash()}))"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/wheel_import.log",
+      "log_sha256": "57dcc06ab20e6285dd823d3c0397a99291d60aad0726f1dd7c7a6e3f3f904b74",
+      "process_cpu_seconds": 0.1899969999999982,
+      "wall_seconds": 0.27019191696308553
+    },
+    {
+      "argv": [
+        "/private/tmp/nn-dk-readme-verify-0112776-20261030/.venv/bin/nn-dk",
+        "--help"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/wheel_cli.log",
+      "log_sha256": "9b7be985410f29bdc930a5873c77b7b2a74f549a4a3b32b135cdf71d68600a41",
+      "process_cpu_seconds": 0.1681840000000001,
+      "wall_seconds": 0.37756362510845065
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+      "exit_code": 0,
+      "log_path": "/private/tmp/nn-dk-readme-verify-0112776-record/clean_after.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "process_cpu_seconds": 0.07076000000000526,
+      "wall_seconds": 0.10672395792789757
+    }
+  ],
+  "commit": "011277684b540860379eb726b2440a3fd0385226",
+  "complete": true,
+  "finished_at_utc": "2026-10-29T20:06:35.900190+00:00",
+  "kind": "clean-public-full-history-clone-build-install-smoke-v1",
+  "lock_sha256_before": "1e9635797eb12a1efad445cb706ca88eb0de18f5a3e1472b10777b357557b034",
+  "package_registry_publication": false,
+  "scientific_study_allocation": false,
+  "smoke": {
+    "continuous_time_convergence_certified": false,
+    "models": 5,
+    "report": "/private/tmp/nn-dk-readme-verify-0112776-20261030/runs/path-smoke/report/path_results.json",
+    "same_step_passes": 5,
+    "sha256": "d3641298ae308d5a53785dd416b1a35247d6a1fcbbd8923335d7cf3508d36c02"
+  },
+  "started_at_utc": "2026-10-29T20:03:50.159497+00:00",
+  "wheel_import": {
+    "path": "/private/tmp/nn-dk-readme-verify-0112776-20261030/.venv/lib/python3.12/site-packages/nn_dk/__init__.py",
+    "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576"
+  },
+  "wheel_license_metadata_verified": true
+}

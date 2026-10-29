@@ -78,11 +78,17 @@ The [29 October gradient and residual-transport diagnostics](docs/experiments/pa
 are complete on frozen validation anchors. They identify large mean-gradient and
 covariance-source discrepancies in the strongest regime; unresolved time,
 quadrature and stopping effects prevent treating residuals as an error
-certificate. The new matched sampling/loss comparison has tested software but
-has **not** completed its scientific allocation. The learned nonlinear-Gaussian
-correction has completed all 18 fits and its label replay audit; its final
-accuracy and cost comparison remain pending. Both studies are tracked in the
-[task ledger](docs/README_TASKS.md).
+certificate. The new matched sampling/loss comparison has completed and locked
+all **72 fits**, and its [stratum residual audit](docs/experiments/payoff_collocation_residuals_2026-10-30.md)
+retains every variant and seed. The natural validation pools leave the closest
+boundary stratum empty; reweighting occupied states does not supply evidence for
+that missing region. These selection-pool residuals are descriptive.
+
+The learned nonlinear-Gaussian correction has completed all **18 fits** and its
+label replay audit. Both fit sets and the joint evaluation protocol were locked
+before generating **589,824 fresh reference families**. Independent accuracy
+evaluations are running; the accuracy and cost comparison remains unfinished.
+Both studies are tracked in the [task ledger](docs/README_TASKS.md).
 
 The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 is complete: 18 new v3 fits, 18 frozen v2 controls, and 589,824 fresh native

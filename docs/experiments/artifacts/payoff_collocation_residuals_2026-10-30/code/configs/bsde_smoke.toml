@@ -1,0 +1,36 @@
+name = "bsde-smoke"
+seed = 20261024
+n_cells = 32
+n_particles = 2048
+diffusion = 1.0
+rho_stop = 0.0015915494309189536
+horizon = 0.125
+query_times = [0.03125, 0.0625, 0.125]
+dt = 0.0078125
+reference_dt = 0.0009765625
+cases = ["uniform", "nonuniform"]
+optimizer_seeds = [0]
+width = 16
+train_anchors = 16
+train_continuations = 2
+validation_anchors = 8
+validation_continuations = 2
+ou_test_anchors = 16
+conditional_anchors = 2
+conditional_paths = 16
+outer_paths = 32
+refinement_paths = 2
+reference_batch_size = 16
+bootstrap_samples = 8
+tolerance = 0.05
+uncertainty_budget = 0.0125
+budget_seconds = 600.0
+
+[training]
+epochs = 3
+patience = 3
+batch_size = 8
+learning_rate = 0.001
+weight_decay = 1e-05
+threads = 1
+gradient_clip = 100.0
