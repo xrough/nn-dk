@@ -119,6 +119,98 @@ distinct. Software fixtures have passed the full fit/lock/reference/evaluation/
 timing/report/archive workflow. **The scientific comparison remains unfinished
 until its declared real allocation, audits and final archive are complete.**
 
+### Supervised nonlinear-LNA correction and joint final-data gate
+
+The separate R4 candidate reuses the existing nonlinear mean-field/linear-noise
+ODE and learns corrections to selected conditional payoff moments. Its labels
+are **supervised stopped-Euler moments**, not generator-residual targets. This
+tests a new formulation; it is not an established accuracy or cost improvement.
+The analysis-only engine, runner, batched baseline and joint evaluator have
+separate identities. Existing package APIs and frozen scientific helpers remain
+unchanged.
+
+The prescribed training allocation has all six `(T, κ)` cases and optimizer
+seeds `(0, 1, 2)`, giving **18 fits**. For each case:
+
+- Training uses 80 natural IID histograms, 40 per initial profile, plus 40
+  synthetic stress states derived from the first 20 training parents/profile.
+  Stress distances above the stopping mass are cyclically `.25`, `1`, `4`
+  times the boundary width `.05/G`, constructed at remaining time `T` in the
+  parent's minimum cell. They preserve mass and parent groups; they are not
+  additional independent draws from the natural initial law.
+- Validation uses 40 independent natural parents, 20/profile. The training
+  mixture is explicitly two-thirds natural and one-third stress; it is not an
+  importance-corrected natural loss. Validation selection uses natural rows.
+- Every training/validation state has 256/512 independent continuations at
+  Euler step `2^-12`. All three query times share each complete trajectory.
+  The full label allocation is **307,200 continuation families**, retaining
+  every stopped path with interpolated crossing and killed running rewards.
+  Targets are sample means and unbiased `N`-scaled sample covariance.
+- The baseline cache evolves each literal histogram's nonlinear conditional
+  Gaussian ODE at step `2^-7`. Its zero initial covariance is conditional on
+  that histogram. Analytic IID covariance propagation is not a replacement.
+- Two separate width-32, depth-2 correction heads use 1,000 Adam updates and
+  30 L-BFGS updates per stage. The selected mean is frozen before covariance
+  fitting. Natural validation MSE and the physical payoff-bank units are fixed;
+  no final-data hyperparameter or optimizer-seed selection is allowed.
+
+The mean correction vanishes quadratically at zero remaining time. A moving
+boundary gate enforces exact initially absorbed values. A time-ordered
+congruence transforms the baseline covariance; zero heads recover the gated
+baseline without a covariance floor or eigenvalue repair. Raw LNA, gated
+zero-correction and all trained seeds remain separate controls. Deterministic
+boundary flags and numerical failures are retained. These constraints do not
+prove accuracy for the stopped nonlinear law or the continuum equation.
+
+The independent namespace is `lna-supervised-correction-2026-10-30-v1`.
+Training initial/forcing seeds are `2026103001/2026103002`; validation uses
+`2026103004/2026103005`. Exact RNG addresses include the case, role, profile,
+parent/anchor and continuation. Preparation freezes source, configuration,
+parent groups and data identities before labels. Full label-generation,
+baseline-cache, preparation and fit invocation costs are recorded.
+
+```bash
+.venv/bin/python analysis/run_lna_payoff_correction_study.py prepare --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/run_lna_payoff_correction_study.py data --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 0 --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 1 --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 2 --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/run_lna_payoff_correction_study.py lock --root runs/lna-payoff-correction-2026-10-30
+```
+
+Only one process may own each data stage or optimizer seed. Invocations have an
+eight-hour maximum budget and checkpoint on exit 75. Resume the identical
+invocation; never restart a live worker because observation timed out.
+Raw label chunks and full weights remain local in the ignored study root.
+
+**The joint comparison must lock all 72 collocation fits and all 18 correction
+fits before any final reference or independent-IID outcome is opened.** The new
+joint evaluator freezes both fit locks, the exact criteria and method inventory,
+all evaluation/report source, future family-ID plans and their disjoint-stream
+audit. It refuses already-materialized final outcomes. For this joint study,
+generate the shared reference banks through its guarded wrapper; the standalone
+collocation reference recipe above is not the joint unlock protocol.
+
+The planned final inventory retains the 576 collocation primary records and
+216 new correction/control records. New IID-law predictions integrate **16,384
+fresh histograms/profile**, independent of native references, by total
+covariance. Both per-histogram raw LNA steps (`2^-7`, `2^-10`), gated zero heads
+and all three trained heads are evaluated. Batched sparse/rank-four RK4 evolves
+the nonlinear ODE separately for every histogram; it supplies the same-time
+payoffs and no analytic-IID shortcut. Invalid rows stay aligned and make the
+whole method/group unavailable; survivor averaging is forbidden.
+
+Only after every heavy training, reference and accuracy process has exited,
+timing executes one cold and one warm **complete uncached prediction** per
+method/group: conditional batch one, or all 16,384 IID histograms with their
+initialization, ODE, head and aggregation work. Cold and warm are separately
+labelled observations, not a latency-distribution estimate. Baseline batch size
+is fixed at 64. Accuracy-only shared caches cannot substitute for deployment
+work. Full-study shared preparation and one-model deployment costs remain
+separate; preparation components are not added again to full invocation costs.
+All accuracy intervals, reference refinement and cost payback remain unresolved
+until the declared computation, tests, audits and archive are complete.
+
 ## Causal full-density path operator
 
 ```bash
