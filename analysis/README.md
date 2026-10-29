@@ -125,6 +125,9 @@ The separate R4 candidate reuses the existing nonlinear mean-field/linear-noise
 ODE and learns corrections to selected conditional payoff moments. Its labels
 are **supervised stopped-Euler moments**, not generator-residual targets. This
 tests a new formulation; it is not an established accuracy or cost improvement.
+Supplied numerical ODE outputs are data for the heads. Differentiating those
+heads alone does not give the complete initial-state derivative of the ODE;
+this candidate provides no generator-residual or input-sensitivity interface.
 The analysis-only engine, runner, batched baseline and joint evaluator have
 separate identities. Existing package APIs and frozen scientific helpers remain
 unchanged.
@@ -172,16 +175,23 @@ baseline-cache, preparation and fit invocation costs are recorded.
 ```bash
 .venv/bin/python analysis/run_lna_payoff_correction_study.py prepare --root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/run_lna_payoff_correction_study.py data --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/audit_lna_supervised_labels.py run --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/audit_lna_supervised_labels.py verify --root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 0 --root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 1 --root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/run_lna_payoff_correction_study.py fit --seed 2 --root runs/lna-payoff-correction-2026-10-30
 .venv/bin/python analysis/run_lna_payoff_correction_study.py lock --root runs/lna-payoff-correction-2026-10-30
 ```
 
-Only one process may own each data stage or optimizer seed. Invocations have an
-eight-hour maximum budget and checkpoint on exit 75. Resume the identical
+Only one process may own each data stage or optimizer seed. This training/data
+runner has an eight-hour invocation budget and checkpoints on exit 75. Resume the identical
 invocation; never restart a live worker because observation timed out.
 Raw label chunks and full weights remain local in the ignored study root.
+The replay audit reconstructs continuation zero at the first natural and stress
+training anchors for both profiles in every case: 24 predetermined families in
+the full study. It compares saved forcing hashes, stopping times and all three
+payoff readouts against the independent package simulator, without new families
+or access to final outcomes. A partial receipt cannot satisfy the joint gate.
 
 **The joint comparison must lock all 72 collocation fits and all 18 correction
 fits before any final reference or independent-IID outcome is opened.** The new
@@ -190,6 +200,25 @@ all evaluation/report source, future family-ID plans and their disjoint-stream
 audit. It refuses already-materialized final outcomes. For this joint study,
 generate the shared reference banks through its guarded wrapper; the standalone
 collocation reference recipe above is not the joint unlock protocol.
+
+After **both full fit allocations** complete and their worker processes exit:
+
+```bash
+.venv/bin/python analysis/run_payoff_collocation_study.py lock --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py prepare --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py freeze --root runs/lna-payoff-correction-2026-10-30
+```
+
+Joint preparation creates and checks the original collocation evaluation packet
+as well as the correction's plans. Only then generate **each of the six cases**
+through the wrapper, substituting each case name for the example below:
+
+```bash
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py reference --case T0p25_k0p75 --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/evaluate_payoff_collocation_study.py evaluate --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py evaluate --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py contrasts --root runs/lna-payoff-correction-2026-10-30
+```
 
 The planned final inventory retains the 576 collocation primary records and
 216 new correction/control records. New IID-law predictions integrate **16,384
@@ -210,6 +239,25 @@ work. Full-study shared preparation and one-model deployment costs remain
 separate; preparation components are not added again to full invocation costs.
 All accuracy intervals, reference refinement and cost payback remain unresolved
 until the declared computation, tests, audits and archive are complete.
+
+`--final-timing` attests that other heavy work has exited. This includes the
+entire 90-fit allocation and all reference/accuracy jobs; a software fixture
+running alongside those jobs cannot make that attestation. Once the host is
+quiet and all accuracy records are complete:
+
+```bash
+.venv/bin/python analysis/evaluate_payoff_collocation_study.py benchmark --final-timing --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/evaluate_lna_payoff_correction.py benchmark --final-timing --root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/report_lna_payoff_correction.py report --root runs/lna-payoff-correction-2026-10-30
+```
+
+The correction report requires all 288 literal uninterrupted cold/warm jobs,
+the complete all-seed accuracy inventory and the signed contrasts. CLI process
+receipts distinguish whole invocation overhead from nested prediction timers.
+Source, model, identifier or saved-array changes fail closed; incomplete cached
+arrays are never silently overwritten. The report/compact archive still need
+real full-allocation execution; software checks alone do not complete R4–R6.
 
 ## Causal full-density path operator
 
