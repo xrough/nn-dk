@@ -1,5 +1,124 @@
 # Analysis of completed Project A runs
 
+## Continuing the README research tasks
+
+The [task/evidence ledger](../docs/README_TASKS.md) separates completed historical
+studies from the open priorities in [the findings README](../README_FINDINGS.md).
+The next diagnostics use frozen v3 models and validation-state anchors, with
+fresh continuation families. They do not fit a model or reopen historical final
+outcomes, and their completion does not finish the proposed sampling or learned
+Gaussian-correction studies.
+Both diagnostics require an available C++ compiler (default `clang++`) for the
+independent native reference, in addition to the locked Python environment.
+
+```bash
+.venv/bin/python analysis/audit_payoff_mean_gradients.py prepare --root runs/payoff-mean-gradients-2026-10-29
+.venv/bin/python analysis/audit_payoff_mean_gradients.py run --root runs/payoff-mean-gradients-2026-10-29
+.venv/bin/python analysis/report_payoff_mean_gradients.py --root runs/payoff-mean-gradients-2026-10-29
+.venv/bin/python analysis/audit_payoff_residual_transport.py prepare --root runs/payoff-residual-transport-2026-10-29
+.venv/bin/python analysis/audit_payoff_residual_transport.py run --root runs/payoff-residual-transport-2026-10-29
+.venv/bin/python analysis/audit_payoff_residual_transport.py verify --root runs/payoff-residual-transport-2026-10-29
+.venv/bin/python analysis/report_payoff_residual_transport.py --root runs/payoff-residual-transport-2026-10-29
+```
+
+Preparation freezes complete plans, checkpoint bytes, state-only anchor rules,
+source/helper hashes and independent continuation streams. Both diagnostics
+retain all six cases and three optimizer seeds by default. Rerun the same
+`run` invocation to resume checksummed chunks; `--max-chunks` supports bounded
+software checks in a **separate** output root. `--plan` on preparation accepts a
+complete diagnostic-plan JSON. Changing code, allocation or input identities
+requires a new root. Full local historical weights and state banks are required.
+
+The mean-gradient audit computes every noise-face directional derivative using
+native JVPs, including the derivative of killed-integral exposure at stopping.
+It retains paired Euler refinements, a quadratic plug-in covariance source and
+an independent-half cross-Gram source estimate. The latter avoids the plug-in's
+positive Monte Carlo bias but may be indefinite. Signed componentwise bootstrap
+contrasts are pointwise; positive Frobenius-distance ranges are **not** tests
+of a nonzero discrepancy. Derivative interchange and remaining stopping/time
+bias are not certified.
+
+The transport diagnostic integrates mean and raw-second-moment residuals along
+fresh native trajectories. The raw-second residual includes both mean-residual
+cross terms and the accumulated killed running reward. It reports observed
+Euler/generator/stopping defects, coupled time refinement and stride/half-stride
+quadrature changes. A covariance residual alone is not an error certificate;
+raw seconds and unbiased empirical covariance remain separate quantities.
+
+`payoff_collocation_sampling.py` supplies deterministic boundary/time strata,
+importance-corrected row proposals and parent-grouped synthetic stress states.
+The importance weight multiplies each **per-row loss after** any nonlinear
+robust transform; it is not inserted inside that transform or self-normalized.
+Uniform and stratified proposals therefore target the same original-pool
+objective. Synthetic transforms preserve mass and their parent-family IDs;
+they are conditional probes, not independent physical trajectories. These
+utilities still require a controlled, fresh-data fitting/evaluation study.
+
+The [29 October diagnostic report](../docs/experiments/payoff_diagnostics_2026-10-29.md)
+records the completed allocations and their limitations. Diagnostic metadata,
+numeric contrasts and exact source snapshots are preserved in its compact
+archive; raw native polygons, Brownian arrays, JVP chunks and weights remain local.
+
+### Matched-pool sampling and loss comparison
+
+`run_payoff_collocation_study.py` implements a separate, fresh six-regime study
+with **72 fits**: three optimizer seeds crossed with uniform/stratified proposals
+and pseudo-Huber/squared losses. All four variants share the literal state pools,
+initial network weights and train-only scales within each case/seed. Every
+variant selects on the same natural-occupancy validation MSE; the selected mean
+is frozen before covariance fitting. No future-payoff labels enter this study.
+
+```bash
+.venv/bin/python analysis/run_payoff_collocation_study.py prepare --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/run_payoff_collocation_study.py fit --seed 0 --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/run_payoff_collocation_study.py fit --seed 1 --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/run_payoff_collocation_study.py fit --seed 2 --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/run_payoff_collocation_study.py lock --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/evaluate_payoff_collocation_study.py prepare --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/run_payoff_collocation_study.py freeze-evaluation --root runs/payoff-collocation-study-2026-10-29
+```
+
+Sequential fitting is sufficient. Parallel execution requires exactly one owner
+per declared optimizer seed; source, pool, sampler and optimizer identities remain
+fixed. Exit 75 preserves incomplete checkpoints for the identical invocation.
+Full preparation/fit invocation wall and process-CPU costs are recorded alongside
+their nonadditive components and overlapping worker spans.
+
+The evaluation gate verifies every fitted model and the complete matched-input
+proof, then freezes the evaluator/reporter source, criteria, all method/group/query
+slots, and independent initial-family identifier plans before final reference
+anchors or outcomes can be generated. Missing or stale plans/helpers fail closed.
+Future evaluator/report implementation may be finished during fitting; changing
+the frozen training runner, engine or sampler requires a new scientific root.
+
+After locking evaluation, generate each of `T0p25_k0p75`, `T0p25_k3`,
+`T0p25_k6`, `T1_k0p75`, `T1_k3` and `T1_k6` with:
+
+```bash
+.venv/bin/python analysis/run_payoff_collocation_study.py reference --case T0p25_k0p75 --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/evaluate_payoff_collocation_study.py evaluate --root runs/payoff-collocation-study-2026-10-29
+```
+
+Evaluation retains all 72 models, untrained controls, both Gaussian steps and an
+independent native-MC control. Independent initial-law integration replaces the
+shared-initial NN ensemble estimates in primary comparisons; paired-initial
+results remain explicit diagnostics. Full allocation is 576 primary and 732
+retained accuracy records. Do not change models after opening these outcomes.
+
+Only after all fitting, reference, evaluation and other heavy CPU work has exited:
+
+```bash
+.venv/bin/python analysis/evaluate_payoff_collocation_study.py benchmark --final-timing --root runs/payoff-collocation-study-2026-10-29
+.venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29
+```
+
+The report requires all 696 literal timing workloads and 156 restoration rows;
+it separates full-study costs, one-model deployment curves and shared preparation.
+Pointwise uncertainty, reference refinement and accuracy-qualified payback remain
+distinct. Software fixtures have passed the full fit/lock/reference/evaluation/
+timing/report/archive workflow. **The scientific comparison remains unfinished
+until its declared real allocation, audits and final archive are complete.**
+
 ## Causal full-density path operator
 
 ```bash

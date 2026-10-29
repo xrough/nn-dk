@@ -74,6 +74,14 @@ historical models requires the full local study inputs.
 
 ## Current evidence
 
+The [29 October gradient and residual-transport diagnostics](docs/experiments/payoff_diagnostics_2026-10-29.md)
+are complete on frozen validation anchors. They identify large mean-gradient and
+covariance-source discrepancies in the strongest regime; unresolved time,
+quadrature and stopping effects prevent treating residuals as an error
+certificate. The new matched sampling/loss comparison has tested software but
+has **not** completed its scientific allocation. Its status and the deferred
+learned-correction investigation are tracked in the [task ledger](docs/README_TASKS.md).
+
 The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 is complete: 18 new v3 fits, 18 frozen v2 controls, and 589,824 fresh native
 reference families at T=0.25/1 and κ=0.75/3/6. The moving boundary gate and exact
