@@ -1,5 +1,32 @@
 # Verification workflow
 
+## Public release verification — 29 October 2026
+
+The implementation reviewed at `495f36c` passes Ruff and the full **1,329-test**
+suite (256.14 seconds, two non-failing upstream warnings). Historical-source
+loading tests are included. A separate clean, full-history clone installed the
+locked Python 3.12 environment and passed all five focused historical-loader
+tests. The README command
+`uv run nn-dk path-solver --preset path-smoke --output runs/path-smoke`
+completed all five fits, evaluation and report generation in that clone.
+Same-step software checks passed; continuous-time accuracy remains uncertified.
+
+Wheel and source distributions were rebuilt from the reviewed source. Their
+README, metadata and license coverage were checked, and the wheel's import and
+CLI entry point were verified in an isolated environment with locked runtime
+dependencies. Build products and smoke outputs remain local.
+
+The original 15-fit archive retains all **26** verified payloads and its
+unchanged manifest. The new diagnostic archive passes offline verification of
+**1,122** copied artifacts. Maintained documentation links and thesis/paper
+attribution were checked; the partial frozen source snapshot's licensing links
+are explained in the [diagnostic report](experiments/payoff_diagnostics_2026-10-29.md).
+These release checks introduce no new scientific study or accuracy claim.
+The [task ledger](README_TASKS.md) explicitly retains unfinished research work.
+GitHub Actions independently runs the checks below on the published commit.
+
+## Reproduce the checks
+
 ```bash
 uv sync --locked --group dev
 uv run ruff check .
