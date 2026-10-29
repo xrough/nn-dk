@@ -84,10 +84,21 @@ retains every variant and seed. The natural validation pools leave the closest
 boundary stratum empty; reweighting occupied states does not supply evidence for
 that missing region. These selection-pool residuals are descriptive.
 
+Its [independent accuracy review](docs/experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
+now verifies **576 primary predictions** and **732 retained records**. Lower
+residual MSE does not repair the strongest case: at `T=1, κ=6`, stratified
+squared-loss models have worst mean discrepancies of **8.43–11.1 reference SD**
+and covariance discrepancies of **3.54–6.97 reference-SD products**. The fine
+Gaussian control gives **0.256 / 0.169**, respectively. Across 864 pointwise
+comparison blocks, none favors the NN for all three seeds, while 377 favor
+Gaussian. These counts do not establish simultaneous confidence. Costs remain
+unevaluated for this batch.
+
 The learned nonlinear-Gaussian correction has completed all **18 fits** and its
 label replay audit. Both fit sets and the joint evaluation protocol were locked
-before generating **589,824 fresh reference families**. Independent accuracy
-evaluations are running; the accuracy and cost comparison remains unfinished.
+before generating **589,824 fresh reference families**. The correction's
+independent accuracy evaluation is running; joint contrasts, isolated timings
+and final reporting remain unfinished.
 Both studies are tracked in the [task ledger](docs/README_TASKS.md).
 
 The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)

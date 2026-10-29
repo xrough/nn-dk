@@ -5,8 +5,9 @@ Audit date: **29 October 2026**, starting from commit `d4bd378` and the local
 request to implement the README plans. It does not mark that request complete.
 
 Current execution status was updated on **30 October 2026**: all 90 fits and
-all six final reference banks are complete; independent accuracy work is
-running. The overall README research request remains **incomplete**.
+all six final reference banks are complete. Collocation accuracy is complete;
+correction accuracy is running. The overall README research request remains
+**incomplete**.
 
 ## Historical work already supported by evidence
 
@@ -48,11 +49,11 @@ v3 accuracy result.
 | ID | Requirement | Status at this audit | Evidence needed for completion |
 | --- | --- | --- | --- |
 | R1 | Investigate mean-gradient accuracy in the covariance source | **Finite-Euler diagnostic complete.** The all-regime audit completed 768 chunks, 12,288 fresh families, 24 validation anchors and 72 model comparisons, with signed componentwise and paired-refinement evidence. Remaining derivative-interchange/stopping/time bias is explicit. | [29 October diagnostic report](experiments/payoff_diagnostics_2026-10-29.md) and its checksummed gradient/source evidence. This is a validation-anchor investigation, not a continuum or all-state certificate. |
-| R2 | Investigate boundary-layer sampling | **All 72 fits locked; validation residual supplement complete.** The natural-pool comparison retains all four variants and three seeds without synthetic augmentation. Its [19-stratum report](experiments/payoff_collocation_residuals_2026-10-30.md) and compact archive are verified. Independent accuracy is running; its comparison and costs remain pending. | A declared boundary/interior sampling design, correct treatment of the intended loss measure, diagnostics by stratum, and a controlled comparison that retains the original baseline and all declared seeds. |
-| R3 | Investigate training-objective alignment with fluctuation accuracy | **Transport and validation decomposition complete; independent accuracy running.** All 192 diagnostic chunks, 1,536 fresh families and 72 model comparisons completed. The matched proposal/loss cross has all 72 fits locked, and its component/stratum residual report is complete. Strong-case quadrature/time/stopping defects remain unresolved; the residual is not an error certificate. | Controlled, common-state comparisons of the chosen objectives or source treatment, keeping frozen-mean covariance stages distinct; report raw/common-unit residuals and independently measured mean/covariance errors, including failures. |
+| R2 | Investigate boundary-layer sampling | **All 72 fits, residual diagnostics and independent accuracy complete; costs/reporting pending.** The natural-pool comparison retains all four variants and three seeds without synthetic augmentation. Its [19-stratum report](experiments/payoff_collocation_residuals_2026-10-30.md) and compact archive are verified. The complete accuracy review retains 576 primary predictions and 156 paired diagnostics; it does not establish a general accuracy improvement. | A declared boundary/interior sampling design, correct treatment of the intended loss measure, diagnostics by stratum, and a controlled comparison that retains the original baseline and all declared seeds. |
+| R3 | Investigate training-objective alignment with fluctuation accuracy | **Transport, validation decomposition and independent collocation accuracy complete.** All 192 diagnostic chunks, 1,536 fresh families and 72 model comparisons completed. All 72 matched fits retain their own frozen means. The stratified/squared strongest-case covariance discrepancy reaches 3.54–6.97 reference-SD products despite lower residual MSE. Final costs and numerical archives remain pending; the residual is not an error certificate. | Controlled, common-state comparisons of the chosen objectives or source treatment, keeping frozen-mean covariance stages distinct; report raw/common-unit residuals and independently measured mean/covariance errors, including failures. |
 | R4 | Test the nonlinear mean-field/Gaussian baseline with learned corrections | **All 18 fits completed and locked; independent accuracy running.** All 307,200 prescribed learner continuations and 12 role banks completed, with 24 independent package-simulator prefix replays passing. Fit lock `3fdbc913…` preserves all seeds, model bytes and measured preparation/fit cost records. Raw and gated zero-correction controls remain in the design; no final accuracy or cost conclusion is recorded yet. | Implement and verify the stated nonlinear baseline and correction, retain its untrained baseline and the existing classical/neural controls, and evaluate its declared capabilities and limitations. A documented negative result is still a result; an implementation-only smoke test is insufficient. |
 | R5 | Freeze validation choices before fresh final data | **Joint freeze verified before final values; all six reference banks complete.** Both fit locks, exact evaluation/report sources, criteria and independent identifier plans preceded all final materialization. Reference integrity verifies 589,824 unique family IDs and 36,864 coupled-prefix families at primary step `2^-12`, with finer steps `2^-13` and `2^-14`. Independent accuracy and its uncertainty assessment remain in progress. | Prespecified design/source/configuration identities and completed, locked fits before generating new final reference outcomes; demonstrate family/stream separation, retain every declared seed and stopped path, and report reference refinement and sampling uncertainty. |
-| R6 | Finish comparison, cost accounting and documentation | **Open.** Independent accuracy, contrasts, isolated literal timings, final reports/archives, documentation and publication of the new evidence remain to finish. Historical reports cannot establish a new method's performance. | Complete every newly declared fit/evaluation/audit, measure matched inference after heavy jobs exit, account for training/preparation/initialization/inference, preserve checksummed evidence, and update the READMEs from actual outcomes. |
+| R6 | Finish comparison, cost accounting and documentation | **Open.** Correction accuracy, joint contrasts, isolated literal timings, final reports/archives, documentation and publication of the new evidence remain to finish. Historical reports cannot establish a new method's performance. | Complete every newly declared fit/evaluation/audit, measure matched inference after heavy jobs exit, account for training/preparation/initialization/inference, preserve checksummed evidence, and update the READMEs from actual outcomes. |
 
 The existing [`native_gaussian_baseline.py`](../analysis/native_gaussian_baseline.py)
 already evolves a nonlinear deterministic mean and linear-noise covariance
@@ -93,6 +94,13 @@ cost and overall completion records remain pending.
 The completed gate, reference and software-check receipts are also preserved
 verbatim in the [public cross-stage provenance](experiments/artifacts/readme_research_2026-10-30/README.md).
 Its manifest remains open for the terminal final-stage and publication evidence.
+
+The [complete collocation accuracy review](experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
+uses the strict frozen reader and all 72 fits. It retains 576 primary predictions
+and 732 records including the paired-initial diagnostics. All cases and variants
+remain in its JSON, with all three seeds and pointwise uncertainty. No timings
+or cost advantage are claimed. The separate correction accuracy and the joint
+comparison remain unfinished.
 
 ## Execution and acceptance
 

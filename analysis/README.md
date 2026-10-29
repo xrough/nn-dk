@@ -10,7 +10,8 @@ outcomes, and their completion does not finish the proposed sampling or learned
 Gaussian-correction studies. On 30 October, all 72 matched-pool fits and all 18
 learned-correction fits are complete and locked. The full validation-residual
 supplement is complete. The joint final-data lock preceded all 589,824 fresh
-reference families; independent accuracy evaluations are running. The final
+reference families. Collocation accuracy is complete with 576 primary and 732
+retained records; correction accuracy is still running. The final
 contrasts, isolated inference costs and overall completion record remain open.
 Both diagnostics require an available C++ compiler (default `clang++`) for the
 independent native reference, in addition to the locked Python environment.

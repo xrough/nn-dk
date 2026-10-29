@@ -2,7 +2,8 @@
 
 **Status as of 30 October 2026.** The completed accuracy comparisons below run
 through 27 October. New validation diagnostics and the ongoing independent
-comparison are recorded in section 6; their final accuracy and costs are pending.
+comparison are recorded in section 6. The matched sampling/loss accuracy is
+complete; correction accuracy and final costs are pending.
 
 The project has working neural density-path and neural statistics solvers.
 The path network closely reproduces its numerical training target, but the
@@ -206,11 +207,28 @@ only four strata; the strongest regime occupies eleven. The closest boundary
 bin is empty in every regime. Occupancy reweighting cannot fill that gap, and
 these model-selection data are not independent accuracy evidence.
 
+The subsequent [independent accuracy review](docs/experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
+has completed all 576 primary predictions, retaining another 156 paired-initial
+diagnostics. At `T=1, κ=6`, the stratified/squared variant's much smaller
+selection-pool residual coexists with worst mean errors of **8.43–11.1 SD** and
+covariance discrepancies of **3.54–6.97 SD products**. Gaussian gives
+**0.256 / 0.169**, respectively. Against matched uniform/pseudo-Huber, all three
+seeds favor that control in all 18 strongest-case mean comparisons and six of
+18 covariance comparisons; twelve covariance comparisons remain unresolved.
+
+Across all cases and variants, 377 of 864 pointwise blocks favor Gaussian for
+every seed; none favors the NN for every seed. The other 487 are unresolved or
+seed-dependent. These are consistency counts across fixed optimizer seeds,
+not simultaneous inference. Every declared method and seed remains in the
+linked summaries. This controlled comparison therefore gives no general
+accuracy improvement from reweighting occupied states or changing the loss.
+Its timing and cost comparison remains pending.
+
 All **18 learned nonlinear-LNA correction fits** and their label-prefix replays
 also completed. Both studies' fits, sources, criteria and disjoint identifier
 plans were jointly locked before the new **589,824-family** reference bank was
 generated. Its primary step is `2^-12`, with paired-prefix checks at `2^-13` and
-`2^-14`. Independent accuracy evaluations are running. Contrasts, isolated
+`2^-14`. The correction's independent accuracy evaluation is running. Joint contrasts, isolated
 inference timings and the overall research completion record remain pending;
 the [task ledger](docs/README_TASKS.md) records those obligations.
 

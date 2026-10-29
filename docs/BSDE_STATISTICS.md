@@ -258,6 +258,15 @@ occupied rows cannot establish accuracy there. A counterfactual common-source
 substitution is separate from training with a shared mean. Residual reductions
 on these selection data require the independent final accuracy comparison.
 
+That [independent collocation comparison](experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
+has now completed all 576 primary predictions. In the strongest case,
+stratified/squared fits have lower residual MSE but worst covariance
+discrepancies of 3.54–6.97 reference-SD products, versus 0.169 for fine Gaussian.
+Different fitted mean sources and the uncovered boundary region remain
+limitations; this observation does not isolate a causal mechanism. Smaller
+equation residuals do not provide an accuracy certificate. Final inference
+timings are pending.
+
 ## Supervised nonlinear-LNA correction
 
 A separate candidate uses the existing nonlinear deterministic mean and

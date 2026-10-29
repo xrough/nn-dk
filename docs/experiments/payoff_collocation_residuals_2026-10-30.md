@@ -62,3 +62,22 @@ nor tests training with a shared frozen mean. Independent mean/covariance
 accuracy must be assessed from the separate final comparison.
 
 ![Strongest-case validation occupancy and residuals](artifacts/payoff_collocation_residuals_2026-10-30/audit/report/T1_k6_strata.png)
+
+## Independent accuracy follow-up
+
+The subsequent [complete accuracy review](artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
+verifies all 576 primary predictions and retains 156 additional paired-initial
+diagnostics. Its initial-law neural integration pools are independent of the
+physical reference families. All four variants and all three seeds remain.
+This follow-up uses the completed final data; the residual supplement above
+continues to describe its original selection-pool evidence.
+
+In the strongest case, the stratified/squared models' lower residual MSE
+coexists with worst mean discrepancies of **8.43–11.1 reference SD** and
+covariance discrepancies of **3.54–6.97 reference-SD products**. Fine Gaussian
+gives **0.256 / 0.169**. All three seeds favor uniform/pseudo-Huber over
+stratified/squared in all eighteen mean comparisons and six of eighteen
+covariance comparisons; the remaining twelve covariance comparisons are
+unresolved or depend on seed. These are pointwise comparisons, not simultaneous
+inference. The full numerical report, isolated timings and cost comparison
+remain pending.

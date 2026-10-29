@@ -1,12 +1,16 @@
 # Cross-stage research provenance
 
-This directory preserves compact operational receipts and logs that connect the research stages. The numerical reports and their separate archives retain the scientific estimates, uncertainty, source snapshots and local raw-file inventories. Full HDF5/NPZ data, checkpoints and trajectory banks remain local.
+This directory preserves compact operational receipts, logs and completed descriptive findings that connect the research stages. It now includes the completed collocation independent-accuracy summary with finite-reference point discrepancies and uncertainty qualifications. The separate numerical archives retain their complete evidence and local raw-file inventories. Full HDF5/NPZ data, checkpoints and trajectory banks remain local.
 
-This collection does **not** mark R1–R6 or the README research goal complete. At creation, final accuracy and cost reporting remained pending. The parent completion record must add its terminal final-stage receipt and final publication evidence later.
+This collection does **not** mark R1–R6 or the README research goal complete. Collocation accuracy is complete and verified for **576 primary / 732 retained records**; its timing and cost comparison remain pending. Correction accuracy is ongoing. Inclusion of finite-reference discrepancies is not blanket accuracy certification or a neural cost-advantage claim. The parent completion record must add its terminal final-stage receipt and final publication evidence later.
 
 - `actual/` records the 90-fit joint freeze before final values, all six terminal reference workers and their integrity receipt, the full 72-model validation residual stage, and unchanged-byte verification of the original 15-fit/26-file path archive.
 - `tiny_v2/` records a separate reduced software fixture and its complete fit/lock/reference/accuracy/timing/report/archive workflow. Its earlier accuracy-only receipt remains incomplete for timing by design; `joint_end_to_end_acceptance.json` records the later completed software acceptance. Neither receipt supplies the full scientific allocation or a scientific speed claim.
 - `clean_clone_0112776/` records the clean full-history clone, locked installation, wheel/source build, documented smoke run and wheel import/CLI checks at implementation commit `0112776`. Build products remain local and checksum-described in the receipt. This is software verification, not package-registry publication.
+
+- `collocation_accuracy/` preserves the completed all-seed collocation findings, finite-reference error/uncertainty summaries and their stated limits. It includes no partial correction results.
+- `branch_ci_9ceeb7d/` preserves successful GitHub Actions evidence and its full log at commit `9ceeb7d`: 1,502 tests, Ruff, locked Python 3.12 installation and wheel/source builds. Follow-up public-main verification remains separate.
+- `requirements_audits/` preserves the completed R1/publication provenance review and the source-only requirement-path/schema audit. These reviews do not complete the remaining scientific allocation.
 
 The original `actual_joint_freeze.json` deliberately retains `complete: false`: its prepare and freeze commands both exited zero, but the outer postcheck logger looked in the wrong location for the collocation evaluation lock. `actual_joint_freeze_verified.json` corrects only that logger postcheck using the authoritative `comparison/evaluation_lock.json`; it binds the original receipt and verifies the unchanged joint lock before any final values. No work command or physical draw was repeated for this correction.
 
