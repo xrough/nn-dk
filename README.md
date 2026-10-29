@@ -79,8 +79,10 @@ are complete on frozen validation anchors. They identify large mean-gradient and
 covariance-source discrepancies in the strongest regime; unresolved time,
 quadrature and stopping effects prevent treating residuals as an error
 certificate. The new matched sampling/loss comparison has tested software but
-has **not** completed its scientific allocation. Its status and the deferred
-learned-correction investigation are tracked in the [task ledger](docs/README_TASKS.md).
+has **not** completed its scientific allocation. The learned nonlinear-Gaussian
+correction has completed all 18 fits and its label replay audit; its final
+accuracy and cost comparison remain pending. Both studies are tracked in the
+[task ledger](docs/README_TASKS.md).
 
 The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 is complete: 18 new v3 fits, 18 frozen v2 controls, and 589,824 fresh native

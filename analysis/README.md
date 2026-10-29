@@ -259,6 +259,69 @@ Source, model, identifier or saved-array changes fail closed; incomplete cached
 arrays are never silently overwritten. The report/compact archive still need
 real full-allocation execution; software checks alone do not complete R4–R6.
 
+After both reports and the current-source full-suite test receipt are complete,
+create and independently verify each compact evidence archive:
+
+```bash
+.venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --archive docs/experiments/artifacts/payoff_collocation_2026-10-30
+.venv/bin/python analysis/report_payoff_collocation_study.py --verify-archive docs/experiments/artifacts/payoff_collocation_2026-10-30
+.venv/bin/python analysis/report_lna_payoff_correction.py archive --root runs/lna-payoff-correction-2026-10-30 --output docs/experiments/artifacts/lna_payoff_correction_2026-10-30
+.venv/bin/python analysis/report_lna_payoff_correction.py verify-archive --output docs/experiments/artifacts/lna_payoff_correction_2026-10-30
+```
+
+Archive names identify the study allocation; their manifests retain the actual
+execution dates, source identities and all optimizer seeds. Complete weights,
+trajectory banks and prediction caches remain in the ignored local roots.
+
+### Natural-validation residuals by boundary and time stratum
+
+The supplementary residual audit uses every locked collocation model and the
+same ordered natural validation rows used for selection. Its 19 strata depend
+only on state and remaining time. It retains row and distinct-parent counts,
+empty strata, signed component summaries, and each stratum's contribution to
+the canonical natural MSE and pseudo-Huber loss. It separates native solver
+units, physical payoff units and dimensionless train-scale units. Covariance
+losses count all 16 matrix entries, including both off-diagonal entries.
+
+An input-only check finds that five of the six validation pools contain only
+the farthest distance bin. The strongest case has 11 rows in distance bin 1,
+294 in bin 2 and 3,791 in bin 3; bin 0 is empty. Every case has 4,096 rows from
+256 parent trajectories, and none has initially absorbed or zero-time rows.
+Reweighting a natural pool cannot populate an absent boundary layer. The report
+must retain that coverage limit, and it must not treat repeated rows from a
+parent as independent physical samples.
+
+The decomposition checks the canonical mean and covariance residuals without
+changing weights. A separately labelled counterfactual substitutes the
+same-seed uniform/pseudo-Huber model's covariance source by subtraction only;
+it is not a fit with a common frozen mean. These are descriptive diagnostics
+on selection data, with no confidence intervals, independent accuracy claim
+or additional Monte Carlo families. Production execution requires the full
+72-fit lock and freezes the audit/report sources before reading residuals.
+
+After that lock is complete, use a separate diagnostic root:
+
+```bash
+.venv/bin/python analysis/audit_payoff_collocation_residuals.py prepare --study-root runs/payoff-collocation-study-2026-10-29 --root runs/payoff-collocation-residuals-2026-10-30
+.venv/bin/python analysis/audit_payoff_collocation_residuals.py run --root runs/payoff-collocation-residuals-2026-10-30
+.venv/bin/python analysis/audit_payoff_collocation_residuals.py verify --root runs/payoff-collocation-residuals-2026-10-30
+.venv/bin/python analysis/report_payoff_collocation_residuals.py report --root runs/payoff-collocation-residuals-2026-10-30
+```
+
+Run the complete project Ruff and pytest checks against the final maintained
+sources and retain their source-bound receipt and exact logs before archiving.
+The supplement reuses that receipt from the correction study's `audit` folder:
+
+```bash
+.venv/bin/python analysis/report_payoff_collocation_residuals.py archive --root runs/payoff-collocation-residuals-2026-10-30 --output docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30 --test-root runs/lna-payoff-correction-2026-10-30
+.venv/bin/python analysis/report_payoff_collocation_residuals.py verify-archive --output docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30
+```
+
+The compact supplement includes the component/stratum summaries, figures,
+checksums, source and test proof. Raw per-row arrays, state banks and complete
+weights remain local. Archive verification checks the copied bytes without
+requiring those large local inputs.
+
 ## Causal full-density path operator
 
 ```bash

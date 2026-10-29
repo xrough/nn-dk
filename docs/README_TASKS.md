@@ -57,6 +57,21 @@ therefore calls for auditing/reusing that baseline and testing the new learned
 correction formulation, not relabeling its existing nonlinear mean evolution
 as a new result.
 
+R2/R3 also require fitted residual diagnostics by boundary/time stratum. Sampler
+occupancy counts and global validation losses alone do not satisfy that check.
+The additive residual audit/report uses the unchanged natural validation rows,
+all fitted variants and seeds, and the original 19 state/time strata. It reports
+native solver units, physical payoff units and train-scale dimensionless units,
+including empty strata and distinct parent counts. These descriptive validation
+diagnostics are separate from the independent final accuracy comparison; the
+validation rows were already used for model selection.
+
+The supplementary software passes the full **1,497-test** suite and Ruff. A
+separate 12-fit fixture also passed the actual CLI, report, compact archive and
+offline verification round trip. Those fixture results do not complete the
+scientific diagnostic: execution on the full 72-model allocation remains gated
+on its completed fit lock.
+
 ## Execution and acceptance
 
 1. Establish the R1–R3 diagnostics on frozen validation data before choosing a
