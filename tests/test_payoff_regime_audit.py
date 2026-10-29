@@ -13,6 +13,7 @@ from scipy.linalg import expm
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from analysis import audit_native_stopping as stopping  # noqa: E402
 from analysis import audit_payoff_regimes as audit  # noqa: E402
 from analysis.compiled_native import compiler_available  # noqa: E402
 from nn_dk.native_types import NativeDKSpec  # noqa: E402
@@ -92,10 +93,60 @@ def test_entropy_digest_reproduces_the_rng_seedsequence_without_a_draw():
 
 @pytest.mark.skipif(not compiler_available(), reason="Optional serial C++ control unavailable")
 def test_compiled_native_first_crossing_and_killed_integrals_match_package_controls():
-    result = audit.stopped_native_controls(n_cells=32)
+    result = stopping.stopped_native_controls(n_cells=32)
     assert result["all_paths_retained"]
     assert result["first_segment_crossing"] == result["already_absorbed"] == 1
     assert result["maximum_cpp_vs_native_state_error"] < 2e-14
     assert result["maximum_cpp_vs_native_stopping_time_error"] < 2e-14
     assert result["maximum_killed_integral_manual_error"] < 2e-15
     assert result["mass_error"] < 2e-14
+    assert result["kind"] == stopping.KIND
+    assert result["frozen_readout_verification"]["frozen_states_bitwise_equal"]
+    assert result["frozen_readout_verification"]["initially_absorbed_running_payoffs_exactly_zero"]
+    assert result["frozen_readout_verification"]["killed_running_payoffs_exactly_frozen"]
+    assert result["no_held_out_DK_outcomes_generated_or_read"]
+    assert result["provenance"]["historical_records_rewritten"] is False
+    assert hashlib.sha256(Path(audit.__file__).read_bytes()).hexdigest() == stopping.HISTORICAL_HELPER_SHA256
+
+
+def frozen_readout_fixture():
+    states = np.full((3, 5, 8), 1/8)
+    states[1, 0, :2] += [.01, -.01]
+    values = np.zeros((3, 5, 4))
+    values[2, :, :2] = [.014719351239493379, -.009835156062260268]
+    values[1, 1:] = [.014719351239493379, -.009835156062260268, .125, -.25]
+    return states, values, np.array([False, False, True, True])
+
+
+def test_frozen_linear_readouts_accept_blas_projection_roundoff_only():
+    states, values, integral_rows = frozen_readout_fixture()
+    values[2, -1, 0] -= 7e-18
+    values[1, -1, 0] -= 7e-18
+    result = stopping.verify_frozen_readouts(states, values, integral_rows)
+    assert 0 < result["maximum_frozen_terminal_projection_error"] < 8e-18
+    assert result["projected_payoff_constancy_atol"] == 2e-15
+    assert result["projected_payoff_constancy_rtol"] == 0
+
+
+@pytest.mark.parametrize("row", [1, 2])
+def test_frozen_linear_readouts_reject_nonroundoff_projection_errors(row):
+    states, values, integral_rows = frozen_readout_fixture()
+    values[row, -1, 0] += 1e-8
+    with pytest.raises(AssertionError, match="terminal projections"):
+        stopping.verify_frozen_readouts(states, values, integral_rows)
+
+
+@pytest.mark.parametrize("row", [1, 2])
+def test_frozen_native_states_reject_even_one_ulp_of_motion(row):
+    states, values, integral_rows = frozen_readout_fixture()
+    states[row, -1, 0] = np.nextafter(states[row, -1, 0], np.inf)
+    with pytest.raises(AssertionError, match="states must freeze bitwise"):
+        stopping.verify_frozen_readouts(states, values, integral_rows)
+
+
+@pytest.mark.parametrize("row", [1, 2])
+def test_killed_running_outputs_do_not_receive_the_projection_allowance(row):
+    states, values, integral_rows = frozen_readout_fixture()
+    values[row, -1, 2] = np.nextafter(values[row, -1, 2], np.inf)
+    with pytest.raises(AssertionError, match="running payoffs"):
+        stopping.verify_frozen_readouts(states, values, integral_rows)

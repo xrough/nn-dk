@@ -1,6 +1,6 @@
 # Verification workflow
 
-## Public release verification — 29 October 2026
+## Public release verification — 29–30 October 2026
 
 The implementation reviewed at `495f36c` passes Ruff and the full **1,329-test**
 suite (256.14 seconds, two non-failing upstream warnings). Historical-source
@@ -24,6 +24,16 @@ are explained in the [diagnostic report](experiments/payoff_diagnostics_2026-10-
 These release checks introduce no new scientific study or accuracy claim.
 The [task ledger](README_TASKS.md) explicitly retains unfinished research work.
 GitHub Actions independently runs the checks below on the published commit.
+
+The [initial Linux release check](https://github.com/xrough/nn-dk/actions/runs/40904961688)
+found a bitwise payoff-projection comparison differing by `6.94e-18`. The
+portable [stopping-control audit](../analysis/audit_native_stopping.py) retains
+exact checks for frozen states and killed running integrals, and uses the
+existing `2e-15` manual-readout tolerance for floating-point payoff projections.
+The historical audit helper and all recorded scientific source identities remain
+unchanged. No simulator or package API is changed by this verification adapter.
+All 12 focused stopping-audit tests pass, including seven new regression cases
+that accept projection roundoff and reject state motion or killed-payoff drift.
 
 ## Reproduce the checks
 
