@@ -260,7 +260,13 @@ arrays are never silently overwritten. The report/compact archive still need
 real full-allocation execution; software checks alone do not complete R4–R6.
 
 After both reports and the current-source full-suite test receipt are complete,
-create and independently verify each compact evidence archive:
+create and independently verify each compact evidence archive.
+
+Finish evaluator work commands before reporting. Export rechecks the full
+current input and paid-work inventory against the frozen report. If additional
+work invalidates that report, preserve its directory separately and regenerate
+the default report before archiving. Posthoc verification receipts remain
+separate from the frozen work costs.
 
 ```bash
 .venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --archive docs/experiments/artifacts/payoff_collocation_2026-10-30

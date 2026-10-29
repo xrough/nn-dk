@@ -66,7 +66,7 @@ including empty strata and distinct parent counts. These descriptive validation
 diagnostics are separate from the independent final accuracy comparison; the
 validation rows were already used for model selection.
 
-The supplementary software passes the full **1,497-test** suite and Ruff. A
+The supplementary software passes the full **1,502-test** suite and Ruff. A
 separate 12-fit fixture also passed the actual CLI, report, compact archive and
 offline verification round trip. Those fixture results do not complete the
 scientific diagnostic: execution on the full 72-model allocation remains gated

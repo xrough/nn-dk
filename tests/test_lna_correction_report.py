@@ -578,7 +578,7 @@ def test_generate_manifest_and_offline_archive_roundtrip(evidence, tmp_path, mon
         report.verify_archive(destination)
 
 
-def test_posthoc_verification_receipts_do_not_change_report_identity(evidence):
+def test_posthoc_verification_receipts_do_not_change_report_identity(evidence, tmp_path):
     original = report.generate(evidence["root"])
     producer = evidence["root"] / "execution/cli_verify-lock_999.json"
     producer.write_text("posthoc receipts are deliberately not parsed by the frozen work reader")
@@ -588,6 +588,56 @@ def test_posthoc_verification_receipts_do_not_change_report_identity(evidence):
     assert report.generate(evidence["root"]) == original
     assert str(producer) not in original["identity"]["inputs"]
     assert str(evaluator_verify) not in original["identity"]["inputs"]
+    destination = tmp_path / "posthoc-archive"
+    assert report.archive(evidence["root"], destination)["complete"]
+    assert report.verify_archive(destination)["complete"]
+
+
+@pytest.mark.parametrize("namespace", ["evaluator", "producer"])
+@pytest.mark.parametrize("change", ["added", "changed"])
+def test_archive_rejects_stale_work_receipt_inventory_without_regenerating(
+    evidence, tmp_path, monkeypatch, namespace, change
+):
+    def receipt():
+        if namespace == "evaluator":
+            return evaluation_receipt(evidence["root"], "benchmark")
+        path = evidence["root"] / "execution/cli_fit_999.json"
+        save(path, {"stage": "fit", "pid": 999, "wall_seconds": 1.0,
+                    "process_cpu_seconds": 0.8, "source_hash": source_hash()})
+        return path
+
+    if change == "changed":
+        path = receipt()
+    report.generate(evidence["root"])
+    outputs = {p: p.read_bytes() for p in (evidence["root"] / "report").iterdir()}
+    if change == "added":
+        path = receipt()
+    else:
+        value = report.read(path)
+        value["wall_seconds"] += 0.5
+        save(path, value)
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("Archiving must never regenerate or replace a frozen report")
+
+    monkeypatch.setattr(report, "generate", forbidden)
+    destination = tmp_path / "stale-archive"
+    with pytest.raises(ValueError, match="work-cost inventory|Frozen report input"):
+        report.archive(evidence["root"], destination)
+    assert not destination.exists()
+    assert all(path.read_bytes() == original for path, original in outputs.items())
+
+
+def test_archive_requires_an_existing_report_without_generating_one(evidence, tmp_path, monkeypatch):
+    def forbidden(*args, **kwargs):
+        pytest.fail("Archiving must not implicitly create a report")
+
+    monkeypatch.setattr(report, "generate", forbidden)
+    destination = tmp_path / "missing-report-archive"
+    with pytest.raises(FileNotFoundError):
+        report.archive(evidence["root"], destination)
+    assert not (evidence["root"] / "report").exists()
+    assert not destination.exists()
 
 
 def test_evaluator_process_receipts_have_explicit_nonadditive_coverage(evidence):

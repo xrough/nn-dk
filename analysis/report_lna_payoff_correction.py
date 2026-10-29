@@ -644,14 +644,30 @@ def model_summary(tables):
         for (case, name, seed), values in sorted(grouped.items())]
 
 
+def _report_inputs(evidence):
+    """Collect the same complete current input inventory for generation/export."""
+    allocation = validate_evidence(evidence)
+    summary, components, pools = preparation_costs(evidence)
+    for case, manifest in evidence["baseline"]["references"].items():
+        reference_directory = evidence["collocation_root"]/"reference"/case
+        artifact(reference_directory/"manifest.json", evidence["inputs"])
+        artifact(reference_directory/"reference.h5", evidence["inputs"], manifest["reference_sha256"])
+    helpers = {**evidence["baseline"].get("plan", {}).get("helpers", {}),
+        **evidence["packet"]["helpers"], **evidence.get("additional_helpers", {})}
+    for path, digest in helpers.items():
+        artifact(path, evidence["inputs"], digest)
+    identity = {"kind": KIND, "source_hash": source_hash(), "reporter_sha256": sha(__file__),
+        "joint_lock_sha256": evidence["joint_lock_sha256"], "helpers": helpers, "inputs": dict(evidence["inputs"])}
+    return allocation, summary, components, pools, identity
+
+
 def generate(root, documentation=None, output=None):
     evidence = load_complete(root)
     if documentation is not None:
         document = Path(documentation).resolve()
         if document.suffix != ".md" or any(document.is_relative_to(p) for p in (evidence["root"], evidence["collocation_root"])):
             raise ValueError("Optional documentation must be a Markdown file outside authoritative study roots")
-    allocation = validate_evidence(evidence)
-    summary, components, pools = preparation_costs(evidence)
+    allocation, summary, components, pools, identity = _report_inputs(evidence)
     tables = accuracy_tables(evidence)
     tables["timing_observations"] = timing_table(evidence)
     tables["costs"], tables["total_costs"] = deployment_costs(evidence, tables["timing_observations"], summary, pools)
@@ -664,16 +680,6 @@ def generate(root, documentation=None, output=None):
         "mean_selected_step": m["selected_step"]["mean"], "covariance_selected_step": m["selected_step"]["covariance"],
         "mean_natural_validation_mse": m["natural_validation"]["mean"]["natural_mse"],
         "covariance_natural_validation_mse": m["natural_validation"]["covariance"]["natural_mse"]} for m in evidence["candidate_lock"]["models"]]
-    for case, manifest in evidence["baseline"]["references"].items():
-        reference_directory = evidence["collocation_root"]/"reference"/case
-        artifact(reference_directory/"manifest.json", evidence["inputs"])
-        artifact(reference_directory/"reference.h5", evidence["inputs"], manifest["reference_sha256"])
-    helpers = {**evidence["baseline"].get("plan", {}).get("helpers", {}),
-        **evidence["packet"]["helpers"], **evidence.get("additional_helpers", {})}
-    for path, digest in helpers.items():
-        artifact(path, evidence["inputs"], digest)
-    identity = {"kind": KIND, "source_hash": source_hash(), "reporter_sha256": sha(__file__),
-        "joint_lock_sha256": evidence["joint_lock_sha256"], "helpers": helpers, "inputs": evidence["inputs"]}
     output = evidence["root"]/"report" if output is None else Path(output).resolve()
     if any(output == root or root.is_relative_to(output) or output.is_relative_to(root/name)
            for root in (evidence["root"], evidence["collocation_root"]) for name in ("data", "payoffs", "reference", "evaluation", "comparison", "deployment")):
@@ -728,6 +734,9 @@ def archive(root, destination):
     report = load_report(root/"report")
     evidence = load_complete(root)
     tested, test_logs = verify_final_tests(root, helpers=report["identity"]["helpers"])
+    allocation, _, _, _, identity = _report_inputs(evidence)
+    if report["identity"] != identity or report["allocation"] != allocation:
+        raise ValueError("Current report inputs or work-cost inventory changed; regenerate the report before archiving")
     roots = {"candidate": root, "collocation": evidence["collocation_root"]}
     if destination.exists() or any(destination.is_relative_to(p) or p.is_relative_to(destination) for p in roots.values()):
         raise ValueError("Choose a new compact archive outside both authoritative studies")
