@@ -26,9 +26,13 @@ See the final [collocation report](../docs/experiments/payoff_collocation_2026-1
 [computational collector](../docs/experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json).
 The [public proof collection](../docs/experiments/artifacts/readme_research_2026-10-30/README.md)
 preserves terminal receipts, source identities and software acceptance separately.
-**R6 publication signoff remains pending** until the reviewed public `main`, its
-exact-commit CI and a fresh full-history clone are verified in the
-[composite completion record](../docs/experiments/readme_research_2026-10-30_completion.json).
+**R6 publication checks are verified** for reviewed commit `05a2272`, observed on
+public `main` on 30 October. The successful publication-branch CI ran at that
+same commit; the fresh full-history clone passed build, install and smoke checks.
+The [publication receipt](../docs/experiments/artifacts/research_publication_2026-10-30/publication_05a2272.json)
+and [composite completion record](../docs/experiments/readme_research_2026-10-30_completion.json)
+keep that dated proof separate from the later documentation-only closure, whose
+public-main/CI verification is performed externally before final delivery.
 Both diagnostics require an available C++ compiler (default `clang++`) for the
 independent native reference, in addition to the locked Python environment.
 
@@ -325,10 +329,10 @@ verifies **18,236 copied artifacts** and indexes 35,418 local raw files. The
 [collector](../docs/experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json)
 checks all ten terminal commands, both final reports, all declared allocations
 and the current 1,502-test/287-input receipts. Those software receipts belong to
-commit `0112776`; later documentation and publication receive their own signoff.
+commit `0112776`; the later reviewed publication has its own `05a2272` receipt.
 Numerical package source remains `0d9bda04…`; frozen helper identities and their
-source snapshots are retained alongside the data. R6 publication signoff is
-still pending as recorded above.
+source snapshots are retained alongside the data. The publication checks above
+complete R6 within its declared scope; failed scientific gates remain unchanged.
 
 ```bash
 .venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --archive docs/experiments/artifacts/payoff_collocation_2026-10-30

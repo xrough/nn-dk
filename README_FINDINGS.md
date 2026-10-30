@@ -305,8 +305,11 @@ and Ruff, including historical-source loading tests. The clean full-history
 clone, package builds and smoke command also pass; see the
 [verification record](docs/verification.md). The separate completed scientific
 comparison retains failed or unresolved accuracy gates; software acceptance
-does not turn those gates into certificates. Publication verification of the
-final documentation revision is a separate step.
+does not turn those gates into certificates. The
+[publication signoff](docs/experiments/artifacts/research_publication_2026-10-30/README.md)
+records the reviewed public commit, matching CI, fresh full-history clone,
+distribution installation and all five smoke models passing. The containing
+signoff revision receives its own current-main CI check before task completion.
 
 - [Current collocation report](docs/experiments/payoff_collocation_2026-10-30.md)
 - [Current correction report](docs/experiments/lna_payoff_correction_2026-10-30.md)

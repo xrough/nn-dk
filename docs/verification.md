@@ -85,12 +85,34 @@ test counts, build checks and scientific scope.
 
 ## Final research publication signoff
 
-**Pending.** The completed computation is not yet exact-commit publication
-proof for the final documentation/evidence update. Before closing R6, verify the
-reviewed public `main`, GitHub Actions at that exact commit and a fresh
-full-history clone, then record the new commit/run/clone receipts here and in the
-[composite completion record](experiments/readme_research_2026-10-30_completion.json).
-Retain the `0112776` proof above as its own dated record rather than relabeling it.
+On **30 October 2026 at 11:06:58 UTC**, the
+[publication receipt](experiments/artifacts/research_publication_2026-10-30/publication_05a2272.json)
+verified reviewed commit `05a227272a7f6e4d891d2b2100a347e97bdefb25` as public
+`main` in `xrough/nn-dk`, with public visibility, default branch `main`, the SSH
+`origin` and fast-forward ancestry preserved.
+
+[Actions run 41043709286](https://github.com/xrough/nn-dk/actions/runs/41043709286)
+passed Ruff, **1,502 tests** (681 seconds, two non-failing upstream warnings),
+and wheel/source builds at that exact commit. It ran on
+`codex/public-release`; this is same-commit publication-branch CI, not a relabeled
+main-branch run.
+
+The [fresh public-clone receipt](experiments/artifacts/research_publication_2026-10-30/clean_clone/verification.json)
+records a non-shallow 49-commit clone, obtained with a local object-cache
+reference and then dissociated. Its initial checkout failure was recovered by
+an explicit restore and full Git object verification. The recovered checkout
+was clean before and after locked Python 3.12 installation, wheel/source builds
+and installations, CLI checks, and all five documented smoke fits. The installed
+numerical package remained `0d9bda04…`; same-step smoke success does not certify
+continuous-time accuracy.
+
+These checks complete the reviewed R6 publication scope in the
+[composite record](experiments/readme_research_2026-10-30_completion.json). The later
+documentation-only closure's public-main/CI check is performed externally before
+final delivery; this dated receipt does not claim to test its own containing
+commit. The `0112776` proof above and older records below retain their original
+commit, test, build and scientific scope. No package registry or website was
+published.
 
 ## Public release verification — 29–30 October 2026
 

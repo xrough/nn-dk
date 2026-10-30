@@ -1,15 +1,17 @@
 # README task and evidence ledger
 
 Audit date: **29 October 2026**, starting from commit `d4bd378` and the local
-[`README_FINDINGS.md`](../README_FINDINGS.md). This ledger tracks the active
-request to implement the README plans. It does not mark that request complete.
+[`README_FINDINGS.md`](../README_FINDINGS.md). This ledger records completion of
+the requested bounded investigations and publication checks within their stated
+scope; unresolved scientific gates remain explicit.
 
 Current status was updated on **30 October 2026** after the external collector
 verified all ten terminal commands, strict allocations, reports and compact
-archives. The bounded R1–R5 investigations and the computational part of R6 are
-complete. **Final R6 documentation/publication signoff remains pending**: the
-reviewed public `main`, its exact-commit CI and a fresh full-history clone still
-need verification. The overall request is not yet marked complete.
+archives. **R1–R6 are complete within the declared scope.** Reviewed commit
+`05a2272` was verified on public `main`; its successful publication-branch CI and
+fresh full-history clone passed the checks recorded below. This later
+documentation-only closure receives external public-main/CI verification before
+final delivery; the dated receipt does not claim to test its containing commit.
 
 ## Historical work already supported by evidence
 
@@ -56,7 +58,7 @@ neural advantage was required.
 | R3 | Investigate objective alignment with fluctuation accuracy | **Transport and matched comparison complete.** The transport audit retains 192 chunks, 1,536 fresh families and 72 model comparisons. All 72 collocation models retain their own selected means during covariance fitting. In T1_k6, stratified/squared covariance discrepancy is 3.54–6.97 reference-SD products despite lower validation residual MSE. | [Transport evidence](experiments/payoff_diagnostics_2026-10-29.md), [decomposition](experiments/payoff_collocation_residuals_2026-10-30.md) and [independent accuracy](experiments/payoff_collocation_2026-10-30.md). Common-Γ substitution is diagnostic only; the other covariance models were not trained with a common mean. A residual is not an error certificate. |
 | R4 | Test learned corrections to the existing nonlinear-LNA baseline | **Full test complete with a retained zero-correction result.** All 18 fits executed 1,000 Adam updates and 30 L-BFGS outer steps in each stage, 2,060 updates/model. Natural validation selected step 0 in both stages for all seeds. All 216 new method/group predictions are available; their trained point moments equal `gated_zero`. | [Correction report](experiments/lna_payoff_correction_2026-10-30.md) and [archive](experiments/artifacts/lna_payoff_correction_2026-10-30/README.md). All 307,200 label families, 12 role banks, 24 independent package prefix replays and full paid optimization remain recorded. Baseline gains over collocation or analytic IID Gaussian controls are not learned-head gains. |
 | R5 | Freeze validation choices before fresh final data | **Protocol and final comparison verified.** Both full fit locks and the exact source/criteria/identifier plans preceded final materialization. All six reference banks contain 589,824 unique families at primary step `2^-12`; the 36,864 coupled-prefix families are reused at `2^-13` and `2^-14`. Independent integration pools and all stopped paths remain. | [Computational collector](experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json), [terminal receipts](experiments/artifacts/readme_research_2026-10-30/final_computational/actual_final_stages.json) and final reports. Sampling and refinement diagnostics do not certify continuous hitting, a particle law or a continuum limit. |
-| R6 | Finish comparison, cost accounting, documentation and publication | **Computation verified; final publication signoff pending.** The reports contain 792 joint primary / 948 retained predictions, 1,080 contrast packets / 6,480 signed statistic rows, and 288 correction cold/warm jobs. Collocation has zero qualified payback rows out of 2,160; correction has zero out of 432. | The [public proof collection](experiments/artifacts/readme_research_2026-10-30/README.md) preserves the terminal evidence. Final documentation links/hashes, the [composite record](experiments/readme_research_2026-10-30_completion.json) and exact public `main`/CI/fresh-clone verification still require owner signoff. Historical CI is not proof for a later publication commit. |
+| R6 | Finish comparison, cost accounting, documentation and publication | **Computation and reviewed publication verified.** The reports contain 792 joint primary / 948 retained predictions, 1,080 contrast packets / 6,480 signed statistic rows, and 288 correction cold/warm jobs. Collocation has zero qualified payback rows out of 2,160; correction has zero out of 432. | The [computational proof collection](experiments/artifacts/readme_research_2026-10-30/README.md), [publication receipt](experiments/artifacts/research_publication_2026-10-30/publication_05a2272.json) and [composite record](experiments/readme_research_2026-10-30_completion.json) retain the separate evidence scopes. Public `main` at `05a2272`, same-commit branch CI and a fresh full-history clone are verified. The later documentation closure is checked externally before final delivery. |
 
 The existing [`native_gaussian_baseline.py`](../analysis/native_gaussian_baseline.py)
 already evolves a nonlinear deterministic mean and linear-noise covariance along
@@ -125,18 +127,19 @@ local. They are not new simulations. The
 preserves the earlier payloads and appended terminal evidence without rewriting
 historical scientific records.
 
-**Pending R6 signoff:** the owner must finish the composite documentation record
-and verify the reviewed public `main`, Actions at that exact commit and a fresh
-full-history clone. Record that later proof in
-[verification](verification.md#final-research-publication-signoff) and the
+**Reviewed publication verified:** the [30 October receipt](experiments/artifacts/research_publication_2026-10-30/publication_05a2272.json)
+records public `main` at `05a2272`, successful Actions on `codex/public-release`
+at that same commit, and the fresh 49-commit full-history clone. Build,
+installation and all five documented smoke fits passed. The
+[verification note](verification.md#final-research-publication-signoff) and
 [composite completion record](experiments/readme_research_2026-10-30_completion.json)
-before marking the overall README request complete.
+preserve this dated proof; the documentation-only closure's public-main/CI check
+is performed externally before final delivery.
 
 ## Execution and acceptance
 
-The completed computation followed these rules; final publication signoff above
-is still open. They do not prescribe another training run after a negative
-result.
+The completed computation and reviewed publication followed these rules. They
+do not prescribe another training run after a negative result.
 
 1. Establish the R1–R3 diagnostics on frozen validation data before choosing a
    new formulation. Keep diagnostic results separate from fresh final accuracy.

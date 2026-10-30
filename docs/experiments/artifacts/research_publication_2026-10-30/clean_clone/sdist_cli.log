@@ -1,0 +1,22 @@
+usage: nn-dk [-h]
+             [--config CONFIG | --preset {smoke,pilot,n2048,resolution64,long-horizon,a-smoke,a-first-batch,a-full,a-final,bsde-smoke,bsde-first-batch,bsde-refinement,bsde-study-smoke,bsde-anchor-study,generator-smoke,generator-accuracy,path-smoke,path-controls,path-first-batch,path-pilot,path-interacting-smoke,path-interacting-pilot,interacting-moments-smoke,interacting-moments-pilot}]
+             [--output OUTPUT] [--budget-seconds BUDGET_SECONDS]
+             [--stage {all,calibrate,generate,fit,evaluate,report}]
+             {calibrate,generate,fit,evaluate,report,run,convergence,bsde,bsde-study,generator,path-solver,interacting-moments}
+
+Neural Dean–Kawasaki coarse dynamics benchmark
+
+positional arguments:
+  {calibrate,generate,fit,evaluate,report,run,convergence,bsde,bsde-study,generator,path-solver,interacting-moments}
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --preset {smoke,pilot,n2048,resolution64,long-horizon,a-smoke,a-first-batch,a-full,a-final,bsde-smoke,bsde-first-batch,bsde-refinement,bsde-study-smoke,bsde-anchor-study,generator-smoke,generator-accuracy,path-smoke,path-controls,path-first-batch,path-pilot,path-interacting-smoke,path-interacting-pilot,interacting-moments-smoke,interacting-moments-pilot}
+  --output OUTPUT
+  --budget-seconds BUDGET_SECONDS
+                        Per-invocation wall budget; checkpoints preserve
+                        progress
+  --stage {all,calibrate,generate,fit,evaluate,report}
+                        Independent stage of a statistics or density-path
+                        workflow
