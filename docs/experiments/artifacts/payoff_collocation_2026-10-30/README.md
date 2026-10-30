@@ -1,0 +1,3 @@
+# Matched-pool proposal/loss comparison evidence
+
+See [the complete report](report/report.md). All four variants and optimizer seeds remain. Primary IID-law integration is independent of reference; paired-initial predictions are diagnostics. Large JSON is losslessly compressed; full checkpoint and trajectory arrays remain locally indexed by checksum. Exact code snapshots include source files that were untracked at execution; the original Git commit alone is not claimed to contain them. This finite-grid ablation is one research stage; the learned-corrections candidate and final study remain separate requirements. Code is MIT; authored prose, figures and tables are CC BY 4.0.

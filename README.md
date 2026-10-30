@@ -91,17 +91,40 @@ squared-loss models have worst mean discrepancies of **8.43–11.1 reference SD*
 and covariance discrepancies of **3.54–6.97 reference-SD products**. The fine
 Gaussian control gives **0.256 / 0.169**, respectively. Across 864 pointwise
 comparison blocks, none favors the NN for all three seeds, while 377 favor
-Gaussian. These counts do not establish simultaneous confidence. Costs remain
-unevaluated for this batch.
+Gaussian. These counts do not establish simultaneous confidence. The
+[final collocation report](docs/experiments/payoff_collocation_2026-10-30.md)
+retains all variants and costs: warm supplied-state medians are **0.715–0.836 ms**,
+and fresh 16,384-histogram IID estimates take **0.313–0.475 s**. No
+accuracy-qualified training-cost crossover is established.
 
-The learned nonlinear-Gaussian correction has completed all **18 fits** and its
-label replay audit. Both fit sets and the joint evaluation protocol were locked
-before generating **589,824 fresh reference families**. The correction's
-independent accuracy evaluation is running; joint contrasts, isolated timings
-and final reporting remain unfinished.
-Both studies are tracked in the [task ledger](docs/README_TASKS.md).
+The [nonlinear-LNA correction study](docs/experiments/lna_payoff_correction_2026-10-30.md)
+has completed all **18 fits**, independent accuracy, joint contrasts and isolated
+timings. Every fit ran 1,000 Adam and 30 L-BFGS outer updates in each stage, but
+natural-validation selection retained **step 0 for both heads in every fit**.
+All 324 trained group/time point-error rows match the gated zero-correction
+baseline exactly. The paid optimization therefore supplies no learned-head
+improvement; any advantage over older methods belongs to the baseline.
 
-The [boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
+The selected baseline's worst mean/covariance discrepancies are **24.65% / 8.87%**
+of reference SD / SD products at `T=1, κ=6`. The other five cases have point
+discrepancies below 5%, but uncertainty requirements still prevent a blanket
+accuracy claim. One warm complete conditional call takes **13.15–54.01 ms**;
+full uncached IID calls take **31.31–164.82 s**, including a separate Gaussian
+ODE for every histogram. These are single observations per workload, not
+latency distributions. Standalone offline charges remain **1,463–1,513 s** per
+selected model, including its paid preparation and fitting. No qualified
+payback is established.
+
+Both fit sets and the joint protocol preceded **589,824 fresh reference families**.
+The declared computational investigation is complete, retaining **792 primary /
+948 total records**, all seeds, failures and stopped paths. The
+[collocation archive](docs/experiments/artifacts/payoff_collocation_2026-10-30/README.md),
+[correction archive](docs/experiments/artifacts/lna_payoff_correction_2026-10-30/README.md),
+[composite research record](docs/experiments/readme_research_2026-10-30_completion.json)
+and [task ledger](docs/README_TASKS.md) preserve the evidence and unresolved
+finite-Euler, stopping and continuum limitations.
+
+The historical [27 October boundary and residual-loss repair rerun](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 is complete: 18 new v3 fits, 18 frozen v2 controls, and 589,824 fresh native
 reference families at T=0.25/1 and κ=0.75/3/6. The moving boundary gate and exact
 native short-time slopes pass their consistency audits. **Overall prediction

@@ -1,0 +1,3 @@
+# Supervised LNA correction evidence
+
+See [the all-seed report](candidate/report/report.md). Large JSON is losslessly compressed. Full HDF5, checkpoints and numerical/trajectory/IID caches remain local and checksum-indexed. Every declared seed, failure and stopped family is retained. Code is MIT; project-authored documentation is CC BY 4.0; see [license coverage](code/LICENSING.md). This is a partial repository snapshot: tested source/configuration is included, while Git history and uncopied documentation remain in the [canonical repository](https://github.com/xrough/nn-dk) and [canonical documentation](https://github.com/xrough/nn-dk/tree/main/docs). Relative links into uncopied documents should be resolved there.

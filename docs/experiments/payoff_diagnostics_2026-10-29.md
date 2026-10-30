@@ -58,3 +58,17 @@ The archive's `code/` directory is a partial source snapshot. Its preserved
 licensing note refers to documentation outside that snapshot; use the canonical
 [DK guide](../DK_BACKGROUND.md), [provenance note](../provenance.md) and
 [software citation](../../CITATION.cff) in this repository for those references.
+
+## Follow-up — 30 October 2026
+
+The work listed above as remaining on 29 October has since completed its
+declared allocation. The [matched collocation study](payoff_collocation_2026-10-30.md)
+retains all 72 fits, independent accuracy and isolated costs. The
+[conditional-LNA correction study](lna_payoff_correction_2026-10-30.md) retains
+all 18 completed optimizations; natural validation selected the initial zero
+correction in both stages for every fit. Neither study establishes a general
+learned accuracy advantage or accuracy-qualified payback. The
+[composite research record](readme_research_2026-10-30_completion.json) and
+[task ledger](../README_TASKS.md) record the later evidence and publication
+signoff. The dated diagnostic results and their immutable archive remain
+unchanged; the continuum and stopping limitations above still apply.

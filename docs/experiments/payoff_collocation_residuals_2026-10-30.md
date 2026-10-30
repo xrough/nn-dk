@@ -81,3 +81,13 @@ covariance comparisons; the remaining twelve covariance comparisons are
 unresolved or depend on seed. These are pointwise comparisons, not simultaneous
 inference. The full numerical report, isolated timings and cost comparison
 remain pending.
+
+
+## Final bounded-study follow-up — 30 October 2026
+
+The pending report, timing and cost stages in the earlier accuracy-only
+follow-up above are now complete.
+
+The [complete collocation comparison](payoff_collocation_2026-10-30.md) and [supervised correction study](lna_payoff_correction_2026-10-30.md) now have verified full-allocation reports, timings and compact archives. This residual supplement remains a descriptive audit of natural validation/selection rows with shared parents; its empty strata remain unknown. It neither becomes independent accuracy evidence nor supplies a residual-based error bound because the subsequent studies finished.
+
+The collocation study has no accuracy-qualified payback. All 18 supervised correction runs retained their initial zero heads, so their final accuracy reflects the nonlinear baseline rather than a selected learned correction. The [composite completion record](readme_research_2026-10-30_completion.json) records the completed bounded investigations and the failed or unresolved scientific gates. The generated residual report, archived payloads and original generation receipt remain unchanged.

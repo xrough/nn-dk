@@ -1,0 +1,30 @@
+name = "long-horizon"
+seed = 20261023
+n_cells = 32
+n_particles = 512
+diffusion = 1.0
+dt = 0.00048828125
+save_interval = 0.0078125
+lag = 0.015625
+horizon = 4.0
+query_times = [1.0, 2.0, 4.0]
+train_contexts = 64
+train_replicates = 16
+validation_contexts = 16
+validation_replicates = 32
+test_contexts = 8
+test_replicates = 512
+model_paths = 512
+calibration_paths = 256
+n_grid = 32
+budget_seconds = 28800
+bootstrap_samples = 200
+optimizer_seeds = [0, 1, 2]
+
+[training]
+epochs = 100
+patience = 10
+batch_size = 128
+learning_rate = 0.001
+weight_decay = 1e-05
+threads = 1

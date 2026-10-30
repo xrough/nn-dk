@@ -1,0 +1,61 @@
+{
+  "accuracy_cache_used": false,
+  "all_families_retained": true,
+  "arrays": {
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/timing/jobs/T1_k3/nonuniform/raw_conditional_LNA_dt10/ensemble/warm/record.npz",
+    "sha256": "08565876dc8277ee8cc93736412f9909fbba5125ed754dd991132b348b2ba95f"
+  },
+  "attempt_cost_complete": true,
+  "available": true,
+  "cold_end_to_end_seconds": null,
+  "complete": true,
+  "component_sum_seconds": 1149.7470663748682,
+  "components": {
+    "aggregation_seconds": 0.007121791830286384,
+    "conditional_LNA_seconds": 1149.545356792165,
+    "head_seconds": 0.15202083298936486,
+    "initialization_seconds": 0.042566957883536816
+  },
+  "full_uncached_LNA_per_histogram": true,
+  "identity": {
+    "job": {
+      "batch_size": 64,
+      "case": "T1_k3",
+      "families": 16384,
+      "method": {
+        "baseline_step": 0.0009765625,
+        "family": "raw-conditional-LNA",
+        "kind": "raw",
+        "name": "raw_conditional_LNA_dt10",
+        "seed": null
+      },
+      "phase": "warm",
+      "profile": "nonuniform",
+      "role": "ensemble",
+      "slot": "T1_k3/nonuniform/raw_conditional_LNA_dt10/ensemble/warm"
+    },
+    "joint_lock_sha256": "26f5c64e6c62c2bba7cac735b7232bdbcc7f9144d196e220b0f25629ea1cacad"
+  },
+  "observation_scope": "one cold and one warm observation,not a stable latency distribution",
+  "paid_attempt_scope": "known attempt elapsed totals include successful observation once;never add workload again",
+  "paid_attempt_seconds": 1149.7502776659094,
+  "restoration_and_resume_attempts": [
+    {
+      "accuracy_baseline_cache_read": false,
+      "cpu_seconds": 1140.8610819999994,
+      "elapsed_seconds": 1149.7502776659094,
+      "finished": true,
+      "finished_unix": 1793343533.228062,
+      "restoration_seconds": 0.0,
+      "reused_live_model_after_complete_cold_workload": true,
+      "started_unix": 1793342383.4640288,
+      "successful": true,
+      "warm_preparation_seconds": 0.0,
+      "workload_seconds": 1149.7470663748682
+    }
+  ],
+  "timing_initials_shared_across_methods_and_phases": true,
+  "timing_mode": "uninterrupted-full-uncached-workload-v1",
+  "timing_scope": "uninterrupted histogram generation,all conditional ODEs,head,total covariance;restoration separate",
+  "workload_seconds": 1149.7470663748682
+}

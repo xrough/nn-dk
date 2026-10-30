@@ -1,0 +1,897 @@
+{
+  "attempts": [
+    {
+      "complete": true,
+      "cpu_seconds": 1200.269516,
+      "pid": 77668,
+      "pool_preparation": {
+        "T0p25_k0p75": {
+          "cpu_seconds": 16.944241000000005,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 18.347441457910463
+        },
+        "T0p25_k3": {
+          "cpu_seconds": 18.872310999999968,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 21.061931292060763
+        },
+        "T0p25_k6": {
+          "cpu_seconds": 18.834405000000004,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 21.36965125007555
+        },
+        "T1_k0p75": {
+          "cpu_seconds": 20.31167800000003,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 22.48746345890686
+        },
+        "T1_k3": {
+          "cpu_seconds": 20.12618199999997,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 23.269857000093907
+        },
+        "T1_k6": {
+          "cpu_seconds": 19.13483800000006,
+          "scope": "load and verify cached baseline/label banks; generation charged separately",
+          "seconds": 21.427052416140214
+        }
+      },
+      "wall_seconds": 1334.6147646661848
+    }
+  ],
+  "complete": true,
+  "data_lock_sha256": "538dcf03af95aa5a5b4d79c13c678c88b9a52386eaef2fd4f3935aad498ad605",
+  "held_out_reference_inputs_read": false,
+  "models": [
+    {
+      "bank_hash": "2cabc3a55be9a9569c03ade61843741ec8417a9ef6fffd4044f4539287e36a41",
+      "baseline_step": 0.0078125,
+      "case": "T0p25_k0p75",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k0p75/checkpoints/seed2.pt",
+      "checkpoint_sha256": "4ce4101d2c924f157d2f62eec8d6bd127c5f30a2f0d8e71694f93ca1fd7d68f5",
+      "complete": true,
+      "config_hash": "7566489007612c055b255cf82a4d735f4d2e42682f874c08772427d78336e449",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "45d4b8110bed75603eea47d41c46c866dcdad5ce3001fbdafb7f0ff909badc82",
+          "content_sha256": "944456fc4ab4269a23204fda6bfcb5fa398fb710f77cf87fe9510effef7ca017",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "79129af47966b394c9cb654e920f27e43787357abdead7038b24da08fdeb788b",
+          "parent_families": 80,
+          "parent_family_sha256": "eec60add4d133b8bb7ce2eb3f4cb493cbf3b917e5657ec53aaabeb2ef50725cd",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "3c7b050da759a98a3c4ab740d9a6707dc2c46960721afcbd38baa66507db245a",
+            "label_manifest_sha256": "d9c1c4feed2e7d5af28fb7359054844a288de8d4a0419741ba3a9a2d0938fbdb",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "f67f0bec1b93afc2be5fa082ddb0bc8234cb9b240f61f6c37ec40f9475802eb9",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "d68030a5a9141d8fc584090f5b5d8a180a21f4598e4ed778f5da627ba8451d41",
+          "content_sha256": "208aa7718c8aa8f747fe276749b5ae2bfc0c02669e2c24b41d73253ef2cf6c3f",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "99ab5714990058336a0e0fc60074ee01e064e3b3a7dd88d1b98d4c753b8b5ce3",
+          "parent_families": 40,
+          "parent_family_sha256": "f6e6162ae2a5afc941fe7711eb1a507f1b9f1aea4eaa48549aa2745e0b875fcc",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "ceb34923e231cdc4f168693bdaafe8e1d120e82da8639da08add719f4d86a2f4",
+            "label_manifest_sha256": "3073a9a321010d86dbcc24c028244bc7e540b19bc6a30ddad5f910a64fdca7a9",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "7530fab23abffabcc48d36005abbe6c85ee0e844178bd7b0c0bff552dbd6aef4",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 166.255071,
+      "full_invocation_seconds": 186.70925945788622,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k0p75/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "046d332581886170f23c9a551689938d2006f5653c632d474f37ebbb0c8c305a",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k0p75/checkpoints/seed2.json",
+      "metadata_sha256": "0d1b1301965189bdd4589539b864834ad33d2f382c187b8790572d27123125b0",
+      "method_id": "8cad09c825e4f8d97b7230796fa30e9471763ce5a929ad074faef7192630e0cd",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T0p25_k0p75_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.0005571281801134383,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.0009131432088307535,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 3.7010857078712434,
+        "mean": 3.0426982895005494
+      },
+      "target_id": "fea040993592cff91cbb526afd808441a81c8c8534459226933b413a5b11d7e7",
+      "training_seconds": 185.14459516690113,
+      "variant": "trained-LNA-correction"
+    },
+    {
+      "bank_hash": "2cabc3a55be9a9569c03ade61843741ec8417a9ef6fffd4044f4539287e36a41",
+      "baseline_step": 0.0078125,
+      "case": "T0p25_k3",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k3/checkpoints/seed2.pt",
+      "checkpoint_sha256": "52c821aea4d324ea8c7afce490dc421430175c71ce060707d80d27fabf817390",
+      "complete": true,
+      "config_hash": "073e681bd8bc48dc9a2f276ff75cbc3d02a5a52dc95ed9f5d2545c6e877b2ea6",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "af25ed8fb552adabf5896ed6d1ba84c5bc645dc921638d496490b1c07a2812ee",
+          "content_sha256": "50a780d42d2790762972f075f114c294376722bd3fcf94332fedddb6de727f3c",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "3004ce3fc7b3b47a6bfbe6450227492f5d2ce12cdab1aff010f9eb0c47736418",
+          "parent_families": 80,
+          "parent_family_sha256": "6be08db4e75df4c2476bcdfba90e833f0b72c80dd8611eebfc3b87ec2e277dc8",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "cbfac175e6a9f239ef65c5c831a4ae95a3c889b8b12515a089fb4a4251b419dd",
+            "label_manifest_sha256": "d0db73e85a56190cc2286cff3f472f516963c0d0fbb7e4e780825e278ee95b5d",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "bae0ce67367ff9fa668021ad43063827d0feefb2cf94f6481a99653b4a3bc5cf",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "459ec10a9188c0b6f6a26c56ba36b3fd6bfdc95e1bf2eb27b8f7b1d0552cd16d",
+          "content_sha256": "2734f00fa734d25b74fd2180546eb7640844b5e245dca7e914b1038d4b5b961c",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "7899d2544aab95733aa0755c65e6f8d27450abeb5fdf2289a0910ca100747e54",
+          "parent_families": 40,
+          "parent_family_sha256": "f006d2335017034dff5ff1bb2d934d0250380f88fc6299e0de9856562c68e7dc",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "11a1a67d562320d921c99af43877340be4203f10667d613fdb5a455bb7ee7abe",
+            "label_manifest_sha256": "5956edf784b3a2095ec6bb18538debbb638a2a8cb1926b60b7d1aeb0149832d0",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "69914a9ea2c6754d8094003cf613eae4314b218ed491d3d5047865e4f5e3e7ec",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 166.26991799999996,
+      "full_invocation_seconds": 195.47761716716923,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k3/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "db11a2a88e5f78877b8a7081671e27b2cdcdeda16a4f2f9f0c5ba872885c3905",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k3/checkpoints/seed2.json",
+      "metadata_sha256": "6ba4c340f1d57ff2fb2803fc41b69e04d2c6058eafb00cd7fe2e6e879b1e1088",
+      "method_id": "1879a9927ac863010cfbb3ee83c9330eca4be3f884bad957343d77c9de8ce33f",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T0p25_k3_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.0006759281486277784,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.0009333007079036098,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 4.326743032317609,
+        "mean": 3.1918454214464873
+      },
+      "target_id": "ca7ab6ad0e92393f50a5c3f441872212f083c5bb570f8fc4a4451d6891ce0179",
+      "training_seconds": 195.1072010421194,
+      "variant": "trained-LNA-correction"
+    },
+    {
+      "bank_hash": "2cabc3a55be9a9569c03ade61843741ec8417a9ef6fffd4044f4539287e36a41",
+      "baseline_step": 0.0078125,
+      "case": "T0p25_k6",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k6/checkpoints/seed2.pt",
+      "checkpoint_sha256": "08ee2086fecec9e384de53cb3593dc1dde0ca6e9b42520e79ab00c916f8413b4",
+      "complete": true,
+      "config_hash": "34aaa4c3e3cde3cad407b6229c6f928065da7afc229931839ed6e7d1af801b1f",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "9635617b2391f7234abb67dc8c98de758dfc09d66d334b3249a329f1081c1380",
+          "content_sha256": "6a8f42b8e89b6a2d1d48a6747916ec59c4c1d99ff41190d290af96f321acb7ed",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "2293c7546f22dfc250ba51d94a33484d36b1a148af8732a7b8726dccd63777ad",
+          "parent_families": 80,
+          "parent_family_sha256": "693775114e0c74fbabb805696583abb5cf520a5d458053064d42cddb5ded4f89",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "5c8223f55281e32e3149bed91192ef273bdbba3ad8972f7ac2161b4f1a23ed1c",
+            "label_manifest_sha256": "26333eebbbb1012b0e554fb862cffb6ab354e16a7b4c561b068a7a30c4c1021c",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "6d55c99a351ed54c0a1af6fcf9dd2d785217de5892e9764bda6c2b30503489a5",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "753d3a67cba50a8e59a69d78fbe9540668ebf313cea4270ea6fded547a581c4f",
+          "content_sha256": "08f447077dc740b52d1ff7ee38c594db60f1873e77e04df17456ce51c23431da",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "571dd799393537f6c2b683ddfea8003b76827d7fab728f6cc072fa27c79e01c8",
+          "parent_families": 40,
+          "parent_family_sha256": "97b198bbf9531e95e2df126286c068904cb921d5be7fbe667f6676d04ba7c516",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "d197377f57ca28e697478726eee09e78ed7fcdfb2c462306a7c7a73db5427f44",
+            "label_manifest_sha256": "e97e72821543594bd5f70fc80c3d9abb9547ac0887ebea2429feb6b4ffd5d0ee",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "394f24dcc4b02034cc6aa1e7fbf839a090cd65d25b9cbe05183e9621ce29e6da",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 161.18927899999994,
+      "full_invocation_seconds": 178.92204441712238,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k6/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "791e2f85ffbbbcaac07d82098752b7b9eb60979c37b1ae89c0cb26143fc99c57",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T0p25_k6/checkpoints/seed2.json",
+      "metadata_sha256": "716a7e3f492f16876aaf3ade003bcbf8cd3de84066627cfcb10f0c7c71bb2076",
+      "method_id": "abd243c98a6adc648dcf3d8288ba8be533b981fb89e5de41ab099ff741614309",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T0p25_k6_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.0006897102900014926,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.000864597218084804,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 4.502604086883366,
+        "mean": 3.5608839087653905
+      },
+      "target_id": "a29e1418b666cde27677da35140fbc3f05387c18613e4a59e55cb7dd56167f11",
+      "training_seconds": 178.52605249988846,
+      "variant": "trained-LNA-correction"
+    },
+    {
+      "bank_hash": "5df7d3b59b448a2ed1bb7f196283fb85266fc738fe0b55ce3270804293a3374a",
+      "baseline_step": 0.0078125,
+      "case": "T1_k0p75",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k0p75/checkpoints/seed2.pt",
+      "checkpoint_sha256": "b4eea541865bbe870c1743f29b247274c430bec942b75c5ce3fc5fbd89f10e41",
+      "complete": true,
+      "config_hash": "bfb6c418331aef7189de8cb8bd648e411fb8337d70e3336646ed505670e15e2e",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "17c53f4682dfe666ff3b86715fc10040aa80268437610f82686dde4fc893ac1f",
+          "content_sha256": "06e3148787ad069643e4cd9baa0019b1bf677cead4fdee366ce01fa239901051",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "730be3e670aebc5e10b8415d92eb5d96496d112baecfc0338eac97f36bccd03e",
+          "parent_families": 80,
+          "parent_family_sha256": "2f8eb5f925ab2dd4e0f4dbfa510f70b2d88837c6e9a6b66801e28b1e7aacd5a5",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "b54287302acf06735098c0ee0619f1f22eb780aef5f3a9c2dfbbd16dfdb79daf",
+            "label_manifest_sha256": "9a6ac3b5e58f4344ce350f10fe8e0a2687ca7fd2e35fb7a758b47989aca762e0",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "cd231b4949df83e96f9711b1d90a64f57da4fbbe3aff19edee9422d339a01baa",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "8193dbdac0eb2c0189202dcc0900cb58ecc1cd2e1433e63a627e8d1f34beb9f8",
+          "content_sha256": "7572ea96cce90229e886d49db1d6e08f708fdd90e8a3d4e11f71bf3fb7cdfeb9",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "6fff219d4c0999c88c225b0f5bab6701883d36b7fd3ba527af7941429f6fbd54",
+          "parent_families": 40,
+          "parent_family_sha256": "6124b88c52cbfe04d17f19ede1deb36e91364d32038249804cc387c8eb5f06e8",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "4c9affea456d6912061d19e0a7e0d11985e8795fae74561e6c934b68e7917f5a",
+            "label_manifest_sha256": "2d435d0cae745d4d1fe7a205f0c545f986207dc920ccbea3323984e7fd9b77a1",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "972ddb71b61f6e87bd2dded7fc8674dc6d4b2023bfec63e4d78b0334e7372a92",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 164.78478099999995,
+      "full_invocation_seconds": 180.00725133297965,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k0p75/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "8b2db4af1482d314097a6d0ac02e6d0b9d643636432bd974aa7be5daa76fbf59",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k0p75/checkpoints/seed2.json",
+      "metadata_sha256": "a09542bdf63030af76746f2b4170b4391ba0e50d3e366528c5203a88db19b481",
+      "method_id": "521b2ccf872650daf135b67bd1726a99a644dac293609603bf1d1d14cce53ecf",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T1_k0p75_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.0007914661481090915,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.0011145142243490368,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 4.255406791111454,
+        "mean": 3.768697918159887
+      },
+      "target_id": "773e11e030bc74bfc3c39d4c0382a9e1c61bf42d1c11b649df907ca617e85ff4",
+      "training_seconds": 179.63022258295678,
+      "variant": "trained-LNA-correction"
+    },
+    {
+      "bank_hash": "5df7d3b59b448a2ed1bb7f196283fb85266fc738fe0b55ce3270804293a3374a",
+      "baseline_step": 0.0078125,
+      "case": "T1_k3",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k3/checkpoints/seed2.pt",
+      "checkpoint_sha256": "df924be7a63981b7be1825a2252ba204b736a5adbacd6a127f918ff5a7c74d5d",
+      "complete": true,
+      "config_hash": "75327bb2cc488a57d9516bc7261f583d4546163abd9c9f41772842a0ece29221",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "de911ae8b135d74d88e73c2031779c9c6166ac768af22fbe02837dbb63255512",
+          "content_sha256": "401af62e57b9ede965d1e32b7f7b85c8bd4f8c3211dd841c64bf11dfea650850",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "1b7a67eec452dd8b5a48fb5e11aaa5522e4163b4b4cc819e611e799b4d5958d7",
+          "parent_families": 80,
+          "parent_family_sha256": "a90a7b10597bf5fc4fb97f1f27f510697f86a62eb60da8ab3896d8f6de0f8247",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "7fa2c67180d26aba5394db8ee81c56b7a43e406c7d32cc8895c5c7a2d59a5116",
+            "label_manifest_sha256": "b011eb1f5511b05c514e4086ebb2d2e3d576b854e78fbb51e59008d870217ab9",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "aa8894704a8c8687b8cae23a775bebbc84bcfc7d10919db431ae3df96b996bb1",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "c2cb01bf445509561b009a1327e0faaf07c564be4f6077ba6641ebf864954254",
+          "content_sha256": "8d219142aebbdbb383e272dc171f2bfc041a1dc52bfb1ed0176afd950121575e",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "d6214a4c7379fea35850df2aa69b4c121acc2f4380971eb9ae051eaea581a25b",
+          "parent_families": 40,
+          "parent_family_sha256": "c64c56c5110ab40fb5542440fa04cf8b592f6e0b55088bbf1f7a6c6fe22fab80",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "7bcadcd172ed0e6c8b2c3b5fbde6c7cc4c6554b8c3f6fd71ea249d4331e753d7",
+            "label_manifest_sha256": "0e844b6a646ade27814a821ac5a6f6b4956f14b36cc417f1d40c807927f8b606",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "4ea753fe25eb3b8bf18ac98a63689e848baffc9b06488e59158390926e2c3153",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 152.99228300000004,
+      "full_invocation_seconds": 165.21922862483189,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k3/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "8cad0808471877efab8b02270b1bf28f6915ac8ce9c6546e5c1612b620024cee",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k3/checkpoints/seed2.json",
+      "metadata_sha256": "49fee7dd3a31f70559d1a5cf8ecb6b26f9a23ef446f3ccea4a468dda29233ffd",
+      "method_id": "f19015bb81039d8419c2b48c0a9a7976f6c223615c72535713effac00bbebfdd",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T1_k3_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.001411034899656737,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.001423144833803867,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 3.983693359186873,
+        "mean": 3.6719996323809028
+      },
+      "target_id": "99afc8ed5adac88e9eb0bf25b515d217cf791ea5e44dff4e2b272e8336e35fce",
+      "training_seconds": 164.7737197498791,
+      "variant": "trained-LNA-correction"
+    },
+    {
+      "bank_hash": "5df7d3b59b448a2ed1bb7f196283fb85266fc738fe0b55ce3270804293a3374a",
+      "baseline_step": 0.0078125,
+      "case": "T1_k6",
+      "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k6/checkpoints/seed2.pt",
+      "checkpoint_sha256": "052f1b9e9e0910600a6d98e85c3caf829a2bb79672745852f4f44b1e6333092a",
+      "complete": true,
+      "config_hash": "af320868c372c6355f0b6667b8fe0c28eecb4ac2dbe24b64c5ff58ba6ff0aa2a",
+      "data_fingerprints": {
+        "train": {
+          "anchors": 120,
+          "baseline_arrays_sha256": "5571c6568398f14c7699279ab9c17cabf95b8aebeee1dff9f80f94802f35b85f",
+          "content_sha256": "5267648660c3ba6893a08b83ad83f6e1379d531ffcfc58b0d609e4f09bcd7145",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "74e357b49fcea9a5f43b4e51d410cfe48732ad2d53062fcbf6ffb8f546242157",
+          "parent_families": 80,
+          "parent_family_sha256": "fa6a7b93c4f56a9454dcf60466bf2f6b6ee184c30b75014940f3888d73a848a0",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "a00a8a3cb7435ac0b1859abd2605406f6b4bb23f202131e267eee428bc0f27cb",
+            "label_manifest_sha256": "528488a02761ebeaa98912e5d01faf87df3e5274b0af305d83b906bdd2af6c7e",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "2913d72947f96688de031648647cb0b23f0b82f6f9c6d9282528355ce326d805",
+            "role": "train",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "train",
+          "row_counts": {
+            "native": 80,
+            "stress": 40
+          }
+        },
+        "validation": {
+          "anchors": 40,
+          "baseline_arrays_sha256": "03f72e3afe21a6ad0f46a992859c3f9c2b1ebe6640e49b9056b8b215ae3b91b4",
+          "content_sha256": "5b5848ab7b68edabacb47aa78be31704348b19ed0bbb37ba4216588592b66dba",
+          "kind": "parent-grouped-native-mc-lna-supervised-payoff-bank-v1",
+          "label_arrays_sha256": "a7aa14dc038f4196cec97b8d318f394f567545bd4d4ca4d9ba6035b37d57b9cf",
+          "parent_families": 40,
+          "parent_family_sha256": "616b65256406585c5f34370583777b4e52a7e5607067163e6cf4230de75fa449",
+          "provenance": {
+            "all_stopped_paths_retained": true,
+            "baseline_manifest_sha256": "d67b0fdc38a64a4fc23cc9df16709dba4552f52e7ece19039b76ad3de4d04ef1",
+            "label_manifest_sha256": "2211e9621f62c4f1dbc4319163ff4b598e0f324f93efe9563e32bdf6ebee4460",
+            "normalizer_policy": "fixed physical payoff-bank scales; training-only engine normalization; no validation/final normalization",
+            "parent_pool_sha256": "7ef88c5dd497c6b43d80b610f28015778c4b45fc576cf2a33493b74e8d72dfcd",
+            "role": "validation",
+            "stream_namespace": "lna-supervised-correction-2026-10-30-v1",
+            "training_mixture": {
+              "native": 0.6666666666666666,
+              "stress": 0.3333333333333333
+            }
+          },
+          "queries_per_anchor": 3,
+          "role": "validation",
+          "row_counts": {
+            "native": 40,
+            "stress": 0
+          }
+        }
+      },
+      "full_invocation_cost_complete": true,
+      "full_invocation_cpu_seconds": 164.78215,
+      "full_invocation_seconds": 180.60276724980213,
+      "initial_state_sha256": "137dea19e9c58f86f26d36e3944e968f331607070df4d72c59fb5687f116bff3",
+      "invocation_cost_scope": "all engine entry-through-return attempts including initialization/validation/saves; cached-bank integrity/loading, sidecar writes and strict restoration are worker overhead",
+      "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k6/checkpoints/seed2.invocations.json",
+      "invocation_record_sha256": "3839ebc4feedf2d2235a302a5067e5a6432de16a5ae46b9be1c622932a9dc528",
+      "loss_scaling": {
+        "covariance_scale": [
+          [
+            0.48570875338547764,
+            0.4857087533854774,
+            0.492011326503612,
+            0.492011326503612
+          ],
+          [
+            0.4857087533854774,
+            0.4857087533854772,
+            0.4920113265036118,
+            0.4920113265036118
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ],
+          [
+            0.492011326503612,
+            0.4920113265036118,
+            0.49839568202248047,
+            0.49839568202248047
+          ]
+        ],
+        "inverse_time_weighting": false,
+        "mean_scale": [
+          0.01540008042962772,
+          0.015400080429627714,
+          0.015599912391181537,
+          0.015599912391181537
+        ],
+        "normalization": "sqrt(N)*physical-mean/bank.scales; Nscaled-covariance/bank.scales-outer",
+        "training_label_law": "declared-finite-Euler-stopped-polygons"
+      },
+      "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/payoffs/T1_k6/checkpoints/seed2.json",
+      "metadata_sha256": "cf2e7717cb05bb8e193551a8254abfd9a6552caccbaf99e406169d6a2a7024fb",
+      "method_id": "1b8c5623a06633b412fed41ab166cb8021da1b200eb26f6442b3a6074b56b60e",
+      "model_kind": "supervised-boundary-adapted-nonlinear-lna-payoff-correction-v1",
+      "name": "T1_k6_lna_correction_seed2",
+      "natural_validation": {
+        "covariance": {
+          "anchors": 40,
+          "natural_mse": 0.008064170629912819,
+          "queries_per_anchor": 3
+        },
+        "mean": {
+          "anchors": 40,
+          "natural_mse": 0.005144706403211639,
+          "queries_per_anchor": 3
+        }
+      },
+      "seed": 2,
+      "selected_step": {
+        "covariance": 0,
+        "mean": 0
+      },
+      "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+      "stage_seconds": {
+        "covariance": 3.8517794855870306,
+        "mean": 3.4903244546148926
+      },
+      "target_id": "bd90845e684ab0706f15af2dd843cf7eeaf9bd80819fbc5fe628648818be0a23",
+      "training_seconds": 180.22372062504292,
+      "variant": "trained-LNA-correction"
+    }
+  ],
+  "preregistration_sha256": "4b3a3db8d5ba42b204ce398363e8268fb934a0025d48fe26312efbcc8555cf93",
+  "seed": 2,
+  "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "workflow": "supervised-conditional-nonlinear-LNA-payoff-correction-study-v1"
+}

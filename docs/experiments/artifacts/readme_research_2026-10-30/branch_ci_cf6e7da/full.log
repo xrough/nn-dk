@@ -1,0 +1,479 @@
+tests	Set up job	﻿2026-10-30T00:27:56.7717094Z Current runner version: '2.338.0'
+tests	Set up job	2026-10-30T00:27:56.7736238Z ##[group]Runner Image Provisioner
+tests	Set up job	2026-10-30T00:27:56.7736812Z Hosted Compute Agent
+tests	Set up job	2026-10-30T00:27:56.7737166Z Version: 20261021.618
+tests	Set up job	2026-10-30T00:27:56.7737635Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+tests	Set up job	2026-10-30T00:27:56.7738070Z Build Date: 2026-10-21T00:45:21Z
+tests	Set up job	2026-10-30T00:27:56.7738505Z Worker ID: {6362c073-0f2a-4ded-b286-3de452912d3c}
+tests	Set up job	2026-10-30T00:27:56.7738939Z Region: centralus
+tests	Set up job	2026-10-30T00:27:56.7739280Z Cloud: Azure
+tests	Set up job	2026-10-30T00:27:56.7739712Z ##[endgroup]
+tests	Set up job	2026-10-30T00:27:56.7740497Z ##[group]Operating System
+tests	Set up job	2026-10-30T00:27:56.7740891Z Ubuntu
+tests	Set up job	2026-10-30T00:27:56.7741225Z 26.04.1
+tests	Set up job	2026-10-30T00:27:56.7741541Z LTS
+tests	Set up job	2026-10-30T00:27:56.7741925Z ##[endgroup]
+tests	Set up job	2026-10-30T00:27:56.7742257Z ##[group]Runner Image
+tests	Set up job	2026-10-30T00:27:56.7742606Z Image: ubuntu-26.04
+tests	Set up job	2026-10-30T00:27:56.7743001Z Version: 20261025.179.1
+tests	Set up job	2026-10-30T00:27:56.7743628Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+tests	Set up job	2026-10-30T00:27:56.7744740Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+tests	Set up job	2026-10-30T00:27:56.7745292Z ##[endgroup]
+tests	Set up job	2026-10-30T00:27:56.7746131Z ##[group]GITHUB_TOKEN Permissions
+tests	Set up job	2026-10-30T00:27:56.7747711Z Contents: read
+tests	Set up job	2026-10-30T00:27:56.7748155Z Metadata: read
+tests	Set up job	2026-10-30T00:27:56.7748501Z ##[endgroup]
+tests	Set up job	2026-10-30T00:27:56.7750215Z Secret source: Actions
+tests	Set up job	2026-10-30T00:27:56.7750794Z Cache mode: write
+tests	Set up job	2026-10-30T00:27:56.7751375Z Prepare workflow directory
+tests	Set up job	2026-10-30T00:27:56.8006654Z Prepare all required actions
+tests	Set up job	2026-10-30T00:27:56.8040092Z Getting action download info
+tests	Set up job	2026-10-30T00:27:57.0243631Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+tests	Set up job	2026-10-30T00:27:57.1323448Z Download action repository 'astral-sh/setup-uv@v6' (SHA:d0cc045d04ccac9d8b7881df0226f9e82c39688e)
+tests	Set up job	2026-10-30T00:27:57.6675240Z Complete job name: tests
+tests	Run actions/checkout@v4	﻿2026-10-30T00:27:57.7255859Z ##[group]Run actions/checkout@v4
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7256371Z with:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7256748Z   fetch-depth: 0
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7257134Z   repository: xrough/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7259334Z   token: ***
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7259579Z   ssh-strict: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7259829Z   ssh-user: git
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7260090Z   persist-credentials: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7260392Z   clean: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7260657Z   sparse-checkout-cone-mode: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7260954Z   fetch-tags: false
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7261211Z   show-progress: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7261469Z   lfs: false
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7261707Z   submodules: false
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7261966Z   set-safe-directory: true
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7262256Z   allow-unsafe-pr-checkout: false
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7262623Z env:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7262882Z   OMP_NUM_THREADS: 1
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7263142Z   MKL_NUM_THREADS: 1
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7263401Z   OPENBLAS_NUM_THREADS: 1
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.7263671Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9100680Z Syncing repository: xrough/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9102208Z ##[group]Getting Git version info
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9102793Z Working directory is '/home/runner/work/nn-dk/nn-dk'
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9103642Z [command]/usr/bin/git version
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9115851Z git version 2.56.0
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9134221Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9139932Z Temporarily overriding HOME='/home/runner/work/_temp/b3ca9b5e-e9ce-41b5-aa63-0d5c3dbf1a6f' before making global git config changes
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9141357Z Adding repository directory to the temporary git global config as a safe directory
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9143952Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/nn-dk/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9200572Z Deleting the contents of '/home/runner/work/nn-dk/nn-dk'
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9203731Z ##[group]Initializing the repository
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9206211Z [command]/usr/bin/git init /home/runner/work/nn-dk/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9300206Z hint: Using 'master' as the name for the initial branch. This default branch name
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9301382Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9301896Z hint: to use in all of your new repositories, which will suppress this warning,
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9302307Z hint: call:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9302534Z hint:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9302836Z hint: 	git config --global init.defaultBranch <name>
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9303206Z hint:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9303526Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9304032Z hint: 'development'. The just-created branch can be renamed via this command:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9304437Z hint:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9304669Z hint: 	git branch -m <name>
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9304930Z hint:
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9305279Z hint: Disable this message with "git config set advice.defaultBranchName false"
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9307967Z Initialized empty Git repository in /home/runner/work/nn-dk/nn-dk/.git/
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9318394Z [command]/usr/bin/git remote add origin https://github.com/xrough/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9364997Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9366008Z ##[group]Disabling automatic garbage collection
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9368442Z [command]/usr/bin/git config --local gc.auto 0
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9400057Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9400731Z ##[group]Setting up auth
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9406615Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9436885Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9802531Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+tests	Run actions/checkout@v4	2026-10-30T00:27:57.9831312Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0062937Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0092381Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0314798Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0350693Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0351290Z ##[group]Fetching the repository
+tests	Run actions/checkout@v4	2026-10-30T00:27:58.0357682Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1242020Z From https://github.com/xrough/nn-dk
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1243261Z  * [new branch]      codex/public-release -> origin/codex/public-release
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1244301Z  * [new branch]      main                 -> origin/main
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1252473Z [command]/usr/bin/git branch --list --remote origin/codex/public-release
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1277021Z   origin/codex/public-release
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1283405Z [command]/usr/bin/git rev-parse refs/remotes/origin/codex/public-release
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1302347Z cf6e7dacb62e922f0f3f277ebe463e037337cfe0
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1306508Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1307670Z ##[group]Determining the checkout info
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1308979Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1315978Z [command]/usr/bin/git sparse-checkout disable
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1361172Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1386728Z ##[group]Checking out the ref
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.1388799Z [command]/usr/bin/git checkout --progress --force -B codex/public-release refs/remotes/origin/codex/public-release
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.6864800Z Switched to a new branch 'codex/public-release'
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.6876664Z branch 'codex/public-release' set up to track 'origin/codex/public-release'.
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.6907492Z ##[endgroup]
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.6947273Z [command]/usr/bin/git log -1 --format=%H
+tests	Run actions/checkout@v4	2026-10-30T00:28:00.6969321Z cf6e7dacb62e922f0f3f277ebe463e037337cfe0
+tests	Run astral-sh/setup-uv@v6	﻿2026-10-30T00:28:00.7187944Z ##[group]Run astral-sh/setup-uv@v6
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7188323Z with:
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7188662Z   enable-cache: true
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7188980Z   activate-environment: false
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7189353Z   working-directory: /home/runner/work/nn-dk/nn-dk
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7189769Z   server-url: https://github.com
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7191545Z   github-token: ***
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7192088Z   cache-dependency-glob: **/*requirements*.txt
+tests	Run astral-sh/setup-uv@v6	**/*requirements*.in
+tests	Run astral-sh/setup-uv@v6	**/*constraints*.txt
+tests	Run astral-sh/setup-uv@v6	**/*constraints*.in
+tests	Run astral-sh/setup-uv@v6	**/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	**/uv.lock
+tests	Run astral-sh/setup-uv@v6	**/*.py.lock
+tests	Run astral-sh/setup-uv@v6	
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7192638Z   restore-cache: true
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7192964Z   save-cache: true
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7193321Z   prune-cache: true
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7193683Z   ignore-nothing-to-cache: false
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7194049Z   ignore-empty-workdir: false
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7194399Z   add-problem-matchers: true
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7194734Z env:
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7195063Z   OMP_NUM_THREADS: 1
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7195537Z   MKL_NUM_THREADS: 1
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7195950Z   OPENBLAS_NUM_THREADS: 1
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.7196289Z ##[endgroup]
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8397390Z (node:2141) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8398437Z (Use `node --trace-deprecation ...` to show where the warning was created)
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8466043Z Trying to find version for uv in: /home/runner/work/nn-dk/nn-dk/uv.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8466931Z Could not find file: /home/runner/work/nn-dk/nn-dk/uv.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8467610Z Trying to find version for uv in: /home/runner/work/nn-dk/nn-dk/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8480522Z Could not determine uv version from uv.toml or pyproject.toml. Falling back to latest.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:00.8513658Z Getting latest version from GitHub API...
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.1382151Z manifest-file not provided, reading from local file.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.1404635Z manifest-file does not contain version 0.13.6, arch x86_64, platform unknown-linux-gnu. Falling back to GitHub releases.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.1426405Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.13.6/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.5179112Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/027214a6-470a-4dbf-a5cc-8066c1f22ef3 -f /home/runner/work/_temp/a008caf3-231f-49aa-802f-e964cc714c86
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.7805838Z Added /home/runner/.local/bin to the path
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.7807157Z Added /opt/hostedtoolcache/uv/0.13.6/x86_64 to the path
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.7824649Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.7824974Z Successfully installed uv version 0.13.6
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.7826225Z Searching files using cache dependency glob: /home/runner/work/nn-dk/nn-dk/**/*requirements*.txt,/home/runner/work/nn-dk/nn-dk/**/*requirements*.in,/home/runner/work/nn-dk/nn-dk/**/*constraints*.txt,/home/runner/work/nn-dk/nn-dk/**/*constraints*.in,/home/runner/work/nn-dk/nn-dk/**/pyproject.toml,/home/runner/work/nn-dk/nn-dk/**/uv.lock,/home/runner/work/nn-dk/nn-dk/**/*.py.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.8506146Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_boundary_regimes_2026-10-27/code/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:01.8562211Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_boundary_regimes_2026-10-27/code/uv.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.0424162Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30/code/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.0523397Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_collocation_residuals_2026-10-30/code/uv.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.0677886Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_diagnostics_2026-10-29/code/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.0717464Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_diagnostics_2026-10-29/code/uv.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.1291317Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_regimes_2026-10-27/code/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.1333446Z /home/runner/work/nn-dk/nn-dk/docs/experiments/artifacts/payoff_regimes_2026-10-27/code/uv.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.1987773Z /home/runner/work/nn-dk/nn-dk/pyproject.toml
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.2053259Z /home/runner/work/nn-dk/nn-dk/uv.lock
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.2056869Z Found 10 files to hash.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.2779567Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-unknown-pruned-72892932ceda02d66dd4847b28e2c596bc8a7d6d1c8188762f56b252347869d3
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.4114661Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-unknown-pruned-72892932ceda02d66dd4847b28e2c596bc8a7d6d1c8188762f56b252347869d3
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.4185097Z (node:2141) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.6301615Z Received 114746 of 114746 (100.0%), 1.3 MBs/sec
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.6301996Z Cache Size: ~0 MB (114746 B)
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.6319110Z [command]/usr/bin/tar -xf /home/runner/work/_temp/47dd6d2e-854a-4c03-9279-0cafa923660d/cache.tzst -P -C /home/runner/work/nn-dk/nn-dk --use-compress-program unzstd
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.6393898Z Cache restored successfully
+tests	Run astral-sh/setup-uv@v6	2026-10-30T00:28:02.6397200Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-unknown-pruned-72892932ceda02d66dd4847b28e2c596bc8a7d6d1c8188762f56b252347869d3
+tests	Run uv sync --locked --group dev --python 3.12	﻿2026-10-30T00:28:02.6549693Z ##[group]Run uv sync --locked --group dev --python 3.12
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6550003Z [36;1muv sync --locked --group dev --python 3.12[0m
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6578733Z shell: /usr/bin/bash -e {0}
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6578901Z env:
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6579022Z   OMP_NUM_THREADS: 1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6579164Z   MKL_NUM_THREADS: 1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6579291Z   OPENBLAS_NUM_THREADS: 1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6579466Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.6579649Z ##[endgroup]
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:02.7938736Z Downloading cpython-3.12.16-linux-x86_64-gnu (download) (32.9MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.4847414Z  Downloaded cpython-3.12.16-linux-x86_64-gnu (download)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.5805961Z Using CPython 3.12.16
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.5806319Z Creating virtual environment at: .venv
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.5824315Z Resolved 50 packages in 0.59ms
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.5897147Z    Building nn-dk @ file:///home/runner/work/nn-dk/nn-dk
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6274330Z Downloading matplotlib (9.4MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6275198Z Downloading h5py (5.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6276691Z Downloading sympy (6.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6277448Z Downloading kiwisolver (1.4MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6279131Z Downloading networkx (2.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6280139Z Downloading nvidia-cufile (1.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6439725Z Downloading nvidia-cufft (204.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6442157Z Downloading nvidia-cuda-nvrtc (86.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6442455Z Downloading scipy (33.7MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6442653Z Downloading ruff (10.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6443536Z Downloading nvidia-cuda-runtime (2.1MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6444601Z Downloading nvidia-nvjitlink (40.5MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6445820Z Downloading cuda-bindings (6.8MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6446884Z Downloading torch (528.9MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6448215Z Downloading nvidia-cusparselt-cu13 (162.3MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6450215Z Downloading nvidia-cusparse (139.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6451380Z Downloading nvidia-cuda-cupti (10.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6453151Z Downloading triton (236.5MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6455783Z Downloading fonttools (5.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6456130Z Downloading nvidia-curand (56.8MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6456597Z Downloading nvidia-cudnn-cu13 (527.5MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6458941Z Downloading nvidia-nccl-cu13 (206.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6460192Z Downloading nvidia-nvshmem-cu13 (57.6MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6461488Z Downloading nvidia-cublas (403.5MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6465665Z Downloading pillow (6.8MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6467233Z Downloading pygments (1.2MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6468088Z Downloading numpy (16.0MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.6469788Z Downloading nvidia-cusolver (191.6MiB)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.8487734Z  Downloaded nvidia-cufile
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.8526378Z  Downloaded pygments
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.8606339Z  Downloaded kiwisolver
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.9106442Z  Downloaded networkx
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:03.9328501Z  Downloaded nvidia-cuda-runtime
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.1726116Z  Downloaded fonttools
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.1890166Z  Downloaded h5py
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.2406783Z  Downloaded sympy
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.2940799Z  Downloaded cuda-bindings
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.2973114Z  Downloaded pillow
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.4278184Z  Downloaded matplotlib
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.4659240Z  Downloaded ruff
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.4772171Z  Downloaded nvidia-cuda-cupti
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.5557611Z       Built nn-dk @ file:///home/runner/work/nn-dk/nn-dk
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:04.7517401Z  Downloaded numpy
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:05.5178378Z  Downloaded scipy
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:05.7869567Z  Downloaded nvidia-nvjitlink
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:06.3001970Z  Downloaded nvidia-curand
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:06.3264625Z  Downloaded nvidia-nvshmem-cu13
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:07.9690476Z  Downloaded nvidia-cuda-nvrtc
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:10.4559115Z  Downloaded nvidia-cusparse
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:11.8830359Z  Downloaded nvidia-cusparselt-cu13
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:13.1723406Z  Downloaded nvidia-cusolver
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:13.6868824Z  Downloaded nvidia-cufft
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:14.1444666Z  Downloaded nvidia-nccl-cu13
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:19.6587426Z  Downloaded nvidia-cublas
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:21.2224879Z  Downloaded triton
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:24.9130618Z  Downloaded torch
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:25.6876212Z  Downloaded nvidia-cudnn-cu13
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:25.6952464Z Prepared 49 packages in 22.11s
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6253300Z Installed 49 packages in 929ms
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6253788Z  + contourpy==1.4.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6254012Z  + cuda-bindings==13.4.4
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6254317Z  + cuda-pathfinder==1.8.4
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6254591Z  + cuda-toolkit==13.0.3.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6254822Z  + cycler==0.12.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6255024Z  + filelock==4.2.4
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6255267Z  + fonttools==4.67.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6255637Z  + fsspec==2026.9.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6255844Z  + h5py==3.16.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6256162Z  + iniconfig==2.3.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6256363Z  + jinja2==3.1.6
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6256580Z  + kiwisolver==1.5.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6256819Z  + markupsafe==3.0.4
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6257068Z  + matplotlib==3.11.2
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6257375Z  + mpmath==1.3.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6257570Z  + networkx==3.7
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6257796Z  + nn-dk==0.1.0 (from file:///home/runner/work/nn-dk/nn-dk)
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6258086Z  + numpy==2.5.4
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6258284Z  + nvidia-cublas==13.1.1.3
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6258576Z  + nvidia-cuda-cupti==13.0.85
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6258845Z  + nvidia-cuda-nvrtc==13.0.88
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6259133Z  + nvidia-cuda-runtime==13.0.96
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6259431Z  + nvidia-cudnn-cu13==9.24.0.43
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6259721Z  + nvidia-cufft==12.0.0.61
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6260004Z  + nvidia-cufile==1.15.1.6
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6260272Z  + nvidia-curand==10.4.0.35
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6260517Z  + nvidia-cusolver==12.0.4.66
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6260822Z  + nvidia-cusparse==12.6.3.3
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6261109Z  + nvidia-cusparselt-cu13==0.8.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6261406Z  + nvidia-nccl-cu13==2.30.7
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6261662Z  + nvidia-nvjitlink==13.4.92
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6261962Z  + nvidia-nvshmem-cu13==3.4.5
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6262247Z  + nvidia-nvtx==13.0.85
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6262487Z  + packaging==26.3
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6262695Z  + pillow==13.0.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6262932Z  + pluggy==1.7.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6263125Z  + pygments==2.21.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6263596Z  + pyparsing==3.3.3
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6263906Z  + pytest==9.1.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6264153Z  + python-dateutil==3.0.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6264454Z  + ruff==0.17.2
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6264685Z  + scipy==1.18.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6264999Z  + setuptools==84.2.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6265246Z  + six==1.17.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6265537Z  + sympy==1.14.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6265787Z  + torch==2.14.1
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6265974Z  + triton==3.8.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6266271Z  + typing-extensions==4.16.0
+tests	Run uv sync --locked --group dev --python 3.12	2026-10-30T00:28:26.6266411Z  + tzdata==2026.5
+tests	Run uv run ruff check .	﻿2026-10-30T00:28:26.8562306Z ##[group]Run uv run ruff check .
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8562632Z [36;1muv run ruff check .[0m
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591057Z shell: /usr/bin/bash -e {0}
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591216Z env:
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591341Z   OMP_NUM_THREADS: 1
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591476Z   MKL_NUM_THREADS: 1
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591610Z   OPENBLAS_NUM_THREADS: 1
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591789Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+tests	Run uv run ruff check .	2026-10-30T00:28:26.8591995Z ##[endgroup]
+tests	Run uv run ruff check .	2026-10-30T00:28:27.1433781Z All checks passed!
+tests	Run uv run pytest	﻿2026-10-30T00:28:27.2157590Z ##[group]Run uv run pytest
+tests	Run uv run pytest	2026-10-30T00:28:27.2157802Z [36;1muv run pytest[0m
+tests	Run uv run pytest	2026-10-30T00:28:27.2183164Z shell: /usr/bin/bash -e {0}
+tests	Run uv run pytest	2026-10-30T00:28:27.2183307Z env:
+tests	Run uv run pytest	2026-10-30T00:28:27.2183422Z   OMP_NUM_THREADS: 1
+tests	Run uv run pytest	2026-10-30T00:28:27.2183547Z   MKL_NUM_THREADS: 1
+tests	Run uv run pytest	2026-10-30T00:28:27.2183673Z   OPENBLAS_NUM_THREADS: 1
+tests	Run uv run pytest	2026-10-30T00:28:27.2183852Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+tests	Run uv run pytest	2026-10-30T00:28:27.2184033Z ##[endgroup]
+tests	Run uv run pytest	2026-10-30T00:28:32.6309229Z ============================= test session starts ==============================
+tests	Run uv run pytest	2026-10-30T00:28:32.6309817Z platform linux -- Python 3.12.16, pytest-9.1.1, pluggy-1.7.0
+tests	Run uv run pytest	2026-10-30T00:28:32.6310173Z rootdir: /home/runner/work/nn-dk/nn-dk
+tests	Run uv run pytest	2026-10-30T00:28:32.6310464Z configfile: pyproject.toml
+tests	Run uv run pytest	2026-10-30T00:28:32.6310702Z testpaths: tests
+tests	Run uv run pytest	2026-10-30T00:28:32.6310921Z collected 1502 items
+tests	Run uv run pytest	2026-10-30T00:28:32.6311058Z 
+tests	Run uv run pytest	2026-10-30T00:28:36.1603547Z tests/test_batched_native_gaussian.py ..................                 [  1%]
+tests	Run uv run pytest	2026-10-30T00:28:36.1791044Z tests/test_bsde_contracts.py .....................                       [  2%]
+tests	Run uv run pytest	2026-10-30T00:28:36.2894546Z tests/test_bsde_data.py .......                                          [  3%]
+tests	Run uv run pytest	2026-10-30T00:28:36.3715088Z tests/test_bsde_evaluation.py .........                                  [  3%]
+tests	Run uv run pytest	2026-10-30T00:28:36.4622618Z tests/test_bsde_findings_analysis.py .........                           [  4%]
+tests	Run uv run pytest	2026-10-30T00:28:39.4734354Z tests/test_bsde_learning.py ........                                     [  4%]
+tests	Run uv run pytest	2026-10-30T00:28:39.5866248Z tests/test_bsde_reference_noise_analysis.py .....                        [  5%]
+tests	Run uv run pytest	2026-10-30T00:28:39.6124572Z tests/test_bsde_structured.py ..........                                 [  5%]
+tests	Run uv run pytest	2026-10-30T00:28:42.6610620Z tests/test_bsde_study_analysis.py ...........                            [  6%]
+tests	Run uv run pytest	2026-10-30T00:28:43.0471226Z tests/test_bsde_study_data.py .................                          [  7%]
+tests	Run uv run pytest	2026-10-30T00:28:43.1354637Z tests/test_bsde_study_evaluation.py ............                         [  8%]
+tests	Run uv run pytest	2026-10-30T00:28:46.4389240Z tests/test_bsde_study_reporting.py ............                          [  9%]
+tests	Run uv run pytest	2026-10-30T00:28:51.3942489Z tests/test_bsde_study_workflow.py .....                                  [  9%]
+tests	Run uv run pytest	2026-10-30T00:28:52.6267744Z tests/test_bsde_workflow.py .......                                      [ 10%]
+tests	Run uv run pytest	2026-10-30T00:29:00.7663152Z tests/test_compiled_native.py ................................           [ 12%]
+tests	Run uv run pytest	2026-10-30T00:29:00.7828570Z tests/test_contracts.py ....                                             [ 12%]
+tests	Run uv run pytest	2026-10-30T00:29:01.1971386Z tests/test_convergence_data.py .................................         [ 14%]
+tests	Run uv run pytest	2026-10-30T00:29:01.9521678Z tests/test_convergence_metrics.py ........                               [ 15%]
+tests	Run uv run pytest	2026-10-30T00:29:07.2961705Z tests/test_convergence_workflow.py .....                                 [ 15%]
+tests	Run uv run pytest	2026-10-30T00:29:07.6336075Z tests/test_dk_calibration.py .....                                       [ 15%]
+tests	Run uv run pytest	2026-10-30T00:29:07.7089795Z tests/test_dk_learning.py .........                                      [ 16%]
+tests	Run uv run pytest	2026-10-30T00:29:07.9790691Z tests/test_evaluation.py ..........                                      [ 17%]
+tests	Run uv run pytest	2026-10-30T00:29:07.9817764Z tests/test_findings_analysis.py ....                                     [ 17%]
+tests	Run uv run pytest	2026-10-30T00:29:08.0211206Z tests/test_generator_config.py ......................................... [ 20%]
+tests	Run uv run pytest	2026-10-30T00:29:08.0251949Z .......                                                                  [ 20%]
+tests	Run uv run pytest	2026-10-30T00:29:08.0486805Z tests/test_generator_evaluation.py ...............................       [ 22%]
+tests	Run uv run pytest	2026-10-30T00:29:08.0612921Z tests/test_generator_jets.py .....                                       [ 22%]
+tests	Run uv run pytest	2026-10-30T00:29:08.5990506Z tests/test_generator_learning.py ........                                [ 23%]
+tests	Run uv run pytest	2026-10-30T00:29:16.7420026Z tests/test_generator_reference.py ...............                        [ 24%]
+tests	Run uv run pytest	2026-10-30T00:29:17.8592227Z tests/test_generator_reporting.py .............                          [ 25%]
+tests	Run uv run pytest	2026-10-30T00:29:23.3878318Z tests/test_generator_workflow.py .....................                   [ 26%]
+tests	Run uv run pytest	2026-10-30T00:29:23.4135096Z tests/test_interacting_config.py ....................................... [ 29%]
+tests	Run uv run pytest	2026-10-30T00:29:23.4519319Z ........................................................................ [ 34%]
+tests	Run uv run pytest	2026-10-30T00:29:23.4586935Z ............                                                             [ 34%]
+tests	Run uv run pytest	2026-10-30T00:29:26.1036948Z tests/test_interacting_data_evaluation.py ...............                [ 35%]
+tests	Run uv run pytest	2026-10-30T00:29:26.2082534Z tests/test_interacting_followup.py ...............                       [ 36%]
+tests	Run uv run pytest	2026-10-30T00:29:26.2506821Z tests/test_interacting_model.py ..........                               [ 37%]
+tests	Run uv run pytest	2026-10-30T00:29:26.3803283Z tests/test_interacting_study.py ....                                     [ 37%]
+tests	Run uv run pytest	2026-10-30T00:29:28.2059502Z tests/test_interacting_training.py .............                         [ 38%]
+tests	Run uv run pytest	2026-10-30T00:29:28.3094751Z tests/test_learning.py .......                                           [ 39%]
+tests	Run uv run pytest	2026-10-30T00:29:34.3627933Z tests/test_lna_correction_evaluation.py ................................ [ 41%]
+tests	Run uv run pytest	2026-10-30T00:29:35.6826237Z .....                                                                    [ 41%]
+tests	Run uv run pytest	2026-10-30T00:30:13.3589613Z tests/test_lna_correction_report.py ...................................  [ 44%]
+tests	Run uv run pytest	2026-10-30T00:30:23.2244717Z tests/test_lna_correction_study.py ..............                        [ 44%]
+tests	Run uv run pytest	2026-10-30T00:30:27.2132166Z tests/test_lna_payoff_correction.py ........................             [ 46%]
+tests	Run uv run pytest	2026-10-30T00:30:33.3717182Z tests/test_lna_supervised_label_audit.py .........                       [ 47%]
+tests	Run uv run pytest	2026-10-30T00:30:33.5601231Z tests/test_native.py .........                                           [ 47%]
+tests	Run uv run pytest	2026-10-30T00:30:34.0367362Z tests/test_native_gaussian_baseline.py ...........                       [ 48%]
+tests	Run uv run pytest	2026-10-30T00:30:34.3270070Z tests/test_numerics.py .........                                         [ 49%]
+tests	Run uv run pytest	2026-10-30T00:30:34.4867835Z tests/test_particle_audit.py ....                                        [ 49%]
+tests	Run uv run pytest	2026-10-30T00:30:34.5348580Z tests/test_path_acceleration.py ...........................              [ 51%]
+tests	Run uv run pytest	2026-10-30T00:30:34.5678826Z tests/test_path_config.py .............................................. [ 54%]
+tests	Run uv run pytest	2026-10-30T00:30:34.5881156Z ....................................                                     [ 56%]
+tests	Run uv run pytest	2026-10-30T00:30:35.0322251Z tests/test_path_data.py .......                                          [ 57%]
+tests	Run uv run pytest	2026-10-30T00:30:35.3970823Z tests/test_path_evaluation.py ..........................                 [ 58%]
+tests	Run uv run pytest	2026-10-30T00:30:36.1838050Z tests/test_path_generalization_benchmark.py .............                [ 59%]
+tests	Run uv run pytest	2026-10-30T00:30:37.2653928Z tests/test_path_generalization_evaluation.py ...                         [ 59%]
+tests	Run uv run pytest	2026-10-30T00:30:37.2729210Z tests/test_path_generalization_metrics.py ........                       [ 60%]
+tests	Run uv run pytest	2026-10-30T00:30:37.8798522Z tests/test_path_generalization_reference.py ........                     [ 60%]
+tests	Run uv run pytest	2026-10-30T00:30:37.8957224Z tests/test_path_generalization_report.py ..............                  [ 61%]
+tests	Run uv run pytest	2026-10-30T00:30:37.9870002Z tests/test_path_interacting.py .....................                     [ 63%]
+tests	Run uv run pytest	2026-10-30T00:30:38.4388161Z tests/test_path_model.py .........................                       [ 64%]
+tests	Run uv run pytest	2026-10-30T00:30:38.4884283Z tests/test_path_numerics.py ..............                               [ 65%]
+tests	Run uv run pytest	2026-10-30T00:30:39.5859514Z tests/test_path_reporting.py .........................                   [ 67%]
+tests	Run uv run pytest	2026-10-30T00:30:40.0553944Z tests/test_path_runtime.py ...........................................   [ 70%]
+tests	Run uv run pytest	2026-10-30T00:30:40.5099555Z tests/test_path_training.py .......                                      [ 70%]
+tests	Run uv run pytest	2026-10-30T00:30:56.1365910Z tests/test_path_workflow.py ................                             [ 71%]
+tests	Run uv run pytest	2026-10-30T00:30:56.2049346Z tests/test_path_workloads.py ...................                         [ 73%]
+tests	Run uv run pytest	2026-10-30T00:30:56.5997048Z tests/test_payoff_boundary.py ....                                       [ 73%]
+tests	Run uv run pytest	2026-10-30T00:30:56.6120991Z tests/test_payoff_boundary_audits.py .....                               [ 73%]
+tests	Run uv run pytest	2026-10-30T00:30:56.6499090Z tests/test_payoff_boundary_corner_audit.py .                             [ 73%]
+tests	Run uv run pytest	2026-10-30T00:30:56.6587427Z tests/test_payoff_boundary_evaluation.py ........                        [ 74%]
+tests	Run uv run pytest	2026-10-30T00:30:56.8734559Z tests/test_payoff_boundary_fit_review.py .......                         [ 74%]
+tests	Run uv run pytest	2026-10-30T00:30:57.0796469Z tests/test_payoff_boundary_math.py .......                               [ 75%]
+tests	Run uv run pytest	2026-10-30T00:30:58.6464664Z tests/test_payoff_boundary_regimes_runner.py ........                    [ 75%]
+tests	Run uv run pytest	2026-10-30T00:30:58.6551926Z tests/test_payoff_boundary_report.py ............                        [ 76%]
+tests	Run uv run pytest	2026-10-30T00:30:58.7587315Z tests/test_payoff_boundary_report_audit.py ..........                    [ 77%]
+tests	Run uv run pytest	2026-10-30T00:31:00.9216378Z tests/test_payoff_collocation_ablation.py ...............                [ 78%]
+tests	Run uv run pytest	2026-10-30T00:32:37.3199705Z tests/test_payoff_collocation_evaluation.py ........                     [ 78%]
+tests	Run uv run pytest	2026-10-30T00:32:43.9095070Z tests/test_payoff_collocation_report.py ..............................   [ 80%]
+tests	Run uv run pytest	2026-10-30T00:33:13.4861943Z tests/test_payoff_collocation_residual_audit.py .........                [ 81%]
+tests	Run uv run pytest	2026-10-30T00:33:26.7480136Z tests/test_payoff_collocation_residual_report.py ....................    [ 82%]
+tests	Run uv run pytest	2026-10-30T00:33:26.7732451Z tests/test_payoff_collocation_sampling.py .....................          [ 84%]
+tests	Run uv run pytest	2026-10-30T00:34:06.3917568Z tests/test_payoff_collocation_study.py ............                      [ 84%]
+tests	Run uv run pytest	2026-10-30T00:34:07.4554666Z tests/test_payoff_diagnostic_archive.py ...............                  [ 85%]
+tests	Run uv run pytest	2026-10-30T00:34:07.5749127Z tests/test_payoff_gaussian_audit.py ........                             [ 86%]
+tests	Run uv run pytest	2026-10-30T00:34:08.2056736Z tests/test_payoff_generalization_benchmark.py .........                  [ 87%]
+tests	Run uv run pytest	2026-10-30T00:34:09.0531573Z tests/test_payoff_learning.py ................                           [ 88%]
+tests	Run uv run pytest	2026-10-30T00:34:09.0575660Z tests/test_payoff_legacy_control.py ...                                  [ 88%]
+tests	Run uv run pytest	2026-10-30T00:34:09.1033313Z tests/test_payoff_mean_gradient_report.py ..........                     [ 89%]
+tests	Run uv run pytest	2026-10-30T00:34:10.2860976Z tests/test_payoff_mean_gradients.py ...............                      [ 90%]
+tests	Run uv run pytest	2026-10-30T00:34:10.3794330Z tests/test_payoff_regime_audit.py ............                           [ 90%]
+tests	Run uv run pytest	2026-10-30T00:34:10.4305228Z tests/test_payoff_regimes_deployment.py ......                           [ 91%]
+tests	Run uv run pytest	2026-10-30T00:34:10.4328224Z tests/test_payoff_regimes_deployment_audit.py ...                        [ 91%]
+tests	Run uv run pytest	2026-10-30T00:34:10.4476161Z tests/test_payoff_regimes_evaluation.py .............                    [ 92%]
+tests	Run uv run pytest	2026-10-30T00:34:10.4606580Z tests/test_payoff_regimes_metrics_audit.py ....                          [ 92%]
+tests	Run uv run pytest	2026-10-30T00:34:13.2565154Z tests/test_payoff_regimes_native_audit.py .......                        [ 93%]
+tests	Run uv run pytest	2026-10-30T00:34:19.3756679Z tests/test_payoff_regimes_report.py ..........                           [ 93%]
+tests	Run uv run pytest	2026-10-30T00:34:20.2550908Z tests/test_payoff_regimes_runner.py ............                         [ 94%]
+tests	Run uv run pytest	2026-10-30T00:34:20.3703790Z tests/test_payoff_regimes_validation_audit.py ......                     [ 94%]
+tests	Run uv run pytest	2026-10-30T00:34:20.8453373Z tests/test_payoff_repair.py ............                                 [ 95%]
+tests	Run uv run pytest	2026-10-30T00:34:20.8496691Z tests/test_payoff_repair_comparison.py ....                              [ 95%]
+tests	Run uv run pytest	2026-10-30T00:34:20.8693135Z tests/test_payoff_repair_report.py .............                         [ 96%]
+tests	Run uv run pytest	2026-10-30T00:34:20.8813846Z tests/test_payoff_repair_runner.py .......                               [ 97%]
+tests	Run uv run pytest	2026-10-30T00:34:21.3685317Z tests/test_payoff_residual_transport.py ..............                   [ 98%]
+tests	Run uv run pytest	2026-10-30T00:34:21.3910099Z tests/test_payoff_residual_transport_report.py ........                  [ 98%]
+tests	Run uv run pytest	2026-10-30T00:34:21.4063331Z tests/test_payoff_study_adapter.py .......                               [ 99%]
+tests	Run uv run pytest	2026-10-30T00:34:23.3765489Z tests/test_pipeline.py ..                                                [ 99%]
+tests	Run uv run pytest	2026-10-30T00:34:24.5042168Z tests/test_solver_comparison.py ..........                               [100%]
+tests	Run uv run pytest	2026-10-30T00:34:24.5042561Z 
+tests	Run uv run pytest	2026-10-30T00:34:24.5042710Z =============================== warnings summary ===============================
+tests	Run uv run pytest	2026-10-30T00:34:24.5043229Z tests/test_generator_learning.py::test_generator_time_zero_psd_and_initial_freeze_with_finite_gradients[dk]
+tests	Run uv run pytest	2026-10-30T00:34:24.5043933Z   /home/runner/work/nn-dk/nn-dk/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+tests	Run uv run pytest	2026-10-30T00:34:24.5044503Z     warnings.warn(
+tests	Run uv run pytest	2026-10-30T00:34:24.5044597Z 
+tests	Run uv run pytest	2026-10-30T00:34:24.5044875Z tests/test_path_generalization_evaluation.py::test_path_joint_distributions_reference_audits_and_integrity_replay
+tests	Run uv run pytest	2026-10-30T00:34:24.5045873Z   /home/runner/work/nn-dk/nn-dk/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:2611: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
+tests	Run uv run pytest	2026-10-30T00:34:24.5046517Z     outputs = ufunc(*args, out=...)
+tests	Run uv run pytest	2026-10-30T00:34:24.5046674Z 
+tests	Run uv run pytest	2026-10-30T00:34:24.5046868Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+tests	Run uv run pytest	2026-10-30T00:34:24.5047315Z ================= 1502 passed, 2 warnings in 356.41s (0:05:56) =================
+tests	Run uv build	﻿2026-10-30T00:34:25.6354247Z ##[group]Run uv build
+tests	Run uv build	2026-10-30T00:34:25.6354430Z [36;1muv build[0m
+tests	Run uv build	2026-10-30T00:34:25.6379540Z shell: /usr/bin/bash -e {0}
+tests	Run uv build	2026-10-30T00:34:25.6379709Z env:
+tests	Run uv build	2026-10-30T00:34:25.6379828Z   OMP_NUM_THREADS: 1
+tests	Run uv build	2026-10-30T00:34:25.6379955Z   MKL_NUM_THREADS: 1
+tests	Run uv build	2026-10-30T00:34:25.6380096Z   OPENBLAS_NUM_THREADS: 1
+tests	Run uv build	2026-10-30T00:34:25.6380260Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+tests	Run uv build	2026-10-30T00:34:25.6380447Z ##[endgroup]
+tests	Run uv build	2026-10-30T00:34:25.6477198Z Building source distribution...
+tests	Run uv build	2026-10-30T00:34:31.9489795Z Building wheel from source distribution...
+tests	Run uv build	2026-10-30T00:34:32.2645650Z Successfully built dist/nn_dk-0.1.0.tar.gz
+tests	Run uv build	2026-10-30T00:34:32.2646254Z Successfully built dist/nn_dk-0.1.0-py3-none-any.whl
+tests	Post Run astral-sh/setup-uv@v6	﻿2026-10-30T00:34:32.2769188Z Post job cleanup.
+tests	Post Run astral-sh/setup-uv@v6	2026-10-30T00:34:32.3649286Z (node:2719) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+tests	Post Run astral-sh/setup-uv@v6	2026-10-30T00:34:32.3649969Z (Use `node --trace-deprecation ...` to show where the warning was created)
+tests	Post Run astral-sh/setup-uv@v6	2026-10-30T00:34:32.3651991Z Cache hit occurred on key setup-uv-1-x86_64-unknown-linux-gnu-unknown-pruned-72892932ceda02d66dd4847b28e2c596bc8a7d6d1c8188762f56b252347869d3, not saving cache.
+tests	Post Run actions/checkout@v4	﻿2026-10-30T00:34:32.3777094Z Post job cleanup.
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4369904Z [command]/usr/bin/git version
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4406639Z git version 2.56.0
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4432182Z Temporarily overriding HOME='/home/runner/work/_temp/9fa1aa5b-e850-4a77-93f5-5331b75a965d' before making global git config changes
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4432990Z Adding repository directory to the temporary git global config as a safe directory
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4436516Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/nn-dk/nn-dk
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4473785Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4507633Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4773155Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4801394Z http.https://github.com/.extraheader
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4810131Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.4849734Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.5115250Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+tests	Post Run actions/checkout@v4	2026-10-30T00:34:32.5148641Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+tests	Complete job	﻿2026-10-30T00:34:32.5513248Z Cleaning up orphan processes
+tests	Complete job	2026-10-30T00:34:32.5782351Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, astral-sh/setup-uv@v6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

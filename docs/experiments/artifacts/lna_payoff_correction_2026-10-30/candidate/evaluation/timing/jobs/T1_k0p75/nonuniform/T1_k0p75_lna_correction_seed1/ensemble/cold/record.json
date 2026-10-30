@@ -1,0 +1,62 @@
+{
+  "accuracy_cache_used": false,
+  "all_families_retained": true,
+  "arrays": {
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/timing/jobs/T1_k0p75/nonuniform/T1_k0p75_lna_correction_seed1/ensemble/cold/record.npz",
+    "sha256": "c1017c0f116195a0f08e0e8fa9e32c071074e9ca4452b9258ed3ff4ae627ddec"
+  },
+  "attempt_cost_complete": true,
+  "available": true,
+  "cold_end_to_end_seconds": 142.4283436667174,
+  "complete": true,
+  "component_sum_seconds": 142.3367370418273,
+  "components": {
+    "aggregation_seconds": 0.004342084052041173,
+    "conditional_LNA_seconds": 142.01112899999134,
+    "head_seconds": 0.2843470408115536,
+    "initialization_seconds": 0.036918916972354054
+  },
+  "full_uncached_LNA_per_histogram": true,
+  "identity": {
+    "job": {
+      "batch_size": 64,
+      "case": "T1_k0p75",
+      "families": 16384,
+      "method": {
+        "baseline_step": 0.0078125,
+        "checkpoint_sha256": "8ffbb15729ab2c54c1aa6acc966a8b396f944f8ac3d921119bf034ad8857bbfa",
+        "family": "LNA-correction",
+        "kind": "trained",
+        "name": "T1_k0p75_lna_correction_seed1",
+        "seed": 1
+      },
+      "phase": "cold",
+      "profile": "nonuniform",
+      "role": "ensemble",
+      "slot": "T1_k0p75/nonuniform/T1_k0p75_lna_correction_seed1/ensemble/cold"
+    },
+    "joint_lock_sha256": "26f5c64e6c62c2bba7cac735b7232bdbcc7f9144d196e220b0f25629ea1cacad"
+  },
+  "observation_scope": "one cold and one warm observation,not a stable latency distribution",
+  "paid_attempt_scope": "known attempt elapsed totals include successful observation once;never add workload again",
+  "paid_attempt_seconds": 142.42842095904052,
+  "restoration_and_resume_attempts": [
+    {
+      "accuracy_baseline_cache_read": false,
+      "cpu_seconds": 142.06565300000148,
+      "elapsed_seconds": 142.42842095904052,
+      "finished": true,
+      "finished_unix": 1793332752.987082,
+      "restoration_seconds": 0.09160662489011884,
+      "reused_live_model_after_complete_cold_workload": false,
+      "started_unix": 1793332610.5383098,
+      "successful": true,
+      "warm_preparation_seconds": 0.0,
+      "workload_seconds": 142.3367370418273
+    }
+  ],
+  "timing_initials_shared_across_methods_and_phases": true,
+  "timing_mode": "uninterrupted-full-uncached-workload-v1",
+  "timing_scope": "uninterrupted histogram generation,all conditional ODEs,head,total covariance;restoration separate",
+  "workload_seconds": 142.3367370418273
+}

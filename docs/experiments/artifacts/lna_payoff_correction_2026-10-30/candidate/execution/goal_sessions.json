@@ -1,0 +1,973 @@
+{
+  "accuracy_progress_monitor": {
+    "exit_code": 0,
+    "latest_observation": {
+      "baseline_chunks_present": 1473,
+      "error": null,
+      "latest_baseline": "runs/lna-payoff-correction-2026-10-30/evaluation/baselines/T1_k6/nonuniform__ensemble__0/dt7_2048.json",
+      "latest_baseline_write_utc": "2026-10-30T00:05:56.704983+00:00",
+      "observation_only": true,
+      "observed_at_utc": "2026-10-30T00:06:02.944592+00:00",
+      "phase": "waiting_for_accuracy",
+      "planned_baseline_chunks": 1584,
+      "workers": {
+        "accuracy": {
+          "matching_process_present": true,
+          "pid": 99318
+        },
+        "coordinator": {
+          "matching_process_present": true,
+          "pid": 8930
+        }
+      }
+    },
+    "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/accuracy_live_observations.jsonl",
+    "process_identity_checks": "ps matches originalaccuracyPID99318 andcoordinatorPID8930 each50s",
+    "read_only": true,
+    "script": "/private/tmp/nn_dk_accuracy_progress_monitor.py",
+    "script_sha256": "72cdeeb6543a6b9233870bc638c913e4ee5c2685dbc20ee8c5f744c2da9b3efd",
+    "session_id": 75268,
+    "session_terminal": true,
+    "stopped_after_original_accuracy_process_exit": true,
+    "stops_when": "accuracyprocessabsent orcoordinatorphasechangesfromwaiting_for_accuracy; no newnumericalworkers"
+  },
+  "accuracy_scheduling_audit": {
+    "after_all6_reference_processes_complete": "one unfiltered C evaluate plus one unfiltered A evaluate may runconcurrently; separate rootlocks andwrites; A evaluate needsrefs butnotCaccuracy",
+    "benchmarks": "onlyafterallheavyworkexits",
+    "contrasts": "waitbothaccuracyprocessescomplete",
+    "per_case_parallel_accuracy_supported": false,
+    "source_changes_or_draws_during_readonly_audit": false
+  },
+  "actual_accuracy_workers": {
+    "all_workers_terminal_exit_zero": true,
+    "complete": true,
+    "kind": "actual-independent-accuracy-worker-sessions-v1",
+    "recorded_at_utc": "2026-10-29T21:47:10.596477+00:00",
+    "reference_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_reference_workers.json",
+    "reference_receipt_sha256": "c6a7fba075084bdd3358f43bbbcfd11c7580ff15929b7fd12dae512489f6cd9e",
+    "started_after_all_reference_workers_terminal": true,
+    "updated_at_utc": "2026-10-30T00:31:25.406000+00:00",
+    "workers": [
+      {
+        "command": [
+          ".venv/bin/python",
+          "-u",
+          "analysis/evaluate_payoff_collocation_study.py",
+          "evaluate",
+          "--root",
+          "runs/payoff-collocation-study-2026-10-29"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/collocation_accuracy.log",
+        "log_sha256": "56febf053b9a8e189bece75d9efddfc6fd46f6bae1455c3938858432fe36d988",
+        "pid": 99319,
+        "session_id": 3050,
+        "study": "collocation",
+        "terminal": true,
+        "terminal_confirmed_at_utc": "2026-10-29T22:11:51.450332+00:00"
+      },
+      {
+        "CLI_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/execution/cli_evaluate_99318_1793309496231992000.json",
+        "CLI_receipt_sha256": "22dfd2593b8d934aed64d6ebfa62721353e10fb5a3fbb5c596212ee0bd13c757",
+        "command": [
+          ".venv/bin/python",
+          "-u",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "evaluate",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/correction_accuracy.log",
+        "pid": 99318,
+        "session_id": 82267,
+        "study": "correction",
+        "terminal": true,
+        "terminal_confirmed_at_utc": "2026-10-30T00:31:25.405617+00:00",
+        "whole_CLI_cpu_seconds": 10230.589473,
+        "whole_CLI_wall_seconds": 10360.369885833003
+      }
+    ]
+  },
+  "actual_correction_accuracy_current_case": "T1_k6",
+  "actual_correction_accuracy_current_group": "nonuniform__ensemble__0",
+  "actual_final_HDFs_last_observed": 6,
+  "actual_final_coordinator": {
+    "active_child_pid": 50097,
+    "automatic_retry_permitted": false,
+    "driver": "/private/tmp/nn_dk_actual_final_stages.py",
+    "driver_sha256": "cea8f424d0563e3d8349d219fdc1ae40a7e33508cf2d0aa2e83355a6efb1ea0a",
+    "joint_accuracy_verified": {
+      "candidate_cli_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/execution/cli_evaluate_99318_1793309496231992000.json",
+      "candidate_cli_receipt_sha256": "22dfd2593b8d934aed64d6ebfa62721353e10fb5a3fbb5c596212ee0bd13c757",
+      "collocation_primary_records": 576,
+      "collocation_retained_records": 732,
+      "combined_primary_records": 792,
+      "combined_retained_records": 948,
+      "new_primary_records": 216
+    },
+    "last_commands": [
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_contrasts"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_collocation_benchmark"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_correction_benchmark"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_joint_verify"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_collocation_report"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_correction_report"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_collocation_archive"
+      },
+      {
+        "complete": true,
+        "exit_code": 0,
+        "stage": "actual_collocation_archive_verify"
+      },
+      {
+        "complete": false,
+        "exit_code": null,
+        "stage": "actual_correction_archive"
+      }
+    ],
+    "last_observed_at_utc": "2026-10-30T09:28:53.289329+00:00",
+    "phase": "actual_correction_archive",
+    "pid": 8930,
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_final_stages.json",
+    "session_id": 58407,
+    "session_terminal": false
+  },
+  "actual_final_data_gate_unlocked": true,
+  "actual_final_outcomes_locked": false,
+  "actual_joint_freeze_stage": {
+    "driver": "/private/tmp/nn_dk_actual_joint_freeze.py",
+    "original_driver_exit_code": 1,
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_joint_freeze.json",
+    "session_id": 91114,
+    "session_terminal": true,
+    "status": "bothCLI0, evidence_logger_wrongpostcheckpath corrected with separate fullreadonlyAPIproof; verifiedalllocks before0finalvalues",
+    "verified_at_utc": "2026-10-29T21:14:00.272440+00:00",
+    "verified_complete": true,
+    "verified_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_joint_freeze_verified.json",
+    "verified_receipt_sha256": "93b4027f2398a2bdf8862a3df49c7f042d15f3c2ccd50a52b39c71317a1d63b9"
+  },
+  "actual_reference_integrity": {
+    "complete": true,
+    "paired_prefix_steps": [
+      0.000244140625,
+      0.0001220703125,
+      6.103515625e-05
+    ],
+    "primary_reference_step": 0.000244140625,
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_integrity.json",
+    "reference_families": 589824,
+    "sha256": "c1852b6dec8acaf3ee845972a9230ea0c3cbbe7e03e55fce32a5e13a16369b35"
+  },
+  "actual_reference_workers": {
+    "all_terminal_confirmed_at_utc": "2026-10-29T21:29:57+00:00",
+    "complete": true,
+    "expected_unique_reference_families": 589824,
+    "freeze_verification_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_joint_freeze_verified.json",
+    "freeze_verification_sha256": "93b4027f2398a2bdf8862a3df49c7f042d15f3c2ccd50a52b39c71317a1d63b9",
+    "integrity_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_integrity.json",
+    "integrity_receipt_sha256": "c1852b6dec8acaf3ee845972a9230ea0c3cbbe7e03e55fce32a5e13a16369b35",
+    "joint_lock_sha256": "26f5c64e6c62c2bba7cac735b7232bdbcc7f9144d196e220b0f25629ea1cacad",
+    "joint_packet_sha256": "d430477955caa94d8bada456de65384303e49c6397ff91c8efa66bcd9cc60526",
+    "kind": "actual-six-case-guarded-reference-worker-sessions-v1",
+    "max_chunks": null,
+    "one_owner_per_case": true,
+    "recorded_at_utc": "2026-10-29T21:47:10.596477+00:00",
+    "started_after_zero_final_values_proof": true,
+    "workers": [
+      {
+        "case": "T0p25_k0p75",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T0p25_k0p75",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T0p25_k0p75.log",
+        "session_id": 61664,
+        "terminal": true
+      },
+      {
+        "case": "T0p25_k3",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T0p25_k3",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T0p25_k3.log",
+        "session_id": 42928,
+        "terminal": true
+      },
+      {
+        "case": "T0p25_k6",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T0p25_k6",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T0p25_k6.log",
+        "session_id": 63344,
+        "terminal": true
+      },
+      {
+        "case": "T1_k0p75",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T1_k0p75",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T1_k0p75.log",
+        "session_id": 80830,
+        "terminal": true
+      },
+      {
+        "case": "T1_k3",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T1_k3",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T1_k3.log",
+        "session_id": 16480,
+        "terminal": true
+      },
+      {
+        "case": "T1_k6",
+        "command": [
+          ".venv/bin/python",
+          "analysis/evaluate_lna_payoff_correction.py",
+          "reference",
+          "--case",
+          "T1_k6",
+          "--root",
+          "runs/lna-payoff-correction-2026-10-30"
+        ],
+        "exit_code": 0,
+        "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/reference_T1_k6.log",
+        "session_id": 98501,
+        "terminal": true
+      }
+    ]
+  },
+  "actual_reference_workers_manifest": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_reference_workers.json",
+  "all_final_reference_outcomes_locked": false,
+  "archive_guard_fix": {
+    "actual_final_outcomes_opened": false,
+    "independent_readonly_review": "passed: sharedcollector binds allinputs before detached snapshot; late tablesadd no new inputs",
+    "reporter_sha256": "ffbab1cf7ed05a7f1341c280837296209c294fdaa7c0a49cff2d454dc7425d7e",
+    "source_commit": "011277684b540860379eb726b2440a3fd0385226",
+    "status": "complete;35focusedtests and1502fulltests pass, independentreviewpassed; fresh15-fit jointaccuracy andresidual367-artifactarchive acceptancepassed; quietjointtiming/reportarchive stillpending",
+    "tests_sha256": "6ed65d511b1ec9450b43b15b5fcd70b418524dc8c717f2cb6202c7d0ec6245a9",
+    "training_data_fit_helpers_unchanged": true
+  },
+  "branch_ci": {
+    "branch": "codex/public-release",
+    "commit": "011277684b540860379eb726b2440a3fd0385226",
+    "conclusion": "success",
+    "last_status": "completed",
+    "log": "/private/tmp/nn-dk-readme-research-ci-0112776.log",
+    "run_id": 40943854960,
+    "url": "https://github.com/xrough/nn-dk/actions/runs/40943854960"
+  },
+  "clean_public_clone_verification": {
+    "clean_before_after": true,
+    "clone": "/private/tmp/nn-dk-readme-verify-0112776-20261030",
+    "commit": "011277684b540860379eb726b2440a3fd0385226",
+    "complete": true,
+    "documented_smoke_models": 5,
+    "full_history": true,
+    "installed_wheel_source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+    "package_registry_publication": false,
+    "receipt": "/private/tmp/nn-dk-readme-verify-0112776-record/verification.json",
+    "receipt_sha256": "904aec7e164b193f0630ac017ade6ebbecb221b854db71f71ffe2b44379d7dd5",
+    "same_step_passes": 5,
+    "wheel_and_sdist_built": true,
+    "wheel_license_metadata_verified": true
+  },
+  "collocation_accuracy_review": {
+    "all_processes_terminal": true,
+    "complete_primary_records": 576,
+    "expected_findings_json": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/collocation_independent_accuracy_findings.json",
+    "expected_findings_md": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/collocation_independent_accuracy_findings.md",
+    "findings_json_sha256": "62ffab2f788d31c0530711c1c78d07c5db0936580065ca8a83d1fc5c47ba35bc",
+    "findings_md_sha256": "8dbfe0676b387837a204c9950621bb1d807129963c3195462cd5fda9e72e196a",
+    "models": 72,
+    "must_exit_before_isolated_timing": true,
+    "no_timing_or_cost_advantage_claim": true,
+    "numerical_experiments": false,
+    "owner_agent": "/root/mean_gradient_audit",
+    "phase": "complete",
+    "public": true,
+    "public_path": "docs/experiments/artifacts/readme_research_2026-10-30/collocation_accuracy",
+    "retained_paired_diagnostic_records": 156,
+    "review_is_posthoc_readonly": true,
+    "session_id": 21596,
+    "source_or_criteria_edits": false,
+    "strict_session_exit_code": 0,
+    "strict_session_id": 21596,
+    "summary_session_exit_code": 0,
+    "summary_session_id": 78013,
+    "timing_or_cost_claims_pending": true
+  },
+  "collocation_fit_lock": {
+    "cli_exit_code": 0,
+    "complete": true,
+    "models": 72,
+    "session_id": 51078,
+    "sha256": "1b2dbc232eec0c45ba96b7151d8d014b70e1b9b870e6664e52ab85d3a4307d17"
+  },
+  "collocation_session_record": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/payoffs/execution/goal_sessions.json",
+  "collocation_terminal_sessions": {
+    "3783": {
+      "exit_code": 0,
+      "pid": 51871,
+      "seed": 0
+    },
+    "91339": {
+      "exit_code": 0,
+      "pid": 51872,
+      "seed": 2
+    },
+    "9949": {
+      "exit_code": 0,
+      "pid": 51873,
+      "seed": 1
+    }
+  },
+  "collocation_timing_completion": {
+    "complete": true,
+    "exit_code": 0,
+    "restorations": 156,
+    "scope": "All696matchedtimingworkloadsand156restorations; no accuracyadvantageclaim",
+    "workloads": 696
+  },
+  "completed_requirements_independent_audit": {
+    "json": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/completed_requirements_audit.json",
+    "scope": "R1andinitialpublicationproofonly;notwholeR1-R6completion",
+    "sha256": "cf89ab5a1c8049472a4dbee05729d8053242045b2b9000544a43211916e6d17d"
+  },
+  "completion_requirements_draft": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/requirements_draft.json",
+  "current_source_test_attempt": {
+    "expected_source_map_sha256": "1a5aa6c50e91d32795e2495e5286590194fdc70fda3c5bc5e84125259efa0a24",
+    "runner": "/private/tmp/nn_dk_current_source_qa.py",
+    "session_id": 95495,
+    "source_inputs": 287,
+    "status": "terminal0; Ruffand1502pytest passed; all287sourceinputs unchanged"
+  },
+  "data": {
+    "cli_exit_code": 0,
+    "complete": true,
+    "live_confirmed_by_ps": true,
+    "pid": 67150,
+    "session_id": 79806,
+    "terminal_confirmed": true
+  },
+  "documentation_math_rendering": {
+    "audit": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_audit.json",
+    "audit_sha256": "d9cd7373a272429fe9dbfe4df901aec69265e2efefddc26243e55164f9932019",
+    "complete": true,
+    "expressions": 116,
+    "numerical_source_unchanged": true,
+    "publication_commit": "cf6e7dacb62e922f0f3f277ebe463e037337cfe0"
+  },
+  "expected_fits": 18,
+  "expected_label_families": 307200,
+  "external_final_evidence_collector": {
+    "future_command": [
+      ".venv/bin/python",
+      "/private/tmp/nn_dk_collect_readme_final_evidence.py"
+    ],
+    "gate_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/final_collector_incomplete_gate.json",
+    "guard_exit_code": 75,
+    "heavy_imports_observed": [],
+    "incomplete_stage_runtime_gate_verified": true,
+    "output": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/final_computational_evidence.json",
+    "output_created_by_guard": false,
+    "overall_goal_complete_claim": false,
+    "path": "/private/tmp/nn_dk_collect_readme_final_evidence.py",
+    "production_evidence_collection_executed": false,
+    "run_only_after": "coordinator58407terminal0,actual_final_stages.completeTrue,all10stagesexit0andtimingsfinished",
+    "sha256": "31cf6ede369d48200b406a6b6b4359c6af420a25d05a22d415336e60a6360e34",
+    "static_peer_review_passed": true
+  },
+  "fit_lock": {
+    "complete": true,
+    "models": 18,
+    "reverified_after_reporter_fix": true,
+    "sha256": "3fdbc913ccebb1f43f348636e7f7eacd378dfa7820ee164d75c07de0f58e93aa",
+    "unchanged": true
+  },
+  "fits": [
+    {
+      "pid": 77670,
+      "seed": 0,
+      "session_id": 25151
+    },
+    {
+      "pid": 77669,
+      "seed": 1,
+      "session_id": 21506
+    },
+    {
+      "pid": 77668,
+      "seed": 2,
+      "session_id": 40321
+    }
+  ],
+  "fits_all_terminal_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "fits_live_confirmed_by_ps": false,
+  "full_test_exit_code": 0,
+  "full_test_session_id": 95495,
+  "full_test_session_terminal": true,
+  "full_tests": {
+    "complete": true,
+    "count": 1502,
+    "current_expanded_tree_requires_new_run": false,
+    "exact_proof_reused_in": [
+      "actual collocation audit",
+      "newtinyv2 candidate audit",
+      "newtinyv2 collocation audit"
+    ],
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/audit/final_tests.json",
+    "sha256": "bb82c18ec8b070b7c17c74a8924541329ddf940104fdfb508bd17bb1e931dbf8",
+    "source_inputs": 287,
+    "source_map_sha256": "1a5aa6c50e91d32795e2495e5286590194fdc70fda3c5bc5e84125259efa0a24"
+  },
+  "future_helper_sha256": {
+    "audit_lna_supervised_labels.py": "c33e42465c124053f87e5c93505f71f47f1ac25c8d807917a010e15a4781e039",
+    "evaluate_lna_payoff_correction.py": "7351675644c83732ec507b87751c21877c42cd994ab2a8ccaaf5770ee589b091",
+    "report_lna_payoff_correction.py": "ffbab1cf7ed05a7f1341c280837296209c294fdaa7c0a49cff2d454dc7425d7e"
+  },
+  "goal_turn_activity": [
+    {
+      "at_utc": "2026-10-29T19:55:29.010881+00:00",
+      "classification": "progress",
+      "evidence": "0112776 fixes archive stale-work guard;35focused+1502fulltests, independentreview, fresh15-fit tiny jointaccuracy and367artifact residualarchive pass; actual fits grew53to60; actualfinals stillclosed."
+    }
+  ],
+  "historical_diagnostic_archive_verification": {
+    "complete": true,
+    "copied_artifacts_verified": 1122,
+    "external_inputs_indexed": 46,
+    "indexed_raw_files": 1955,
+    "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/historical_diagnostic_archive_verify.log",
+    "log_sha256": "2fef5b2d69c1afaedc373b504e661154332581369c040cb9808d2d4ba35ddf6b",
+    "manifest_sha256": "4855fa60333b688570cfdc7061eed4365b85f3d39ae3ef314469222d81897440",
+    "scope": "offline copied/original bytes,package/helper/plan/anchor/model identities; no rawfamily replay or newexperiment"
+  },
+  "joint_contrasts_execution": {
+    "complete": true,
+    "exit_code": 0,
+    "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_contrasts.log",
+    "packets": 1080,
+    "scientific_interpretation_pending": true
+  },
+  "joint_lock": {
+    "before_any_final_values_verified": true,
+    "complete": true,
+    "identifier_audit": {
+      "complete": true,
+      "families_disjoint": true,
+      "final_physical_histograms_or_outcomes_opened_or_drawn": false,
+      "learner_identifiers": 312768,
+      "native_candidate_identifiers": 589824,
+      "new_identifier_inventory_sha256": "03032539e98cdaff848b958a9f373694100f072cb3442eef665e54c4c4f2c764",
+      "new_initial_identifiers": 196608,
+      "reference_and_two_initial_bootstrap_streams_independent": true,
+      "reference_identifiers": 589824
+    },
+    "old_evaluation_lock_sha256": "f04b8110e2949c915cfe7c42dae9f18c52bcb0f708ba69a90975d624d9cd84b2",
+    "packet_sha256": "d430477955caa94d8bada456de65384303e49c6397ff91c8efa66bcd9cc60526",
+    "sha256": "26f5c64e6c62c2bba7cac735b7232bdbcc7f9144d196e220b0f25629ea1cacad"
+  },
+  "last_goal_turn_classification": "verified_wait: originalcoordinator58407andcorrectionbenchmark3912confirmedlive/CPUactive,jobcheckpointsadvancing; no concurrentheavyanalysis/numericalrestart/sourcechange",
+  "last_verified_timing_wait": {
+    "A_completed_jobs": 288,
+    "A_expected_jobs": 288,
+    "A_jobs_by_case": {
+      "T0p25_k0p75": 48,
+      "T0p25_k3": 48,
+      "T0p25_k6": 48,
+      "T1_k0p75": 48,
+      "T1_k3": 48,
+      "T1_k6": 48
+    },
+    "coordinator_session": 58407,
+    "current_turn_classification": "verified_wait",
+    "live_handle_repolled": true,
+    "metadata_only": true,
+    "numerical_restart_performed": false,
+    "observed_at_utc": "2026-10-30T09:28:53.289329+00:00",
+    "phase": "actual_correction_archive",
+    "previous_turn_classification": "verified_wait",
+    "worker_pid": 50097
+  },
+  "last_verified_wait": {
+    "baseline_chunks_present": 1473,
+    "error": null,
+    "latest_baseline": "runs/lna-payoff-correction-2026-10-30/evaluation/baselines/T1_k6/nonuniform__ensemble__0/dt7_2048.json",
+    "latest_baseline_write_utc": "2026-10-30T00:05:56.704983+00:00",
+    "observation_only": true,
+    "observed_at_utc": "2026-10-30T00:06:02.944592+00:00",
+    "phase": "waiting_for_accuracy",
+    "planned_baseline_chunks": 1584,
+    "workers": {
+      "accuracy": {
+        "matching_process_present": true,
+        "pid": 99318
+      },
+      "coordinator": {
+        "matching_process_present": true,
+        "pid": 8930
+      }
+    }
+  },
+  "latest_user_instruction": "Keep going until the benchmarks finish, then update the results and documentation and publish the verified changes to main.",
+  "narrative_followup": {
+    "archived_generated_report_unchanged": true,
+    "generated_prefix_preserved": true,
+    "original_generation_receipt_sha_remains_historical": true,
+    "path": "docs/experiments/payoff_collocation_residuals_2026-10-30.md",
+    "separately_labeled_independent_accuracy_followup_appended": true,
+    "separately_labeled_interpretation_appended": true,
+    "sha256": "5d05286e98d10396f269eee87482577e66f7515faec550b4c259e97e894f8b5f"
+  },
+  "native_label_replay_audit": {
+    "complete": true,
+    "families": 24,
+    "maximum_payoff_error": 8.81e-16,
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/execution/native_label_replay_audit.json"
+  },
+  "next_operator_action": "EXISTINGcoordinator58407PID8930ownsremainingstages. Bothaccuracyallocationsstrictverified792primary/948retained;1080contrasts0; Cbenchmark92843TERMINAL0with696records+156restorescompleteTrue. NOWactual_correction_benchmark3912LIVE/288literaluninterruptedjobs(noaccuracycache, full16kIIDhistsorB1provided/allODE+head+aggregation,cold+warm). ExpectlongCPUwork; DO NOTtruncateallocation, segmentlatencies, usesharedaccuracycache, changecriteria/source orrestartlivejobs. Poll58407andmetadata-only jobrecordcounts;no heavyreaders/tests/plotsduringA timings. AfterAitautomaticallyverify,firstC/A reportswithpublicnotes,botharchivesandtheirverifiers. AfterALLtiming/coordinatorterminal0/all10commands0: runreviewedexternalcollector /private/tmp/nn_dk_collect_readme_final_evidence.py(SHA31cf6ede...,backupoperator_sources),thenmanualA/Cfindings/costreview/finalREADME+guides+notes+ledger,currentdocslinks/mathcheck,extend75payloadpublicprovenancewithterminalproofs/latestCI,overallR1-R6completionJSON, reviewedpublicmainfastforwardandexactCI/cleancloneverification. Currentbranchcf6e7daCI40979842651SUCCESS1502+Ruff+builds; source287mapcurrent;package0d9bunchanged;mainstillf85untilfinalcompletion. No newexperimentstoforcepositiveadvantage. Goalactive.",
+  "next_steps": [
+    "Monitor six EXISTING actualreference sessions61664/42928/63344/80830/16480/98501, one perdeclared case. Never duplicate liveowner. Actualjointlock26f5c64e... verifiedbefore0values; sharedcompilecachea35readonlyhit confirmedbeforeparallel launch.",
+    "All90fits locked, realRdiagnostic/archive complete, wholeTinyv2 timing/reports/archives complete, CI1502 andcleanclone/build/wheel/smoke5 pass. No further softwaregatework needed unless genuinefailure.",
+    "Cfitlock1b2dbc23...72models complete; Afitlock3fdbc913...18models complete. Both strictlocks must remain unchanged before actualjointfreeze.",
+    "ActualRdiagnosticandarchivecomplete; reportnote docs/experiments/payoff_collocation_residuals_2026-10-30.md created. Do not reruncompletednumeric audit/run because newcosts wouldstale frozenreport.",
+    "Use sourcebound1502proofSHA bb82c18e\u2026 with287-inputmap1a5aa6c5\u2026; exactproof/logcopies alreadyinactualC andnewtinyv2C/A. Preserveold1468/1497receipts underprior_final_tests_<sha>.json. No more source edits unless genuinebug.",
+    "Actualfinaldata gate nowunlocked; sixfreshrefworkers alreadylaunched throughnewguard withdistinctcase leases. No directstandalone oldreference calls. Plannedfull589824referencefamilies; inspectper-case manifests afterallworkers terminal.",
+    "AfterALL6referenceworkerscomplete0 andall6manifestscomplete: launch ONEunfiltered oldCevaluate andONEunfiltered newAevaluate concurrently. Separate rootaccuracylocks; no intra-rootper-caseworkers. Contrasts mustwaitbothaccuracycomplete.",
+    "Bothactualaccuracycomplete: newAcontrasts; then allheavyjobsexit, actualoldbenchmark696+156restores thennewbenchmark288wholejobs. No concurrentheavywork duringtiming.",
+    "Record separate wholejoint E2Ereceipt linking preserved accuracy-onlyreceipt, both timinginventories/reports/archives and1502proof; do not mutate earlier accuracy-onlyreceipt.",
+    "Only after all90actualfitlocks andwhole tinyacceptance: actualnewjointprepare thenfreeze. Use verify_joint_lock API forpre-drawmetadata ifneeded; CLIverify requires fullaccuracy+contrasts+BOTHtimings andcannot run atfreeze.",
+    "Generate actualfreshsharedrefs onlythrough newguarded wrapper, all6cases. No actualfinalHDF/independentIIDvalues exist yet. Jointprepare alsofreezes oldC metadata; do not bypass with standalone oldreference.",
+    "Complete oldactualaccuracy576primary/732retained, new216primary and1080contrastpackets; allseed/control/failures retained. Combined792primary/948retained. Heavy reference/eval jobs mayresumeidentically onlyafterterminal75; no live duplicates.",
+    "After allheavyreference/accuracy processes exit, execute696oldtimings+156restores then288new literal uninterrupted jobs sequentially. Fullhistograminitialization/allODE/head/aggregate counted, no cache shortcut or segmented latency substitution.",
+    "Finish bothactualreports/archives+residualarchive, source/identifier/cost/replay andofflineaudits, README_FINDINGS/mainREADME/statisticsguide actualresults, finalR1-R6completionmanifest. Negative methodresult is valid; no continuum/rare-event/positive-advantage proofrequired.",
+    "Publish finalreviewed science/docs asmain withfullhistory onlyaftercompletionaudit; preserveexistingbranches, rawbanks/weightslocal, noregistry orwebsite."
+  ],
+  "operator_source_backups": {
+    "nn_dk_accuracy_progress_monitor.py": {
+      "backup": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/operator_sources/nn_dk_accuracy_progress_monitor.py",
+      "original": "/private/tmp/nn_dk_accuracy_progress_monitor.py",
+      "sha256": "72cdeeb6543a6b9233870bc638c913e4ee5c2685dbc20ee8c5f744c2da9b3efd"
+    },
+    "nn_dk_actual_final_stages.py": {
+      "backup": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/operator_sources/nn_dk_actual_final_stages.py",
+      "original": "/private/tmp/nn_dk_actual_final_stages.py",
+      "sha256": "cea8f424d0563e3d8349d219fdc1ae40a7e33508cf2d0aa2e83355a6efb1ea0a"
+    },
+    "nn_dk_collect_readme_final_evidence.py": {
+      "backup": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/operator_sources/nn_dk_collect_readme_final_evidence.py",
+      "original": "/private/tmp/nn_dk_collect_readme_final_evidence.py",
+      "sha256": "31cf6ede369d48200b406a6b6b4359c6af420a25d05a22d415336e60a6360e34"
+    }
+  },
+  "package_source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+  "physical_bounds_scope_review": {
+    "bounds": "valid conditional/IID-mixture population support andvariance necessities; predictions/finite-sample checks remain diagnostics",
+    "result": "no actionable mismatch; no codechange",
+    "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+    "target": "retained state interpolates tofirstpositive threshold crossing; fulluncensored proposal is notretained"
+  },
+  "planned_public_notes": {
+    "collocation": "docs/experiments/payoff_collocation_2026-10-30.md",
+    "collocation_documentation_required_on_first_generate": true,
+    "composite_completion": "docs/experiments/readme_research_2026-10-30_completion.json",
+    "correction": "docs/experiments/lna_payoff_correction_2026-10-30.md",
+    "residuals": "docs/experiments/payoff_collocation_residuals_2026-10-30.md"
+  },
+  "prior_branch_ci": [
+    {
+      "branch": "codex/public-release",
+      "conclusion": "success",
+      "last_status": "completed",
+      "log": "/private/tmp/nn-dk-readme-research-ci-fc39a06.log",
+      "run_id": 40929368159,
+      "url": "https://github.com/xrough/nn-dk/actions/runs/40929368159"
+    },
+    {
+      "branch": "codex/public-release",
+      "commit": "5689d8b786021d265840bafb2629509404d6e99b",
+      "conclusion": "success",
+      "last_status": "completed",
+      "log": "/private/tmp/nn-dk-readme-research-ci-5689d8b.log",
+      "run_id": 40939922178,
+      "url": "https://github.com/xrough/nn-dk/actions/runs/40939922178"
+    }
+  ],
+  "prior_full_tests": [
+    {
+      "complete": true,
+      "count": 1468,
+      "current_expanded_tree_requires_new_run": true,
+      "original_receipt_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/audit/final_tests.json",
+      "prior_result_retained": true,
+      "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/audit/prior_final_tests_ad9e71dda579d2f98c8937eb8c03f831ec668d2837fb78232de739e5faf2049a.json",
+      "sha256": "ad9e71dda579d2f98c8937eb8c03f831ec668d2837fb78232de739e5faf2049a",
+      "source_map_sha256": "fe7946fae68dc679eae9759b7378d56ed82cc75121070fe9f63799c26ab04c88"
+    },
+    {
+      "complete": true,
+      "count": 1497,
+      "current_expanded_tree_requires_new_run": true,
+      "exact_proof_reused_in": [
+        "actual collocation audit",
+        "tiny candidate audit",
+        "tiny collocation audit"
+      ],
+      "original_receipt_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/audit/final_tests.json",
+      "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/audit/prior_final_tests_302e02f616964b5632d1e489e22bb18bdd0d867954bd21150a9536a04d0331a4.json",
+      "sha256": "302e02f616964b5632d1e489e22bb18bdd0d867954bd21150a9536a04d0331a4",
+      "source_inputs": 287,
+      "source_map_sha256": "579421d32ae0cf06a5e457743d93109ab405a6d2674eef9f4e91e2a6b8e24f81"
+    }
+  ],
+  "prior_publication_branch_CI": [
+    {
+      "conclusion": "success",
+      "log": "/private/tmp/nn-dk-readme-research-ci-9ceeb7d-full.log",
+      "run_id": 40962164622,
+      "session_id": 93735,
+      "session_terminal": true,
+      "status": "completed",
+      "test_count": 1502,
+      "url": "https://github.com/xrough/nn-dk/actions/runs/40962164622",
+      "verification_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/branch_ci_9ceeb7d.json"
+    }
+  ],
+  "prior_software_acceptance": [
+    {
+      "joint": {
+        "benchmark_report_archive_complete": false,
+        "global_quiet_required": true,
+        "guard_reference_accuracy_contrasts_complete": true,
+        "receipt": "/private/tmp/nn-dk-lna-joint-e2e-vrr_3j_8/joint_accuracy_acceptance.json",
+        "receipt_sha256": "92fe3005f7aa6cd84ad0731c625cdcea5f7b51119732fa6b6c222044c5facd8a"
+      },
+      "reason": "Preserved immutable prior source44c evidence; R4reporter deliberately tightened before any actual final draws.",
+      "residual": {
+        "allocation": {
+          "all_seeds_and_variants_retained": true,
+          "cases": 1,
+          "component_statistic_rows": 95040,
+          "models": 12,
+          "strata_per_model": 19,
+          "stratum_loss_rows": 480
+        },
+        "archive_complete": true,
+        "archive_exit_code": 0,
+        "archive_manifest_sha256": "ded6a2b82336243877d4b91cc4816baca7a669465ab0240658d9d54df19f9c81",
+        "archive_receipt": "/private/tmp/nn-dk-lna-joint-e2e-vrr_3j_8/residual_archive_acceptance_v1.json",
+        "archive_receipt_sha256": "0bfc2f80ef31cced4a70d1879d1e403e79eac0094bc8a853cc11dd5981254a2a",
+        "archive_session_terminal": true,
+        "audit_root": "/private/tmp/nn-dk-lna-joint-e2e-vrr_3j_8/residuals_v1",
+        "complete": true,
+        "copied_artifacts_verified": 367,
+        "exit_code": 0,
+        "figures_visually_checked": true,
+        "indexed_local_raw_files": 123,
+        "production_scientific_allocation": false,
+        "receipt": "/private/tmp/nn-dk-lna-joint-e2e-vrr_3j_8/residual_cli_acceptance_v1.json",
+        "receipt_sha256": "72bf90343de61e165f81921c3cc48f7896639c744f27da99ec9f5658121988e3",
+        "runner": "/private/tmp/nn_dk_residual_cli_acceptance.py",
+        "session_id": 95496,
+        "session_terminal": true,
+        "status": "all7 real CLI actions passed including compact archive/offlineverification;3PNGs inspected"
+      }
+    }
+  ],
+  "production_residual_driver": "/private/tmp/nn_dk_production_residual_stage.py",
+  "production_residual_stage": {
+    "active_child_pid": null,
+    "actual_final_outcomes_opened": false,
+    "allocation": {
+      "all_seeds_and_variants_retained": true,
+      "cases": 6,
+      "component_statistic_rows": 570240,
+      "models": 72,
+      "strata_per_model": 19,
+      "stratum_loss_rows": 2880
+    },
+    "archive_manifest_sha256": "597188eb34323e456114c2c4dc53a5c94e56b9199cb65ce19c8ee5658ab62d48",
+    "chunk_rows": 128,
+    "complete": true,
+    "copied_artifacts_verified": 2865,
+    "driver_script": "/private/tmp/nn_dk_production_residual_stage.py",
+    "exit_code": 0,
+    "expected_chunks": 2304,
+    "figures_visually_checked": [
+      "T1_k6_strata.png",
+      "T1_k6_covariance_balance.png",
+      "T1_k6_covariance_components.png"
+    ],
+    "indexed_local_raw_files": 5048,
+    "last_chunks": 2173,
+    "last_model_summaries": 67,
+    "models_frozen": 72,
+    "new_physical_continuations": 0,
+    "plan_identity_hash": "1bf76c47866f881b9b6559304b9583a30bb9968df497bb1c24f0601fb5d6e67f",
+    "plan_sha256": "8e651429781564393a9cbabe0fd15e8b1335fa4a81322d22871102b15702d13d",
+    "receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/production_residual_stage.json",
+    "receipt_sha256": "69e37722347effd176e3c73f4e3eb054a34080208d586c86969c2ef36b9155b2",
+    "report_manifest_sha256": "4bd73765fc86682d6b7ac53dee9a210481c9a180fbcb9f6ae79490434aefc622",
+    "root": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-residuals-2026-10-30",
+    "session_id": 62452,
+    "session_terminal": true,
+    "source_choices_frozen_before_residuals": true
+  },
+  "public_cross_stage_provenance": {
+    "complete_readme_goal": false,
+    "copied_artifacts": 75,
+    "manifest_sha256": "1a5c3121bea806171236685629833c897f0ec06abd76ef47fdb185694be5b790",
+    "root": "docs/experiments/artifacts/readme_research_2026-10-30"
+  },
+  "publication_progress": {
+    "branch": "codex/public-release",
+    "commit": "cf6e7dacb62e922f0f3f277ebe463e037337cfe0",
+    "default_branch": "main",
+    "main_unchanged_while_research_pending": "f85f53430637e0d391482ad74e4b796bbfe9c67a",
+    "maintained_numerical_sources_unchanged_from_0112776": true,
+    "new_branch_ci": {
+      "conclusion": "success",
+      "full_log": "/private/tmp/nn-dk-readme-research-ci-cf6e7da-full.log",
+      "run_id": 40979842651,
+      "status": "completed",
+      "test_count": 1502,
+      "url": "https://github.com/xrough/nn-dk/actions/runs/40979842651",
+      "verification_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/branch_ci_cf6e7da.json"
+    },
+    "new_local_full_test_run_required_now": false,
+    "prior_complete_CI": {
+      "conclusion": "success",
+      "log": "/private/tmp/nn-dk-readme-research-ci-3e6e71d-full.log",
+      "run_id": 40965950161,
+      "session_id": 3738,
+      "session_terminal": true,
+      "status": "completed",
+      "test_count": 1502,
+      "url": "https://github.com/xrough/nn-dk/actions/runs/40965950161",
+      "verification_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/branch_ci_3e6e71d.json",
+      "watcher_exit_code": 1,
+      "watcher_failure_was_transport_only": true
+    },
+    "public_repository": "https://github.com/xrough/nn-dk",
+    "pushed": true
+  },
+  "recorded_at_utc": "2026-10-29T16:53:37.845404+00:00",
+  "reference_scheduling_audit": {
+    "R4_CLI_budget_seconds_supported": false,
+    "cache_fingerprint_readonly_verified": "a35df9b6522442ddc01d42a7b5935a7b5f71e74c0c18acbe3eb9c53222e45cfa",
+    "case_parallelism_safe": true,
+    "mutations": "per-case manifests/HDFs/chunk costs/leases; unique whole-process CLI receipts",
+    "ownership": "one root-level evaluator reference --case process per distinct case, no duplicate caseowners",
+    "prerequisites": "all90fitlocks andwholequiettiny acceptance andactualjointfreeze before any actual reference draw",
+    "recheck_cache_before_parallel_launch": true,
+    "source_edit_or_reference_draw": false,
+    "status0": "complete selectedcase",
+    "status75": "checkpointed max-chunks; resume samecommand onlyafterterminal"
+  },
+  "remaining_collocation_live_session": {},
+  "requirements_schema_audit": {
+    "count_fields": 84,
+    "draft_changed": false,
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/requirements_path_schema_audit.json",
+    "paths": 126,
+    "sha256": "d4eba70b0129bc690e900c3d7c97be5bded37f8ef012e12b7093f8376735c62e"
+  },
+  "research_source_commit": "011277684b540860379eb726b2440a3fd0385226",
+  "residual_stratum_supplement": {
+    "new_final_outcomes_read": false,
+    "production_requires": "complete72fitlock",
+    "root": "runs/payoff-collocation-residuals-2026-10-30",
+    "source_commit": "011277684b540860379eb726b2440a3fd0385226",
+    "source_helpers": {
+      "audit_payoff_collocation_residuals.py": "d5f69dc1c084fd3a275c9245ac5e9eecf6062e14d6e49c40a06ad82d585bfcb8",
+      "report_payoff_collocation_residuals.py": "27b8284a8a1aa72dc498ede5bb960d4604a03f0e2b2a477b161afb7a899fc4a8"
+    },
+    "status": "completeall72realmodels/2304chunks;19bins/canonicalMSE+Huber/sourceunits checked;570240componentrows/2880lossrows;2865artifactarchive offlineverified. Independentfinalaccuracy stillpending.",
+    "training_helpers_unchanged": true
+  },
+  "software_joint_acceptance": {
+    "accuracy_exit_code": 0,
+    "accuracy_session_id": 83262,
+    "accuracy_session_terminal": true,
+    "allocation": {
+      "baseline_primary_records": 64,
+      "candidate_models": 3,
+      "candidate_primary_records": 24,
+      "timing_jobs": 0,
+      "unavailable_candidate_records": 0
+    },
+    "base": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu",
+    "benchmark_report_archive_complete": true,
+    "candidate_contrast_packets": 120,
+    "collocation_archive": {
+      "allocation": {
+        "cases": 1,
+        "independent_initial_records": 26,
+        "models": 12,
+        "primary_accuracy_records": 64,
+        "restoration_records": 26,
+        "timing_records": 116,
+        "total_retained_accuracy_records": 90
+      },
+      "complete": true,
+      "copied_artifacts_verified": 337,
+      "indexed_raw_files": 309,
+      "manifest_sha256": "155920c68cc9702f481809fd801a8dfdd2130c1e103b2a7524181751caa4808d"
+    },
+    "correction_archive": {
+      "allocation": {
+        "candidate_models": 3,
+        "cases": 1,
+        "collocation_primary_records": 64,
+        "contrast_packets": 120,
+        "contrast_statistic_rows": 720,
+        "new_primary_records": 24,
+        "timing_jobs": 48,
+        "unavailable_new_records": 0
+      },
+      "complete": true,
+      "copied_artifacts_verified": 708,
+      "indexed_raw_files": 700,
+      "manifest_sha256": "1dc4c11fcf34c4e8e84db51aa1d1263cab75de1c932b56cca08cf4db3e05f463"
+    },
+    "fit_fixture_terminal": true,
+    "fit_models": {
+      "candidate": 3,
+      "collocation": 12
+    },
+    "fixture_receipt": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/fixture_receipt.json",
+    "full_driver": "/private/tmp/nn_dk_complete_tiny_joint_v2.py",
+    "full_exit_code": 0,
+    "full_receipt": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/joint_end_to_end_acceptance.json",
+    "full_receipt_sha256": "7621d7e620e624c48091e8bd9e7606a540db382cd24158a6f87180397233f7de",
+    "full_session_id": 51040,
+    "full_session_terminal": true,
+    "full_workflow_started": true,
+    "global_quiet_required": true,
+    "guard_preceded_all_final_materialization": true,
+    "guard_reference_accuracy_contrasts_complete": true,
+    "label_prefix_audit_families": 4,
+    "old_fixture_preserved": "/private/tmp/nn-dk-lna-joint-e2e-vrr_3j_8",
+    "quiet_pending_expected": {
+      "candidate_timing_jobs": 48,
+      "collocation_restorations": 26,
+      "collocation_timing_rows": 116,
+      "combined_primary_records": 88,
+      "combined_retained_records": 114,
+      "contrasts": 120,
+      "signed_contrast_rows_if_all_available": 720
+    },
+    "receipt": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/joint_accuracy_acceptance.json",
+    "receipt_sha256": "1e344ee1367cd1a6d8f0922bac32a898600bcc7389c23e567a1b75a17015cbf3",
+    "reporter_sha256": "ffbab1cf7ed05a7f1341c280837296209c294fdaa7c0a49cff2d454dc7425d7e",
+    "whole_allocation": {
+      "candidate_models": 3,
+      "cases": 1,
+      "collocation_primary_records": 64,
+      "contrast_packets": 120,
+      "contrast_statistic_rows": 720,
+      "new_primary_records": 24,
+      "timing_jobs": 48,
+      "unavailable_new_records": 0
+    },
+    "whole_joint_end_to_end_complete": true
+  },
+  "software_residual_acceptance": {
+    "allocation": {
+      "all_seeds_and_variants_retained": true,
+      "cases": 1,
+      "component_statistic_rows": 95040,
+      "models": 12,
+      "strata_per_model": 19,
+      "stratum_loss_rows": 480
+    },
+    "archive_complete": true,
+    "archive_exit_code": 0,
+    "archive_manifest_sha256": "e1c85f15c0d5f4ec68d3169de0d71aef6fb19c29aa2a9a24edc491a42ddc4984",
+    "archive_receipt": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/residual_archive_acceptance_v2.json",
+    "archive_receipt_sha256": "888314eecacbd75114c7480726ed4659c59f5165e3e8ed968baf3d82fa60744e",
+    "audit_root": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/residuals_v2",
+    "base": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu",
+    "complete": true,
+    "copied_artifacts_verified": 367,
+    "exit_code": 0,
+    "figures_visually_checked": true,
+    "indexed_local_raw_files": 123,
+    "production_scientific_allocation": false,
+    "receipt": "/private/tmp/nn-dk-lna-joint-archive-v2-md57spiu/residual_cli_acceptance_v2.json",
+    "receipt_sha256": "ff2e3a2ca8f5bc835e8e9fecbbf7247303a4ef9b4b46af3c7453ddd75bbd509e",
+    "session_id": 43254,
+    "session_terminal": true,
+    "status": "all7 real CLI actions pass underffb includingarchive/offlineverification; newstrataPNG inspected"
+  },
+  "source_commit": "43dd46a4f0f1e8c4ac855c160ca7810cdcf73248",
+  "updated_at_utc": "2026-10-30T01:28:25.525355+00:00"
+}

@@ -1,0 +1,61 @@
+{
+  "accuracy_cache_used": false,
+  "all_families_retained": true,
+  "arrays": {
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/timing/jobs/T1_k0p75/uniform/gated_zero/ensemble/cold/record.npz",
+    "sha256": "a0239a95109054a6a7ff128c5977a40dc4840558c725f86e233cddf80638323c"
+  },
+  "attempt_cost_complete": true,
+  "available": true,
+  "cold_end_to_end_seconds": 158.1391939590685,
+  "complete": true,
+  "component_sum_seconds": 158.1350035839714,
+  "components": {
+    "aggregation_seconds": 0.00593504193238914,
+    "conditional_LNA_seconds": 157.73238374991342,
+    "head_seconds": 0.36025550006888807,
+    "initialization_seconds": 0.03642929205670953
+  },
+  "full_uncached_LNA_per_histogram": true,
+  "identity": {
+    "job": {
+      "batch_size": 64,
+      "case": "T1_k0p75",
+      "families": 16384,
+      "method": {
+        "baseline_step": 0.0078125,
+        "family": "gated-LNA",
+        "kind": "gated_zero",
+        "name": "gated_zero",
+        "seed": null
+      },
+      "phase": "cold",
+      "profile": "uniform",
+      "role": "ensemble",
+      "slot": "T1_k0p75/uniform/gated_zero/ensemble/cold"
+    },
+    "joint_lock_sha256": "26f5c64e6c62c2bba7cac735b7232bdbcc7f9144d196e220b0f25629ea1cacad"
+  },
+  "observation_scope": "one cold and one warm observation,not a stable latency distribution",
+  "paid_attempt_scope": "known attempt elapsed totals include successful observation once;never add workload again",
+  "paid_attempt_seconds": 158.14104041596875,
+  "restoration_and_resume_attempts": [
+    {
+      "accuracy_baseline_cache_read": false,
+      "cpu_seconds": 153.15725699999984,
+      "elapsed_seconds": 158.14104041596875,
+      "finished": true,
+      "finished_unix": 1793329561.357939,
+      "restoration_seconds": 0.004190375097095966,
+      "reused_live_model_after_complete_cold_workload": false,
+      "started_unix": 1793329403.2181172,
+      "successful": true,
+      "warm_preparation_seconds": 0.0,
+      "workload_seconds": 158.1350035839714
+    }
+  ],
+  "timing_initials_shared_across_methods_and_phases": true,
+  "timing_mode": "uninterrupted-full-uncached-workload-v1",
+  "timing_scope": "uninterrupted histogram generation,all conditional ODEs,head,total covariance;restoration separate",
+  "workload_seconds": 158.1350035839714
+}

@@ -1,0 +1,463 @@
+{
+  "arrays": {
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/deployment/accuracy/T1_k0p75/uniform__ensemble__0/T1_k0p75_stratified_pseudo_huber_seed0.npz",
+    "sha256": "d92b61016efeb99021420097c8791ee8ea079dbab270b038eeb0b11dbb745527"
+  },
+  "bootstrap_counts": {
+    "initial_sha256": "8058d2d392c0ed2ab6539a025d49d46d36ffe3b818bb81f6f45e9b04e898f043",
+    "reference_sha256": "fa1640ddb0a1e80a3708bf9c8904b29a2a12c2aa03cd84de2dadfba313451ec5"
+  },
+  "complete": true,
+  "cost_join": {
+    "name": "T1_k0p75_stratified_pseudo_huber_seed0",
+    "profile": "uniform",
+    "regime": "T1_k0p75",
+    "role": "ensemble"
+  },
+  "identity": {
+    "bank_hash": "5df7d3b59b448a2ed1bb7f196283fb85266fc738fe0b55ce3270804293a3374a",
+    "comparison_plan_sha256": "48405bdbaede083db5b230e0bdc6f0a9f6b469acfba452c599b32a4383a51302",
+    "deployment_plan_sha256": "456eab31ba6fdfb13a7474a44ab26ac13c46aee846bd5fa2821f7bbefeda04d6",
+    "fit_lock_sha256": "1b2dbc232eec0c45ba96b7151d8d014b70e1b9b870e6664e52ab85d3a4307d17",
+    "group": "uniform__ensemble__0",
+    "independent_initial_pool_sha256": "4a0a12f92f8acd76bbd981b3e72e996f2df0eccd5bd4d1ae6826c9c6c2385644",
+    "name": "T1_k0p75_stratified_pseudo_huber_seed0",
+    "reference_sha256": "d1140fdd9b756ba4d447329faa12d4aefc818ea84d130d7ff7d5b1dc456b2602",
+    "regime": "T1_k0p75",
+    "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576"
+  },
+  "initial_integration_MC": true,
+  "initial_pool_independent_of_reference": true,
+  "method": {
+    "architecture_kind": "continuous-native-dk-moving-boundary-native-slope-moments-v3",
+    "bank": "terminal3-integral1",
+    "bank_hash": "5df7d3b59b448a2ed1bb7f196283fb85266fc738fe0b55ce3270804293a3374a",
+    "case": "T1_k0p75",
+    "checkpoint_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/payoffs/T1_k0p75/checkpoints/stratified__pseudo_huber/seed0.pt",
+    "checkpoint_sha256": "bc858b5a3da604b23218179490052df302ceda4d3fab3acca76239ce34564518",
+    "complete": true,
+    "config_hash": "05214b30f206f171355e38ac620058d30761bf6ece52253b31e08aba089d42f9",
+    "data_fingerprints": {
+      "train": {
+        "content_sha256": "c4a4ed074d3a942606019a8079a88d74ef91c5e1ab6bae1afc1efb2d35ea77ea",
+        "kind": "flat-parent-grouped-generator-collocation-v1",
+        "parent_families": 512,
+        "parent_family_sha256": "b6e1d298778ee7b03d45a87b3795809eb626aa90b48b6e4419779e7fad54ee5a",
+        "provenance": {
+          "parent_pool_sha256": "10b93cb2792fc37bc376b41af575765c1c0b3c5f93ac904d6d42391eed3bb76d",
+          "stream_namespace": "fresh-matched-collocation-pools-and-reference-families-2026103101-v1",
+          "stress_augmentation": false
+        },
+        "role": "train",
+        "row_counts": {
+          "native": 8192,
+          "stress": 0
+        },
+        "rows": 8192
+      },
+      "validation": {
+        "content_sha256": "8d60ceb72c4ac403011c90d0db10c481ab5fb03c33550116ab538aef96d516ab",
+        "kind": "flat-parent-grouped-generator-collocation-v1",
+        "parent_families": 256,
+        "parent_family_sha256": "f45fcc2cba7827fa6d8a7945056d6a40c3e6299da41dd46704ec65eb70eb09cd",
+        "provenance": {
+          "parent_pool_sha256": "eeefa13c1146901bc3b3375e2696cfae45ac1787245d8d3678778739aa837ab8",
+          "stream_namespace": "fresh-matched-collocation-pools-and-reference-families-2026103101-v1",
+          "stress_augmentation": false
+        },
+        "role": "validation",
+        "row_counts": {
+          "native": 4096,
+          "stress": 0
+        },
+        "rows": 4096
+      }
+    },
+    "family": "repaired",
+    "full_invocation_cost_complete": true,
+    "full_invocation_cpu_seconds": 575.0139820000004,
+    "full_invocation_seconds": 585.902341417037,
+    "initial_state_sha256": "05c309d1c90ffa3ed406ffad4cdd3591625e40805e8dc256df47bd8eda6d6144",
+    "invocation_cost_scope": "all timed engine entry-through-return attempts including preloop checks/scales/initial validation/saves; runner pool preparation and strict restoration are separate",
+    "invocation_record_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/payoffs/T1_k0p75/checkpoints/stratified__pseudo_huber/seed0.invocations.json",
+    "invocation_record_sha256": "112f03b12eaf8d10deaf6752cffa6520e79f92f8d97b146c8dba7365ab7d0c51",
+    "loss": "pseudo_huber",
+    "loss_scaling_sha256": "747fd4b6ca7c9d103efe1edc3f0f753192063e4ffe7774141f38562469bd32e7",
+    "metadata_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/payoffs/T1_k0p75/checkpoints/stratified__pseudo_huber/seed0.json",
+    "metadata_sha256": "21fb5afd4b0bde2e693d1e40096aa384d0162cbd38d81d56408d732ad748d97c",
+    "method_id": "d9e64d8cc57a112f6cf3691722b62da4979e7cdd8857eb923254484d1f0050be",
+    "model_kind": "matched-pool-importance-corrected-staged-payoff-ablation-v1",
+    "name": "T1_k0p75_stratified_pseudo_huber_seed0",
+    "natural_validation": {
+      "covariance": {
+        "natural_huber": 0.0003402005392758286,
+        "natural_mse": 0.00034034348119865943,
+        "rows": 4096
+      },
+      "mean": {
+        "natural_huber": 0.020609368157917016,
+        "natural_mse": 0.02071243495958111,
+        "rows": 4096
+      }
+    },
+    "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29/payoffs/T1_k0p75/checkpoints/stratified__pseudo_huber/seed0.pt",
+    "proposal": "stratified",
+    "seed": 0,
+    "selected_step": {
+      "covariance": 1030,
+      "mean": 1030
+    },
+    "source_hash": "0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576",
+    "stage_seconds": {
+      "covariance": 279.47941963514313,
+      "mean": 169.34350992902182
+    },
+    "target_id": "598e40531fd61e62bda7b6d48e8299e34090b7425bed945a6255d556eec78133",
+    "training_seconds": 575.6250245838892,
+    "variant": "stratified__pseudo_huber"
+  },
+  "metrics": {
+    "bootstrap": {
+      "count": 128,
+      "counts_sha256": "fa1640ddb0a1e80a3708bf9c8904b29a2a12c2aa03cd84de2dadfba313451ec5",
+      "unit": "whole-trajectory-family"
+    },
+    "n_candidate": null,
+    "n_reference": 16384,
+    "paired": false,
+    "records": [
+      {
+        "candidate_mean": [
+          4.18201871009664e-06,
+          -4.2572372923892794e-05,
+          1.0307112957516432e-06,
+          0.00015751589816460072
+        ],
+        "candidate_scaled_covariance": [
+          [
+            0.48564101045841485,
+            -4.007722550539976e-06,
+            -2.6801099952876803e-06,
+            3.5548842840931073e-05
+          ],
+          [
+            -4.007722550539997e-06,
+            0.48573653835446445,
+            -0.00010786857095562266,
+            -4.622775897202039e-05
+          ],
+          [
+            -2.680109995287694e-06,
+            -0.00010786857095562267,
+            0.03047828145201877,
+            -0.0003720858644509742
+          ],
+          [
+            3.554884284093106e-05,
+            -4.622775897202039e-05,
+            -0.0003720858644509742,
+            0.030087253676107924
+          ]
+        ],
+        "covariance_error_plus_sampling95": 0.06785181063355662,
+        "covariance_sampling95_simultaneous_radius": 0.03000034655181645,
+        "max_mean_error_in_reference_std": 0.04260878947585041,
+        "max_normalized_covariance_error": 0.03785146408174017,
+        "mean_error_plus_sampling95": 0.06750888373158331,
+        "mean_sampling95_simultaneous_radius": 0.02490009425573291,
+        "normalized_covariance_difference": [
+          [
+            -0.011203370914837602,
+            -0.012775246492579382,
+            5.996799073638817e-06,
+            -0.012039974785301137
+          ],
+          [
+            -0.012775246492579382,
+            -0.007049944495700174,
+            0.005377109144305267,
+            -0.005453084199498797
+          ],
+          [
+            5.996799073638708e-06,
+            0.005377109144305267,
+            -0.013247211919546939,
+            -0.01256621741188454
+          ],
+          [
+            -0.012039974785301137,
+            -0.005453084199498797,
+            -0.01256621741188454,
+            -0.03785146408174017
+          ]
+        ],
+        "normalized_mean_difference": [
+          0.011594626262977343,
+          -0.007081341483353579,
+          -0.0013701519212682772,
+          0.04260878947585041
+        ],
+        "reference_mean": [
+          -0.0001753723459681338,
+          6.687043984180805e-05,
+          6.35173023108909e-06,
+          -8.980342521630042e-06
+        ],
+        "reference_scaled_covariance": [
+          [
+            0.49114347295836897,
+            0.0062579504353177705,
+            -3.4187192461368057e-06,
+            0.0015276558780018814
+          ],
+          [
+            0.0062579504353177705,
+            0.4891852673373067,
+            -0.0007688307248800065,
+            0.0006282212180234974
+          ],
+          [
+            -3.4187192461368057e-06,
+            -0.0007688307248800065,
+            0.030887454102165434,
+            1.845441980982714e-05
+          ],
+          [
+            0.0015276558780018814,
+            0.0006282212180234974,
+            1.845441980982714e-05,
+            0.031270903143237765
+          ]
+        ],
+        "time_index": 0
+      },
+      {
+        "candidate_mean": [
+          -9.872929340541066e-06,
+          -9.143924242554439e-05,
+          -1.5772141586490288e-05,
+          0.00041127662056995564
+        ],
+        "candidate_scaled_covariance": [
+          [
+            0.4859114400531353,
+            -4.507493036301419e-05,
+            -0.00024099379328379017,
+            -6.0057294942324834e-05
+          ],
+          [
+            -4.5074930363014225e-05,
+            0.4859333562521343,
+            0.00018532102202655632,
+            -0.0004686235565442286
+          ],
+          [
+            -0.00024099379328379017,
+            0.0001853210220265563,
+            0.11964890812531925,
+            -0.0012501894149571828
+          ],
+          [
+            -6.0057294942324806e-05,
+            -0.00046862355654422866,
+            -0.0012501894149571828,
+            0.11964091450729655
+          ]
+        ],
+        "covariance_error_plus_sampling95": 0.0703054851593526,
+        "covariance_sampling95_simultaneous_radius": 0.02906750301554806,
+        "max_mean_error_in_reference_std": 0.057739411555226515,
+        "max_normalized_covariance_error": 0.04123798214380454,
+        "mean_error_plus_sampling95": 0.08265663074153067,
+        "mean_sampling95_simultaneous_radius": 0.024917219186304154,
+        "normalized_covariance_difference": [
+          [
+            -0.012247860055313333,
+            0.009173791012474624,
+            -0.00021402216209421963,
+            0.00373250556260121
+          ],
+          [
+            0.009173791012474624,
+            0.022212364468902124,
+            0.004098692077025369,
+            -0.013157398432548267
+          ],
+          [
+            -0.00021402216209421963,
+            0.004098692077025369,
+            -0.026577648608775276,
+            -0.01033220868807508
+          ],
+          [
+            0.0037325055626012105,
+            -0.013157398432548267,
+            -0.01033220868807508,
+            -0.04123798214380454
+          ]
+        ],
+        "normalized_mean_difference": [
+          0.007297414256025967,
+          -0.007149752281804735,
+          -0.0011645736405945198,
+          0.057739411555226515
+        ],
+        "reference_mean": [
+          -0.00012297188558941215,
+          1.7489831088941635e-05,
+          -6.750081969635248e-06,
+          -3.9427811690102725e-05
+        ],
+        "reference_scaled_covariance": [
+          [
+            0.49193661081852574,
+            -0.004481377978689038,
+            -0.00018836577313995016,
+            -0.0009848395496163966
+          ],
+          [
+            -0.004481377978689038,
+            0.47537417188707604,
+            -0.000805435171624077,
+            0.0027359649354547462
+          ],
+          [
+            -0.00018836577313995016,
+            -0.000805435171624077,
+            0.12291571891103165,
+            2.9431511650822743e-05
+          ],
+          [
+            -0.0009848395496163966,
+            0.0027359649354547462,
+            2.9431511650822743e-05,
+            0.12478687336281345
+          ]
+        ],
+        "time_index": 1
+      },
+      {
+        "candidate_mean": [
+          6.618918295469017e-05,
+          -5.817277230907651e-06,
+          8.136623514587084e-07,
+          0.0004305740268665603
+        ],
+        "candidate_scaled_covariance": [
+          [
+            0.48689182277369236,
+            -8.597214013060349e-05,
+            0.0022042407840165185,
+            0.0005849024743177489
+          ],
+          [
+            -8.59721401306034e-05,
+            0.4869099038066443,
+            0.0012079886444123665,
+            -0.0017398061455679336
+          ],
+          [
+            0.002204240784016518,
+            0.0012079886444123665,
+            0.47080209063506384,
+            -0.004282618747230517
+          ],
+          [
+            0.0005849024743177489,
+            -0.001739806145567934,
+            -0.004282618747230517,
+            0.47043729680641677
+          ]
+        ],
+        "covariance_error_plus_sampling95": 0.06907429895475924,
+        "covariance_sampling95_simultaneous_radius": 0.028851398704877008,
+        "max_mean_error_in_reference_std": 0.03509406690084649,
+        "max_normalized_covariance_error": 0.04022290024988223,
+        "mean_error_plus_sampling95": 0.0592792989910971,
+        "mean_sampling95_simultaneous_radius": 0.024185232090250617,
+        "normalized_covariance_difference": [
+          [
+            0.04022290024988223,
+            0.0145029611424402,
+            0.0070691364795696775,
+            0.005329559951493064
+          ],
+          [
+            0.0145029611424402,
+            -0.011157730136165797,
+            -0.005475470077284465,
+            0.0024446148103540507
+          ],
+          [
+            0.007069136479569677,
+            -0.005475470077284465,
+            -0.019804702249703324,
+            -0.007550508190245795
+          ],
+          [
+            0.005329559951493064,
+            0.00244461481035405,
+            -0.007550508190245795,
+            -0.02934054604935737
+          ]
+        ],
+        "normalized_mean_difference": [
+          0.022853817728071355,
+          -0.00866097642723733,
+          -8.800303508714226e-05,
+          0.03509406690084649
+        ],
+        "reference_mean": [
+          -0.0002793098358325458,
+          0.00012847859774670967,
+          2.1613695819043083e-06,
+          -0.00010929219057640837
+        ],
+        "reference_scaled_covariance": [
+          [
+            0.46806489518422567,
+            -0.007048557157690678,
+            -0.001147591545265419,
+            -0.001953507791947014
+          ],
+          [
+            -0.007048557157690678,
+            0.492404014923121,
+            0.0038708287333034867,
+            -0.002934038023505835
+          ],
+          [
+            -0.001147591545265419,
+            0.0038708287333034867,
+            0.4803145778352836,
+            -0.0006396411925011992
+          ],
+          [
+            -0.001953507791947014,
+            -0.002934038023505835,
+            -0.0006396411925011992,
+            0.48465740985853334
+          ]
+        ],
+        "time_index": 2
+      }
+    ],
+    "scope": "sampling-only; finite stopped reference; no reference-bias certificate"
+  },
+  "reference_and_initial_bootstrap_independent": true,
+  "scientific_prediction_seconds": 0.510888832854107,
+  "standalone_initial_integration_sampling": {
+    "covariance95_normalized": [
+      0.020773651242166954,
+      0.01781607811335978,
+      0.013661296671349049
+    ],
+    "mean95_in_candidate_std": [
+      0.015594382356447058,
+      0.014489378882431968,
+      0.012716863502221579
+    ],
+    "scope": "candidate-only whole-family sampling; not paired bias"
+  },
+  "stopping_probability_prediction": "unsupported"
+}

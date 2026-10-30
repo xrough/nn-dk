@@ -2,17 +2,33 @@
 
 ## Continuing the README research tasks
 
-The [task/evidence ledger](../docs/README_TASKS.md) separates completed historical
-studies from the open priorities in [the findings README](../README_FINDINGS.md).
-The completed diagnostics use frozen v3 models and validation-state anchors, with
-fresh continuation families. They do not fit a model or reopen historical final
-outcomes, and their completion does not finish the proposed sampling or learned
-Gaussian-correction studies. On 30 October, all 72 matched-pool fits and all 18
-learned-correction fits are complete and locked. The full validation-residual
-supplement is complete. The joint final-data lock preceded all 589,824 fresh
-reference families. Collocation accuracy is complete with 576 primary and 732
-retained records; correction accuracy is still running. The final
-contrasts, isolated inference costs and overall completion record remain open.
+The [task/evidence ledger](../docs/README_TASKS.md) separates the historical
+studies from the bounded investigations in [the findings README](../README_FINDINGS.md).
+On 30 October, the full scientific allocation, reports and compact archives
+completed verification: **72 collocation fits and 18 correction fits**, 792 joint
+primary predictions and 948 retained records. The joint comparison retains all
+three optimizer seeds, 1,080 contrast packets and 6,480 signed statistic rows.
+The timings contain 696 collocation workloads, 156 restoration rows and 288
+correction cold/warm jobs. Both frameworks have **zero accuracy-qualified payback
+rows**; completing the computation does not make the failed or unresolved 5%
+accuracy/uncertainty gates pass.
+
+The diagnostics use frozen v3 models and validation-state anchors, with fresh
+continuation families. The joint lock preceded the 589,824 independent reference
+families at primary Euler step `2^-12`; 36,864 prefix families are reused at
+`2^-13` and `2^-14`, not counted as new independent families. All 18 correction
+fits executed 2,060 prescribed optimizer updates each, but natural validation
+selected step 0 for both stages in every fit. Their selected moments equal the
+gated zero-correction baseline; baseline gains are not learned-head gains.
+
+See the final [collocation report](../docs/experiments/payoff_collocation_2026-10-30.md),
+[correction report](../docs/experiments/lna_payoff_correction_2026-10-30.md) and
+[computational collector](../docs/experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json).
+The [public proof collection](../docs/experiments/artifacts/readme_research_2026-10-30/README.md)
+preserves terminal receipts, source identities and software acceptance separately.
+**R6 publication signoff remains pending** until the reviewed public `main`, its
+exact-commit CI and a fresh full-history clone are verified in the
+[composite completion record](../docs/experiments/readme_research_2026-10-30_completion.json).
 Both diagnostics require an available C++ compiler (default `clang++`) for the
 independent native reference, in addition to the locked Python environment.
 
@@ -57,8 +73,9 @@ robust transform; it is not inserted inside that transform or self-normalized.
 Uniform and stratified proposals therefore target the same original-pool
 objective. Synthetic transforms preserve mass and their parent-family IDs;
 they are conditional probes, not independent physical trajectories. These
-utilities are exercised in the controlled study below; its independent accuracy
-and cost comparison remains unfinished.
+utilities were exercised in the completed controlled study below. Its
+[independent accuracy and cost report](../docs/experiments/payoff_collocation_2026-10-30.md)
+retains every variant and seed; it does not establish a general accuracy gain.
 
 The [29 October diagnostic report](../docs/experiments/payoff_diagnostics_2026-10-29.md)
 records the completed allocations and their limitations. Diagnostic metadata,
@@ -118,12 +135,14 @@ Only after all fitting, reference, evaluation and other heavy CPU work has exite
 .venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29
 ```
 
-The report requires all 696 literal timing workloads and 156 restoration rows;
-it separates full-study costs, one-model deployment curves and shared preparation.
-Pointwise uncertainty, reference refinement and accuracy-qualified payback remain
-distinct. Software fixtures have passed the full fit/lock/reference/evaluation/
-timing/report/archive workflow. **The scientific comparison remains unfinished
-until its declared real allocation, audits and final archive are complete.**
+The verified report contains all 696 literal timing workloads and 156 restoration
+rows. It separates full-study costs, one-model deployment curves and shared
+preparation. Its 1,388 descriptive arithmetic crossovers produce **zero**
+accuracy-qualified payback rows among 2,160 comparisons. Pointwise uncertainty,
+reference refinement and the failed/unresolved gates remain explicit. The
+[compact archive](../docs/experiments/artifacts/payoff_collocation_2026-10-30/README.md)
+verifies 1,169 copied artifacts and indexes 1,937 local raw files; the earlier
+software fixtures retain their smaller, separate scope.
 
 ### Supervised nonlinear-LNA correction and joint final-data gate
 
@@ -226,8 +245,9 @@ through the wrapper, substituting each case name for the example below:
 .venv/bin/python analysis/evaluate_lna_payoff_correction.py contrasts --root runs/lna-payoff-correction-2026-10-30
 ```
 
-The planned final inventory retains the 576 collocation primary records and
-216 new correction/control records. New IID-law predictions integrate **16,384
+The verified final inventory retains the 576 collocation primary records and
+216 new correction/control records: **792 primary and 948 retained records**
+including the collocation paired-initial diagnostics. New IID-law predictions integrate **16,384
 fresh histograms/profile**, independent of native references, by total
 covariance. Both per-histogram raw LNA steps (`2^-7`, `2^-10`), gated zero heads
 and all three trained heads are evaluated. Batched sparse/rank-four RK4 evolves
@@ -243,8 +263,10 @@ labelled observations, not a latency-distribution estimate. Baseline batch size
 is fixed at 64. Accuracy-only shared caches cannot substitute for deployment
 work. Full-study shared preparation and one-model deployment costs remain
 separate; preparation components are not added again to full invocation costs.
-All accuracy intervals, reference refinement and cost payback remain unresolved
-until the declared computation, tests, audits and archive are complete.
+The full computation, current-source checks, audits and archives are now verified.
+All method/group predictions were available and physical moment-bound checks
+passed, but no accuracy-qualified payback row passed. These necessary moment
+checks are distinct from the accuracy and uncertainty requirements.
 
 `--final-timing` attests that other heavy work has exited. This includes the
 entire 90-fit allocation and all reference/accuracy jobs; a software fixture
@@ -259,12 +281,31 @@ quiet and all accuracy records are complete:
 .venv/bin/python analysis/report_lna_payoff_correction.py report --root runs/lna-payoff-correction-2026-10-30 --documentation docs/experiments/lna_payoff_correction_2026-10-30.md
 ```
 
-The correction report requires all 288 literal uninterrupted cold/warm jobs,
-the complete all-seed accuracy inventory and the signed contrasts. CLI process
-receipts distinguish whole invocation overhead from nested prediction timers.
-Source, model, identifier or saved-array changes fail closed; incomplete cached
-arrays are never silently overwritten. The report/compact archive still need
-real full-allocation execution; software checks alone do not complete R4–R6.
+The correction report contains all 288 literal uninterrupted cold/warm jobs,
+the complete all-seed accuracy inventory and all 1,080 signed-contrast packets.
+CLI process receipts distinguish whole invocation overhead from nested
+prediction timers. Source, model, identifier or saved-array changes fail closed;
+incomplete cached arrays are never silently overwritten.
+
+Every correction fit completed 1,000 Adam updates and 30 L-BFGS outer steps in
+each of its mean and covariance stages. Selection retained the initialized zero
+corrections in both stages for all 18 fits. The reported trained point moments
+match `gated_zero` for every group, time and output; independent bootstrap columns
+are not required to be identical. Thus improvements over collocation or analytic
+IID Gaussian controls concern the conditional-LNA baseline, not a learned head.
+The strongest case has 24.65% mean and 8.866% covariance point discrepancies in
+reference-SD units and products. The other five cases have point discrepancies
+below 5%, but the uncertainty requirements still prevent qualification.
+
+All paid labels, preparation and 3,262.45 seconds of full fit invocations remain
+charged despite step-0 selection. Of 432 correction payback rows, 216 have a
+descriptive arithmetic crossover and none is accuracy-qualified. That table
+compares the correction only with gated zero heads and raw conditional LNA at
+the two steps; the larger signed accuracy comparison also includes matched
+collocation models, analytic Gaussian controls and native MC. It does not supply
+a timing crossover against collocation, complete derivatives through the supplied
+baseline ODE, a generator interface, arbitrary new observables or a joint-time
+covariance solver.
 
 After both reports and the current-source full-suite test receipt are complete,
 create and independently verify each compact evidence archive.
@@ -278,6 +319,16 @@ separate from the frozen work costs.
 Supply the collocation documentation destination on the first report generation;
 its verified cached-report path does not create that mirror. Preserve each
 generated report and archive before adding a later interpretive follow-up.
+
+The [correction archive](../docs/experiments/artifacts/lna_payoff_correction_2026-10-30/README.md)
+verifies **18,236 copied artifacts** and indexes 35,418 local raw files. The
+[collector](../docs/experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json)
+checks all ten terminal commands, both final reports, all declared allocations
+and the current 1,502-test/287-input receipts. Those software receipts belong to
+commit `0112776`; later documentation and publication receive their own signoff.
+Numerical package source remains `0d9bda04…`; frozen helper identities and their
+source snapshots are retained alongside the data. R6 publication signoff is
+still pending as recorded above.
 
 ```bash
 .venv/bin/python analysis/report_payoff_collocation_study.py --root runs/payoff-collocation-study-2026-10-29 --archive docs/experiments/artifacts/payoff_collocation_2026-10-30

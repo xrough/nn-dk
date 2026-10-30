@@ -1,0 +1,313 @@
+{
+  "accuracy_processes_exited_at_utc": "2026-10-30T00:24:37.419020+00:00",
+  "accuracy_verified": {
+    "candidate_cli_receipt": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30/evaluation/execution/cli_evaluate_99318_1793309496231992000.json",
+    "candidate_cli_receipt_sha256": "22dfd2593b8d934aed64d6ebfa62721353e10fb5a3fbb5c596212ee0bd13c757",
+    "collocation_primary_records": 576,
+    "collocation_retained_records": 732,
+    "combined_primary_records": 792,
+    "combined_retained_records": 948,
+    "new_primary_records": 216
+  },
+  "accuracy_workers": [
+    {
+      "pid": 99319,
+      "same_process_live": false,
+      "script": "analysis/evaluate_payoff_collocation_study.py"
+    },
+    {
+      "pid": 99318,
+      "same_process_live": false,
+      "script": "analysis/evaluate_lna_payoff_correction.py"
+    }
+  ],
+  "active_child_pid": null,
+  "active_readme_goal_complete": false,
+  "allocation": {
+    "baseline_primary_records": 576,
+    "candidate_models": 18,
+    "candidate_primary_records": 216,
+    "timing_jobs": 288,
+    "unavailable_candidate_records": 0
+  },
+  "automatic_retry_permitted": false,
+  "collocation_archive": {
+    "allocation": {
+      "cases": 6,
+      "independent_initial_records": 156,
+      "models": 72,
+      "primary_accuracy_records": 576,
+      "restoration_records": 156,
+      "timing_records": 696,
+      "total_retained_accuracy_records": 732
+    },
+    "complete": true,
+    "copied_artifacts_verified": 1169,
+    "indexed_raw_files": 1937,
+    "manifest_sha256": "9cff4ebdf90919e0bc69a0c89318ff089728e059cb53c36f465fbcb3e68936a3"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py",
+        "contrasts",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T00:49:49.089391+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_contrasts.log",
+      "log_sha256": "bfe10001a065f174f7c8e64e12aee666e7f8e028a7fbfa90735f3809b2aec231",
+      "outer_child_cpu_seconds": 902.9059679999999,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 936.3348759999499,
+      "pid": 85739,
+      "stage": "actual_contrasts",
+      "started_at_utc": "2026-10-30T00:34:12.716276+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_payoff_collocation_study.py",
+        "benchmark",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29",
+        "--final-timing"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T01:13:06.234596+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_collocation_benchmark.log",
+      "log_sha256": "cf8e507bed6d38881cef4874e2173c27ef809937c62b61eb5188ace5974a2b82",
+      "outer_child_cpu_seconds": 1368.1983570000002,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 1397.0318392498884,
+      "pid": 92843,
+      "stage": "actual_collocation_benchmark",
+      "started_at_utc": "2026-10-30T00:49:49.204790+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py",
+        "benchmark",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30",
+        "--final-timing"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T08:57:49.512477+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_correction_benchmark.log",
+      "log_sha256": "23c95f4ab0fad91ba249f60b40e4c31550a3cbc988b9cc0beffd458707b7590c",
+      "outer_child_cpu_seconds": 27366.402322999995,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 27645.36333775008,
+      "pid": 3912,
+      "stage": "actual_correction_benchmark",
+      "started_at_utc": "2026-10-30T01:13:06.340305+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/evaluate_lna_payoff_correction.py",
+        "verify",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:04:13.864619+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_joint_verify.log",
+      "log_sha256": "02071ceb804b9ba17c868449ff664870183588c5a86910e41e432b4b2b28304f",
+      "outer_child_cpu_seconds": 364.4950170000038,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 384.3356419589836,
+      "pid": 38696,
+      "stage": "actual_joint_verify",
+      "started_at_utc": "2026-10-30T08:57:49.528587+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_payoff_collocation_study.py",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29",
+        "--documentation",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/payoff_collocation_2026-10-30.md"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:10:00.831231+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_collocation_report.log",
+      "log_sha256": "f0e194095b6a5953180183fae76a314dcad01dd1d5f1c61b1d3a5cf8aa684f21",
+      "outer_child_cpu_seconds": 340.259313,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 346.9078650828451,
+      "pid": 41752,
+      "stage": "actual_collocation_report",
+      "started_at_utc": "2026-10-30T09:04:13.872983+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py",
+        "report",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30",
+        "--documentation",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/lna_payoff_correction_2026-10-30.md"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:17:53.886265+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_correction_report.log",
+      "log_sha256": "9e9299ce87fff512bc839e60599d90e4e6d44e4aea6afb5d27abdfb262b75257",
+      "outer_child_cpu_seconds": 458.07934200000045,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 473.04797749989666,
+      "pid": 44348,
+      "stage": "actual_correction_report",
+      "started_at_utc": "2026-10-30T09:10:00.834779+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_payoff_collocation_study.py",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/payoff-collocation-study-2026-10-29",
+        "--archive",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/payoff_collocation_2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:22:13.401435+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_collocation_archive.log",
+      "log_sha256": "aef8ae92028ce342ca6f566ec06356b159e7c2460aca25b1daf20adf0d4157d8",
+      "outer_child_cpu_seconds": 251.97550199999841,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 259.5071754171513,
+      "pid": 47956,
+      "stage": "actual_collocation_archive",
+      "started_at_utc": "2026-10-30T09:17:53.891691+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_payoff_collocation_study.py",
+        "--verify-archive",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/payoff_collocation_2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:22:15.560650+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_collocation_archive_verify.log",
+      "log_sha256": "aef8ae92028ce342ca6f566ec06356b159e7c2460aca25b1daf20adf0d4157d8",
+      "outer_child_cpu_seconds": 1.6227800000010575,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 2.154243541881442,
+      "pid": 50046,
+      "stage": "actual_collocation_archive_verify",
+      "started_at_utc": "2026-10-30T09:22:13.406042+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py",
+        "archive",
+        "--root",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/lna-payoff-correction-2026-10-30",
+        "--output",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/lna_payoff_correction_2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:29:08.822050+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_correction_archive.log",
+      "log_sha256": "62821f61733a227970e44d0dfecf9b90e311ce0c6172fbf5f18645af0c8c1b80",
+      "outer_child_cpu_seconds": 389.2980339999999,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 413.2825491251424,
+      "pid": 50097,
+      "stage": "actual_correction_archive",
+      "started_at_utc": "2026-10-30T09:22:15.563174+00:00"
+    },
+    {
+      "argv": [
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/.venv/bin/python",
+        "-u",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/analysis/report_lna_payoff_correction.py",
+        "verify-archive",
+        "--output",
+        "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/experiments/artifacts/lna_payoff_correction_2026-10-30"
+      ],
+      "complete": true,
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-30T09:29:14.968445+00:00",
+      "log": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/actual_correction_archive_verify.log",
+      "log_sha256": "62821f61733a227970e44d0dfecf9b90e311ce0c6172fbf5f18645af0c8c1b80",
+      "outer_child_cpu_seconds": 5.570792000002257,
+      "outer_cost_scope": "whole subprocess including imports; nonadditive with nested CLI/workload receipts",
+      "outer_wall_seconds": 6.14036308391951,
+      "pid": 53399,
+      "stage": "actual_correction_archive_verify",
+      "started_at_utc": "2026-10-30T09:29:08.826488+00:00"
+    }
+  ],
+  "complete": true,
+  "correction_archive": {
+    "allocation": {
+      "candidate_models": 18,
+      "cases": 6,
+      "collocation_primary_records": 576,
+      "contrast_packets": 1080,
+      "contrast_statistic_rows": 6480,
+      "new_primary_records": 216,
+      "timing_jobs": 288,
+      "unavailable_new_records": 0
+    },
+    "complete": true,
+    "copied_artifacts_verified": 18236,
+    "indexed_raw_files": 35418,
+    "manifest_sha256": "afa571a9322967e2ba08d2f8f8fafbd76c4873c10a8a9b9332cfe071d278b6f2"
+  },
+  "driver_pid": 8930,
+  "driver_wall_seconds": 41937.31172720902,
+  "finished_at_utc": "2026-10-30T09:35:54.514655+00:00",
+  "freeze_verification_sha256": "93b4027f2398a2bdf8862a3df49c7f042d15f3c2ccd50a52b39c71317a1d63b9",
+  "kind": "actual-frozen-joint-final-stages-v1",
+  "phase": "computational_reports_and_archives_complete",
+  "quiet_attestations": [
+    {
+      "at_utc": "2026-10-30T00:49:49.203939+00:00",
+      "external_competing_heavy_work_finished_attested": true,
+      "known_study_workers_exited": true,
+      "snapshot": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/quiet_before_01.txt",
+      "snapshot_sha256": "2e1b5bfbdfd668d414b11024f92bd1ec833d7ce3548105d46c2e210a1d0a71c6"
+    },
+    {
+      "at_utc": "2026-10-30T01:13:06.339316+00:00",
+      "external_competing_heavy_work_finished_attested": true,
+      "known_study_workers_exited": true,
+      "snapshot": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/quiet_before_02.txt",
+      "snapshot_sha256": "c75c922a841ab091f24336f5417e22097ef9653b7e540fe623b780b1dc83c1ed"
+    }
+  ],
+  "reference_integrity_sha256": "c1852b6dec8acaf3ee845972a9230ea0c3cbbe7e03e55fce32a5e13a16369b35",
+  "remaining": "Owner review of outcomes, final README documentation, composite R1-R6 completion and publication",
+  "scientific_allocation": true,
+  "source_commit": "011277684b540860379eb726b2440a3fd0385226",
+  "started_at_utc": "2026-10-29T21:52:59.376866+00:00",
+  "updated_at_utc": "2026-10-30T09:35:54.515023+00:00"
+}

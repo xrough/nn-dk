@@ -264,8 +264,12 @@ stratified/squared fits have lower residual MSE but worst covariance
 discrepancies of 3.54–6.97 reference-SD products, versus 0.169 for fine Gaussian.
 Different fitted mean sources and the uncovered boundary region remain
 limitations; this observation does not isolate a causal mechanism. Smaller
-equation residuals do not provide an accuracy certificate. Final inference
-timings are pending.
+equation residuals do not provide an accuracy certificate. The
+[final collocation report](experiments/payoff_collocation_2026-10-30.md) and
+[archive](experiments/artifacts/payoff_collocation_2026-10-30/README.md) retain
+all timing and cost rows. Trained warm B1 medians are 0.715–0.836 ms; fresh
+16,384-histogram IID estimates take 0.313–0.475 s. Full fit invocations take
+502.5–980.9 s. None of the 2,160 emitted payback rows is accuracy-qualified.
 
 ## Supervised nonlinear-LNA correction
 
@@ -282,10 +286,38 @@ law; its structure alone supplies no accuracy certificate.
 All **18 fits**, **307,200 learner continuations** and the independent label
 prefix audit are complete. All candidate and collocation fits, criteria and
 evaluation sources were jointly locked before the fresh final references.
-Final independent accuracy, literal full-IID inference costs and contrasts
-remain pending. IID-law predictions integrate each fresh histogram's own
+Independent accuracy, literal full-IID inference costs, signed contrasts and
+compact archives are complete. Each model ran 1,000 Adam updates and 30 L-BFGS
+outer updates in each stage, but natural-validation selection retained step 0
+for both heads in every fit. All 324 trained group/time point-error rows match
+the gated zero-correction baseline exactly; raw-LNA7 point-error differences are at most
+2.19e-16. The optimization was completed and paid, with no selected learned-head
+improvement. Baseline gains relative to older methods must not be attributed
+to learned corrections.
+
+The strongest case has worst mean/covariance discrepancies of 0.24654 reference
+SD / 0.08866 reference-SD products. Five other cases have point mean errors of
+1.58–3.46% and covariance errors of 2.45–4.78% in those units, but uncertainty
+requirements still prevent a blanket accuracy claim. All seeds, controls and
+stopped paths remain in the reports; no correction method/group is unavailable.
+Signed whole-family comparisons are pointwise, not simultaneous confidence.
+
+One warm complete B1 call takes 13.15–54.01 ms; a full 16,384-histogram IID call
+takes 31.31–164.82 s. These are one warm observation per workload, not latency
+distributions. Standalone offline charges are 1,462.7–1,512.7 s, including the
+full multi-case input build, own fit and shared worker overhead. The 307,200
+paid label families remain charged; nested components are not added twice.
+None of the 432 emitted correction payback rows is accuracy-qualified.
+
+IID-law predictions integrate each fresh histogram's own
 conditional ODE and use the law of total covariance; an analytic initial-law
 shortcut cannot replace that declared work. This candidate supplies a fixed
 payoff bank, not a complete baseline-ODE input-sensitivity or generator API.
 The [analysis guide](../analysis/README.md#supervised-nonlinear-lna-correction-and-joint-final-data-gate)
 records the allocation, controls, stopping and failure rules, and cost scope.
+The [final correction report](experiments/lna_payoff_correction_2026-10-30.md),
+[archive](experiments/artifacts/lna_payoff_correction_2026-10-30/README.md) and
+[composite research record](experiments/readme_research_2026-10-30_completion.json)
+retain the computational results. They concern the stopped finite-Euler law
+and fixed four-payoff bank; remaining time, stopping and reference-refinement
+bias do not become particle-law or continuum-DK guarantees.

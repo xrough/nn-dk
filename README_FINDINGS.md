@@ -1,9 +1,11 @@
 # NN-DK current findings
 
-**Status as of 30 October 2026.** The completed accuracy comparisons below run
-through 27 October. New validation diagnostics and the ongoing independent
-comparison are recorded in section 6. The matched sampling/loss accuracy is
-complete; correction accuracy and final costs are pending.
+**Status as of 30 October 2026.** The declared diagnostic, matched sampling/loss
+and supervised correction investigations are computationally complete, including
+independent accuracy, isolated timings, reports and verified archives. Section 6
+records the new results; sections 4–5 retain the dated 27 October study. The
+correction fits completed optimization but selected their initialized zero
+heads, so they establish no learned improvement over their Gaussian baseline.
 
 The project has working neural density-path and neural statistics solvers.
 The path network closely reproduces its numerical training target, but the
@@ -100,9 +102,9 @@ general statistics solver. The earlier [BSDE coverage study](docs/experiments/bs
 also found that more independent initial anchors and a structured head helped
 at a fixed total training-path budget; it did not establish learning convergence.
 
-## 4. Latest boundary and residual-loss repair
+## 4. Boundary and residual-loss repair — 27 October 2026
 
-The latest study retained **18 fresh v3 fits**, **18 frozen v2 controls**, three
+This historical study retained **18 fresh v3 fits**, **18 frozen v2 controls**, three
 optimizer seeds, and **589,824 fresh native reference trajectory families**.
 It tested `T∈{0.25,1}`, `κ∈{0.75,3,6}`, and `a₂=0.1`. The bank contains terminal
 sine/cosine mode 3 and killed sine/cosine mode-1 time integrals divided by `T`,
@@ -149,12 +151,12 @@ therefore do not establish accurate finite-time fluctuations.
 
 V2 and v3 use different learner pools. Their common fresh tests compare fitted
 methods, but do not uniquely attribute differences to the boundary or loss
-change. See the [complete latest report](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
+change. See the [complete 27 October report](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 and [residual formulation and diagnosis](docs/BSDE_STATISTICS.md#boundary-consistent-generator-formulation).
 
-## 5. Training and inference costs
+## 5. Training and inference costs — 27 October 2026
 
-Latest CPU timings return the full three-time bank. Conditional queries assume
+The 27 October CPU timings return the full three-time bank. Conditional queries assume
 a supplied histogram. Neural IID estimates draw and integrate 16,384 fresh
 histograms; Gaussian integrates initial sampling covariance analytically.
 Native MC simulates 16,384 independent physical continuations.
@@ -186,14 +188,14 @@ can also be cached.
 | Full paths, new observables, sensitivities | Compiled native Euler with task-appropriate refinement checks. |
 | Repeated fixed-bank conditional moments | Gaussian as the inexpensive approximate control; use a neural map only within its independently validated contract. |
 | IID-law moments | Gaussian when its approximation is adequate; native MC for the stopped nonlinear law. |
-| Strong-interaction fluctuation accuracy | Further NN formulation work; current v3 covariance predictions are unreliable. Gaussian also misses the 5% target in the hardest case. |
+| Strong-interaction fluctuation accuracy | No tested learned modification resolves the strongest-case errors; the selected conditional Gaussian baseline also misses the 5% mean target there. |
 | Rare stopping events or a continuum DK limit | No general accuracy/convergence claim from these experiments. |
 
-The next priorities are to investigate mean-gradient accuracy in the covariance
-source, boundary-layer sampling, and alignment between the training objective
-and fluctuation accuracy. A nonlinear mean-field/Gaussian baseline with learned
-corrections is a candidate to test, not an established improvement. Any new
-formulation needs fresh final data after validation choices are frozen.
+The requested mean-gradient, boundary-sampling, objective and learned-correction
+investigations are complete for their declared allocations. They do not establish
+a general neural accuracy or cost advantage. Any later formulation would need
+its own choices frozen before fresh final data; these results do not authorize
+selection of favorable cases or optimizer seeds from the present test bank.
 
 The [29 October diagnostic study](docs/experiments/payoff_diagnostics_2026-10-29.md)
 completed the mean-gradient/source and residual-transport investigations on
@@ -222,15 +224,71 @@ seed-dependent. These are consistency counts across fixed optimizer seeds,
 not simultaneous inference. Every declared method and seed remains in the
 linked summaries. This controlled comparison therefore gives no general
 accuracy improvement from reweighting occupied states or changing the loss.
-Its timing and cost comparison remains pending.
+The [final collocation report](docs/experiments/payoff_collocation_2026-10-30.md)
+and [archive](docs/experiments/artifacts/payoff_collocation_2026-10-30/README.md)
+retain all costs, refinements and uncertainty gates.
 
 All **18 learned nonlinear-LNA correction fits** and their label-prefix replays
 also completed. Both studies' fits, sources, criteria and disjoint identifier
 plans were jointly locked before the new **589,824-family** reference bank was
 generated. Its primary step is `2^-12`, with paired-prefix checks at `2^-13` and
-`2^-14`. The correction's independent accuracy evaluation is running. Joint contrasts, isolated
-inference timings and the overall research completion record remain pending;
-the [task ledger](docs/README_TASKS.md) records those obligations.
+`2^-14`. Both independent evaluations, joint contrasts, isolated timings and
+archives are complete: **792 primary / 948 retained records**, including all
+three optimizer seeds. All 216 correction/control method/group records remain available;
+stopped paths were retained and no survivor averaging was used.
+
+Each correction fit completed **1,000 Adam updates and 30 L-BFGS outer updates
+per stage**, or 2,060 outer updates per model. The prescribed natural-validation
+selection nevertheless retained **step 0 for both mean and covariance in all
+18 fits**. All **324 trained group/time point-error rows** exactly match
+`gated_zero`; differences from raw conditional LNA at step `2^-7` are at most
+`2.19e-16`. Optimization was executed and paid. These selected predictions are
+baseline results, not evidence of a learned-correction gain.
+
+The selected candidate and gated baseline have the following worst point
+discrepancies, retaining every group, query, component and optimizer seed:
+
+| Case | Mean (% reference SD) | Covariance (% reference SD products) |
+| --- | ---: | ---: |
+| `T=0.25, κ=0.75` | 1.58 | 2.45 |
+| `T=0.25, κ=3` | 3.46 | 4.78 |
+| `T=0.25, κ=6` | 1.88 | 3.43 |
+| `T=1, κ=0.75` | 2.58 | 3.77 |
+| `T=1, κ=3` | 2.29 | 2.82 |
+| `T=1, κ=6` | 24.65 | 8.87 |
+
+The five milder cases have point errors below 5%, but the uncertainty gates
+still fail. Any lower point discrepancy than the older analytic-IID Gaussian or
+collocation fits comes from the conditional baseline, not learned heads. Signed
+whole-family contrasts and consistency across three fixed seeds are pointwise;
+they supply no simultaneous grid-wide inference.
+
+The final measured cost scopes also differ from the historical table above:
+
+| Current method and observation | Standalone offline charge | Warm supplied-state B1 | Warm 16,384-histogram IID call |
+| --- | ---: | ---: | ---: |
+| Collocation NN, warm medians | 511.6–990.0 s | 0.715–0.836 ms | 0.313–0.475 s |
+| Selected correction, one warm observation per workload | 1,462.7–1,512.7 s | 13.15–54.01 ms | 31.31–164.82 s |
+
+Collocation full fit invocations take **502.5–980.9 s** per model. The correction
+standalone charge conservatively includes the full multi-case input build,
+its own completed fit and shared worker overhead. The **307,200 supervised
+learner families** remain charged even though zero heads were selected. Every
+correction inference call includes each histogram's uncached Gaussian ODE,
+heads and aggregation; a head-only timer or analytic IID shortcut cannot replace
+that work. Nested preparation components are not added again to full invocation
+costs. The correction has one cold and one warm observation per workload, not a
+latency-distribution estimate.
+
+There are **zero accuracy-qualified payback rows**: **0/2,160** for collocation
+and **0/432** for correction. The correction payback compares its gated-zero and
+two raw-LNA controls; its broader signed accuracy contrasts also retain the
+collocation and classical controls. Descriptive latency or arithmetic crossover
+does not establish an equal-accuracy advantage between these methods. The
+[final correction report](docs/experiments/lna_payoff_correction_2026-10-30.md),
+[archive](docs/experiments/artifacts/lna_payoff_correction_2026-10-30/README.md),
+[composite research record](docs/experiments/readme_research_2026-10-30_completion.json)
+and [task ledger](docs/README_TASKS.md) preserve the full allocation and limits.
 
 The interacting path studies do not establish a temporal convergence order,
 learning-convergence rate, particle-law equivalence, or continuum SPDE limit.
@@ -245,17 +303,23 @@ verified cost accounting. Software acceptance is separate from scientific
 accuracy. The current research implementation separately passes **1,502 tests**
 and Ruff, including historical-source loading tests. The clean full-history
 clone, package builds and smoke command also pass; see the
-[verification record](docs/verification.md). Software acceptance does not
-complete the independent scientific comparison.
+[verification record](docs/verification.md). The separate completed scientific
+comparison retains failed or unresolved accuracy gates; software acceptance
+does not turn those gates into certificates. Publication verification of the
+final documentation revision is a separate step.
 
-- [Latest report](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
+- [Current collocation report](docs/experiments/payoff_collocation_2026-10-30.md)
+- [Current correction report](docs/experiments/lna_payoff_correction_2026-10-30.md)
+- [Validation residual supplement](docs/experiments/payoff_collocation_residuals_2026-10-30.md)
+- [Composite research record](docs/experiments/readme_research_2026-10-30_completion.json)
+- [Historical 27 October boundary report](docs/experiments/payoff_boundary_regimes_2026-10-27.md)
 - [Completion checks](docs/experiments/payoff_boundary_regimes_2026-10-27_completion.json)
 - [Evidence archive](docs/experiments/artifacts/payoff_boundary_regimes_2026-10-27/README.md): 765 verified copied artifacts and checksums indexing 1,211 local raw files
 - [Implementation and execution guide](analysis/README.md#boundary-and-residual-loss-repair)
 - [Project installation and workflow overview](README.md)
 
 The completed boundary study's source freeze is `0d38243`; its findings/archive
-commit is `d4bd378`. The new comparison freezes its own source and fit locks.
+commit is `d4bd378`. The completed new comparison preserves its own source and fit locks.
 Source/configuration hashes, trajectory-family splits, optimizer
 seeds and failures are retained. Large binary checkpoints and numerical banks
 remain in local ignored `runs/` directories. Historical studies must be

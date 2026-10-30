@@ -4,10 +4,12 @@ Audit date: **29 October 2026**, starting from commit `d4bd378` and the local
 [`README_FINDINGS.md`](../README_FINDINGS.md). This ledger tracks the active
 request to implement the README plans. It does not mark that request complete.
 
-Current execution status was updated on **30 October 2026**: all 90 fits and
-all six final reference banks are complete. Collocation accuracy is complete;
-correction accuracy is running. The overall README research request remains
-**incomplete**.
+Current status was updated on **30 October 2026** after the external collector
+verified all ten terminal commands, strict allocations, reports and compact
+archives. The bounded R1–R5 investigations and the computational part of R6 are
+complete. **Final R6 documentation/publication signoff remains pending**: the
+reviewed public `main`, its exact-commit CI and a fresh full-history clone still
+need verification. The overall request is not yet marked complete.
 
 ## Historical work already supported by evidence
 
@@ -39,70 +41,102 @@ result and full numerical replays belong to the completed boundary study.
 Earlier archive READMEs are evidence/reproduction notes, not additional pending
 training allocations.
 
-## Forward requirements still to finish
+## Bounded investigation status and final signoff
 
-The explicit new priorities are in
+The priorities came from
 [findings, section 6](../README_FINDINGS.md#6-practical-conclusions-and-next-work).
-None is satisfied merely by the historical consistency checks or the negative
-v3 accuracy result.
+They have now been tested at their declared allocations. Completion of an
+investigation is distinct from passing its accuracy or cost gates; no positive
+neural advantage was required.
 
-| ID | Requirement | Status at this audit | Evidence needed for completion |
+| ID | Requirement | Verified bounded result | Evidence and remaining limits |
 | --- | --- | --- | --- |
-| R1 | Investigate mean-gradient accuracy in the covariance source | **Finite-Euler diagnostic complete.** The all-regime audit completed 768 chunks, 12,288 fresh families, 24 validation anchors and 72 model comparisons, with signed componentwise and paired-refinement evidence. Remaining derivative-interchange/stopping/time bias is explicit. | [29 October diagnostic report](experiments/payoff_diagnostics_2026-10-29.md) and its checksummed gradient/source evidence. This is a validation-anchor investigation, not a continuum or all-state certificate. |
-| R2 | Investigate boundary-layer sampling | **All 72 fits, residual diagnostics and independent accuracy complete; costs/reporting pending.** The natural-pool comparison retains all four variants and three seeds without synthetic augmentation. Its [19-stratum report](experiments/payoff_collocation_residuals_2026-10-30.md) and compact archive are verified. The complete accuracy review retains 576 primary predictions and 156 paired diagnostics; it does not establish a general accuracy improvement. | A declared boundary/interior sampling design, correct treatment of the intended loss measure, diagnostics by stratum, and a controlled comparison that retains the original baseline and all declared seeds. |
-| R3 | Investigate training-objective alignment with fluctuation accuracy | **Transport, validation decomposition and independent collocation accuracy complete.** All 192 diagnostic chunks, 1,536 fresh families and 72 model comparisons completed. All 72 matched fits retain their own frozen means. The stratified/squared strongest-case covariance discrepancy reaches 3.54–6.97 reference-SD products despite lower residual MSE. Final costs and numerical archives remain pending; the residual is not an error certificate. | Controlled, common-state comparisons of the chosen objectives or source treatment, keeping frozen-mean covariance stages distinct; report raw/common-unit residuals and independently measured mean/covariance errors, including failures. |
-| R4 | Test the nonlinear mean-field/Gaussian baseline with learned corrections | **All 18 fits completed and locked; independent accuracy running.** All 307,200 prescribed learner continuations and 12 role banks completed, with 24 independent package-simulator prefix replays passing. Fit lock `3fdbc913…` preserves all seeds, model bytes and measured preparation/fit cost records. Raw and gated zero-correction controls remain in the design; no final accuracy or cost conclusion is recorded yet. | Implement and verify the stated nonlinear baseline and correction, retain its untrained baseline and the existing classical/neural controls, and evaluate its declared capabilities and limitations. A documented negative result is still a result; an implementation-only smoke test is insufficient. |
-| R5 | Freeze validation choices before fresh final data | **Joint freeze verified before final values; all six reference banks complete.** Both fit locks, exact evaluation/report sources, criteria and independent identifier plans preceded all final materialization. Reference integrity verifies 589,824 unique family IDs and 36,864 coupled-prefix families at primary step `2^-12`, with finer steps `2^-13` and `2^-14`. Independent accuracy and its uncertainty assessment remain in progress. | Prespecified design/source/configuration identities and completed, locked fits before generating new final reference outcomes; demonstrate family/stream separation, retain every declared seed and stopped path, and report reference refinement and sampling uncertainty. |
-| R6 | Finish comparison, cost accounting and documentation | **Open.** Correction accuracy, joint contrasts, isolated literal timings, final reports/archives, documentation and publication of the new evidence remain to finish. Historical reports cannot establish a new method's performance. | Complete every newly declared fit/evaluation/audit, measure matched inference after heavy jobs exit, account for training/preparation/initialization/inference, preserve checksummed evidence, and update the READMEs from actual outcomes. |
+| R1 | Investigate mean-gradient accuracy in the covariance source | **Diagnostic complete.** All 768 chunks, 12,288 fresh families, 24 validation anchors and 72 model comparisons completed, including signed components and paired refinement. | [Gradient/transport report](experiments/payoff_diagnostics_2026-10-29.md) and its [archive](experiments/artifacts/payoff_diagnostics_2026-10-29/README.md). Derivative interchange and remaining stopping/time bias are unresolved; this is not an all-state or continuum certificate. |
+| R2 | Investigate boundary-layer sampling | **Controlled study complete.** All 72 fits, four proposal/loss variants, three seeds, independent accuracy, 696 timing workloads and 156 restorations are retained. The same natural validation measure, initial weights and train-only scales are used within each matched case/seed. | [Collocation report](experiments/payoff_collocation_2026-10-30.md), [19-stratum supplement](experiments/payoff_collocation_residuals_2026-10-30.md) and both compact archives. Natural-pool reweighting does not create absent boundary states. No general accuracy improvement or qualified payback was established. |
+| R3 | Investigate objective alignment with fluctuation accuracy | **Transport and matched comparison complete.** The transport audit retains 192 chunks, 1,536 fresh families and 72 model comparisons. All 72 collocation models retain their own selected means during covariance fitting. In T1_k6, stratified/squared covariance discrepancy is 3.54–6.97 reference-SD products despite lower validation residual MSE. | [Transport evidence](experiments/payoff_diagnostics_2026-10-29.md), [decomposition](experiments/payoff_collocation_residuals_2026-10-30.md) and [independent accuracy](experiments/payoff_collocation_2026-10-30.md). Common-Γ substitution is diagnostic only; the other covariance models were not trained with a common mean. A residual is not an error certificate. |
+| R4 | Test learned corrections to the existing nonlinear-LNA baseline | **Full test complete with a retained zero-correction result.** All 18 fits executed 1,000 Adam updates and 30 L-BFGS outer steps in each stage, 2,060 updates/model. Natural validation selected step 0 in both stages for all seeds. All 216 new method/group predictions are available; their trained point moments equal `gated_zero`. | [Correction report](experiments/lna_payoff_correction_2026-10-30.md) and [archive](experiments/artifacts/lna_payoff_correction_2026-10-30/README.md). All 307,200 label families, 12 role banks, 24 independent package prefix replays and full paid optimization remain recorded. Baseline gains over collocation or analytic IID Gaussian controls are not learned-head gains. |
+| R5 | Freeze validation choices before fresh final data | **Protocol and final comparison verified.** Both full fit locks and the exact source/criteria/identifier plans preceded final materialization. All six reference banks contain 589,824 unique families at primary step `2^-12`; the 36,864 coupled-prefix families are reused at `2^-13` and `2^-14`. Independent integration pools and all stopped paths remain. | [Computational collector](experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json), [terminal receipts](experiments/artifacts/readme_research_2026-10-30/final_computational/actual_final_stages.json) and final reports. Sampling and refinement diagnostics do not certify continuous hitting, a particle law or a continuum limit. |
+| R6 | Finish comparison, cost accounting, documentation and publication | **Computation verified; final publication signoff pending.** The reports contain 792 joint primary / 948 retained predictions, 1,080 contrast packets / 6,480 signed statistic rows, and 288 correction cold/warm jobs. Collocation has zero qualified payback rows out of 2,160; correction has zero out of 432. | The [public proof collection](experiments/artifacts/readme_research_2026-10-30/README.md) preserves the terminal evidence. Final documentation links/hashes, the [composite record](experiments/readme_research_2026-10-30_completion.json) and exact public `main`/CI/fresh-clone verification still require owner signoff. Historical CI is not proof for a later publication commit. |
 
 The existing [`native_gaussian_baseline.py`](../analysis/native_gaussian_baseline.py)
-already evolves a nonlinear deterministic mean and linear-noise covariance
-along it, using its state-dependent drift Jacobian and noise covariance. R4
-therefore calls for auditing/reusing that baseline and testing the new learned
-correction formulation, not relabeling its existing nonlinear mean evolution
-as a new result.
+already evolves a nonlinear deterministic mean and linear-noise covariance along
+it. The correction experiment reused that baseline, rather than relabeling its
+nonlinear evolution as a new learned result. Completed optimization and retained
+checkpoints are separate facts: the 18 fits completed all 37,080 outer updates
+in total, while validation retained their initialized zero corrections. This
+negative learned-head result keeps every seed and all paid labels/fit costs.
 
-R2/R3 also require fitted residual diagnostics by boundary/time stratum. Sampler
-occupancy counts and global validation losses alone do not satisfy that check.
-The additive residual audit/report uses the unchanged natural validation rows,
-all fitted variants and seeds, and the original 19 state/time strata. It reports
-native solver units, physical payoff units and train-scale dimensionless units,
-including empty strata and distinct parent counts. These descriptive validation
-diagnostics are separate from the independent final accuracy comparison; the
-validation rows were already used for model selection.
+The residual supplement uses the unchanged natural validation rows, all fitted
+variants and seeds, and the original 19 boundary/time strata. Each case has
+4,096 rows from 256 parent families; snapshots and remaining-time replicas share
+parents. Its 570,240 component-summary and 2,880 stratum-loss rows retain empty
+bins as undefined, all four mean components and all 16 covariance entries. These
+selection-pool diagnostics have no independent accuracy or significance claim.
+Physical residuals use bank scale/√N for means and the scale outer product/N for
+covariance; the common training units remain those frozen before fitting.
 
-The supplementary software passes the full **1,502-test** suite and Ruff. A
-separate 12-fit fixture also passed the actual CLI, report, compact archive and
-offline verification round trip. Those fixture results do not complete the
-independent scientific comparison. The full 72-model validation residual audit
-has now completed and verified **570,240 component-summary rows** and **2,880
-stratum-loss rows**, retaining all 19 bins. Its
-[compact archive](experiments/artifacts/payoff_collocation_residuals_2026-10-30/README.md)
-preserves the report and exact source/test evidence. These descriptive
-selection-pool diagnostics do not establish final prediction accuracy.
+The independent comparison covers each profile's conditional anchors 0 and 1
+and its ensemble query 0, at T/4, T/2 and T. Ensemble 0 is not another conditional
+anchor. Primary IID neural moments integrate fresh histograms independent of
+reference, with whole-family uncertainty; paired-initial collocation outputs remain
+retained diagnostics. The correction exposes only the fixed four-payoff bank and
+same-time covariance, not arbitrary observables, density paths, complete derivatives through the
+supplied baseline ODE or a generator interface.
 
-Local execution provenance is recorded in
-`runs/readme-research-completion-2026-10-30/production_residual_stage.json`,
-`runs/readme-research-completion-2026-10-30/actual_joint_freeze_verified.json`
-and `runs/readme-research-completion-2026-10-30/reference_integrity.json`.
-The verified joint-freeze receipt records lock `26f5c64e…` before final values;
-it is the authoritative postcheck receipt. The reference-integrity receipt
-checks all six manifests and HDF5 checksums, cross-group/case family uniqueness
-and the coupled prefixes. Coupled refinements reuse their primary families;
-they are not additional independent reference families. Public final accuracy,
-cost and overall completion records remain pending.
-The completed gate, reference and software-check receipts are also preserved
-verbatim in the [public cross-stage provenance](experiments/artifacts/readme_research_2026-10-30/README.md).
-Its manifest remains open for the terminal final-stage and publication evidence.
+The [collocation report](experiments/payoff_collocation_2026-10-30.md) and
+[correction report](experiments/lna_payoff_correction_2026-10-30.md) preserve failed
+and unresolved 5%/1.25% gates, not just point errors. No A groups are unavailable
+and physical moment-bound checks pass, but neither framework has a qualified
+payback row. C qualification uses coarse-versus-finest reference refinement; the
+correction uses all matching refinement rows. Signed intervals remain pointwise,
+and seed consistency is not simultaneous inference across the grid.
 
-The [complete collocation accuracy review](experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md)
-uses the strict frozen reader and all 72 fits. It retains 576 primary predictions
-and 732 records including the paired-initial diagnostics. All cases and variants
-remain in its JSON, with all three seeds and pointwise uncertainty. No timings
-or cost advantage are claimed. The separate correction accuracy and the joint
-comparison remain unfinished.
+Costs include preparation, full fit invocations, initialization and literal
+inference. Shared components are not added again to their parent totals. Every
+correction timing evolves its per-histogram ODE uncached, including all 16,384
+histograms for an IID call; the accuracy-only shared cache is not free deployment
+work. Its one cold and one warm observation do not estimate a latency
+distribution. The correction payback table compares only gated zero and raw
+conditional LNA7/10; accuracy contrasts also retain collocation and classical controls. That payback
+table does not report a timing crossover against collocation.
+
+## Computational evidence and publication boundary
+
+The [collector](experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json)
+(SHA-256 `afde909b15905e075c39f6756c90078f7ce1931cbb198c10a44b0a5d9ffaaf4c`)
+verified all ten canonical commands, report/source identities, allocations,
+matching 1,502-test/287-input receipts and the archives below. The numerical
+package source is `0d9bda04e5da1cc00cc3ec5917d23a4352e6ceb4585dd1a066779b364cf79576`;
+analysis helpers have their own frozen hashes and exact snapshots. Older studies
+retain their recorded source/test identities. The software/full-clone proof at
+`011277684b540860379eb726b2440a3fd0385226` is not reassigned to a later commit.
+
+| Archive | Copied artifacts | Indexed local raw files | Manifest SHA-256 prefix |
+| --- | ---: | ---: | --- |
+| [Collocation](experiments/artifacts/payoff_collocation_2026-10-30/archive_manifest.json) | 1,169 | 1,937 | `9cff4ebdf90919e0` |
+| [Correction and comparative context](experiments/artifacts/lna_payoff_correction_2026-10-30/archive_manifest.json) | 18,236 | 35,418 | `afa571a9322967e2` |
+| [Residual supplement](experiments/artifacts/payoff_collocation_residuals_2026-10-30/archive_manifest.json) | 2,865 | 5,048 | `597188eb34323e45` |
+| [Earlier gradient/transport diagnostics](experiments/artifacts/payoff_diagnostics_2026-10-29/archive_manifest.json) | 1,122 | 1,955, plus 46 external inputs | `4855fa60333b6885` |
+
+These checks verify copied bytes, restored compressed bytes and the local raw
+inventory; full checkpoints, trajectory banks, labels and IID arrays remain
+local. They are not new simulations. The
+[public cross-stage collection](experiments/artifacts/readme_research_2026-10-30/README.md)
+preserves the earlier payloads and appended terminal evidence without rewriting
+historical scientific records.
+
+**Pending R6 signoff:** the owner must finish the composite documentation record
+and verify the reviewed public `main`, Actions at that exact commit and a fresh
+full-history clone. Record that later proof in
+[verification](verification.md#final-research-publication-signoff) and the
+[composite completion record](experiments/readme_research_2026-10-30_completion.json)
+before marking the overall README request complete.
 
 ## Execution and acceptance
+
+The completed computation followed these rules; final publication signoff above
+is still open. They do not prescribe another training run after a negative
+result.
 
 1. Establish the R1–R3 diagnostics on frozen validation data before choosing a
    new formulation. Keep diagnostic results separate from fresh final accuracy.

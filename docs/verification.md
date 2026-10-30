@@ -2,8 +2,8 @@
 
 ## Current research implementation — 30 October 2026
 
-Commit `011277684b540860379eb726b2440a3fd0385226` passes Ruff and the full
-**1,502-test** suite locally (570.26 seconds, two upstream warnings). The proof
+At commit `011277684b540860379eb726b2440a3fd0385226`, Ruff and the full
+**1,502-test** suite passed locally (570.26 seconds, two upstream warnings). The proof
 records all 287 maintained source, test, configuration and license inputs, with
 the same input digest before and after testing. Historical-source loading
 tests are included. The numerical package source remains
@@ -20,18 +20,77 @@ were ignored. No package registry publication was performed.
 The compact [clone and software acceptance receipts](experiments/artifacts/readme_research_2026-10-30/README.md)
 preserve the exact commands and logs separately from scientific accuracy.
 
-The current small joint fixture also passed the complete CLI sequence through
+The small joint fixture also passed the complete CLI sequence through
 independent accuracy, contrasts, uninterrupted timing, both reports, compact
 archives and offline archive verification. Its reduced allocation validates the
-software path only. The actual 90-fit comparison's independent accuracy and cost
-work remains open in the [task ledger](README_TASKS.md).
+software path only. The actual 90-fit comparison has since completed its own
+full-allocation verification below; the fixture is not substituted for that
+scientific evidence. The test, Actions and full-clone checks above belong to
+`0112776` and are not attributed to a later documentation/publication commit.
+
+## Completed research computation — 30 October 2026
+
+The external [computational collector](experiments/artifacts/readme_research_2026-10-30/final_computational/final_computational_evidence.json)
+verified all ten terminal commands, current source/input identities, matching
+1,502-test/287-input receipts, strict report allocations and offline archive
+checks. Its SHA-256 is
+`afde909b15905e075c39f6756c90078f7ce1931cbb198c10a44b0a5d9ffaaf4c`.
+The [terminal-stage receipt](experiments/artifacts/readme_research_2026-10-30/final_computational/actual_final_stages.json)
+and operator sources/logs remain in the
+[public proof collection](experiments/artifacts/readme_research_2026-10-30/README.md)
+and its [checksum manifest](experiments/artifacts/readme_research_2026-10-30/manifest.json).
+Collection itself added no fits, simulations, benchmarks or test runs.
+
+The verified allocation retains all **90 fitted models**, 792 joint primary and
+948 retained accuracy records, 1,080 contrast packets and 6,480 signed statistic
+rows. Six reference banks contain 589,824 unique families at primary Euler step
+`2^-12`; 36,864 prefix families are reused at `2^-13` and `2^-14`. Collocation
+timing has 696 workloads and 156 restoration records; correction timing has 288
+complete cold/warm jobs. Source, family/stream, checkpoint, stopped-path and
+input/cache integrity guards remain part of the verified reports.
+
+All 18 correction optimizations completed their prescribed 2,060 outer updates
+per model, but natural validation retained step 0 for both stages in every fit.
+Their reported point moments equal the gated zero-correction control. All
+307,200 supervised label families, 24 independent prefix replays and paid
+preparation/fit costs remain recorded. A baseline improvement over collocation
+or analytic IID Gaussian controls is not a learned-head gain.
+
+No correction method/group is unavailable and physical moment-bound diagnostics
+pass, but both frameworks have **zero accuracy-qualified payback rows**. Failed
+or unresolved point-error, sampling and refinement gates remain explicit in the
+[collocation report](experiments/payoff_collocation_2026-10-30.md) and
+[correction report](experiments/lna_payoff_correction_2026-10-30.md). One cold and
+one warm correction observation do not estimate a latency distribution. Accuracy
+uses separate reference-SD and SD-product normalizations, all seeds and
+pointwise whole-family uncertainty. Shared accuracy caches do not replace the
+uncached per-histogram ODE work in deployment timings; nested costs are not added
+again to full invocation totals.
+
+| Offline archive | Copied artifacts | Indexed local raw files | Manifest SHA-256 |
+| --- | ---: | ---: | --- |
+| [Collocation](experiments/artifacts/payoff_collocation_2026-10-30/archive_manifest.json) | 1,169 | 1,937 | `9cff4ebdf90919e0bc69a0c89318ff089728e059cb53c36f465fbcb3e68936a3` |
+| [Correction and comparative context](experiments/artifacts/lna_payoff_correction_2026-10-30/archive_manifest.json) | 18,236 | 35,418 | `afa571a9322967e2ba08d2f8f8fafbd76c4873c10a8a9b9332cfe071d278b6f2` |
+| [Residual supplement](experiments/artifacts/payoff_collocation_residuals_2026-10-30/archive_manifest.json) | 2,865 | 5,048 | `597188eb34323e456114c2c4dc53a5c94e56b9199cb65ce19c8ee5658ab62d48` |
+| [Earlier gradient/transport diagnostics](experiments/artifacts/payoff_diagnostics_2026-10-29/archive_manifest.json) | 1,122 | 1,955, plus 46 external inputs | `4855fa60333b688570cfdc7061eed4365b85f3d39ae3ef314469222d81897440` |
 
 The full 72-model validation-residual supplement completed 2,304 chunks and
-verified **2,865 copied artifacts**, while indexing 5,048 local raw files.
-The earlier gradient/transport archive was reverified separately: **1,122 copied
-artifacts**, 1,955 indexed local raw files and 46 external inputs. These byte and
-identity checks do not replay every large numerical bank. Historical reports
-below retain their original test counts and scientific scope.
+retains 570,240 component-summary and 2,880 stratum-loss rows, all 19 bins and
+256 parents/4,096 natural rows per case. These validation rows selected the
+models and do not establish independent accuracy or significance. The archive
+checks above verify copied/restored bytes and inventory the local inputs; they
+do not replay every large bank. Full weights, labels, trajectories and IID
+arrays remain local. Historical reports below retain their original source,
+test counts, build checks and scientific scope.
+
+## Final research publication signoff
+
+**Pending.** The completed computation is not yet exact-commit publication
+proof for the final documentation/evidence update. Before closing R6, verify the
+reviewed public `main`, GitHub Actions at that exact commit and a fresh
+full-history clone, then record the new commit/run/clone receipts here and in the
+[composite completion record](experiments/readme_research_2026-10-30_completion.json).
+Retain the `0112776` proof above as its own dated record rather than relabeling it.
 
 ## Public release verification — 29–30 October 2026
 
@@ -55,7 +114,9 @@ unchanged manifest. The new diagnostic archive passes offline verification of
 attribution were checked; the partial frozen source snapshot's licensing links
 are explained in the [diagnostic report](experiments/payoff_diagnostics_2026-10-29.md).
 These release checks introduce no new scientific study or accuracy claim.
-The [task ledger](README_TASKS.md) explicitly retains unfinished research work.
+At that release, the [task ledger](README_TASKS.md) retained unfinished research
+work. The later 30 October computation above is a separate follow-up; final R6
+publication signoff remains explicit in the current ledger.
 GitHub Actions independently runs the checks below on the published commit.
 
 The [initial Linux release check](https://github.com/xrough/nn-dk/actions/runs/40904961688)
