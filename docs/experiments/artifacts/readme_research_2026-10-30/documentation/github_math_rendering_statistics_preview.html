@@ -1,0 +1,255 @@
+<h1 dir="auto">Conditional DK statistics through Deep BSDE</h1>
+<p dir="auto">This workflow implements the first stage of a comparison between learning stochastic density paths and learning their statistics directly. It predicts conditional means and <strong>same-time</strong> four-by-four covariances. Its forward dynamics use known coefficients; the value network replaces repeated forecast simulation at inference.</p>
+<p dir="auto">The existing particle benchmark and native coefficient CNN remain separate workflows. This is a Deep BSDE terminal-matching formulation, following <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6112690/" rel="nofollow">E, Han and Jentzen</a>; it is not a claim that the DK equation has an ordinary Deep Ritz energy.</p>
+<h2 dir="auto">Run and resume</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">.venv/bin/nn-dk bsde --preset bsde-smoke --output runs/bsde-smoke
+.venv/bin/nn-dk bsde --preset bsde-first-batch --output runs/bsde-first-batch
+.venv/bin/nn-dk bsde --preset bsde-refinement --output runs/bsde-refinement</pre></div>
+<p dir="auto">Equivalent TOML configurations are in <code class="notranslate">configs/bsde_smoke.toml</code>, <code class="notranslate">configs/bsde_first_batch.toml</code>, and <code class="notranslate">configs/bsde_refinement.toml</code>. The first-batch invocation has an eight-hour budget. A shorter budget can be set with <code class="notranslate">--budget-seconds</code>; exit code 75 means the current work is checkpointed and the identical command can resume it.</p>
+<p dir="auto">Stages can be executed independently:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">.venv/bin/nn-dk bsde --preset bsde-smoke --stage calibrate --output runs/bsde-smoke
+.venv/bin/nn-dk bsde --stage generate --output runs/bsde-smoke
+.venv/bin/nn-dk bsde --stage fit --output runs/bsde-smoke
+.venv/bin/nn-dk bsde --stage evaluate --output runs/bsde-smoke
+.venv/bin/nn-dk bsde --stage report --output runs/bsde-smoke</pre></div>
+<p dir="auto">Source and configuration hashes are immutable within a run. Use a new directory after changing numerical source, training settings, or allocations. Completed checkpoint replay preserves checkpoint bytes; a final report requires every configured model and evaluation. Numerical calibration must pass before generation or fitting.</p>
+<h2 dir="auto">Targets and calibration</h2>
+<p dir="auto">The scalar Brownian calibration uses <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$dX=dW$</math-renderer>, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$X_0=0$</math-renderer>, and the payoff <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$(X_T,X_T^2)$</math-renderer>. With the exact predictable first-order integrand, the quadratic residual is</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+R=\sum_n[(\Delta W_n)^2-\Delta],\qquad \mathbb E[R^2]=2T\Delta.
+$$</math-renderer></p>
+<p dir="auto">A nonzero terminal objective is therefore possible even with the correct initial value. The calibration checks the pathwise identity and its analytically known sampling error.</p>
+<p dir="auto">The neural analytic benchmark is four independent normalized OU coordinates with rates</p>
+<math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$\lambda_k=4D h^{-2}\sin^2(\pi k/G),\qquad
+dZ_k=-\lambda_k Z_k\,dt+\sqrt{2\lambda_k}\,dW_k,$$</math-renderer>
+<p dir="auto">for cosine/sine modes 1 and 2. Matrix-exponential moments and an independent Euler covariance recursion check the closed forms. Neural predictions are compared against both the exact Euler law used in training and the continuous-time OU law. This auxiliary Gaussian process is explicitly unstopped and is not the DK target.</p>
+<p dir="auto">The DK target has <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$G=32$</math-renderer>, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$N=2048$</math-renderer>, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$D=1$</math-renderer>, and no interaction. Initial particles are IID uniform or have density proportional to <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$e^{0.2\cos x}$</math-renderer>, then are histogrammed into native cell masses. The density threshold is <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$0.01/(2\pi)$</math-renderer>. Every path freezes at the first crossing of its Euler polygon, and every frozen path remains in the statistics. No clipping or renormalization is performed.</p>
+<p dir="auto">Observations integrate <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\sqrt2\cos(kx),\sqrt2\sin(kx)$</math-renderer>, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$k=1,2$</math-renderer>, exactly against reconstructed cell densities. Pilot horizons are <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$1/4,1/2,1$</math-renderer>; time zero is exact. Other times and a joint covariance across times are outside this version.</p>
+<p dir="auto">The first fit uses forward step <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$2^{-7}$</math-renderer>. The refinement configuration uses <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$2^{-8}$</math-renderer> and requires a separate fit. Fine DK references start at <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$2^{-13}$</math-renderer>, audited against <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$2^{-14}$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$2^{-15}$</math-renderer> through summed Brownian increments. These finite differences are evidence about reference sensitivity, not bounds on remaining continuous-time bias.</p>
+<h2 dir="auto">Learned objects and the terminal objective</h2>
+<p dir="auto">Two independent float64 MLPs have three hidden layers of width 64 and SiLU activations. The value network receives the initial state and declared horizon. Native states are represented in an orthonormal mass-zero basis; normalization is fitted on unique training initial anchors. The integrand network receives only the pre-step state, remaining time, horizon, and a deterministic center known at initialization.</p>
+<p dir="auto">Let <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$y_i=\sqrt N\phi_i/s_i$</math-renderer>, where <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$s_i$</math-renderer> are fixed uniform-IID histogram fluctuation scales. OU observables use identity coordinates and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$N=1$</math-renderer>. For each initial state, define the known Euler heat-flow center <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$c$</math-renderer>. It is used only for second-moment training and integrand inputs; it is not a value-network feature or a supplied mean forecast.</p>
+<p dir="auto">The value head has a full learned mean and a Cholesky covariance:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+\mu_\theta=y(M_0)+T d_\theta,\qquad
+\Sigma_\theta=T L_\theta L_\theta^\top.
+$$</math-renderer></p>
+<p dir="auto">Positive diagonal factors use softplus, without an additive covariance floor. Initially absorbed states and time zero return the exact initial mean and zero conditional covariance.</p>
+<p dir="auto">Define the fourteen-dimensional terminal payoff and initial value by</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+H=(y(M_T),\operatorname{svec}[(y(M_T)-c)(y(M_T)-c)^\top]),
+$$</math-renderer>
+<math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+V_\theta=(\mu_\theta,\operatorname{svec}[\Sigma_\theta+(\mu_\theta-c)(\mu_\theta-c)^\top]).
+$$</math-renderer></p>
+<p dir="auto">Off-diagonal <code class="notranslate">svec</code> entries have weight <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\sqrt2$</math-renderer>, preserving the Frobenius norm. The loss gives equal weight to the four first-moment entries and ten second-moment entries in</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+H-V_\theta-\sum_n I_{n,\mathrm{active}}Z_\eta(t_n,M_n,T,c)\Delta W_n.
+$$</math-renderer></p>
+<p dir="auto">All path/time integrand inputs are evaluated in vectorized batches. There is no network evaluation for each forward simulation step at inference. The known forward trajectories are data for training, so no differentiation through their numerical integrator or input Hessian is needed.</p>
+<h2 dir="auto">Noise and causality</h2>
+<p dir="auto">For this statistics solver, the forward state and BSDE martingale use the <strong>same Brownian increments</strong>. Introducing an independent Brownian motion only into this martingale sum would remove its useful correlation with the payoff. Adding another physical forcing would define a different equation.</p>
+<p dir="auto">The active mask refers to the start of the step. On the crossing step, the martingale uses the full increment. The crossing fraction depends on that increment and must not multiply it in the predictable stochastic sum. Later contributions are zero. Future states, raw proposals, crossing fractions and stopping times are not integrand features.</p>
+<p dir="auto">Initialization, independent physical continuations, optimization shuffling, validation and test sampling use distinct keyed RNG streams. HDF5 keeps learner traces separate from oracle proposals and stopping metadata. Independent continuations share their initial anchor; they do not count as independent initial states.</p>
+<p dir="auto">For a later pathwise SPDE solver, physical forcing and auxiliary Feynman–Kac Brownian motion may have separate, independent roles under a derived stochastic representation. <a href="https://www.i2m.univ-amu.fr/perso/etienne.pardoux/_media/epsp.pdf" rel="nofollow">Backward doubly stochastic equations</a> provide one relevant framework. Applying such a construction to conservative multiplicative DK noise requires a separate regularization and causality specification; it is not implemented here.</p>
+<h2 dir="auto">Prediction and ensemble statistics</h2>
+<div class="highlight highlight-source-python" dir="auto"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">nn_dk</span>.<span class="pl-s1">bsde_training</span> <span class="pl-k">import</span> <span class="pl-s1">load_bsde_model</span>
+
+<span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">load_bsde_model</span>(<span class="pl-s">"runs/bsde-first-batch/checkpoints/dk/seed_0.pt"</span>)
+<span class="pl-s1">conditional</span> <span class="pl-c1">=</span> <span class="pl-s1">model</span>.<span class="pl-c1">predict_conditional</span>(<span class="pl-s1">initial_masses</span>, <span class="pl-s1">model</span>.<span class="pl-c1">config</span>.<span class="pl-c1">query_times</span>)
+<span class="pl-s1">ensemble</span> <span class="pl-c1">=</span> <span class="pl-s1">model</span>.<span class="pl-c1">predict_ensemble</span>(
+    <span class="pl-s1">model</span>.<span class="pl-c1">config</span>.<span class="pl-c1">context</span>(<span class="pl-s">"nonuniform"</span>), <span class="pl-s1">model</span>.<span class="pl-c1">config</span>.<span class="pl-c1">queries</span>,
+    <span class="pl-s1">n_initial</span><span class="pl-c1">=</span><span class="pl-c1">8192</span>, <span class="pl-s1">seed</span><span class="pl-c1">=</span><span class="pl-c1">123</span>,
+)</pre></div>
+<p dir="auto">Conditional predictions contain physical means with shape <code class="notranslate">(initial_states, horizons, 4)</code> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$N$</math-renderer>-scaled conditional covariances with shape <code class="notranslate">(initial_states, horizons, 4, 4)</code>. Ensemble predictions have the corresponding horizon-only shapes. Their target identifiers include the forward discretization.</p>
+<p dir="auto">Ensemble covariances use</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+N\operatorname{Cov}(Y)
+=\mathbb E[N\operatorname{Cov}(Y\mid M_0)]
++N\operatorname{Cov}(\mathbb E[Y\mid M_0]).
+$$</math-renderer></p>
+<p dir="auto">Averaging conditional covariances alone would omit initial sampling fluctuations. Prediction needs no simulated future forcing and no deterministic-center evaluation. Initial histogram generation, complete value-network inference, covariance validation and checkpoint loading have separate cost accounting.</p>
+<p dir="auto">The conditional function can be evaluated on valid initial masses, but accuracy outside the trained initial-state laws is not certified. Ensemble prediction flags profiles outside the configured training family and rejects incompatible interactions, diffusion, particle counts, observation modes or horizons.</p>
+<h2 dir="auto">Pilot allocation and interpretation</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Allocation</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training</td>
+<td>128 independent initial anchors × 16 continuations</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>32 different anchors × 32 continuations</td>
+</tr>
+<tr>
+<td>DK profile balance</td>
+<td>Half of training/validation anchors from each initial law</td>
+</tr>
+<tr>
+<td>OU analytic test</td>
+<td>256 held-out initial states</td>
+</tr>
+<tr>
+<td>DK conditional test</td>
+<td>8 anchors per profile × 2048 continuations</td>
+</tr>
+<tr>
+<td>DK ensemble test</td>
+<td>8192 initial histograms per profile, matched to independent forward reference families</td>
+</tr>
+<tr>
+<td>Coupled reference audit</td>
+<td>32 families per profile</td>
+</tr>
+<tr>
+<td>Optimizer seeds</td>
+<td>0, 1, 2, reported individually</td>
+</tr>
+<tr>
+<td>Optimizer</td>
+<td>AdamW, lr 1e-3, weight decay 1e-5</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>At most 100 epochs, patience 10, path batch 32, gradient norm clip 100</td>
+</tr>
+<tr>
+<td>Bootstrap</td>
+<td>200 whole-family resamples</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Forward prefixes at different horizons remain in the same split. Conditional intervals resample independent continuations within a fixed anchor; ensemble intervals resample whole initial-state/continuation families. Optimizer-seed spread is reported separately.</p>
+<p dir="auto">The scientific targets remain 5% normalized error and 1.25% for each uncertainty contribution. The conditional pilot allocation is diagnostic and may not resolve these budgets. Small losses, positive covariance or a completed pipeline do not certify accuracy.</p>
+<p dir="auto">Reports separate neural error against the same-step Euler law, total error against the fine reference, and coarse/fine time differences. Covariance residuals and stopping diagnostics remain available even when overall gates are unresolved. Costs include forward generation, first-epoch profiling, fitting, initialization, inference and reference work. Shared costs repeated across optimizer-seed rows must not be summed. A speed advantage requires matched, resolved accuracy and amortization over distinct initial-state queries.</p>
+<p dir="auto">Next stages add interactions, joint temporal statistics, then an independently specified pathwise SPDE solver. Spatial refinement is a resolution study until a continuum regularization/noise target is declared.</p>
+<h2 dir="auto">Boundary consistent generator formulation</h2>
+<p dir="auto">The separate <code class="notranslate">nn_dk.payoff_boundary</code> workflow predicts moments by a continuous<br>
+native-DK generator residual. It uses simulated <strong>states</strong> for collocation and<br>
+known drift/noise coefficients; it does not train against simulated future<br>
+payoffs. Its checkpoints have the distinct identifier<br>
+<code class="notranslate">continuous-native-dk-moving-boundary-native-slope-moments-v3</code>. Historical BSDE<br>
+and v2 moment checkpoints retain their original formulations and loaders.</p>
+<p dir="auto">For a terminal weight <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\phi$</math-renderer>, running weight <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$r$</math-renderer>, and remaining time <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\tau$</math-renderer>,<br>
+the payoff is the frozen terminal observable plus the running integral killed<br>
+at stopping. Its mean and conditional covariance satisfy</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+\partial_\tau u=\mathcal L_h u+r,\qquad
+\partial_\tau C=\mathcal L_h C+\Gamma_h(u,u).
+$$</math-renderer></p>
+<p dir="auto">These equations use physical means and ordinary conditional covariances.<br>
+Here <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\Gamma_h(u,u)=(\nabla u)A_h(\nabla u)^\top$</math-renderer>, with<br>
+<math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$A_h=N^{-1}S_h S_h^\top$</math-renderer>, uses the native finite-volume noise. The native<br>
+coefficient API stores <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$S_h S_h^\top$</math-renderer> before the factor <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$1/N$</math-renderer>, while neural<br>
+predictions return <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$N$</math-renderer>-scaled covariance. At an absorbed state, the outputs<br>
+are exactly <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$u=\phi$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$C=0$</math-renderer>,<br>
+with no subsequent running contribution. The neural maps return selected means<br>
+and same-time covariances; they do not generate density paths or hitting times.</p>
+<p dir="auto">The v2 fixed spatial gate changed the mean's required right derivative at zero<br>
+remaining time. The v3 moving gate is</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+g(\tau,m)=\prod_i\operatorname{erf}
+\left(\frac{(m_i-m_*)\sqrt T}{w\sqrt\tau}\right),\qquad w=0.05/G.
+$$</math-renderer></p>
+<p dir="auto">For each strict interior state it approaches one with flat time derivatives as<br>
+<math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\tau\downarrow0$</math-renderer>, while permitting linear vanishing with distance to a<br>
+boundary at positive time. Absorbed states are handled by an exact override.<br>
+Gate derivatives are evaluated in the log domain. This is a consistent<br>
+boundary ansatz, not an exact hitting-probability formula for the coupled DK<br>
+system.</p>
+<p dir="auto">The mean uses known heat evolution, the exact native interaction contribution<br>
+to the initial terminal slope, and a learned correction of order <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\tau^2/T$</math-renderer>.<br>
+Thus <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$u(0,m)=\phi(m)$</math-renderer> and<br>
+<math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\partial_\tau u(0,m)=\mathcal L_h\phi(m)+r(m)$</math-renderer> hold independently of the<br>
+learned weights. The covariance is a positive heat covariance transformed by<br>
+a learned congruence and multiplied by the moving gate, with no additive<br>
+floor. Its construction preserves the leading terminal/terminal,<br>
+terminal/integral, and integral/integral time orders <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$\tau,\tau^2,\tau^3$</math-renderer>.<br>
+These consistency checks do not by themselves establish accurate predictions<br>
+at finite time.</p>
+<p dir="auto">Both stages use fixed, training-only full-horizon heat fluctuation scales.<br>
+Mean residuals are normalized by <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$s_i/T$</math-renderer>, and covariance residuals by<br>
+<math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$s_i s_j/T$</math-renderer>; no inverse power of the sampled remaining time enters the loss.<br>
+For each normalized residual <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$z$</math-renderer>, the objective uses</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$$
+\ell(z)=2\delta^2\left(\sqrt{1+(z/\delta)^2}-1\right),\qquad\delta=3.
+$$</math-renderer></p>
+<p dir="auto">It is quadratic near zero and has bounded influence at large residuals.<br>
+Validation retains raw physical RMS, normalized squared residuals, and the<br>
+robust objective separately, including boundary-distance strata. Comparing a<br>
+robust objective with a previous squared objective cannot establish a solver<br>
+improvement. Mean fitting and covariance fitting remain separate; the selected<br>
+mean is frozen throughout covariance fitting.</p>
+<p dir="auto">The six-case runner is <code class="notranslate">analysis/run_payoff_boundary_regimes.py</code>, with separate<br>
+accuracy, independent-initial integration, and timing helpers documented in<br>
+the <a href="../analysis/README.md">analysis guide</a>. Native Monte Carlo and the frozen<br>
+v2 models are controls. Final reference draws are unlocked only after all<br>
+eighteen new fits are restored and locked. New training and validation pools<br>
+mean that an observed prediction improvement cannot be attributed uniquely to<br>
+the boundary and loss changes.</p>
+<p dir="auto">The <a href="experiments/payoff_boundary_regimes_2026-10-27.md">fresh six-case experiment</a><br>
+also demonstrates a limitation of this loss repair. On identical new validation<br>
+states in common fixed units, the <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="e02ada438e2f6dd7ba51ec83f50ad91c">$T=1,\kappa=6$</math-renderer> mean-residual RMS is<br>
+21.85–23.86 for v3 versus 24.69–28.35 for frozen v2. Covariance-residual RMS is<br>
+372.1–535.5 versus 49.35–86.42. Covariance sources use each version's learned<br>
+mean, so this cross-version comparison does not isolate covariance-head fitting.<br>
+These equation residuals are distinct from observable prediction errors.</p>
+<p dir="auto">The matched covariance-stage comparison holds the selected mean fixed. On its<br>
+256-row diagnostic subset, the robust criterion falls 4.3–7.4%, while ordinary<br>
+squared-residual RMS rises 2.0–4.2%. In the full strongest-case validation pool,<br>
+only 12 of 4,096 collocation rows, at two to five times the stopping mass,<br>
+contribute 98.2–98.9% of covariance squared residual and 62.7–69.4% of robust<br>
+loss. These are correlated collocation rows, not independent trajectories.<br>
+Substantial bulk-state residuals remain as well. Bounded residual influence<br>
+therefore reduces one source of imbalance without establishing accurate<br>
+covariance predictions. The archived<br>
+<a href="experiments/artifacts/payoff_boundary_regimes_2026-10-27/audit/fit_interpretation_review.json.gz">read-only residual review</a><br>
+retains both formulations, phase comparisons, and boundary strata.</p>
+<h2 dir="auto">Matched sampling and objective investigation</h2>
+<p dir="auto">The subsequent study crosses uniform/stratified proposals with squared and<br>
+pseudo-Huber losses on the same literal state pools, initial weights and<br>
+train-only scales. All <strong>72 fits</strong> are complete. Each proposal's importance<br>
+weight multiplies the per-row loss after the robust transform, preserving the<br>
+natural-pool objective. The selected mean remains frozen during covariance<br>
+fitting. No future-payoff labels or synthetic stress states enter this cross.</p>
+<p dir="auto">The <a href="experiments/payoff_collocation_residuals_2026-10-30.md">completed residual supplement</a><br>
+retains all nineteen input-only strata and all sixteen covariance entries in<br>
+solver, physical and original training units. Empty bins have undefined<br>
+residual metrics. The closest boundary bin is empty in every case, so balancing<br>
+occupied rows cannot establish accuracy there. A counterfactual common-source<br>
+substitution is separate from training with a shared mean. Residual reductions<br>
+on these selection data require the independent final accuracy comparison.</p>
+<p dir="auto">That <a href="experiments/artifacts/readme_research_2026-10-30/collocation_accuracy/collocation_independent_accuracy_findings.md">independent collocation comparison</a><br>
+has now completed all 576 primary predictions. In the strongest case,<br>
+stratified/squared fits have lower residual MSE but worst covariance<br>
+discrepancies of 3.54–6.97 reference-SD products, versus 0.169 for fine Gaussian.<br>
+Different fitted mean sources and the uncovered boundary region remain<br>
+limitations; this observation does not isolate a causal mechanism. Smaller<br>
+equation residuals do not provide an accuracy certificate. Final inference<br>
+timings are pending.</p>
+<h2 dir="auto">Supervised nonlinear-LNA correction</h2>
+<p dir="auto">A separate candidate uses the existing nonlinear deterministic mean and<br>
+linear-noise covariance ODE along that mean as its baseline. Two correction<br>
+heads learn selected conditional payoff means and covariances from independent<br>
+native-Euler continuation labels. The mean correction vanishes quadratically<br>
+at zero remaining time; a moving absorption gate and time-ordered covariance<br>
+congruence retain the formulation's initial conditions and covariance geometry.<br>
+Raw conditional LNA at two steps and the gated zero-correction model remain<br>
+explicit controls. The baseline is an approximation to the stopped nonlinear<br>
+law; its structure alone supplies no accuracy certificate.</p>
+<p dir="auto">All <strong>18 fits</strong>, <strong>307,200 learner continuations</strong> and the independent label<br>
+prefix audit are complete. All candidate and collocation fits, criteria and<br>
+evaluation sources were jointly locked before the fresh final references.<br>
+Final independent accuracy, literal full-IID inference costs and contrasts<br>
+remain pending. IID-law predictions integrate each fresh histogram's own<br>
+conditional ODE and use the law of total covariance; an analytic initial-law<br>
+shortcut cannot replace that declared work. This candidate supplies a fixed<br>
+payoff bank, not a complete baseline-ODE input-sensitivity or generator API.<br>
+The <a href="../analysis/README.md#supervised-nonlinear-lna-correction-and-joint-final-data-gate">analysis guide</a><br>
+records the allocation, controls, stopping and failure rules, and cost scope.</p>

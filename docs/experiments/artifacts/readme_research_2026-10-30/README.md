@@ -23,3 +23,5 @@ The collection excludes process snapshots, credentials, large numerical files, d
 See the [task ledger](../../../README_TASKS.md), [validation residual archive](../payoff_collocation_residuals_2026-10-30/README.md) and [gradient/transport archive](../payoff_diagnostics_2026-10-29/README.md). The final collocation and correction archives are separately allocated as `payoff_collocation_2026-10-30` and `lna_payoff_correction_2026-10-30`.
 
 Project-authored prose, figures and tables are CC BY 4.0; code is MIT. See [license coverage](../../../../LICENSING.md). This wrapper and preserved receipts add operational provenance without changing earlier numerical archives.
+
+The [documentation rendering audit](documentation/github_math_rendering_audit.json) verifies all 116 expressions in the maintained DK and statistics guides using GitHub previews and its served MathRenderer client. TeX bodies, prose, citations and existing code examples are unchanged. HTML files preserve API responses; the audit cites the client decoder by URL and hash. Full third-party client source stays local. Historical numerical archives are unchanged.

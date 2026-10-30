@@ -1,0 +1,146 @@
+{
+  "GitHub_client_entity_decoding_proof": {
+    "both_syntaxes_typeset_same_original_TeX": true,
+    "compact_function_facts": {
+      "entity_decoder": "#t creates a fresh HTML document from the math element text, then reads its body text.",
+      "typesetting": "convertTexToMathML calls #t, removes surrounding math delimiters, then passes the decoded result to MathJax.tex2mml."
+    },
+    "element_registry_URL": "https://github.githubassets.com/assets/element-registry-506a3c95ae771635.js",
+    "explanation": "GitHub #t() creates a new HTML document, writes this.textContent into its body and returns body.textContent; convertTexToMathML invokes #t() before MathJax.tex2mml. This explicitly performs the additional entity decoding observed in both inline forms.",
+    "inequality_probe_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_gt_probe.html",
+    "inequality_probe_results": [
+      {
+        "GitHub_client_math_input": "D>0",
+        "once_parsed_DOM_payload": "$D&gt;0$",
+        "raw_HTML_contains": "$D&amp;gt;0$",
+        "syntax": "plain-dollar"
+      },
+      {
+        "GitHub_client_math_input": "D>0",
+        "once_parsed_DOM_payload": "$D&gt;0$",
+        "raw_HTML_contains": "$D&amp;gt;0$",
+        "syntax": "protected-inline"
+      }
+    ],
+    "inequality_probe_sha256": "ba7261b3b5eae5aa4f0dbdbb90d977760640eb12f9ebbbcbd0de8a81b4a65c28",
+    "primary_source_URL": "https://github.githubassets.com/assets/chunk-lazy-element-math-renderer-d9906def89b0b710.js",
+    "protected_inequality_delimiters_needed": false,
+    "public_payload_source_policy": "Link the official asset URL and its checksum; no wholesale third-party JavaScript source is part of this user-authored audit or its publication copy list.",
+    "resolved_from_public_page": "https://github.com/xrough/nn-dk/blob/main/docs/DK_BACKGROUND.md",
+    "semantic_verification_method": "Static official-client implementation trace plus exact HTML-parser replay for every recognized expression; no browser visual/typesetting assertion beyond this pipeline.",
+    "served_source_sha256": "93fd256d7b9d7b853cc3644226f9f592339939402a7e0b706cdfc99bc9c521e1",
+    "third_party_client_JS_to_copy_to_public_payload": false,
+    "third_party_client_source_snapshot_local_only": true,
+    "webpack_runtime_URL": "https://github.githubassets.com/assets/wp-runtime-ce67b08bab407bb3.js"
+  },
+  "checked_at_utc": "2026-10-30T00:18:21.136262+00:00",
+  "commit_or_push_performed": false,
+  "complete": true,
+  "documents": {
+    "DK_background": {
+      "after_sha256": "43cc88c1cde7cc0a43c1dad190e3fd050401a6993f2714a679fed76f907044d0",
+      "all_math_input_bodies_match_source_using_actual_GitHub_client_pipeline": true,
+      "before_and_after_ordered_TeX_body_list_sha256": "cf8b27ae0e23803d987a9f168c4c78d3e4d85e1dfa994eaa077f1c08c9dcebec",
+      "before_sha256": "c1d5c46d1ab7679a9cfc78cb33c4774acc2d4a8ffb7b6a08878160d2cc30b75f",
+      "delimiter_neutralized_entire_document_sha256": "7ca0e02679388192f5571076531935a0157e8197da11b799e2082dd5d578709f",
+      "existing_nonmath_code_fences_preserved": 0,
+      "expression_counts": {
+        "display": 11,
+        "inline": 54
+      },
+      "final_syntax": {
+        "dollar_display_blocks": 0,
+        "math_fences": 11,
+        "protected_inline_expressions": 2
+      },
+      "github_rendered_TeX_commands_all_preserved": true,
+      "github_rendered_body_comparison": "API HTML parsed to DOM text once, then the HTML-document parse implemented by GitHub math-renderer #t() applied uniformly; only line indentation/outer whitespace normalized. Every remaining character and TeX command matches source, without per-expression exceptions.",
+      "github_rendered_counts": {
+        "display": 11,
+        "inline": 54
+      },
+      "ordered_TeX_expression_count": 65,
+      "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/DK_BACKGROUND.md",
+      "preview_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_DK_background_preview.html",
+      "preview_sha256": "825c6fd0e0b69c1532b74ecc71327cdbff19d16154ba2d30619bb2f6933c02d3",
+      "request_sha256": "d80f3ef1c0e59889de63d06c79a70f45299e1a3494117eabf547acab25ff1cc7",
+      "residual_slash_math_delimiters": 0,
+      "source_TeX_bodies_whitespace_prose_citations_and_attribution_exactly_unchanged": true
+    },
+    "statistics": {
+      "after_sha256": "b1576724f093aeb4d05bfc6d138ed6139df7bd7f43e3e2ca151288ac783dbdd8",
+      "all_math_input_bodies_match_source_using_actual_GitHub_client_pipeline": true,
+      "before_and_after_ordered_TeX_body_list_sha256": "6f0a29489b4ced4a48be1e2266d241806fba83cd0e3a78cb735de16ca830f0ef",
+      "before_sha256": "dffd545e518fbbfa469a0e226a3e4f15711fcb08a40da0ee392275916f484151",
+      "delimiter_neutralized_entire_document_sha256": "04207d5151f53eed9030c8c101b86a30e6f97a8338932208aa3f37067947bf6c",
+      "existing_nonmath_code_fences_preserved": 3,
+      "expression_counts": {
+        "display": 10,
+        "inline": 41
+      },
+      "final_syntax": {
+        "dollar_display_blocks": 9,
+        "math_fences": 1,
+        "protected_inline_expressions": 0
+      },
+      "github_rendered_TeX_commands_all_preserved": true,
+      "github_rendered_body_comparison": "API HTML parsed to DOM text once, then the HTML-document parse implemented by GitHub math-renderer #t() applied uniformly; only line indentation/outer whitespace normalized. Every remaining character and TeX command matches source, without per-expression exceptions.",
+      "github_rendered_counts": {
+        "display": 10,
+        "inline": 41
+      },
+      "ordered_TeX_expression_count": 51,
+      "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/docs/BSDE_STATISTICS.md",
+      "preview_path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_statistics_preview.html",
+      "preview_sha256": "4b4097e28892da9407bf24050684f1e4c4139180cde08fe0775fe3e177b50307",
+      "request_sha256": "c1c35276c22795c51ca60fbcbe0753111a10db531ed888eab33e69b4ac1d2c55",
+      "residual_slash_math_delimiters": 0,
+      "source_TeX_bodies_whitespace_prose_citations_and_attribution_exactly_unchanged": true
+    }
+  },
+  "findings": [
+    "Slash inline/display delimiters render as ordinary Markdown text.",
+    "Dollar display parsing strips TeX thin-space and norm commands where Markdown treats them as escapes.",
+    "DK incidence inline expression was consumed as Markdown emphasis; protected inline backticks restore it.",
+    "Math fences preserve raw display TeX and protected inline syntax preserves the affected norm/incidence expressions. The original D>0 inline syntax remains: the served GitHub renderer explicitly decodes its entity payload before MathJax; the protected variant has the identical payload and needs no change."
+  ],
+  "frozen_archive_files_modified": false,
+  "github_API": {
+    "context": "xrough/nn-dk",
+    "credentials_printed": false,
+    "endpoint": "https://api.github.com/markdown",
+    "method": "POST",
+    "mode": "gfm",
+    "persistent_GitHub_object_created": false
+  },
+  "kind": "github-maintained-documentation-math-rendering-audit-v1",
+  "numerical_source_or_criteria_modified": false,
+  "official_source_url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions",
+  "only_maintained_files_changed": [
+    "docs/BSDE_STATISTICS.md",
+    "docs/DK_BACKGROUND.md"
+  ],
+  "probe_evidence": {
+    "delimiter_probe": {
+      "HTML": "<p dir=\"auto\">Slash inline: (x^2).</p>\n<p dir=\"auto\">Dollar inline: <math-renderer class=\"js-inline-math\" style=\"display: inline-block\" data-run-id=\"5acdda729a8a857609013ef2591c2809\">$x^2$</math-renderer>.</p>\n<p dir=\"auto\">Slash display:</p>\n<p dir=\"auto\">[<br>\nx^2<br>\n]</p>\n<p dir=\"auto\">Dollar display:</p>\n<p dir=\"auto\"><math-renderer class=\"js-display-math\" style=\"display: block\" data-run-id=\"5acdda729a8a857609013ef2591c2809\">$$\nx^2\n$$</math-renderer></p>",
+      "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_delimiter_probe.html",
+      "sha256": "bb967d83776ce839c0017fccd763f936e534be907d8a79b1792135125a0a6bee"
+    },
+    "fenced_command_probe": {
+      "HTML": "<math-renderer class=\"js-display-math\" style=\"display: block\" data-run-id=\"c06770613fe9a23b345da0f5ca2dc0b7\">$$dZ_k=-\\lambda_k Z_k\\,dt+\\sqrt{2\\lambda_k}\\,dW_k,$$</math-renderer>",
+      "path": "/Users/xiaohao/Projects/Finance/Covariance/NN-DK/runs/readme-research-completion-2026-10-30/github_math_rendering_fenced_command_probe.html",
+      "sha256": "b5f9b860e27a8e58e36da29976e98eb02b81593d4fc57bac582599e46b060094"
+    }
+  },
+  "proof_scope": "Documentation formatting proof only. Updated manual-document SHA values are recorded; no assertion that previous documentation hashes are unchanged.",
+  "root_README_and_README_FINDINGS_math_delimiters_need_no_change": true,
+  "scientific_data_or_production_reader_or_local_QA_run": false,
+  "scope": "Render-safe math delimiters in current maintained BSDE statistics and DK background guides only.",
+  "semantic_verification": {
+    "GitHub_math_renderers_verified": 116,
+    "TeX_command_sequences_preserved_for_all_renderers": true,
+    "all116_math_inputs_match_source_after_actual_client_HTML_pipeline": true,
+    "ordered_source_math_bodies_exactly_preserved": 116,
+    "per_expression_character_or_entity_exceptions": false
+  }
+}

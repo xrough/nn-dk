@@ -20,41 +20,41 @@ Use the periodic interval $\mathbb T=[0,2\pi)$, diffusion constant $D>0$, and
 independent standard Brownian motions $B^1,\ldots,B^N$. For an interaction
 potential $V$, consider
 
-$$
+```math
 dX_t^i=b(X_t^i,\mu_t^N)\,dt+\sqrt{2D}\,dB_t^i,
 \qquad
 \mu_t^N=\frac1N\sum_{i=1}^N\delta_{X_t^i},
 \qquad
 b(x,\mu)=-(V'*\mu)(x).
-$$
+```
 
 The empirical measure has total mass one. For a smooth periodic test function
 $\varphi$, Itô's formula gives the exact identity
 
-$$
+```math
 d\langle\varphi,\mu_t^N\rangle
 =\langle D\varphi''+b(\cdot,\mu_t^N)\varphi',\mu_t^N\rangle\,dt
 +dM_t^\varphi,
 \qquad
 dM_t^\varphi=\frac{\sqrt{2D}}N
 \sum_{i=1}^N\varphi'(X_t^i)\,dB_t^i.
-$$
+```
 
 Independence of the particle drivers determines the cross variation:
 
-$$
+```math
 d[M^\varphi,M^\psi]_t
 =\frac{2D}{N}\langle\varphi'\psi',\mu_t^N\rangle\,dt.
-$$
+```
 
 Formally replacing the empirical measure by a density $\rho$ gives
 
-$$
+```math
 d\rho_t
 =\left[D\partial_{xx}\rho_t
 -\partial_x\big(b(\cdot,\rho_t)\rho_t\big)\right]dt
 +\partial_x\left(\sqrt{\frac{2D\rho_t}{N}}\,dW_t\right),
-$$
+```
 
 where $W$ is a cylindrical Wiener process on $L^2(\mathbb T)$, the time
 integral of space-time white noise. Testing the noise against $\varphi$ gives
@@ -71,10 +71,10 @@ normalization changes the displayed coefficient. The probability convention
 is used throughout NN-DK. Initial IID cell histograms with cell probabilities
 $p$ also satisfy
 
-$$
+```math
 \operatorname{Cov}(m_0)
 =\frac1N\left[\operatorname{diag}(p)-pp^\mathsf T\right].
-$$
+```
 
 The formal density notation needs care: $\mu_t^N$ is atomic, and its square root
 is not an ordinary density function. In the setting analyzed by
@@ -89,23 +89,23 @@ smooth-density model from the formal equation.
 A continuum approximation can instead smooth both the square root and the
 spatial noise. In the constant-diffusion setting above, its form is
 
-$$
+```math
 dm_t^N
 =\left[D\partial_{xx}m_t^N
 -\partial_x\big(b(\cdot,m_t^N)m_t^N\big)\right]dt
 +\sqrt{\frac{2D}{N}}\,\partial_x\big(f_{\delta_N}(m_t^N)\,dW_t^N\big).
-$$
+```
 
 Here $f_\delta(0)=0$ is a Lipschitz approximation with
 $|f_\delta(r)^2-r|\lesssim\delta$ for $r\geq0$, and
-$\|f_\delta'\|_\infty\lesssim\delta^{-1/2}$. The colored noise has a Fourier
+$`\|f_\delta'\|_\infty\lesssim\delta^{-1/2}`$. The colored noise has a Fourier
 representation
 
-$$
+```math
 W_t^N=\sum_k\theta_k^N e_k B_t^k,
 \qquad
 \theta_k^N=\widehat\eta(k/L_N)^{1/2},
-$$
+```
 
 with the usual conjugacy conditions giving a real field. The covariance kernel
 is chosen so that $\widehat\eta$ is smooth, nonnegative, compactly supported,
@@ -113,9 +113,9 @@ and $\widehat\eta(0)=1$. Increasing $L_N$ admits more spatial noise modes.
 The parameters cannot be removed independently: stochastic parabolicity
 requires a bound of the form
 
-$$
+```math
 \frac{\|\theta^N\|_{\ell^2}^2}{N\delta_N}\leq c,
-$$
+```
 
 where $c$ depends on the ellipticity and diffusion bounds. Diffusive coercivity
 must dominate the regularized noise's contribution.
@@ -134,13 +134,13 @@ initial empirical measure at scale $\varepsilon$.
 Under those hypotheses, for a suitable smooth functional $F$ and fixed horizon
 $T$, the continuum comparison has the form
 
-$$
+```math
 \sup_{t\in[0,T]}
 \left|\mathbb E F(\mu_t^N)-\mathbb E F(m_t^{N,\varepsilon})\right|
 \lesssim_T
 \varepsilon+\frac{\delta_N}{N}
 +\frac{\log(\varepsilon^{-1})}{NL_N^2}.
-$$
+```
 
 In dimension $d$, balancing terms subject to parabolicity with
 $\varepsilon\asymp N^{-2}$, $\delta_N\asymp N^{-2/(d+2)}$, and
@@ -161,24 +161,24 @@ this piecewise-constant density exactly for
 $V(x)=-\kappa\cos x+a_2\cos(2x)$ to obtain face velocity $v_{i+1/2}$.
 Its deterministic flux and drift are
 
-$$
+```math
 J_i=\rho_{i+1/2}v_{i+1/2}
 -\frac{D}{h^2}(m_{i+1}-m_i),
 \qquad
 (b_h(m))_i=J_{i-1}-J_i.
-$$
+```
 
-Let $B$ denote the periodic incidence matrix with $(Bq)_i=q_{i-1}-q_i$.
+Let $B$ denote the periodic incidence matrix with $`(Bq)_i=q_{i-1}-q_i`$.
 One independent Brownian driver is assigned to each face, shared by its two
 neighboring cells with opposite signs:
 
-$$
+```math
 dm=b_h(m)\,dt+N^{-1/2}S_h(m)\,dW,
 \qquad
 S_h(m)=B\operatorname{diag}(\sigma(m)),
 \qquad
 \sigma_i(m)^2=\frac{D(m_i+m_{i+1})}{h^2}.
-$$
+```
 
 Consequently $\mathbf 1^\mathsf T b_h=0$,
 $\mathbf 1^\mathsf T S_h=0$, and the cell covariance per unit time is

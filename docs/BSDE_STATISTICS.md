@@ -28,58 +28,58 @@ Source and configuration hashes are immutable within a run. Use a new directory 
 
 ## Targets and calibration
 
-The scalar Brownian calibration uses \(dX=dW\), \(X_0=0\), and the payoff \((X_T,X_T^2)\). With the exact predictable first-order integrand, the quadratic residual is
+The scalar Brownian calibration uses $dX=dW$, $X_0=0$, and the payoff $(X_T,X_T^2)$. With the exact predictable first-order integrand, the quadratic residual is
 
-\[
+$$
 R=\sum_n[(\Delta W_n)^2-\Delta],\qquad \mathbb E[R^2]=2T\Delta.
-\]
+$$
 
 A nonzero terminal objective is therefore possible even with the correct initial value. The calibration checks the pathwise identity and its analytically known sampling error.
 
 The neural analytic benchmark is four independent normalized OU coordinates with rates
 
-\[
+```math
 \lambda_k=4D h^{-2}\sin^2(\pi k/G),\qquad
 dZ_k=-\lambda_k Z_k\,dt+\sqrt{2\lambda_k}\,dW_k,
-\]
+```
 
 for cosine/sine modes 1 and 2. Matrix-exponential moments and an independent Euler covariance recursion check the closed forms. Neural predictions are compared against both the exact Euler law used in training and the continuous-time OU law. This auxiliary Gaussian process is explicitly unstopped and is not the DK target.
 
-The DK target has \(G=32\), \(N=2048\), \(D=1\), and no interaction. Initial particles are IID uniform or have density proportional to \(e^{0.2\cos x}\), then are histogrammed into native cell masses. The density threshold is \(0.01/(2\pi)\). Every path freezes at the first crossing of its Euler polygon, and every frozen path remains in the statistics. No clipping or renormalization is performed.
+The DK target has $G=32$, $N=2048$, $D=1$, and no interaction. Initial particles are IID uniform or have density proportional to $e^{0.2\cos x}$, then are histogrammed into native cell masses. The density threshold is $0.01/(2\pi)$. Every path freezes at the first crossing of its Euler polygon, and every frozen path remains in the statistics. No clipping or renormalization is performed.
 
-Observations integrate \(\sqrt2\cos(kx),\sqrt2\sin(kx)\), \(k=1,2\), exactly against reconstructed cell densities. Pilot horizons are \(1/4,1/2,1\); time zero is exact. Other times and a joint covariance across times are outside this version.
+Observations integrate $\sqrt2\cos(kx),\sqrt2\sin(kx)$, $k=1,2$, exactly against reconstructed cell densities. Pilot horizons are $1/4,1/2,1$; time zero is exact. Other times and a joint covariance across times are outside this version.
 
-The first fit uses forward step \(2^{-7}\). The refinement configuration uses \(2^{-8}\) and requires a separate fit. Fine DK references start at \(2^{-13}\), audited against \(2^{-14}\) and \(2^{-15}\) through summed Brownian increments. These finite differences are evidence about reference sensitivity, not bounds on remaining continuous-time bias.
+The first fit uses forward step $2^{-7}$. The refinement configuration uses $2^{-8}$ and requires a separate fit. Fine DK references start at $2^{-13}$, audited against $2^{-14}$ and $2^{-15}$ through summed Brownian increments. These finite differences are evidence about reference sensitivity, not bounds on remaining continuous-time bias.
 
 ## Learned objects and the terminal objective
 
 Two independent float64 MLPs have three hidden layers of width 64 and SiLU activations. The value network receives the initial state and declared horizon. Native states are represented in an orthonormal mass-zero basis; normalization is fitted on unique training initial anchors. The integrand network receives only the pre-step state, remaining time, horizon, and a deterministic center known at initialization.
 
-Let \(y_i=\sqrt N\phi_i/s_i\), where \(s_i\) are fixed uniform-IID histogram fluctuation scales. OU observables use identity coordinates and \(N=1\). For each initial state, define the known Euler heat-flow center \(c\). It is used only for second-moment training and integrand inputs; it is not a value-network feature or a supplied mean forecast.
+Let $y_i=\sqrt N\phi_i/s_i$, where $s_i$ are fixed uniform-IID histogram fluctuation scales. OU observables use identity coordinates and $N=1$. For each initial state, define the known Euler heat-flow center $c$. It is used only for second-moment training and integrand inputs; it is not a value-network feature or a supplied mean forecast.
 
 The value head has a full learned mean and a Cholesky covariance:
 
-\[
+$$
 \mu_\theta=y(M_0)+T d_\theta,\qquad
 \Sigma_\theta=T L_\theta L_\theta^\top.
-\]
+$$
 
 Positive diagonal factors use softplus, without an additive covariance floor. Initially absorbed states and time zero return the exact initial mean and zero conditional covariance.
 
 Define the fourteen-dimensional terminal payoff and initial value by
 
-\[
+$$
 H=(y(M_T),\operatorname{svec}[(y(M_T)-c)(y(M_T)-c)^\top]),
-\]
-\[
+$$
+$$
 V_\theta=(\mu_\theta,\operatorname{svec}[\Sigma_\theta+(\mu_\theta-c)(\mu_\theta-c)^\top]).
-\]
+$$
 
-Off-diagonal `svec` entries have weight \(\sqrt2\), preserving the Frobenius norm. The loss gives equal weight to the four first-moment entries and ten second-moment entries in
+Off-diagonal `svec` entries have weight $\sqrt2$, preserving the Frobenius norm. The loss gives equal weight to the four first-moment entries and ten second-moment entries in
 
-\[
+$$
 H-V_\theta-\sum_n I_{n,\mathrm{active}}Z_\eta(t_n,M_n,T,c)\Delta W_n.
-\]
+$$
 
 All path/time integrand inputs are evaluated in vectorized batches. There is no network evaluation for each forward simulation step at inference. The known forward trajectories are data for training, so no differentiation through their numerical integrator or input Hessian is needed.
 
@@ -106,15 +106,15 @@ ensemble = model.predict_ensemble(
 )
 ```
 
-Conditional predictions contain physical means with shape `(initial_states, horizons, 4)` and \(N\)-scaled conditional covariances with shape `(initial_states, horizons, 4, 4)`. Ensemble predictions have the corresponding horizon-only shapes. Their target identifiers include the forward discretization.
+Conditional predictions contain physical means with shape `(initial_states, horizons, 4)` and $N$-scaled conditional covariances with shape `(initial_states, horizons, 4, 4)`. Ensemble predictions have the corresponding horizon-only shapes. Their target identifiers include the forward discretization.
 
 Ensemble covariances use
 
-\[
+$$
 N\operatorname{Cov}(Y)
 =\mathbb E[N\operatorname{Cov}(Y\mid M_0)]
 +N\operatorname{Cov}(\mathbb E[Y\mid M_0]).
-\]
+$$
 
 Averaging conditional covariances alone would omit initial sampling fluctuations. Prediction needs no simulated future forcing and no deterministic-center evaluation. Initial histogram generation, complete value-network inference, covariance validation and checkpoint loading have separate cost accounting.
 
@@ -153,58 +153,58 @@ payoffs. Its checkpoints have the distinct identifier
 `continuous-native-dk-moving-boundary-native-slope-moments-v3`. Historical BSDE
 and v2 moment checkpoints retain their original formulations and loaders.
 
-For a terminal weight \(\phi\), running weight \(r\), and remaining time \(\tau\),
+For a terminal weight $\phi$, running weight $r$, and remaining time $\tau$,
 the payoff is the frozen terminal observable plus the running integral killed
 at stopping. Its mean and conditional covariance satisfy
 
-\[
+$$
 \partial_\tau u=\mathcal L_h u+r,\qquad
 \partial_\tau C=\mathcal L_h C+\Gamma_h(u,u).
-\]
+$$
 
 These equations use physical means and ordinary conditional covariances.
-Here \(\Gamma_h(u,u)=(\nabla u)A_h(\nabla u)^\top\), with
-\(A_h=N^{-1}S_h S_h^\top\), uses the native finite-volume noise. The native
-coefficient API stores \(S_h S_h^\top\) before the factor \(1/N\), while neural
-predictions return \(N\)-scaled covariance. At an absorbed state, the outputs
-are exactly \(u=\phi\) and \(C=0\),
+Here $\Gamma_h(u,u)=(\nabla u)A_h(\nabla u)^\top$, with
+$A_h=N^{-1}S_h S_h^\top$, uses the native finite-volume noise. The native
+coefficient API stores $S_h S_h^\top$ before the factor $1/N$, while neural
+predictions return $N$-scaled covariance. At an absorbed state, the outputs
+are exactly $u=\phi$ and $C=0$,
 with no subsequent running contribution. The neural maps return selected means
 and same-time covariances; they do not generate density paths or hitting times.
 
 The v2 fixed spatial gate changed the mean's required right derivative at zero
 remaining time. The v3 moving gate is
 
-\[
+$$
 g(\tau,m)=\prod_i\operatorname{erf}
  \left(\frac{(m_i-m_*)\sqrt T}{w\sqrt\tau}\right),\qquad w=0.05/G.
-\]
+$$
 
 For each strict interior state it approaches one with flat time derivatives as
-\(\tau\downarrow0\), while permitting linear vanishing with distance to a
+$\tau\downarrow0$, while permitting linear vanishing with distance to a
 boundary at positive time. Absorbed states are handled by an exact override.
 Gate derivatives are evaluated in the log domain. This is a consistent
 boundary ansatz, not an exact hitting-probability formula for the coupled DK
 system.
 
 The mean uses known heat evolution, the exact native interaction contribution
-to the initial terminal slope, and a learned correction of order \(\tau^2/T\).
-Thus \(u(0,m)=\phi(m)\) and
-\(\partial_\tau u(0,m)=\mathcal L_h\phi(m)+r(m)\) hold independently of the
+to the initial terminal slope, and a learned correction of order $\tau^2/T$.
+Thus $u(0,m)=\phi(m)$ and
+$\partial_\tau u(0,m)=\mathcal L_h\phi(m)+r(m)$ hold independently of the
 learned weights. The covariance is a positive heat covariance transformed by
 a learned congruence and multiplied by the moving gate, with no additive
 floor. Its construction preserves the leading terminal/terminal,
-terminal/integral, and integral/integral time orders \(\tau,\tau^2,\tau^3\).
+terminal/integral, and integral/integral time orders $\tau,\tau^2,\tau^3$.
 These consistency checks do not by themselves establish accurate predictions
 at finite time.
 
 Both stages use fixed, training-only full-horizon heat fluctuation scales.
-Mean residuals are normalized by \(s_i/T\), and covariance residuals by
-\(s_i s_j/T\); no inverse power of the sampled remaining time enters the loss.
-For each normalized residual \(z\), the objective uses
+Mean residuals are normalized by $s_i/T$, and covariance residuals by
+$s_i s_j/T$; no inverse power of the sampled remaining time enters the loss.
+For each normalized residual $z$, the objective uses
 
-\[
+$$
 \ell(z)=2\delta^2\left(\sqrt{1+(z/\delta)^2}-1\right),\qquad\delta=3.
-\]
+$$
 
 It is quadratic near zero and has bounded influence at large residuals.
 Validation retains raw physical RMS, normalized squared residuals, and the
@@ -223,7 +223,7 @@ the boundary and loss changes.
 
 The [fresh six-case experiment](experiments/payoff_boundary_regimes_2026-10-27.md)
 also demonstrates a limitation of this loss repair. On identical new validation
-states in common fixed units, the \(T=1,\kappa=6\) mean-residual RMS is
+states in common fixed units, the $T=1,\kappa=6$ mean-residual RMS is
 21.85–23.86 for v3 versus 24.69–28.35 for frozen v2. Covariance-residual RMS is
 372.1–535.5 versus 49.35–86.42. Covariance sources use each version's learned
 mean, so this cross-version comparison does not isolate covariance-head fitting.
